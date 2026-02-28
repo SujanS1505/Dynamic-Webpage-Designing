@@ -1,5 +1,5 @@
-import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 export const NeuralNetwork: React.FC = () => {
@@ -10,9 +10,9 @@ export const NeuralNetwork: React.FC = () => {
     const particleCount = 250;
     const maxDistance = 2.8;
 
-    const [themeColor, setThemeColor] = React.useState('#00e5ff');
+    const [themeColor, setThemeColor] = useState('#00e5ff');
 
-    React.useEffect(() => {
+    useEffect(() => {
         const updateColor = () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
             setThemeColor(isLight ? '#009688' : '#00e5ff');
@@ -24,46 +24,178 @@ export const NeuralNetwork: React.FC = () => {
         return () => observer.disconnect();
     }, []);
 
-    const [positions, linesData] = useMemo(() => {
+    // Physics state
+    const targetPositions = useRef<Float32Array[]>([]);
+    const currentPositions = useRef<Float32Array>(new Float32Array(particleCount * 3));
+    const velocities = useRef<Float32Array>(new Float32Array(particleCount * 3));
+    const { camera } = useThree();
 
-        const pos = new Float32Array(particleCount * 3);
+    // Add Framer scroll progress
+    const scrollY = useRef(0);
+    useEffect(() => {
+        const handleScroll = () => { scrollY.current = window.scrollY / (document.body.scrollHeight - window.innerHeight); };
+
+        const handleClick = (e: MouseEvent) => {
+            const mouse = new THREE.Vector2(
+                (e.clientX / window.innerWidth) * 2 - 1,
+                -(e.clientY / window.innerHeight) * 2 + 1
+            );
+
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+
+            // Create a plane at Z=0 to intersect with
+            const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+            const intersectPoint = new THREE.Vector3();
+            raycaster.ray.intersectPlane(plane, intersectPoint);
+
+            if (intersectPoint && groupRef.current) {
+                // Apply explosive radial velocity from click point
+                const curPos = currentPositions.current;
+                // Convert intersection to local group space
+                groupRef.current.worldToLocal(intersectPoint);
+
+                for (let i = 0; i < particleCount; i++) {
+                    const px = curPos[i * 3];
+                    const py = curPos[i * 3 + 1];
+                    const pz = curPos[i * 3 + 2];
+
+                    const dx = px - intersectPoint.x;
+                    const dy = py - intersectPoint.y;
+                    const dz = pz - intersectPoint.z;
+
+                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+                    const maxDist = 8;
+
+                    if (dist < maxDist) {
+                        const force = (1 - dist / maxDist) * 2.5; // Explosion strength
+                        velocities.current[i * 3] += (dx / dist) * force;
+                        velocities.current[i * 3 + 1] += (dy / dist) * force;
+                        velocities.current[i * 3 + 2] += (dz / dist) * force;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('click', handleClick);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('click', handleClick);
+        };
+    }, [camera]);
+
+    const [positions, linesData, sourceTargets] = useMemo<[Float32Array, Uint16Array, Float32Array[]]>(() => {
+        const shapeConfigs = [
+            // 0: Sphere (Default)
+            () => {
+                const theta = Math.random() * 2 * Math.PI;
+                const phi = Math.acos((Math.random() * 2) - 1);
+                const r = 4 + Math.random() * 2.5;
+                return [r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi)];
+            },
+            // 1: Double Helix
+            (i: number) => {
+                const t = (i / particleCount) * Math.PI * 4;
+                const r = 2.5 + Math.random() * 0.5;
+                const offset = i % 2 === 0 ? 0 : Math.PI;
+                return [r * Math.cos(t + offset), (t - Math.PI * 2) * 1.5, r * Math.sin(t + offset)];
+            },
+            // 2: Torus
+            () => {
+                const u = Math.random() * Math.PI * 2;
+                const v = Math.random() * Math.PI * 2;
+                const r1 = 5;
+                const r2 = 1.5 + Math.random() * 0.5;
+                return [(r1 + r2 * Math.cos(v)) * Math.cos(u), r2 * Math.sin(v), (r1 + r2 * Math.cos(v)) * Math.sin(u)];
+            },
+            // 3: Airplane / Arrow Shape (Infracorp reference)
+            (i: number) => {
+                const t = i / particleCount;
+                const spread = Math.random() * 0.5 - 0.25;
+                if (t < 0.4) { return [0, t * 10 - 5, spread * 2]; } // Fuselage
+                if (t < 0.7) { const x = (t - 0.4) * 8; return [x * (Math.random() > 0.5 ? 1 : -1), t * 10 - 6, spread]; } // Wings
+                return [spread * 2, -5 + Math.random() * 1.5, spread]; // Tail
+            }
+        ];
+
+        shapeConfigs.forEach(generator => {
+            const pos = new Float32Array(particleCount * 3);
+            for (let i = 0; i < particleCount; i++) {
+                const [x, y, z] = generator(i);
+                pos[i * 3] = x;
+                pos[i * 3 + 1] = y;
+                pos[i * 3 + 2] = z;
+            }
+            targetPositions.current.push(pos);
+        });
+
+        // Initialize current positions to shape 0
+        currentPositions.current.set(targetPositions.current[0]);
+
+        // Generate static lines (synapses)
         const pts: THREE.Vector3[] = [];
         for (let i = 0; i < particleCount; i++) {
-            const theta = Math.random() * 2 * Math.PI;
-            const phi = Math.acos((Math.random() * 2) - 1);
-            const r = 4 + Math.random() * 2.5; // radius between 4 and 6.5
-
-            const x = r * Math.sin(phi) * Math.cos(theta);
-            const y = r * Math.sin(phi) * Math.sin(theta);
-            const z = r * Math.cos(phi);
-
-            pos[i * 3] = x;
-            pos[i * 3 + 1] = y;
-            pos[i * 3 + 2] = z;
-            pts.push(new THREE.Vector3(x, y, z));
+            pts.push(new THREE.Vector3(targetPositions.current[0][i * 3], targetPositions.current[0][i * 3 + 1], targetPositions.current[0][i * 3 + 2]));
         }
-
-        // Generate lines
         const linePositions = [];
         for (let i = 0; i < particleCount; i++) {
             for (let j = i + 1; j < particleCount; j++) {
-                const dist = pts[i].distanceTo(pts[j]);
-                if (dist < maxDistance) {
-                    linePositions.push(
-                        pts[i].x, pts[i].y, pts[i].z,
-                        pts[j].x, pts[j].y, pts[j].z
-                    );
+                if (pts[i].distanceTo(pts[j]) < maxDistance) {
+                    linePositions.push(i, j); // Store indices, not raw coords for dynamic updates
                 }
             }
         }
 
-        return [pos, new Float32Array(linePositions)];
+        return [currentPositions.current, new Uint16Array(linePositions), targetPositions.current] as [Float32Array, Uint16Array, Float32Array[]];
     }, []);
 
     useFrame((state) => {
         if (groupRef.current) {
             groupRef.current.rotation.y = state.clock.elapsedTime * 0.05;
             groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
+        }
+
+        if (pointsRef.current && linesRef.current) {
+            const scroll = scrollY.current;
+            const targetShapeCount = 4;
+            // Determine which 2 shapes to interpolate between based on scroll 0 -> 1
+            const rawIndex = scroll * (targetShapeCount - 1);
+            const index1 = Math.floor(rawIndex);
+            const index2 = Math.min(index1 + 1, targetShapeCount - 1);
+            const lerpFactor = rawIndex - index1;
+
+            const t1 = sourceTargets[index1];
+            const t2 = sourceTargets[index2];
+            const curPos = positions;
+
+            // Apply velocity physics (water ripple) and spring back to target
+            for (let i = 0; i < particleCount * 3; i++) {
+                const stepTarget = t1[i] + (t2[i] - t1[i]) * lerpFactor;
+
+                // Spring physics towards target
+                const force = (stepTarget - curPos[i]) * 0.1; // Spring stiffness
+                velocities.current[i] += force;
+                velocities.current[i] *= 0.85; // Damping (friction)
+
+                curPos[i] += velocities.current[i];
+            }
+
+            pointsRef.current.geometry.attributes.position.needsUpdate = true;
+
+            // Recompute lines based on new point coords mapping (using index map)
+            const lineGeom = linesRef.current.geometry;
+            const lineIndices = linesData;
+            const linePosData = new Float32Array(lineIndices.length * 3);
+
+            for (let i = 0; i < lineIndices.length; i++) {
+                const pIdx = lineIndices[i] * 3;
+                linePosData[i * 3] = curPos[pIdx];
+                linePosData[i * 3 + 1] = curPos[pIdx + 1];
+                linePosData[i * 3 + 2] = curPos[pIdx + 2];
+            }
+
+            lineGeom.setAttribute('position', new THREE.BufferAttribute(linePosData, 3));
         }
     });
 
@@ -86,10 +218,7 @@ export const NeuralNetwork: React.FC = () => {
             </points>
             <lineSegments ref={linesRef}>
                 <bufferGeometry>
-                    <bufferAttribute
-                        attach="attributes-position"
-                        args={[linesData, 3]}
-                    />
+                    {/* The line geometry is injected dynamically in useFrame */}
                 </bufferGeometry>
                 <lineBasicMaterial
                     color={themeColor}
