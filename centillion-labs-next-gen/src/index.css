@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Core Colors */
+  --bg-dark: #050505;
+  --bg-card: rgba(15, 15, 15, 0.6);
+  --bg-card-hover: rgba(25, 25, 25, 0.8);
+
+  --accent-primary: #1de9b6;
+  --accent-glow: rgba(29, 233, 182, 0.3);
+  --accent-secondary: #00bfa5;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(29, 233, 182, 0.2);
+
+  /* Fonts */
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Z-Index Layers */
+  --z-canvas: -1;
+  --z-content: 10;
+  --z-nav: 50;
+  --z-cursor: 100;
+}
+
+[data-theme="light"] {
+  --bg-dark: #f8f9fa;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-card-hover: rgba(255, 255, 255, 0.9);
+
+  --accent-primary: #00bfa5;
+  --accent-glow: rgba(0, 191, 165, 0.3);
+  --accent-secondary: #00897b;
+
+  --text-primary: #121212;
+  --text-secondary: #4a4a4a;
+  --text-muted: #888888;
+
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-glow: rgba(0, 191, 165, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Typography Base */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.mono-text {
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Selection */
+::selection {
+  background: var(--accent-primary);
+  color: var(--bg-dark);
+}
