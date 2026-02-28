@@ -306,3 +306,59 @@ a {
     color: var(--text-secondary);
     line-height: 1.5;
 }
+
+/* Footer Styles */
+.site-footer {
+    padding: 6rem 0 4rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 4rem;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.footer-col h3 {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.footer-col p {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.footer-col a {
+    color: var(--accent-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.footer-col a:hover {
+    color: var(--text-primary);
+    text-decoration: underline;
+}
+
+.location-item p {
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+}
+
+.location-item strong {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
