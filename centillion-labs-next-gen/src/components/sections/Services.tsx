@@ -1,59 +1,69 @@
 import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
-import { motion } from 'framer-motion';
 
 const SERVICES = [
     {
-        id: 'SRV-001',
-        title: 'Generative AI Workshops',
-        desc: 'Seamlessly blend expert guidance & technical proficiency to craft impactful use cases for architecture development, ensuring clients are well-equipped to embrace revolutionary capabilities.'
+        title: 'Generative AI Solutions',
+        desc: 'We develop custom solutions that harness the capabilities of ML and AI to address specific challenges.',
+        type: 'CUSTOM SOLUTIONS'
     },
     {
-        id: 'SRV-002',
-        title: 'Data-driven Excellence',
-        desc: 'Terraform experts in IaC. Edge AI with Micro Models and Sensor fusion. Palantir Consultants. Data Clean Room Architecture. Data Team as a Service.'
-    },
-    {
-        id: 'SRV-003',
-        title: 'FinOps',
-        desc: 'Get a comprehensive overview of your Databricks usage. Effectively monitor, analyze, and optimize performance while reducing costs. Bridge gaps between engineering and finance.'
-    },
-    {
-        id: 'SRV-004',
-        title: 'Databricks Mesh',
-        desc: 'Accelerate Data Mesh adoption with Databricks. Leverage cutting-edge accelerators to implement decentralized data ownership, empowering teams to manage data as a product.'
+        title: 'Responsible AI',
+        desc: 'Centillion values and encapsulates ResponsibleAI and EthicalAI. Our mission is to create AI applications that enhance user experiences, rather than displacing them.',
+        type: 'ETHICS & COMPLIANCE'
     }
 ];
 
 export const Services: React.FC = () => {
     return (
         <AnimatedSection id="services">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 className="mono-text" style={{ color: 'var(--accent-primary)', marginBottom: '3rem', fontSize: '1.2rem' }}>02 SERVICES</h2>
+            <div style={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                paddingTop: '4rem',
+                maxWidth: '1200px',
+                margin: '0 auto'
+            }}>
+                <AnimatedItem>
+                    <h2 style={{
+                        fontSize: 'clamp(3rem, 5vw, 5rem)',
+                        fontWeight: 200,
+                        lineHeight: 1.1,
+                        letterSpacing: '-0.02em',
+                        color: 'var(--text-primary)',
+                        marginBottom: '4rem'
+                    }}>
+                        Horizons.
+                    </h2>
+                </AnimatedItem>
 
                 <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '2rem'
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '3rem'
                 }}>
                     {SERVICES.map((srv, idx) => (
-                        <AnimatedItem key={srv.id} delay={0.1 * idx}>
-                            <motion.div
-                                whileHover={{ y: -8, scale: 1.02 }}
-                                className="glass-panel"
-                                style={{
-                                    padding: '2rem',
-                                    height: '100%',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    cursor: 'pointer',
-                                    borderTop: '3px solid var(--accent-primary)'
-                                }}
-                            >
-                                <span className="mono-text" style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: '1rem' }}>[{srv.id}]</span>
-                                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{srv.title}</h3>
-                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, flexGrow: 1 }}>{srv.desc}</p>
-                            </motion.div>
+                        <AnimatedItem key={srv.title} delay={0.1 * idx}>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gap: '2rem',
+                                borderTop: '1px solid var(--border-color)',
+                                paddingTop: '2rem',
+                                transition: 'border-color 0.3s'
+                            }}>
+                                <div>
+                                    <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{srv.title}</h3>
+                                    <span className="mono-text" style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', letterSpacing: '0.1em' }}>{srv.type}</span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300 }}>
+                                        {srv.desc}
+                                    </p>
+                                </div>
+                            </div>
                         </AnimatedItem>
                     ))}
                 </div>

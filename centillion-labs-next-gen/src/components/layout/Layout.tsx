@@ -1,30 +1,35 @@
 import { Header } from './Header';
-import { HypercubeScene } from '../canvas/HypercubeScene';
+import { NeuralScene } from '../3d/NeuralScene';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 interface LayoutProps {
     children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+    const { scrollYProgress } = useScroll();
+    const scaleY = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
     return (
-        <div style={{ position: 'relative', minHeight: '100vh', width: '100%' }}>
+        <div style={{ position: 'relative', width: '100vw' }}>
+            {/* Minimalist Scroll Indicator */}
+            <div className="hidden md:block" style={{
+                position: 'fixed', top: '30vh', right: '2rem', width: '1px', height: '40vh',
+                background: 'var(--border-color)', zIndex: 100, transformOrigin: 'top'
+            }}>
+                <motion.div style={{
+                    width: '100%', height: '100%', background: 'var(--accent-primary)',
+                    scaleY, transformOrigin: 'top', boxShadow: '0 0 10px var(--accent-glow)'
+                }} />
+            </div>
+
             <Header />
 
-            {/* 3D Background Canvas */}
-            <div
-                id="canvas-container"
-                style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    zIndex: 'var(--z-canvas)',
-                    pointerEvents: 'none'
-                }}
-            >
-                <HypercubeScene />
-            </div>
+            <NeuralScene />
 
             <main
                 style={{

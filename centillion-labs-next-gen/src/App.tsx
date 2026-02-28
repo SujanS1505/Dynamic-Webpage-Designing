@@ -16,7 +16,7 @@ function App() {
     <Layout>
       <Hero />
 
-      <div style={{ position: 'relative', zIndex: 10, background: 'var(--bg-dark)' }}>
+      <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
         <About />
         <Services />
         <Portfolio />

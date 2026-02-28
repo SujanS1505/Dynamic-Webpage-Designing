@@ -1,6 +1,5 @@
 import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
-import { motion } from 'framer-motion';
 
 const ARTICLES = [
     { date: 'Feb 2026', tag: 'AI', title: 'Building Responsible Generative AI for the Enterprise', desc: 'A framework for encapsulating ethical guardrails, bias detection, and explainability into production LLM systems.' },
@@ -11,59 +10,51 @@ const ARTICLES = [
 export const Blog: React.FC = () => {
     return (
         <AnimatedSection id="blog">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 className="mono-text" style={{ color: 'var(--accent-primary)', marginBottom: '1rem', fontSize: '1.2rem', textAlign: 'center' }}>09 INSIGHTS</h2>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '4rem', textAlign: 'center' }}>
-                    Thinking and writing at the intersection of AI, data, and cloud engineering.
-                </p>
+            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto', marginBottom: '8rem' }}>
+                <AnimatedItem>
+                    <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '4rem' }}>
+                        Insights.
+                    </h2>
+                </AnimatedItem>
 
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '2.5rem'
+                    gap: '4rem'
                 }}>
                     {ARTICLES.map((article, idx) => (
                         <AnimatedItem key={article.title} delay={0.1 * idx}>
-                            <motion.article
-                                whileHover={{ y: -8 }}
-                                className="glass-panel"
+                            <article
                                 style={{
-                                    height: '100%',
                                     display: 'flex',
                                     flexDirection: 'column',
-                                    background: 'var(--bg-card)',
-                                    border: '1px solid var(--border-color)',
-                                    overflow: 'hidden'
+                                    height: '100%',
+                                    borderTop: '1px solid var(--border-color)',
+                                    paddingTop: '2rem',
+                                    cursor: 'pointer'
                                 }}
+                                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent-primary)')}
+                                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
                             >
-                                <div style={{
-                                    padding: '1.5rem',
-                                    borderBottom: '1px solid var(--border-color)',
+                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                                    <span className="mono-text" style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{article.date}</span>
+                                    <span className="mono-text" style={{ color: 'var(--text-primary)', fontSize: '0.8rem' }}>{article.tag}</span>
+                                </div>
+
+                                <h3 style={{ fontSize: '1.6rem', fontWeight: 300, marginBottom: '1rem', color: 'var(--text-primary)', lineHeight: 1.4 }}>{article.title}</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300, flexGrow: 1, marginBottom: '2rem' }}>{article.desc}</p>
+
+                                <span className="mono-text hover-text-accent" style={{
+                                    color: 'var(--text-primary)',
+                                    fontSize: '0.85rem',
                                     display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    transition: 'color 0.3s'
                                 }}>
-                                    <span className="mono-text" style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>{article.date}</span>
-                                    <span className="mono-text" style={{ color: 'var(--accent-primary)', fontSize: '0.85rem', fontWeight: 600 }}>{article.tag}</span>
-                                </div>
-
-                                <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                                    <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', color: 'var(--text-primary)', lineHeight: 1.4 }}>{article.title}</h3>
-                                    <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, flexGrow: 1, marginBottom: '2rem' }}>{article.desc}</p>
-
-                                    <a href="#" className="hover-text-accent" style={{
-                                        color: 'var(--text-primary)',
-                                        textDecoration: 'none',
-                                        fontWeight: 600,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                        transition: 'color 0.3s'
-                                    }}>
-                                        Read More <span>→</span>
-                                    </a>
-                                </div>
-                            </motion.article>
+                                    Read ↗
+                                </span>
+                            </article>
                         </AnimatedItem>
                     ))}
                 </div>

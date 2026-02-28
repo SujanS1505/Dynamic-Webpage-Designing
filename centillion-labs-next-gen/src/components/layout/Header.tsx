@@ -4,15 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 
 const NAV_LINKS = [
-    { label: 'Home', href: '#home' },
-    { label: 'About Us', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Team', href: '#team' },
-    { label: 'Industries', href: '#industries' },
-    { label: 'Case Studies', href: '#case-studies' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Contact', href: '#contact' }
+    { label: 'Home ↗', href: '#home' },
+    { label: 'Horizons ↗', href: '#services' },
+    { label: 'Our Approach ↗', href: '#about' },
+    { label: 'Team ↗', href: '#team' },
+    { label: 'Contacts & Partnerships ↗', href: '#contact' }
 ];
 
 export const Header: React.FC = () => {
@@ -44,17 +40,7 @@ export const Header: React.FC = () => {
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <a href="#home" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', color: 'inherit' }}>
-                    <img
-                        src="/logo.png"
-                        alt="Centillion Labs"
-                        style={{
-                            height: '32px',
-                            width: '32px',
-                            objectFit: 'contain',
-                            filter: 'drop-shadow(0 0 8px var(--accent-glow))'
-                        }}
-                    />
-                    <span className="mono-text" style={{ fontSize: '14px', fontWeight: 600 }}>CENTILLION LABS</span>
+                    <span className="mono-text" style={{ fontSize: '1.2rem', fontWeight: 300, letterSpacing: '0.2em' }}>C E N T I L L I O N</span>
                 </a>
             </div>
 
@@ -67,8 +53,9 @@ export const Header: React.FC = () => {
                         style={{
                             textDecoration: 'none',
                             color: 'var(--text-primary)',
-                            fontSize: '0.9rem',
-                            fontWeight: 500,
+                            fontSize: '0.95rem',
+                            fontWeight: 300,
+                            letterSpacing: '0.02em',
                             transition: 'color 0.2s ease'
                         }}
                     >

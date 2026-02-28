@@ -42,34 +42,35 @@ const Counter: React.FC<{ target: number }> = ({ target }) => {
 export const Impact: React.FC = () => {
     return (
         <AnimatedSection id="stats" className="section-padding">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
-                <h2 className="mono-text" style={{ color: 'var(--accent-primary)', marginBottom: '3rem', fontSize: '1.2rem', textAlign: 'center' }}>04 IMPACT</h2>
-
+            <div style={{ padding: '8rem 0', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    flexWrap: 'wrap',
-                    gap: '3rem'
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gap: '4rem',
+                    borderTop: '1px solid var(--border-color)',
+                    borderBottom: '1px solid var(--border-color)',
+                    padding: '4rem 0'
                 }}>
                     {STATS.map((stat, idx) => (
                         <AnimatedItem key={stat.label} delay={0.1 * idx}>
                             <div style={{ textAlign: 'center' }}>
-                                <div className="glow-text" style={{
-                                    fontSize: '4.5rem',
-                                    fontWeight: 800,
+                                <div style={{
+                                    fontSize: 'clamp(3rem, 6vw, 5.5rem)',
+                                    fontWeight: 200,
                                     color: 'var(--text-primary)',
-                                    lineHeight: 1
+                                    lineHeight: 1,
+                                    letterSpacing: '-0.04em'
                                 }}>
                                     <Counter target={stat.target} />
                                     <span style={{ color: 'var(--accent-primary)' }}>{stat.suffix}</span>
                                 </div>
                                 <p className="mono-text" style={{
                                     color: 'var(--text-secondary)',
-                                    marginTop: '1rem',
-                                    fontSize: '0.9rem',
+                                    marginTop: '1.5rem',
+                                    fontSize: '0.85rem',
                                     letterSpacing: '0.1em'
                                 }}>
-                                    {stat.label}
+                                    {stat.label.toUpperCase()}
                                 </p>
                             </div>
                         </AnimatedItem>
