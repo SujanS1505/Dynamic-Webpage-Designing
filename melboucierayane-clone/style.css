@@ -2,7 +2,7 @@
 :root {
     --font-sans: 'Geist', sans-serif;
     --font-mono: 'Geist Mono', monospace;
-    
+
     /* Default Dark Mode */
     --bg-color: #000000;
     --text-primary: #ffffff;
@@ -15,7 +15,8 @@
 }
 
 [data-theme="light"] {
-    --bg-color: #fbfbfb; /* approx lab(98.26 0 0) */
+    --bg-color: #fbfbfb;
+    /* approx lab(98.26 0 0) */
     --text-primary: #000000;
     --text-secondary: #52525b;
     --text-muted: #a1a1aa;
@@ -42,7 +43,10 @@ body {
 }
 
 /* Typography Utilities */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: var(--font-sans);
     font-weight: 500;
 }
@@ -101,58 +105,86 @@ a {
     gap: 2rem;
 }
 
-.synapse-counter {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-secondary);
+.nav-right a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    letter-spacing: -0.01em;
 }
 
-.nav-links {
-    display: flex;
-    gap: 1.5rem;
+.nav-right a:hover {
+    color: var(--accent-color);
 }
 
-.nav-links a {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--text-secondary);
+.nav-right a.home-link {
+    color: #fbc02d;
+    /* Gold color from the image reference */
 }
 
-.nav-links a:hover {
-    color: var(--text-primary);
-}
-
-/* Theme Toggle */
-.theme-toggle {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    width: 40px;
-    height: 20px;
-    border-radius: 20px;
+.dropdown-link {
     cursor: pointer;
-    position: relative;
+}
+
+/* Theme Toggle Button (Refined) */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
     display: flex;
     align-items: center;
-    padding: 2px;
+    margin-left: 1rem;
 }
 
-.toggle-circle {
-    width: 14px;
-    height: 14px;
-    background-color: var(--text-primary);
+.toggle-track {
+    width: 44px;
+    height: 24px;
+    background-color: transparent;
+    border-radius: 24px;
+    position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    border: 1px solid var(--text-color);
+}
+
+.toggle-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: var(--text-color);
     border-radius: 50%;
-    transition: transform 0.3s ease;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-[data-theme="light"] .toggle-circle {
+[data-theme='light'] .toggle-track {
+    background-color: #ddd;
+    border-color: #000;
+}
+
+[data-theme='light'] .toggle-thumb {
+    transform: translateX(0);
+    background-color: #000;
+}
+
+[data-theme='dark'] .toggle-track {
+    background-color: #111;
+    border-color: #fff;
+}
+
+[data-theme='dark'] .toggle-thumb {
     transform: translateX(20px);
+    background-color: #fff;
 }
 
 /* Layout */
 .content-wrapper {
     max-width: 800px;
     margin: 0 auto;
-    padding: 100px 20px; /* Space for nav */
+    padding: 100px 20px;
+    /* Space for nav */
     position: relative;
 }
 
@@ -171,7 +203,8 @@ a {
     right: -100px;
     font-size: 20rem;
     font-weight: 700;
-    color: var(--border-color); /* Faint color */
+    color: var(--border-color);
+    /* Faint color */
     opacity: 0.2;
     z-index: -1;
     pointer-events: none;
@@ -212,7 +245,8 @@ a {
 .ruler-indicator {
     position: absolute;
     left: 10px;
-    top: 50%; /* Will be updated by JS */
+    top: 50%;
+    /* Will be updated by JS */
     transform: translateY(-50%);
     display: flex;
     align-items: center;
@@ -220,8 +254,8 @@ a {
 }
 
 .ruler-triangle {
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-left: 8px solid var(--accent-color);
