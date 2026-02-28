@@ -1,0 +1,274 @@
+/* CSS Variables & Theming */
+:root {
+    --font-sans: 'Geist', sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+    
+    /* Default Dark Mode */
+    --bg-color: #000000;
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #52525b;
+    --accent-color: #ff4d00;
+    --border-color: #27272a;
+    --nav-bg: rgba(0, 0, 0, 0.8);
+    --ruler-color: #3f3f46;
+}
+
+[data-theme="light"] {
+    --bg-color: #fbfbfb; /* approx lab(98.26 0 0) */
+    --text-primary: #000000;
+    --text-secondary: #52525b;
+    --text-muted: #a1a1aa;
+    --accent-color: #ff4d00;
+    --border-color: #e4e4e7;
+    --nav-bg: rgba(251, 251, 251, 0.8);
+    --ruler-color: #d4d4d8;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+    font-weight: 500;
+}
+
+.mono {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Background Canvas */
+#neural-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Navigation */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    background-color: var(--nav-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.brand-name {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.synapse-counter {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    width: 40px;
+    height: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.toggle-circle {
+    width: 14px;
+    height: 14px;
+    background-color: var(--text-primary);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+[data-theme="light"] .toggle-circle {
+    transform: translateX(20px);
+}
+
+/* Layout */
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 100px 20px; /* Space for nav */
+    position: relative;
+}
+
+.section {
+    position: relative;
+    min-height: 80vh;
+    padding: 4rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-bg-number {
+    position: absolute;
+    top: 0;
+    right: -100px;
+    font-size: 20rem;
+    font-weight: 700;
+    color: var(--border-color); /* Faint color */
+    opacity: 0.2;
+    z-index: -1;
+    pointer-events: none;
+    line-height: 1;
+}
+
+/* Left Ruler */
+.left-ruler {
+    position: fixed;
+    left: 2rem;
+    top: 0;
+    height: 100vh;
+    width: 40px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.ruler-line {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: var(--ruler-color);
+}
+
+/* Add tick marks using CSS background pattern */
+.left-ruler::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background-image: repeating-linear-gradient(to bottom, transparent, transparent 19px, var(--ruler-color) 19px, var(--ruler-color) 20px);
+}
+
+.ruler-indicator {
+    position: absolute;
+    left: 10px;
+    top: 50%; /* Will be updated by JS */
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    transition: top 0.1s ease-out;
+}
+
+.ruler-triangle {
+    width: 0; 
+    height: 0; 
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid var(--accent-color);
+    position: absolute;
+    left: -8px;
+}
+
+.ruler-horizontal-line {
+    width: 100vw;
+    height: 1px;
+    background-color: var(--accent-color);
+    opacity: 0.2;
+    position: absolute;
+    left: 0;
+}
+
+/* Pinned Contact Button */
+.floating-contact {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    background-color: var(--accent-color);
+    padding: 0.5rem 1.5rem;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    z-index: 50;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.floating-contact:hover {
+    opacity: 0.8;
+}
+
+/* Hero Section */
+.hero-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centillion Labs — AI Engineering & Open-Source</title>
+    <!-- Google Fonts for Geist and Geist Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+
+    <!-- Three.js and Simplex Noise -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js"></script>
+</head>
+
+<body>
+    <!-- Background Canvas for Neural Network -->
+    <canvas id="neural-canvas"></canvas>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <div class="nav-left">
+            <span class="brand-name">CENTILLION LABS</span>
+        </div>
+        <div class="nav-right">
+            <span class="synapse-counter"><span id="counter-value">1304.5</span> TRILLION SYNAPSES FIRED...</span>
+            <div class="nav-links">
+                <a href="#blog">BLOG</a>
+                <a href="#work">WORK</a>
+                <a href="#signal">SIGNAL</a>
+            </div>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <div class="toggle-circle"></div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Left Ruler -->
+    <aside class="left-ruler">
+        <div class="ruler-line"></div>
+        <div class="ruler-indicator" id="ruler-indicator">
+            <div class="ruler-triangle"></div>
+            <div class="ruler-horizontal-line"></div>
+        </div>
+        <!-- Labels that appear when scrolling -->
+        <div class="ruler-labels">
+            <span class="ruler-label" data-target="experience">EXPERIENCE</span>
+            <span class="ruler-label" data-target="work">WORK</span>
+            <span class="ruler-label" data-target="philosophy">PHILOSOPHY</span>
+        </div>
+    </aside>
+
+    <!-- Floating Contact Button -->
+    <a href="mailto:elyes.melbouci@gmail.com" class="floating-contact">LET'S TALK</a>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Hero Section -->
+        <section id="hero" class="section hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">I build intelligence that stays where it belongs.</h1>
+                <p class="hero-subtitle">Centillion Labs<br>AI Engineering / Advanced Enterprise Solutions</p>
+            </div>
+        </section>
+
+        <!-- Dynamic Dividers will be added via CSS or JS between sections -->
+
+        <!-- Experience Section -->
+        <section id="experience" class="section experience-section">
+            <div class="section-bg-number">01</div>
+            <h2 class="section-title">EXPERIENCE</h2>
+            <div class="experience-list">
+                <div class="experience-line"></div>
+                <div class="experience-item">
+                    <div class="experience-dot"></div>
+                    <div class="experience-header">
+                        <h3 class="experience-role">Founder</h3>
+                        <span class="experience-date">Apr 2025 — Present</span>
+                    </div>
+                    <p class="experience-company">Self-Employed</p>
+                    <p class="experience-desc">Helping Canadian businesses replace manual workflows with AI that runs on
+                        their terms. Strategy to implementation, finding the automations that actually move the needle.
+                    </p>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-dot"></div>
+                    <div class="experience-header">
+                        <h3 class="experience-role">AI & Machine Learning Engineer</h3>
+                        <span class="experience-date">Jul 2025 — Present</span>
+                    </div>
+                    <p class="experience-desc">ML models that turn raw financial data into decisions. Automated the full
+                        lifecycle: training, validation, deployment. So models ship faster than the market moves.</p>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-dot"></div>
+                    <div class="experience-header">
+                        <h3 class="experience-role">Business Intelligence Developer</h3>
+                        <span class="experience-date">May 2024 — Jul 2025</span>
+                    </div>
+                    <p class="experience-desc">Data processing, AI-powered analytics, and BI tools built on a central
+                        data warehouse. Automated data governance workflows and delivered reporting that supported
+                        executive decisions.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="divider-wave"></div>
+
+        <!-- Work Section -->
+        <section id="work" class="section work-section">
+            <div class="section-bg-number">02</div>
+            <h2 class="section-title">WORK</h2>
+            <div class="work-grid">
+                <a href="https://opale-ui.design" target="_blank" class="work-card">
+                    <div class="work-header">
+                        <span class="mono">[APP-001]</span>
+                        <h3>Opale UI</h3>
+                    </div>
+                    <p>Design methodology, trained into an AI. A design methodology where every site gets a signature
+                        moment no one has shipped before.</p>
+                </a>
+                <a href="https://github.com/DonTizi/CodeGeass" target="_blank" class="work-card">
+                    <div class="work-header">
+                        <span class="mono">[SYS-002]</span>
+                        <h3>CodeGeass</h3>
+                    </div>
+                    <p>Your personal Agent, governed and scheduled. Schedule AI coding agents with CRON tasks, approval
+                        workflows, and notification channels.</p>
+                </a>
+                <a href="https://github.com/DonTizi/RLama" target="_blank" class="work-card">
+                    <div class="work-header">
+                        <span class="mono">[CLI-003]</span>
+                        <h3>RLama</h3>
+                    </div>
+                    <p>RAG without the cloud tax. A Go CLI that turns your documents into a searchable AI, entirely on
+                        your machine.</p>
+                </a>
+                <a href="https://github.com/DonTizi/ReMind" target="_blank" class="work-card">
+                    <div class="work-header">
+                        <span class="mono">[SYS-004]</span>
+                        <h3>ReMind</h3>
+                    </div>
+                    <p>Total recall. Totally private. Captures, indexes, and recalls everything you do on your machine.
+                    </p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="divider-wave"></div>
+
+        <!-- Philosophy Section -->
+        <section id="philosophy" class="section philosophy-section">
+            <div class="section-bg-number">03</div>
+            <h2 class="section-title">PHILOSOPHY</h2>
+            <div class="philosophy-content">
+                <div class="philosophy-item">
+                    <h3>Privacy is not a feature. It's the default.</h3>
+                    <p>Every tool I ship runs on your machine. Your documents, your models, your data. No server ever
+                        sees it.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3>Ship fast. Fix in public.</h3>
+                    <p>46 releases of RLama. 1,100 stars. The best version is the one someone can use today, not the
+                        perfect one that never ships.</p>
+                </div>
+                <div class="philosophy-item">
+                    <h3>Good tools stay out of the way.</h3>
+                    <p>A CLI you reach for without thinking. A memory app that just works in the background. The less
+                        you notice, the better I did.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Links -->
+        <footer class="site-footer">
+            <p>If you're building something that matters, let's talk.</p>
+            <a href="mailto:contact@centillionlabs.com">contact@centillionlabs.com</a>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,248 @@
+/* Appending new CSS for sections */
+
+.section-title {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1rem;
+    height: 1px;
+    background-color: var(--accent-color);
+}
+
+/* Experience Section */
+.experience-list {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.experience-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: var(--border-color);
+}
+
+.experience-item {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.experience-item:last-child {
+    margin-bottom: 0;
+}
+
+.experience-dot {
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    transform: translateX(-3px);
+    /* Center on line */
+    box-shadow: 0 0 10px rgba(255, 77, 0, 0.5);
+}
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.experience-role {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.experience-date {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.experience-company {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.experience-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 90%;
+}
+
+/* Work Grid */
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.work-card {
+    display: block;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+[data-theme="light"] .work-card {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.work-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-color);
+    background-color: rgba(255, 77, 0, 0.05);
+}
+
+.work-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.work-header span {
+    color: var(--text-muted);
+}
+
+.work-header h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.work-card p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Divider Wave */
+.divider-wave {
+    height: 40px;
+    width: 100%;
+    background-image: repeating-linear-gradient(45deg, var(--border-color) 0, var(--border-color) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, var(--border-color) 0, var(--border-color) 1px, transparent 1px, transparent 10px);
+    background-size: 14px 14px;
+    opacity: 0.3;
+    margin: 2rem 0;
+}
+
+/* Philosophy */
+.philosophy-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.philosophy-item h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.philosophy-item p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 80%;
+}
+
+/* Site Footer */
+.site-footer {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px dashed var(--border-color);
+    text-align: center;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+}
+
+.site-footer a {
+    color: var(--accent-color);
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .left-ruler {
+        display: none;
+    }
+
+    .content-wrapper {
+        padding-left: 20px;
+        padding-top: 120px;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .experience-header {
+        flex-direction: column;
+    }
+
+    .nav-right {
+        gap: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        /* simple mobile nav hide for now */
+    }
+
+    .floating-contact {
+        display: none;
+    }
+}
+
+/* Ruler Labels styling */
+.ruler-labels {
+    position: absolute;
+    left: 45px;
+    /* Offset from the ruler */
+    top: 0;
+    height: 100vh;
+    pointer-events: none;
+}
+
+.ruler-label {
+    position: absolute;
+    font-family: var(--font-mono);
+    color: var(--accent-color);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    transform: translateY(-50%);
+    white-space: nowrap;
+}
+
+.ruler-label.active {
+    opacity: 1;
+}
