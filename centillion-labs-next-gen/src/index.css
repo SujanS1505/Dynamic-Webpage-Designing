@@ -103,12 +103,13 @@ h6 {
   text-transform: uppercase;
 }
 
+/* Premium Panels & Containers */
 .glass-panel {
-  background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--surface-gradient);
+  backdrop-filter: blur(12px) brightness(1.1);
+  -webkit-backdrop-filter: blur(12px) brightness(1.1);
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .glow-text {

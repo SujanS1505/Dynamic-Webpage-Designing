@@ -24,16 +24,39 @@ export const NeuralNetwork: React.FC = () => {
         return () => observer.disconnect();
     }, []);
 
-    // Physics state
-    const targetPositions = useRef<Float32Array[]>([]);
     const currentPositions = useRef<Float32Array>(new Float32Array(particleCount * 3));
     const velocities = useRef<Float32Array>(new Float32Array(particleCount * 3));
+    const targetPositions = useRef<Float32Array[]>([]);
+
+    // Mouse trailing
+    const mousePos = useRef(new THREE.Vector2(0, 0));
+    const mouseVelocity = useRef(new THREE.Vector2(0, 0));
+    const isMouseMoving = useRef(false);
     const { camera } = useThree();
 
     // Determine current section node target to snap cursor repulsion back
     const scrollY = useRef(0);
     useEffect(() => {
+        let lastMoveTime = Date.now();
         const handleScroll = () => { scrollY.current = window.scrollY / (document.body.scrollHeight - window.innerHeight); };
+
+        const handleMouseMove = (e: MouseEvent) => {
+            const mx = (e.clientX / window.innerWidth) * 2 - 1;
+            const my = -(e.clientY / window.innerHeight) * 2 + 1;
+
+            mouseVelocity.current.x = mx - mousePos.current.x;
+            mouseVelocity.current.y = my - mousePos.current.y;
+            mousePos.current.set(mx, my);
+
+            isMouseMoving.current = true;
+            lastMoveTime = Date.now();
+
+            setTimeout(() => {
+                if (Date.now() - lastMoveTime >= 50) {
+                    isMouseMoving.current = false;
+                }
+            }, 100);
+        };
 
         const handleClick = (e: MouseEvent) => {
             const mouse = new THREE.Vector2(
@@ -78,9 +101,11 @@ export const NeuralNetwork: React.FC = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('click', handleClick);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('click', handleClick);
         };
     }, [camera]);
@@ -182,9 +207,36 @@ export const NeuralNetwork: React.FC = () => {
             const t2 = sourceTargets[index2];
             const curPos = positions;
 
+            // Apply water trail logic
+            const raycaster = new THREE.Raycaster();
+            let trailPoint = new THREE.Vector3(999, 999, 999);
+
+            if (isMouseMoving.current && groupRef.current) {
+                raycaster.setFromCamera(mousePos.current, state.camera);
+                const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+                raycaster.ray.intersectPlane(plane, trailPoint);
+                groupRef.current.worldToLocal(trailPoint);
+            }
+
             // Apply velocity physics (water ripple) and spring back to target
             for (let i = 0; i < particleCount * 3; i++) {
                 const stepTarget = t1[i] + (t2[i] - t1[i]) * lerpFactor;
+
+                // Trail continuous repulsion
+                if (i % 3 === 0 && isMouseMoving.current) {
+                    const dx = curPos[i] - trailPoint.x;
+                    const dy = curPos[i + 1] - trailPoint.y;
+                    const dz = curPos[i + 2] - trailPoint.z;
+                    const distSq = dx * dx + dy * dy + dz * dz;
+                    const trMaxDistSq = 6;
+
+                    if (distSq < trMaxDistSq) {
+                        const force = (1 - distSq / trMaxDistSq) * 0.12;
+                        velocities.current[i] += dx * force;
+                        velocities.current[i + 1] += dy * force;
+                        velocities.current[i + 2] += dz * force;
+                    }
+                }
 
                 // Spring physics towards target
                 const force = (stepTarget - curPos[i]) * 0.1; // Spring stiffness
