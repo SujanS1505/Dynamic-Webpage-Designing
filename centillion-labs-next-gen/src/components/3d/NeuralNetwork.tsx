@@ -15,7 +15,7 @@ export const NeuralNetwork: React.FC = () => {
     useEffect(() => {
         const updateColor = () => {
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            setThemeColor(isLight ? '#009688' : '#00e5ff');
+            setThemeColor(isLight ? '#003344' : '#00e5ff');
         };
 
         updateColor();
@@ -30,7 +30,7 @@ export const NeuralNetwork: React.FC = () => {
     const velocities = useRef<Float32Array>(new Float32Array(particleCount * 3));
     const { camera } = useThree();
 
-    // Add Framer scroll progress
+    // Determine current section node target to snap cursor repulsion back
     const scrollY = useRef(0);
     useEffect(() => {
         const handleScroll = () => { scrollY.current = window.scrollY / (document.body.scrollHeight - window.innerHeight); };
@@ -87,7 +87,20 @@ export const NeuralNetwork: React.FC = () => {
 
     const [positions, linesData, sourceTargets] = useMemo<[Float32Array, Uint16Array, Float32Array[]]>(() => {
         const shapeConfigs = [
-            // 0: Sphere (Default)
+            // 0: Cube
+            () => {
+                const s = 7;
+                const d = Math.floor(Math.random() * 3);
+                const v = Math.random() > 0.5 ? s / 2 : -s / 2;
+                const r1 = (Math.random() - 0.5) * s;
+                const r2 = (Math.random() - 0.5) * s;
+                return [
+                    d === 0 ? v : d === 1 ? r1 : r2,
+                    d === 1 ? v : d === 2 ? r1 : r2,
+                    d === 2 ? v : d === 0 ? r1 : r2,
+                ];
+            },
+            // 1: Sphere
             () => {
                 const theta = Math.random() * 2 * Math.PI;
                 const phi = Math.acos((Math.random() * 2) - 1);
@@ -158,7 +171,7 @@ export const NeuralNetwork: React.FC = () => {
 
         if (pointsRef.current && linesRef.current) {
             const scroll = scrollY.current;
-            const targetShapeCount = 4;
+            const targetShapeCount = 5;
             // Determine which 2 shapes to interpolate between based on scroll 0 -> 1
             const rawIndex = scroll * (targetShapeCount - 1);
             const index1 = Math.floor(rawIndex);
