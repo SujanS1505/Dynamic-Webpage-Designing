@@ -40,7 +40,17 @@ export const Header: React.FC = () => {
         >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <a href="#home" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', color: 'inherit' }}>
-                    <img src="/logo.jpg" alt="Centillion Logo" style={{ height: '32px', width: 'auto', borderRadius: '4px' }} />
+                    <img
+                        src="/logo.png"
+                        alt="Centillion Logo"
+                        style={{
+                            height: '34px',
+                            width: 'auto',
+                            filter: 'drop-shadow(0px 6px 14px rgba(0, 229, 255, 0.5)) drop-shadow(0px 0px 6px rgba(0, 229, 255, 0.7))',
+                            transform: 'perspective(400px) rotateX(8deg) rotateY(-12deg) scale(1.1)',
+                            transition: 'transform 0.4s ease, filter 0.4s ease'
+                        }}
+                    />
                     <span className="mono-text" style={{ fontSize: '1.2rem', fontWeight: 300, letterSpacing: '0.2em' }}>C E N T I L L I O N</span>
                 </a>
             </div>
