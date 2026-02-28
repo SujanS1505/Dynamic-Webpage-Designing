@@ -14,8 +14,8 @@ export const NeuralNetwork: React.FC = () => {
 
     useEffect(() => {
         const updateColor = () => {
-            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            setThemeColor(isLight ? '#003344' : '#00e5ff');
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            setThemeColor(isDark ? '#00e5ff' : '#003344');
         };
 
         updateColor();

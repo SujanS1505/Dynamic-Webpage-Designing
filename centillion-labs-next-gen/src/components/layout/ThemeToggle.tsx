@@ -3,25 +3,25 @@ import { Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export const ThemeToggle: React.FC = () => {
-    const [isLight, setIsLight] = useState(false);
+    const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
         // Check local storage or system preference
         const storedTheme = localStorage.getItem('theme');
-        if (storedTheme === 'light') {
-            setIsLight(true);
-            document.documentElement.setAttribute('data-theme', 'light');
+        if (storedTheme === 'dark') {
+            setIsDark(true);
+            document.documentElement.setAttribute('data-theme', 'dark');
         }
     }, []);
 
     const toggleTheme = () => {
-        setIsLight(!isLight);
-        if (!isLight) {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
+        setIsDark(!isDark);
+        if (!isDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
         } else {
             document.documentElement.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'dark');
+            localStorage.setItem('theme', 'light');
         }
     };
 
@@ -48,7 +48,7 @@ export const ThemeToggle: React.FC = () => {
             className="hover-border-accent"
             aria-label="Toggle Theme"
         >
-            {isLight ? <Moon size={18} /> : <Sun size={18} />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
         </motion.button>
     );
 };
