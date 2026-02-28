@@ -93,6 +93,40 @@ for (let i = 1; i <= cubeCount; i++) {
     group.add(cubeEdges);
 }
 
+// --- Sparkle Aura Particle System ---
+const particleCount = 400;
+const particleGeometry = new THREE.BufferGeometry();
+const particlePositions = new Float32Array(particleCount * 3);
+const particleVelocities = [];
+
+for (let i = 0; i < particleCount; i++) {
+    // Start particles near the center
+    const x = (Math.random() - 0.5) * 4;
+    const y = (Math.random() - 0.5) * 4;
+    const z = (Math.random() - 0.5) * 4;
+    particlePositions[i * 3] = x;
+    particlePositions[i * 3 + 1] = y;
+    particlePositions[i * 3 + 2] = z;
+
+    // Outward flowing velocity (away from center)
+    const velocity = new THREE.Vector3(x, y, z).normalize().multiplyScalar(Math.random() * 0.04 + 0.01);
+    particleVelocities.push(velocity);
+}
+
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+
+const particleMaterial = new THREE.PointsMaterial({
+    color: 0x00e5ff, // Bright glowing cyan/teal
+    size: 0.3,
+    transparent: true,
+    opacity: 0.7,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+});
+
+const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+group.add(particleSystem); // Add to group to inherit rotation
+
 group.rotation.x = Math.PI / 4;
 group.rotation.y = Math.PI / 4;
 
@@ -114,6 +148,35 @@ function animate() {
     group.rotation.z += 0.001;
     const scale = 1 + Math.sin(time) * 0.03;
     group.scale.set(scale, scale, scale);
+
+    // Update Sparkle Aura particles
+    const positions = particleSystem.geometry.attributes.position.array;
+    for (let i = 0; i < particleCount; i++) {
+        let x = positions[i * 3];
+        let y = positions[i * 3 + 1];
+        let z = positions[i * 3 + 2];
+
+        const vel = particleVelocities[i];
+        x += vel.x;
+        y += vel.y;
+        z += vel.z;
+
+        // If particle flows past the outer cube border, reset it near the center
+        const dist = Math.sqrt(x * x + y * y + z * z);
+        if (dist > 12) {
+            x = (Math.random() - 0.5) * 2;
+            y = (Math.random() - 0.5) * 2;
+            z = (Math.random() - 0.5) * 2;
+            const newVel = new THREE.Vector3(x, y, z).normalize().multiplyScalar(Math.random() * 0.04 + 0.01);
+            particleVelocities[i] = newVel;
+        }
+
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
+    }
+    particleSystem.geometry.attributes.position.needsUpdate = true;
+
     const targetX = (Math.PI / 4) + mouse.y * 0.5;
     group.rotation.x += (targetX - group.rotation.x) * 0.05;
     renderer.render(scene, camera);
