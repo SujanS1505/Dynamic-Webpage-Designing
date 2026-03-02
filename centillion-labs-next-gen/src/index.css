@@ -133,3 +133,69 @@ section {
   background: var(--accent-primary);
   color: var(--bg-dark);
 }
+
+/* ── Sidebar – light mode ────────────────────────────────────── */
+:root {
+  --sb-bg:           rgba(245, 248, 251, 0.98);
+  --sb-border:       rgba(0, 150, 136, 0.18);
+  --sb-divider:      rgba(0, 150, 136, 0.1);
+  --sb-text-h:       #0f1923;
+  --sb-text-primary: rgba(15, 25, 35, 0.72);
+  --sb-text-num:     rgba(15, 25, 35, 0.22);
+  --sb-text-desc:    rgba(15, 25, 35, 0.42);
+  --sb-item-hover:   rgba(0, 150, 136, 0.07);
+  --sb-close-bg:     rgba(0, 150, 136, 0.09);
+  --sb-close-border: rgba(0, 150, 136, 0.22);
+  --sb-close-color:  rgba(15, 25, 35, 0.65);
+  --sb-node-r: 0; --sb-node-g: 150; --sb-node-b: 136;
+  --sb-glow:         rgba(0, 150, 136, 0.07);
+  --sb-badge-bg:     rgba(0, 150, 136, 0.1);
+  --sb-badge-color:  #009688;
+  --sb-cta-text:     #ffffff;
+  --sb-label-muted:  rgba(15, 25, 35, 0.35);
+  --sb-accent-bar:   linear-gradient(180deg, transparent 0%, #009688 40%, #00796b 75%, transparent 100%);
+  --sb-backdrop:     rgba(15, 25, 35, 0.35);
+}
+
+/* ── Sidebar – dark mode ─────────────────────────────────────── */
+[data-theme="dark"] {
+  --sb-bg:           rgba(10, 20, 28, 0.97);
+  --sb-border:       rgba(0, 229, 255, 0.15);
+  --sb-divider:      rgba(0, 229, 255, 0.08);
+  --sb-text-h:       #ffffff;
+  --sb-text-primary: rgba(255, 255, 255, 0.68);
+  --sb-text-num:     rgba(255, 255, 255, 0.2);
+  --sb-text-desc:    rgba(255, 255, 255, 0.38);
+  --sb-item-hover:   rgba(0, 229, 255, 0.06);
+  --sb-close-bg:     rgba(0, 229, 255, 0.08);
+  --sb-close-border: rgba(0, 229, 255, 0.2);
+  --sb-close-color:  rgba(255, 255, 255, 0.72);
+  --sb-node-r: 0; --sb-node-g: 229; --sb-node-b: 255;
+  --sb-glow:         rgba(0, 229, 255, 0.07);
+  --sb-badge-bg:     rgba(0, 229, 255, 0.1);
+  --sb-badge-color:  #00e5ff;
+  --sb-cta-text:     #0a141c;
+  --sb-label-muted:  rgba(255, 255, 255, 0.28);
+  --sb-accent-bar:   linear-gradient(180deg, transparent 0%, #00e5ff 40%, #00bfa5 75%, transparent 100%);
+  --sb-backdrop:     rgba(0, 0, 0, 0.55);
+}
+
+/* Sidebar CTA animated border */
+@keyframes sbCtaBorder {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+
+/* CTA hover */
+.sidebar-cta:hover {
+  box-shadow: 0 0 36px color-mix(in srgb, var(--accent-primary) 50%, transparent) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Sidebar social hover */
+.sb-social:hover {
+  color: var(--accent-primary) !important;
+  border-color: var(--accent-primary) !important;
+  background: var(--sb-item-hover) !important;
+}
