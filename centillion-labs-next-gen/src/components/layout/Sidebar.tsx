@@ -1,4 +1,5 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     X, ArrowUpRight, Zap, Linkedin, ChevronDown,
     Home, Info, Layers, FolderOpen, Users, Building2, Smile, Settings, Eye,
@@ -7,46 +8,45 @@ import {
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 /* ── Nav data ─────────────────────────────────────────────────── */
-const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon: LucideIcon; subItems?: { label: string; href: string }[] }[] = [
-    { label: 'Home', href: '#home', num: '01', desc: 'Welcome & overview', icon: Home },
-    { label: 'About Us', href: '#about', num: '02', desc: 'Mission & values', icon: Info },
-    { label: 'Who We Are', href: '#who-we-are', num: '03', desc: 'Identity & expertise', icon: Eye },
+const NAV_LINKS: { label: string; href: string; path: string; num: string; desc: string; icon: LucideIcon; subItems?: { label: string; path: string }[] }[] = [
+    { label: 'Home', href: '#home', path: '/', num: '01', desc: 'Welcome & overview', icon: Home },
+    { label: 'About Us', href: '#about', path: '/about', num: '02', desc: 'Mission & values', icon: Info },
+    { label: 'Who We Are', href: '#who-we-are', path: '/who-we-are', num: '03', desc: 'Identity & expertise', icon: Eye },
     {
-        label: 'Services', href: '#services', num: '04', desc: 'What we offer', icon: Layers,
+        label: 'Services', href: '#services', path: '/services', num: '04', desc: 'What we offer', icon: Layers,
         subItems: [
-            { label: 'Data Engineering & Advanced Analytics', href: '#services-advanced-analytics' },
-            { label: 'Machine Learning & GenAI', href: '#services-ml-ai' },
-            { label: 'DevOps & Infrastructure', href: '#services-devops' },
-            { label: 'Kubernetes & Scalability', href: '#services-k8s' },
-            { label: 'CTO as a Service', href: '#services-ctaas' },
+            { label: 'Data Engineering & Analytics', path: '/services' },
+            { label: 'Machine Learning & GenAI', path: '/services' },
+            { label: 'DevOps & Infrastructure', path: '/services' },
+            { label: 'CTO as a Service', path: '/services' },
         ]
     },
     {
-        label: 'Portfolio', href: '#portfolio', num: '05', desc: 'Featured work', icon: FolderOpen,
+        label: 'Portfolio', href: '#portfolio', path: '/portfolio', num: '05', desc: 'Featured work', icon: FolderOpen,
         subItems: [
-            { label: 'Case Studies', href: '#portfolio-case-studies' },
-            { label: 'Open Source', href: '#portfolio-open-source' },
+            { label: 'Case Studies', path: '/portfolio' },
+            { label: 'Open Source', path: '/portfolio' },
         ]
     },
     {
-        label: 'Team', href: '#team', num: '06', desc: 'Meet the experts', icon: Users,
+        label: 'Team', href: '#team', path: '/team', num: '06', desc: 'Meet the experts', icon: Users,
         subItems: [
-            { label: 'Mohanapriya', href: '#team-leadership' },
-            { label: 'Chinnasamy', href: '#team-engineers' },
+            { label: 'Leadership', path: '/team' },
+            { label: 'Engineers', path: '/team' },
         ]
     },
     {
-        label: 'Industries', href: '#industries', num: '07', desc: 'Sectors we serve', icon: Building2,
+        label: 'Industries', href: '#industries', path: '/industries', num: '07', desc: 'Sectors we serve', icon: Building2,
         subItems: [
-            { label: 'Healthcare', href: '#industries-healthcare' },
-            { label: 'Banking & Finance', href: '#industries-finance' },
-            { label: 'Insurance', href: '#industries-insurance' },
-            { label: 'Manufacturing', href: '#industries-manufacturing' },
-            { label: 'Retail', href: '#industries-retail' },
+            { label: 'Healthcare', path: '/industries' },
+            { label: 'Banking & Finance', path: '/industries' },
+            { label: 'Insurance', path: '/industries' },
+            { label: 'Manufacturing', path: '/industries' },
+            { label: 'Retail', path: '/industries' },
         ]
     },
-    { label: 'Life', href: '#life', num: '08', desc: 'Culture & people', icon: Smile },
-    { label: 'Settings', href: '#settings', num: '09', desc: 'Manage preferences', icon: Settings },
+    { label: 'Life', href: '#life', path: '/life', num: '08', desc: 'Culture & people', icon: Smile },
+    { label: 'Settings', href: '#settings', path: '/settings', num: '09', desc: 'Manage preferences', icon: Settings },
 ];
 
 
@@ -203,6 +203,7 @@ interface SidebarProps { open: boolean; onClose: () => void }
 
 export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     const isDark = useIsDark();
+    const navigate = useNavigate();
     const sectionHrefs = NAV_LINKS.map(l => l.href);
     const activeSection = useActiveSection(sectionHrefs);
 
@@ -262,9 +263,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
             e.preventDefault();
             setExpandedMenu(expandedMenu === link.href ? null : link.href);
         } else {
+            e.preventDefault();
             setClickedIdx(i);
-            setTimeout(() => setClickedIdx(null), 400);
-            onClose();
+            setTimeout(() => {
+                setClickedIdx(null);
+                navigate(link.path);
+                onClose();
+            }, 200);
         }
     };
 
@@ -569,21 +574,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                                         style={{ overflow: 'hidden', paddingLeft: '3rem' }}
                                                     >
                                                         {link.subItems.map(subItem => (
-                                                            <a
-                                                                key={subItem.href}
-                                                                href={subItem.href}
-                                                                onClick={onClose}
+                                                            <button
+                                                                key={subItem.label}
+                                                                onClick={() => { navigate(subItem.path); onClose(); }}
                                                                 style={{
                                                                     display: 'block',
+                                                                    width: '100%',
+                                                                    textAlign: 'left',
+                                                                    background: 'none',
+                                                                    border: 'none',
                                                                     padding: '0.4rem 0.5rem',
                                                                     fontSize: '0.85rem',
                                                                     color: 'var(--sb-text-primary)',
-                                                                    textDecoration: 'none',
+                                                                    cursor: 'pointer',
                                                                     transition: 'color 0.2s'
                                                                 }}
                                                             >
                                                                 {subItem.label}
-                                                            </a>
+                                                            </button>
                                                         ))}
                                                     </motion.div>
                                                 )}
