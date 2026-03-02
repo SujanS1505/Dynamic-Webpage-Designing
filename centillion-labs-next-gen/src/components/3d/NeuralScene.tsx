@@ -22,18 +22,23 @@ export const NeuralScene: React.FC = () => {
 
     return (
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1, background: 'var(--bg-gradient)' }}>
-            <Canvas camera={{ position: [0, 0, 16], fov: 45 }}>
+            <Canvas
+                camera={{ position: [0, 0, 16], fov: 45 }}
+                dpr={[1, 2]}
+                gl={{ powerPreference: "high-performance", antialias: false }}
+            >
                 <ambientLight intensity={0.5} />
                 <pointLight position={[10, 10, 10]} intensity={2} color={primaryColor} />
                 <pointLight position={[-10, -10, -10]} intensity={1} color={secondaryColor} />
                 <Suspense fallback={null}>
                     <NeuralNetwork />
-                    <Sparkles count={800} scale={25} size={1.5} speed={0.2} opacity={0.1} color={primaryColor} />
-                    <EffectComposer>
-                        <Bloom luminanceThreshold={0.2} luminanceSmoothing={0.9} height={300} intensity={1.5} />
+                    <Sparkles count={400} scale={20} size={1.5} speed={0.1} opacity={0.15} color={primaryColor} />
+                    <EffectComposer multisampling={0}>
+                        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} mipmapBlur intensity={1.5} />
                     </EffectComposer>
                 </Suspense>
             </Canvas>
         </div>
+
     );
 };

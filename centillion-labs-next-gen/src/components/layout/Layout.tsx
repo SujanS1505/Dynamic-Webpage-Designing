@@ -18,13 +18,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     useEffect(() => {
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.5,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
             smoothWheel: true,
-            wheelMultiplier: 1,
-            touchMultiplier: 2,
+            wheelMultiplier: 0.9,
+            touchMultiplier: 1.5,
+            infinite: false,
         });
 
         function raf(time: number) {
@@ -38,6 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             lenis.destroy();
         };
     }, []);
+
 
     return (
         <div style={{ position: 'relative', width: '100vw' }}>
@@ -70,14 +70,41 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             </main>
 
             <footer style={{
-                padding: '4rem 2rem',
+                padding: '6rem 2rem',
                 borderTop: '1px solid var(--border-color)',
-                marginTop: '6rem',
-                textAlign: 'center',
-                color: 'var(--text-muted)'
+                marginTop: '10rem',
+                color: 'var(--text-secondary)'
             }}>
-                <p className="mono-text" style={{ fontSize: '0.8rem' }}>© {new Date().getFullYear()} CENTILLION LABS. BUILT WITH INTELLIGENCE.</p>
+                <div style={{
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    gap: '4rem',
+                    textAlign: 'left'
+                }}>
+                    <div>
+                        <span className="mono-text" style={{ fontSize: '1.2rem', fontWeight: 300, color: 'var(--text-primary)', letterSpacing: '0.2em', display: 'block', marginBottom: '1.5rem' }}>CENTILLION</span>
+                        <p style={{ fontWeight: 300, lineHeight: 1.6 }}>Eternal Data, <br />Expansive Solutions.</p>
+                    </div>
+                    <div>
+                        <span className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', display: 'block', marginBottom: '1rem', letterSpacing: '0.1em' }}>BANGALORE</span>
+                        <p style={{ fontWeight: 300, lineHeight: 1.6 }}>1084, 8th A Main, Sector 7, <br />HSR Layout, Bangalore, India.</p>
+                    </div>
+                    <div>
+                        <span className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', display: 'block', marginBottom: '1rem', letterSpacing: '0.1em' }}>NEW JERSEY</span>
+                        <p style={{ fontWeight: 300, lineHeight: 1.6 }}>PO 4321, River Edge, <br />NJ 07661, USA.</p>
+                    </div>
+                    <div>
+                        <span className="mono-text" style={{ fontSize: '0.75rem', color: 'var(--accent-primary)', display: 'block', marginBottom: '1rem', letterSpacing: '0.1em' }}>CONNECT</span>
+                        <p style={{ fontWeight: 300, lineHeight: 1.6 }}>connect@centillionlabs.com</p>
+                    </div>
+                </div>
+                <div style={{ marginTop: '6rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)', textAlign: 'center' }}>
+                    <p className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>© {new Date().getFullYear()} CENTILLION LABS. ALL RIGHTS RESERVED.</p>
+                </div>
             </footer>
+
         </div>
     );
 };

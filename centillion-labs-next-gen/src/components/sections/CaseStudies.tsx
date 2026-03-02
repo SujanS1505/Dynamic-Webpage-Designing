@@ -2,29 +2,37 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const CASES = [
-    { tag: 'Finance', title: 'FinOps Transformation', desc: 'Reduced cloud spend by 40% using Databricks FinOps accelerators and automated cost pipelines.', result: '↓ 40% Costs' },
-    { tag: 'AI', title: 'Enterprise LLM Rollout', desc: 'Deployed a domain specific LLM serving 10,000+ users, reducing analyst lag by 60%.', result: '↑ 60% Speed' },
-    { tag: 'Cloud', title: 'Data Mesh at Scale', desc: 'Decentralized data architecture across AWS and Azure spanning 5 business units.', result: '5 BUs Unified' }
+    { tag: 'AI PRODUCT', title: 'AristotleAI', desc: 'A generative AI platform featuring GMail Synthesizer, Finance/Retail Language Models, and seamless Vertex AI/Bedrock integration.', result: 'Explore AI' },
+    { tag: 'DATA PRODUCT', title: 'Plato', desc: 'Specialized Data Clean Room Architecture designed for privacy-preserving marketing and secure data collaboration.', result: 'Learn Privacy' },
+    { tag: 'AI AGENT', title: 'Claudius', desc: 'Advanced AI/Data tool for intelligent automation and structural data processing across diverse enterprise ecosystems.', result: 'View Agent' },
+    { tag: 'CASE STUDY', title: 'Reducing Hallucination – RAG', desc: 'A deep dive comparative study on Retrieval-Augmented Generation to minimize AI inaccuracies in production environments.', result: 'Read Study' },
+    { tag: 'INTERNAL TOOL', title: 'Centillion-Backstage', desc: 'Insights into our high-performance Developer Portal designed for streamlined cloud-native development workflows.', result: 'View Portal' }
 ];
 
 export const CaseStudies: React.FC = () => {
     return (
-        <AnimatedSection id="case-studies" className="section-padding">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+        <AnimatedSection id="portfolio" className="section-padding">
+            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <AnimatedItem>
-                    <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '4rem' }}>
-                        Impact Delivered.
+                    <h2 style={{
+                        fontSize: 'clamp(3rem, 5vw, 5rem)',
+                        fontWeight: 200,
+                        color: 'var(--text-primary)',
+                        marginBottom: '4rem',
+                        letterSpacing: '-0.02em'
+                    }}>
+                        Portfolio & Insights.
                     </h2>
                 </AnimatedItem>
 
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '4rem'
+                    gap: '2.5rem'
                 }}>
                     {CASES.map((study, idx) => (
                         <AnimatedItem key={study.title} delay={0.1 * idx}>
-                            <div style={{ display: 'flex', flexDirection: 'column', height: '100%', paddingLeft: '1.5rem', borderLeft: '1px solid var(--border-color)' }}>
+                            <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem' }}>
                                 <span className="mono-text" style={{
                                     color: 'var(--accent-primary)',
                                     fontSize: '0.8rem',
@@ -41,7 +49,8 @@ export const CaseStudies: React.FC = () => {
                                     display: 'inline-flex',
                                     alignItems: 'center',
                                     gap: '0.5rem',
-                                    transition: 'opacity 0.3s'
+                                    cursor: 'pointer',
+                                    fontWeight: 500
                                 }}>
                                     {study.result} ↗
                                 </div>
@@ -53,3 +62,4 @@ export const CaseStudies: React.FC = () => {
         </AnimatedSection>
     );
 };
+

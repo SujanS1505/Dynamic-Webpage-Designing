@@ -3,14 +3,34 @@ import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const SERVICES = [
     {
-        title: 'Generative AI Solutions',
-        desc: 'We develop custom solutions that harness the capabilities of ML and AI to address specific challenges.',
-        type: 'CUSTOM SOLUTIONS'
+        title: 'Data Engineering & Advanced Analytics',
+        desc: 'Building robust data pipelines and leveraging advanced analytics to drive business intelligence.',
+        type: 'DATA ARCHITECTURE'
     },
     {
-        title: 'Responsible AI',
-        desc: 'Centillion values and encapsulates ResponsibleAI and EthicalAI. Our mission is to create AI applications that enhance user experiences, rather than displacing them.',
-        type: 'ETHICS & COMPLIANCE'
+        title: 'Machine Learning & AI',
+        desc: 'Custom ML models and AI solutions tailored to solve complex business challenges with precision.',
+        type: 'INTELLIGENT SYSTEMS'
+    },
+    {
+        title: 'GenAI & Responsible AI',
+        desc: 'Harnessing the power of Generative AI while ensuring ethical standards and responsible implementation.',
+        type: 'MODERN AI'
+    },
+    {
+        title: 'DevOps & Infrastructure',
+        desc: 'Cloud-native infrastructure, CI/CD pipelines, and automated deployment strategies.',
+        type: 'OPERATIONS'
+    },
+    {
+        title: 'Kubernetes & Scalability',
+        desc: 'Container orchestration and scalable microservices architectures for high-availability systems.',
+        type: 'CLOUD NATIVE'
+    },
+    {
+        title: 'CTO as a Service',
+        desc: 'Strategic technical leadership to help startups and enterprises navigate their technology roadmap.',
+        type: 'STRATEGY'
     }
 ];
 
@@ -22,7 +42,7 @@ export const Services: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                paddingTop: '4rem',
+                padding: '10rem 2rem',
                 maxWidth: '1200px',
                 margin: '0 auto'
             }}>
@@ -35,28 +55,27 @@ export const Services: React.FC = () => {
                         color: 'var(--text-primary)',
                         marginBottom: '4rem'
                     }}>
-                        Horizons.
+                        Services.
                     </h2>
                 </AnimatedItem>
 
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '3rem'
+                    gap: '2rem'
                 }}>
                     {SERVICES.map((srv, idx) => (
                         <AnimatedItem key={srv.title} delay={0.1 * idx}>
-                            <div style={{
+                            <div className="glass-panel" style={{
                                 display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                gridTemplateColumns: '1fr 2fr',
                                 gap: '2rem',
-                                borderTop: '1px solid var(--border-color)',
-                                paddingTop: '2rem',
-                                transition: 'border-color 0.3s'
+                                padding: '3rem',
+                                transition: 'all 0.3s ease'
                             }}>
                                 <div>
-                                    <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{srv.title}</h3>
-                                    <span className="mono-text" style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', letterSpacing: '0.1em' }}>{srv.type}</span>
+                                    <span className="mono-text" style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', letterSpacing: '0.1em', display: 'block', marginBottom: '1rem' }}>{srv.type}</span>
+                                    <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.2 }}>{srv.title}</h3>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300 }}>
@@ -71,3 +90,4 @@ export const Services: React.FC = () => {
         </AnimatedSection>
     );
 };
+

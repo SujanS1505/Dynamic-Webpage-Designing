@@ -188,16 +188,18 @@ export const NeuralNetwork: React.FC = () => {
         return [currentPositions.current, new Uint16Array(linePositions), targetPositions.current] as [Float32Array, Uint16Array, Float32Array[]];
     }, []);
 
+    // Pre-allocate line position buffer to avoid GC pressure
+    const linePosBuffer = useMemo(() => new Float32Array(linesData.length * 3), [linesData]);
+
     useFrame((state) => {
         if (groupRef.current) {
             groupRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-            groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.1;
+            groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
         }
 
         if (pointsRef.current && linesRef.current) {
             const scroll = scrollY.current;
             const targetShapeCount = 5;
-            // Determine which 2 shapes to interpolate between based on scroll 0 -> 1
             const rawIndex = scroll * (targetShapeCount - 1);
             const index1 = Math.floor(rawIndex);
             const index2 = Math.min(index1 + 1, targetShapeCount - 1);
@@ -207,22 +209,18 @@ export const NeuralNetwork: React.FC = () => {
             const t2 = sourceTargets[index2];
             const curPos = positions;
 
-            // Apply water trail logic
-            const raycaster = new THREE.Raycaster();
             let trailPoint = new THREE.Vector3(999, 999, 999);
-
             if (isMouseMoving.current && groupRef.current) {
+                const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(mousePos.current, state.camera);
                 const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
                 raycaster.ray.intersectPlane(plane, trailPoint);
                 groupRef.current.worldToLocal(trailPoint);
             }
 
-            // Apply velocity physics (water ripple) and spring back to target
             for (let i = 0; i < particleCount * 3; i++) {
                 const stepTarget = t1[i] + (t2[i] - t1[i]) * lerpFactor;
 
-                // Trail continuous repulsion
                 if (i % 3 === 0 && isMouseMoving.current) {
                     const dx = curPos[i] - trailPoint.x;
                     const dy = curPos[i + 1] - trailPoint.y;
@@ -238,31 +236,32 @@ export const NeuralNetwork: React.FC = () => {
                     }
                 }
 
-                // Spring physics towards target
-                const force = (stepTarget - curPos[i]) * 0.1; // Spring stiffness
+                const force = (stepTarget - curPos[i]) * 0.08;
                 velocities.current[i] += force;
-                velocities.current[i] *= 0.85; // Damping (friction)
-
+                velocities.current[i] *= 0.82;
                 curPos[i] += velocities.current[i];
             }
 
             pointsRef.current.geometry.attributes.position.needsUpdate = true;
 
-            // Recompute lines based on new point coords mapping (using index map)
-            const lineGeom = linesRef.current.geometry;
             const lineIndices = linesData;
-            const linePosData = new Float32Array(lineIndices.length * 3);
-
             for (let i = 0; i < lineIndices.length; i++) {
                 const pIdx = lineIndices[i] * 3;
-                linePosData[i * 3] = curPos[pIdx];
-                linePosData[i * 3 + 1] = curPos[pIdx + 1];
-                linePosData[i * 3 + 2] = curPos[pIdx + 2];
+                const offset = i * 3;
+                linePosBuffer[offset] = curPos[pIdx];
+                linePosBuffer[offset + 1] = curPos[pIdx + 1];
+                linePosBuffer[offset + 2] = curPos[pIdx + 2];
             }
 
-            lineGeom.setAttribute('position', new THREE.BufferAttribute(linePosData, 3));
+            const lineGeom = linesRef.current.geometry;
+            if (!lineGeom.attributes.position) {
+                lineGeom.setAttribute('position', new THREE.BufferAttribute(linePosBuffer, 3));
+            } else {
+                lineGeom.attributes.position.needsUpdate = true;
+            }
         }
     });
+
 
     return (
         <group ref={groupRef}>

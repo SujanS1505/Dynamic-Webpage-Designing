@@ -2,41 +2,59 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const INDUSTRIES = [
-    { title: 'Finance & Banking', desc: 'Predictive analytics, risk modeling, and FinOps automation for modern financial institutions.' },
-    { title: 'Healthcare', desc: 'Responsible AI for clinical diagnostics, patient data observability, and HIPAA-compliant LLMs.' },
-    { title: 'Retail & E-Commerce', desc: 'Recommendation engines, demand forecasting, and personalized AI-driven customer experiences.' },
-    { title: 'Technology', desc: 'Data mesh adoption, platform engineering, and developer-first generative AI integrations.' }
+    {
+        title: 'Banking & Finance',
+        desc: 'Personalized financial guidance, automated fraud detection, and predictive risk modeling for the modern financial landscape.'
+    },
+    {
+        title: 'Healthcare',
+        desc: 'Precision medicine, advanced medical imaging analysis, and HIPAA-compliant AI solutions for improved patient outcomes.'
+    },
+    {
+        title: 'Insurance',
+        desc: 'AI-driven risk assessment, claims automation, and personalized policy recommendations to streamline insurance operations.'
+    },
+    {
+        title: 'Manufacturing',
+        desc: 'IoT-driven smart manufacturing, Digital Twin technology, and predictive maintenance for operational excellence.'
+    },
+    {
+        title: 'Retail',
+        desc: 'Hyper-personalized marketing, blockchain-enabled supply chain visibility, and intelligent inventory management.'
+    }
 ];
 
 export const Industries: React.FC = () => {
     return (
         <AnimatedSection id="industries">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
                 <AnimatedItem>
-                    <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '4rem' }}>
-                        Verticals.
+                    <h2 style={{
+                        fontSize: 'clamp(3rem, 5vw, 5rem)',
+                        fontWeight: 200,
+                        color: 'var(--text-primary)',
+                        marginBottom: '4rem',
+                        letterSpacing: '-0.02em'
+                    }}>
+                        Industries.
                     </h2>
                 </AnimatedItem>
 
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
                     {INDUSTRIES.map((ind, idx) => (
-                        <AnimatedItem key={ind.title} delay={0.05 * idx}>
+                        <AnimatedItem key={ind.title} delay={0.1 * idx}>
                             <div
                                 style={{
-                                    padding: '2rem 1rem',
+                                    padding: '3rem 0',
                                     borderTop: '1px solid var(--border-color)',
                                     display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                                    gridTemplateColumns: '1.2fr 2fr',
                                     gap: '2rem',
-                                    alignItems: 'center',
-                                    transition: 'background 0.3s'
+                                    alignItems: 'center'
                                 }}
-                                className="hover-bg-subtle"
-                                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
-                                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                             >
-                                <h3 style={{ fontSize: '1.8rem', fontWeight: 300, color: 'var(--text-primary)' }}>{ind.title}</h3>
-                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300, fontSize: '1.1rem' }}>{ind.desc}</p>
+                                <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)' }}>{ind.title}</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300, fontSize: '1.2rem' }}>{ind.desc}</p>
                             </div>
                         </AnimatedItem>
                     ))}
@@ -45,3 +63,4 @@ export const Industries: React.FC = () => {
         </AnimatedSection>
     );
 };
+
