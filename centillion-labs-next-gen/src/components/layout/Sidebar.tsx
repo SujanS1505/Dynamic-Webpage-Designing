@@ -1,26 +1,53 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import {
-    X, ArrowUpRight, Rss, Zap,
+    X, ArrowUpRight, Zap, Linkedin, ChevronDown,
     Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings,
     type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 /* ── Nav data ─────────────────────────────────────────────────── */
-const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon: LucideIcon }[] = [
+const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon: LucideIcon; subItems?: { label: string; href: string }[] }[] = [
     { label: 'Home', href: '#home', num: '01', desc: 'Welcome & overview', icon: Home },
     { label: 'About Us', href: '#about', num: '02', desc: 'Mission & values', icon: Info },
-    { label: 'Services', href: '#services', num: '03', desc: 'What we offer', icon: Layers },
-    { label: 'Portfolio', href: '#portfolio', num: '04', desc: 'Featured work', icon: FolderOpen },
-    { label: 'Team', href: '#team', num: '05', desc: 'Meet the experts', icon: Users },
-    { label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2 },
+    {
+        label: 'Services', href: '#services', num: '03', desc: 'What we offer', icon: Layers,
+        subItems: [
+            { label: 'AI Strategy', href: '#services-strategy' },
+            { label: 'Data Engineering', href: '#services-data' },
+            { label: 'Cloud Architecture', href: '#services-cloud' },
+        ]
+    },
+    {
+        label: 'Portfolio', href: '#portfolio', num: '04', desc: 'Featured work', icon: FolderOpen,
+        subItems: [
+            { label: 'Case Studies', href: '#portfolio-case-studies' },
+            { label: 'Open Source', href: '#portfolio-open-source' },
+        ]
+    },
+    {
+        label: 'Team', href: '#team', num: '05', desc: 'Meet the experts', icon: Users,
+        subItems: [
+            { label: 'Leadership', href: '#team-leadership' },
+            { label: 'Engineers', href: '#team-engineers' },
+            { label: 'Advisors', href: '#team-advisors' },
+        ]
+    },
+    {
+        label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2,
+        subItems: [
+            { label: 'Healthcare', href: '#industries-healthcare' },
+            { label: 'Finance', href: '#industries-finance' },
+            { label: 'Retail', href: '#industries-retail' },
+        ]
+    },
     { label: 'Life', href: '#life', num: '07', desc: 'Culture & people', icon: Smile },
     { label: 'Contact', href: '#contact', num: '08', desc: 'Start a conversation', icon: Mail },
     { label: 'Settings', href: '#settings', num: '09', desc: 'Manage preferences', icon: Settings },
 ];
 
 const SOCIAL_LINKS = [
-    { icon: Rss, href: 'https://www.linkedin.com/company/centillionlabs/', label: 'LinkedIn' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/centillionlabs/', label: 'LinkedIn' },
 ];
 
 /* â”€â”€ Theme hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -177,6 +204,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
 
     const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
     const [clickedIdx, setClickedIdx] = useState<number | null>(null);
+    const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
 
     /* â”€â”€ Mouse-tracking glow â”€â”€ */
@@ -225,10 +253,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     }, [open]);
 
     /* â”€â”€ Click ripple â”€â”€ */
-    const handleNavClick = (i: number) => {
-        setClickedIdx(i);
-        setTimeout(() => setClickedIdx(null), 400);
-        onClose();
+    const handleNavClick = (e: React.MouseEvent, i: number, link: typeof NAV_LINKS[0]) => {
+        if (link.subItems) {
+            e.preventDefault();
+            setExpandedMenu(expandedMenu === link.href ? null : link.href);
+        } else {
+            setClickedIdx(i);
+            setTimeout(() => setClickedIdx(null), 400);
+            onClose();
+        }
     };
 
     /* â”€â”€ Variants â”€â”€ */
@@ -394,7 +427,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                     <motion.div key={link.href} variants={itemV}>
                                         <motion.a
                                             href={link.href}
-                                            onClick={() => handleNavClick(i)}
+                                            onClick={(e) => handleNavClick(e, i, link)}
                                             onHoverStart={() => setHoveredIdx(i)}
                                             onHoverEnd={() => setHoveredIdx(null)}
                                             style={{
@@ -495,13 +528,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                                 </motion.span>
                                             </div>
 
-                                            {/* arrow */}
+                                            {/* arrow / chevron */}
                                             <motion.div
-                                                animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -8 }}
+                                                animate={{
+                                                    opacity: isHovered || link.subItems ? 1 : 0,
+                                                    x: (isHovered || link.subItems) ? 0 : -8,
+                                                    rotate: link.subItems && expandedMenu === link.href ? 180 : 0
+                                                }}
                                                 transition={{ duration: 0.16 }}
                                                 style={{ color: 'var(--accent-primary)', flexShrink: 0 }}
                                             >
-                                                <ArrowUpRight size={13} />
+                                                {link.subItems ? <ChevronDown size={13} /> : <ArrowUpRight size={13} />}
                                             </motion.div>
 
                                             {/* bottom line */}
@@ -516,6 +553,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                                 }}
                                             />
                                         </motion.a>
+
+                                        {/* Submenu */}
+                                        {link.subItems && (
+                                            <AnimatePresence>
+                                                {expandedMenu === link.href && (
+                                                    <motion.div
+                                                        initial={{ height: 0, opacity: 0 }}
+                                                        animate={{ height: 'auto', opacity: 1 }}
+                                                        exit={{ height: 0, opacity: 0 }}
+                                                        style={{ overflow: 'hidden', paddingLeft: '3rem' }}
+                                                    >
+                                                        {link.subItems.map(subItem => (
+                                                            <a
+                                                                key={subItem.href}
+                                                                href={subItem.href}
+                                                                onClick={onClose}
+                                                                style={{
+                                                                    display: 'block',
+                                                                    padding: '0.4rem 0.5rem',
+                                                                    fontSize: '0.85rem',
+                                                                    color: 'var(--sb-text-primary)',
+                                                                    textDecoration: 'none',
+                                                                    transition: 'color 0.2s'
+                                                                }}
+                                                            >
+                                                                {subItem.label}
+                                                            </a>
+                                                        ))}
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        )}
                                     </motion.div>
                                 );
                             })}
@@ -588,6 +657,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                     ))}
                                 </div>
 
+                                <a
+                                    href="mailto:connect@centillionlabs.com"
+                                    style={{
+                                        fontSize: '0.75rem',
+                                        color: 'var(--accent-primary)',
+                                        textDecoration: 'none',
+                                        letterSpacing: '0.05em'
+                                    }}
+                                >
+                                    connect@centillionlabs.com
+                                </a>
                             </div>
                         </motion.div>
                     </motion.div>

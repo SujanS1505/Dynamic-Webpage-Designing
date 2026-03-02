@@ -3,10 +3,9 @@ import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 import { useInView } from 'framer-motion';
 
 const STATS = [
-    { target: 50, suffix: '+', label: 'Clients Served' },
-    { target: 12, suffix: '+', label: 'Countries' },
-    { target: 100, suffix: 'TB', label: 'Data Processed' },
-    { target: 98, suffix: '%', label: 'Client Satisfaction' }
+    { target: 23, suffix: '+', label: 'Clients Served' },
+    { target: 5, suffix: '+', label: 'Countries' },
+    { target: 2, suffix: 'TB', label: 'Data Processed' }
 ];
 
 const Counter: React.FC<{ target: number }> = ({ target }) => {
