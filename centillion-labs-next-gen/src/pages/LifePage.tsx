@@ -7,7 +7,7 @@ const ROLES = [
   {
     id: 'de', icon: Database, title: 'Data Engineer', color: '#00e5ff',
     type: 'Full-time', location: 'Bangalore, India',
-    summary: 'Build and maintain data pipelines at petabyte scale. Join the team behind AristotleAI and Plato.',
+    summary: 'Build and maintain data pipelines at petabyte scale. Join the team behind our GenAI platform and Plato.',
     desc: "We are looking for a Data Engineer who thrives at the intersection of distributed computing and enterprise data systems. You'll design, build, and optimize Apache Spark-based pipelines on Databricks and GCP, working closely with our AI and Platform teams.",
     skills: ['PySpark', 'Apache Spark', 'Scala', 'Databricks', 'GCP', 'BigQuery', 'Airflow', 'Data Mesh'],
     nice: ['Knowledge Graphs', 'dbt', 'Kafka', 'Terraform'],

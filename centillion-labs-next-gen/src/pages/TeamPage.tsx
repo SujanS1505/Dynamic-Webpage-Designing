@@ -12,7 +12,7 @@ const LEADERS = [
   {
     name: 'Chinnasamy', role: 'CTO & Co-Founder', color: '#00bcd4',
     initials: 'CS', linkedin: 'https://www.linkedin.com/company/96900585',
-    bio: 'Chinnasamy is the technical heart of Centillion Labs. An architect of distributed systems and GenAI platforms, he leads the engineering teams behind Claudius, AristotleAI, Plato, and Hexacube — with deep proficiency across Go, Scala, Spark, and cloud-native infrastructure.',
+    bio: 'Chinnasamy is the technical heart of Centillion Labs. An architect of distributed systems and GenAI platforms, he leads the engineering teams behind Claudius, Plato, and Hexacube — with deep proficiency across Go, Scala, Spark, and cloud-native infrastructure.',
     tags: ['Go / Scala', 'Distributed Systems', 'GenAI', 'Cloud Architecture'],
   },
 ];

@@ -12,13 +12,6 @@ const PRODUCTS = [
     stack: ['GCP', 'Terraform', 'Differential Privacy', 'Databricks', 'BigQuery'],
   },
   {
-    id: 'aristotle', name: 'AristotleAI', tag: 'GENERATIVE AI PLATFORM', category: 'AI & Machine Learning', color: '#00bcd4', num: '02',
-    headline: 'Your complete Generative AI platform — from POC to production.',
-    desc: 'AristotleAI seamlessly blends expert guidance and technical proficiency to craft impactful architecture use cases. From GenAI workshops to enterprise-deployed LLMs — Vertex AI, Bedrock, and custom Home Brewn models.',
-    features: ['GMail Synthesizer Craft', 'Finance Language Model', 'Retail Language Model', 'Home Brewn LLM', 'Vertex AI deployment', 'Amazon Bedrock orchestration', 'Workshops & Preparedness', 'Responsible AI governance'],
-    stack: ['Vertex AI', 'AWS Bedrock', 'Python', 'LangChain', 'GCP', 'Custom LLMs'],
-  },
-  {
     id: 'claudius', name: 'Claudius', tag: 'ABSTRACT GO FRAMEWORK', category: 'Backend Framework', color: '#26a69a', num: '03',
     headline: 'An abstract, generic framework built in Go — engineered for the distributed age.',
     desc: "Claudius is Centillion's flagship Go-based framework — Goroutines, Channels, gRPC, etcd, Raft. Its Scala companion extends the framework with Monoids, Monads, Functional Elegance, Data Transformation, and Scala Compatibility.",

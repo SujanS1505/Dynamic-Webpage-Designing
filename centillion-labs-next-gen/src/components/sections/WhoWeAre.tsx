@@ -285,7 +285,7 @@ export const WhoWeAre: React.FC = () => {
                         <CheckItem text="Generative AI Workshops &amp; Preparedness" delay={0.2} />
                         <AnimatedItem delay={0.3}>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300, lineHeight: 1.7, marginTop: '1rem' }}>
-                                Seamlessly blend expert guidance &amp; technical proficiency to craft impactful use cases for architecture development, ensuring our clients are well-equipped to embrace revolutionary capabilities of Generative AI solutions with <strong style={{ color: 'var(--text-primary)', fontWeight: 500, letterSpacing: '0.04em' }}>ARISTOTLEAI</strong>.
+                                Seamlessly blend expert guidance &amp; technical proficiency to craft impactful use cases for architecture development, ensuring our clients are well-equipped to embrace revolutionary capabilities of Generative AI solutions.
                             </p>
                         </AnimatedItem>
                     </div>

@@ -15,9 +15,9 @@ const JOURNEY = [
   { num: '01', title: 'AI Ontology Company', desc: 'Founded with a clear mission: bring responsible, ethical AI and cloud-native data solutions to enterprises worldwide.' },
   { num: '02', title: 'Cloud Migration Mastery', desc: 'Amassed deep experience aiding countless clients in migrating to AWS, GCP, and Azure — turning cloud complexity into competitive advantage.' },
   { num: '03', title: 'Data Observability', desc: 'Specialist identification of code, configuration, schema, data, metadata, and technology drift across all planes.' },
-  { num: '04', title: 'ARISTOTLEAI Platform', desc: 'Launched ARISTOTLEAI — our generative AI platform blending expert guidance with technical proficiency to craft impactful architectures.' },
+  { num: '04', title: 'Generative AI Platform', desc: 'Launched our generative AI platform blending expert guidance with technical proficiency to craft impactful architectures — including Finance & Retail LMs, GMail Synthesizer, and Home Brewn models.' },
   { num: '05', title: 'Global Enterprise Clients', desc: 'Serving Taboola, SwissRe, Security Scorecard, BlockChainSentry, and EzOut — across advertising, insurance, cybersecurity, blockchain, and retail.' },
-  { num: '06', title: 'Full Product Suite', desc: 'Built Plato, AristotleAI, Claudius, and Hexacube — all production-deployed at enterprise scale.' },
+  { num: '06', title: 'Full Product Suite', desc: 'Built Plato, Claudius, and Hexacube — all production-deployed at enterprise scale.' },
 ];
 
 const CLIENTS = [

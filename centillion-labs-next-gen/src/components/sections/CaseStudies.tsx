@@ -2,11 +2,9 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const CASES = [
-    { tag: 'AI PRODUCT', title: 'Secure AI', desc: 'A generative AI platform featuring GMail Synthesizer, Finance/Retail Language Models, and seamless Vertex AI/Bedrock integration.', result: 'Explore AI' },
-    { tag: 'DATA PRODUCT', title: 'Plato', desc: 'Specialized Data Clean Room Architecture designed for privacy-preserving marketing and secure data collaboration.', result: 'Learn Privacy' },
-    { tag: 'AI AGENT', title: 'Claudius', desc: 'Advanced AI/Data tool for intelligent automation and structural data processing across diverse enterprise ecosystems.', result: 'View Agent' },
-    { tag: 'CASE STUDY', title: 'Reducing Hallucination – RAG', desc: 'A deep dive comparative study on Retrieval-Augmented Generation to minimize AI inaccuracies in production environments.', result: 'Read Study' },
-    { tag: 'INTERNAL TOOL', title: 'Centillion-Backstage', desc: 'Insights into our high-performance Developer Portal designed for streamlined cloud-native development workflows.', result: 'View Portal' },
+    { tag: 'AI RESEARCH', title: 'Comparative Analysis of LLM Model', desc: '"Unlock insights in our comparative study. Download the PDF to explore the world of large language models." — Published November 2023.', result: 'Download PDF', href: 'https://www.centillionlabs.com/comparative-llm' },
+    { tag: 'CASE STUDY', title: 'Reducing Hallucination – RAG', desc: 'A deep dive comparative study on Retrieval-Augmented Generation to minimize AI inaccuracies in production environments.', result: 'Read Study', href: '#' },
+    { tag: 'INTERNAL TOOL', title: 'Centillion-Backstage', desc: 'Insights into our high-performance Developer Portal designed for streamlined cloud-native development workflows.', result: 'View Portal', href: '#' },
 ];
 
 export const CaseStudies: React.FC = () => {
@@ -81,17 +79,26 @@ export const CaseStudies: React.FC = () => {
                                 </p>
 
                                 {/* CTA */}
-                                <span className="mono-text" style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    gap: '0.4rem',
-                                    fontSize: '0.82rem',
-                                    fontWeight: 400,
-                                    color: 'var(--text-secondary)',
-                                    letterSpacing: '0.08em',
-                                }}>
+                                <a
+                                    href={study.href}
+                                    target={study.href !== '#' ? '_blank' : undefined}
+                                    rel="noopener noreferrer"
+                                    className="mono-text hover-text-accent"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        gap: '0.4rem',
+                                        fontSize: '0.82rem',
+                                        fontWeight: 400,
+                                        color: 'var(--text-secondary)',
+                                        letterSpacing: '0.08em',
+                                        textDecoration: 'none',
+                                        transition: 'color 0.3s',
+                                        marginTop: 'auto',
+                                    }}
+                                >
                                     {study.result} ↗
-                                </span>
+                                </a>
                             </div>
                         </AnimatedItem>
                     ))}

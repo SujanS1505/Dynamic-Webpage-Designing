@@ -3,7 +3,7 @@ import { Bot, Database, Cloud, Server, Cpu, GitBranch, ShieldCheck, BarChart3 } 
 import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag, ProgressBar, Wrap } from './PageLayout';
 
 const CAPS = [
-  { icon: Bot, color: '#00e5ff', title: 'ARISTOTLEAI', sub: 'Generative AI Platform', desc: 'Seamlessly blend expert guidance & technical proficiency to craft impactful architecture use cases. GenAI Workshops & Preparedness ensure clients are equipped to embrace revolutionary capabilities.', tags: ['GMail Synthesizer', 'Finance LM', 'Retail LM', 'Vertex AI', 'Bedrock AI', 'Home Brewn LLM'] },
+  { icon: Bot, color: '#00e5ff', title: 'Generative AI Platform', sub: 'LLMs & Enterprise AI', desc: 'Seamlessly blend expert guidance & technical proficiency to craft impactful architecture use cases. GenAI Workshops & Preparedness ensure clients are equipped to embrace revolutionary capabilities.', tags: ['GMail Synthesizer', 'Finance LM', 'Retail LM', 'Vertex AI', 'Bedrock AI', 'Home Brewn LLM'] },
   { icon: Cloud, color: '#00bcd4', title: 'Cloud Migration', sub: 'AWS / GCP / Azure', desc: 'Rich experience aiding clients in migrating to all three major cloud platforms. Maximize data potential with Databricks and GCP — Data Integration, Real-time Analytics, and Warehousing.', tags: ['AWS', 'GCP', 'Azure', 'Databricks', 'Real-time Analytics'] },
   { icon: Database, color: '#26a69a', title: 'Data Observability', sub: 'Governance & Mesh', desc: 'Specialists in identifying code, config, schema, data, metadata, and tech drift. Data Mesh, Knowledge Graphs, and Synthetic Data for sustainable governance.', tags: ['Data Mesh', 'Knowledge Graphs', 'Synthetic Data', 'Observability'] },
   { icon: Server, color: '#0097a7', title: 'Terraform & IaC', sub: 'Infrastructure as Code', desc: 'IaC design and development experts — Terraform and CloudFormation. Differential Privacy, Sovereign Data Strategies, Homomorphic Encryption, and Confidential Computing.', tags: ['Terraform', 'CloudFormation', 'Homomorphic Encryption', 'Confidential Computing'] },
@@ -14,7 +14,7 @@ const CAPS = [
 ];
 
 const BARS = [
-  { label: 'Generative AI & LLMs (ARISTOTLEAI)', pct: 96 },
+  { label: 'Generative AI & LLMs', pct: 96 },
   { label: 'Cloud Migration (AWS / GCP / Azure)', pct: 98 },
   { label: 'Data Engineering & Observability', pct: 95 },
   { label: 'Terraform & IaC', pct: 92 },
@@ -22,7 +22,6 @@ const BARS = [
   { label: 'Data Clean Room Architecture', pct: 90 },
 ];
 
-const ARISTOTLE = ['GMail Synthesizer Craft', 'Finance Language Model', 'Retail Language Model', 'Home Brewn LLM Model', 'Vertex AI', 'Bedrock AI'];
 
 const stagger = { visible: { transition: { staggerChildren: 0.06 } } };
 const item = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
@@ -87,25 +86,6 @@ export const WhoWeArePage: React.FC = () => (
             {BARS.map((b, i) => <ProgressBar key={b.label} label={b.label} pct={b.pct} delay={i * 0.09} />)}
           </div>
         </FadeIn>
-      </div>
-    </Sec>
-
-    {/* ARISTOTLEAI toolkit */}
-    <Sec>
-      <SectionHead tag="// ARISTOTLEAI PLATFORM" headline="Generative AI Toolkit" centre />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(180px,100%), 1fr))', gap: '1rem' }}>
-        {ARISTOTLE.map((feat, i) => (
-          <FadeIn key={feat} delay={i * 0.06}>
-            <motion.div
-              whileHover={{ y: -5, boxShadow: '0 12px 32px rgba(0,229,255,0.12)', borderColor: 'var(--accent-primary)' }}
-              className="glass-panel"
-              style={{ padding: '1.5rem 1.2rem', textAlign: 'center', borderRadius: '14px', border: '1px solid rgba(0,229,255,0.12)', transition: 'border-color 0.3s' }}
-            >
-              <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent-primary)', margin: '0 auto 0.9rem', boxShadow: '0 0 8px var(--accent-primary)' }} />
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-primary)', fontWeight: 400, lineHeight: 1.4 }}>{feat}</div>
-            </motion.div>
-          </FadeIn>
-        ))}
       </div>
     </Sec>
   </PageLayout>

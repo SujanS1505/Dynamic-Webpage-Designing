@@ -35,8 +35,8 @@ const INDUSTRIES = [
     id: 'retail', icon: ShoppingCart, client: 'EzOut', sector: 'Retail / Grocery', color: '#007c91',
     headline: 'AI at the shelf — instant, intelligent, in-store.',
     desc: "EzOut's smart checkout experience is powered by Centillion's Retail Language Model, Edge AI inference, and Databricks lakehouse for real-time inventory and demand forecasting at scale.",
-    solutions: ['Retail Language Model (AristotleAI)', 'Edge AI for in-store inference', 'Databricks lakehouse', 'Real-time inventory intelligence', 'Demand forecasting & replenishment AI'],
-    tags: ['Retail LM', 'Edge AI', 'Databricks', 'AristotleAI', 'Real-time ML'],
+    solutions: ['Retail Language Model', 'Edge AI for in-store inference', 'Databricks lakehouse', 'Real-time inventory intelligence', 'Demand forecasting & replenishment AI'],
+    tags: ['Retail LM', 'Edge AI', 'Databricks', 'Real-time ML'],
   },
 ];
 

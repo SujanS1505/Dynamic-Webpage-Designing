@@ -12,6 +12,7 @@ import { Industries } from './components/sections/Industries';
 import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
+import { RedTeamFlash } from './components/RedTeamFlash';
 
 import { AboutPage } from './pages/AboutPage';
 import { WhoWeArePage } from './pages/WhoWeArePage';
@@ -24,22 +25,25 @@ import { SettingsPage } from './pages/SettingsPage';
 
 function HomePage() {
   return (
-    <Layout>
-      <Hero />
-      <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
-        <About />
-        <WhoWeAre />
-        <Services />
-        <Portfolio />
-        <Impact />
-        <Tech />
-        <LifeAtCentillion />
-        <Team />
-        <Industries />
-        <CaseStudies />
-        <Blog />
-      </div>
-    </Layout>
+    <>
+      <RedTeamFlash />
+      <Layout>
+        <Hero />
+        <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
+          <About />
+          <WhoWeAre />
+          <Services />
+          <Portfolio />
+          <Impact />
+          <Tech />
+          <LifeAtCentillion />
+          <Team />
+          <Industries />
+          <CaseStudies />
+          <Blog />
+        </div>
+      </Layout>
+    </>
   );
 }
 
