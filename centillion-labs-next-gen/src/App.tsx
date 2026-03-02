@@ -12,7 +12,6 @@ import { Industries } from './components/sections/Industries';
 import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
-import { Contact } from './components/sections/Contact';
 
 function App() {
   return (
@@ -30,7 +29,6 @@ function App() {
         <Industries />
         <CaseStudies />
         <Blog />
-        <Contact />
       </div>
     </Layout>
   );

@@ -1,7 +1,7 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import {
     X, ArrowUpRight, Zap, Linkedin, ChevronDown,
-    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings, Eye,
+    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Settings, Eye,
     type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -46,8 +46,7 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
         ]
     },
     { label: 'Life', href: '#life', num: '08', desc: 'Culture & people', icon: Smile },
-    { label: 'Contact', href: '#contact', num: '09', desc: 'Start a conversation', icon: Mail },
-    { label: 'Settings', href: '#settings', num: '10', desc: 'Manage preferences', icon: Settings },
+    { label: 'Settings', href: '#settings', num: '09', desc: 'Manage preferences', icon: Settings },
 ];
 
 
@@ -616,7 +615,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                 marginBottom: '1.1rem',
                             }}>
                                 <a
-                                    href="#contact"
+                                    href="mailto:connect@centillionlabs.com"
                                     onClick={onClose}
                                     className="sidebar-cta"
                                     style={{
