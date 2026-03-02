@@ -13,9 +13,12 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
     {
         label: 'Services', href: '#services', num: '03', desc: 'What we offer', icon: Layers,
         subItems: [
-            { label: 'AI Strategy', href: '#services-strategy' },
-            { label: 'Data Engineering', href: '#services-data' },
-            { label: 'Cloud Architecture', href: '#services-cloud' },
+            { label: 'Data Engineering & Advanced Analytics', href: '#services-advanced-analytics' },
+            { label: 'Machine Learning & GenAI', href: '#services-ml-ai' },
+            { label: 'DevOps & Infrastructure', href: '#services-devops' },
+            { label: 'Kubernetes & Scalability', href: '#services-k8s' },
+            { label: 'CTO as a Service', href: '#services-ctaas' },
+
         ]
     },
     {
@@ -28,16 +31,17 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
     {
         label: 'Team', href: '#team', num: '05', desc: 'Meet the experts', icon: Users,
         subItems: [
-            { label: 'Leadership', href: '#team-leadership' },
-            { label: 'Engineers', href: '#team-engineers' },
-            { label: 'Advisors', href: '#team-advisors' },
+            { label: 'Mohanapriya', href: '#team-leadership' },
+            { label: 'Chinnasamy', href: '#team-engineers' },
         ]
     },
     {
         label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2,
         subItems: [
             { label: 'Healthcare', href: '#industries-healthcare' },
-            { label: 'Finance', href: '#industries-finance' },
+            { label: 'Banking & Finance', href: '#industries-finance' },
+            { label: 'Insurance', href: '#industries-insurance' },
+            { label: 'Manufacturing', href: '#industries-manufacturing' },
             { label: 'Retail', href: '#industries-retail' },
         ]
     },
