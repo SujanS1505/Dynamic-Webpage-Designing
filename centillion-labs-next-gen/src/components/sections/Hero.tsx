@@ -52,7 +52,7 @@ export const Hero: React.FC = () => {
                         color: 'var(--text-primary)'
                     }}
                 >
-                    Data Ontologists, <br />
+                    AI Ontologists, <br />
                     <span style={{ color: 'var(--accent-primary)' }}>Data Ethicists</span> & Architects
                 </motion.h1>
 
