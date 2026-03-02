@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Text } from '@react-three/drei';
+import { Text, Billboard } from '@react-three/drei';
 import * as THREE from 'three';
 
 // ─── Formulas embedded inside the cube, revealed on scroll ───────────────────
@@ -331,7 +331,7 @@ export const NeuralNetwork: React.FC = () => {
                 // Compute opacity directly from React state — guaranteed correct via reconciler
                 const fOp = Math.min(Math.max((scrollFrac - f.threshold) / 0.06, 0), 1);
                 return (
-                    <group key={f.label} position={f.pos}>
+                    <Billboard key={f.label} position={f.pos} follow={true}>
                         {/* Glowing anchor dot */}
                         <mesh ref={(el) => { if (el) dotRefs.current[i] = el; }}>
                             <sphereGeometry args={[0.07, 8, 8]} />
@@ -368,7 +368,7 @@ export const NeuralNetwork: React.FC = () => {
                         >
                             {f.label}
                         </Text>
-                    </group>
+                    </Billboard>
                 );
             })}
         </group>
