@@ -5,6 +5,7 @@ import { Sidebar } from './Sidebar';
 
 const NAV_LINKS = [
     { label: 'Home', href: '#home' },
+    { label: 'Settings', href: '#settings' },
 ];
 
 export const Header: React.FC = () => {

@@ -28,9 +28,9 @@ export const Hero: React.FC = () => {
                     transition={{ duration: 0.8 }}
                     style={{ marginBottom: '1rem' }}
                 >
-                    <span className="mono-text" style={{ 
-                        fontSize: '0.9rem', 
-                        color: 'var(--accent-primary)', 
+                    <span className="mono-text" style={{
+                        fontSize: '0.9rem',
+                        color: 'var(--accent-primary)',
                         letterSpacing: '0.3em',
                         display: 'block',
                         marginBottom: '1rem'
@@ -77,11 +77,11 @@ export const Hero: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, delay: 0.8 }}
-                    style={{ 
-                        display: 'flex', 
-                        flexDirection: 'column', 
-                        alignItems: 'center', 
-                        gap: '2rem' 
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        gap: '2rem'
                     }}
                 >
                     <div className="hero-cta-row" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -113,18 +113,18 @@ export const Hero: React.FC = () => {
                         <p className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '1.5rem', letterSpacing: '0.2em' }}>
                             TRUSTED BY INDUSTRY LEADERS
                         </p>
-                        <div className="hero-partner-row" style={{ 
-                            display: 'flex', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            gap: '3rem', 
+                        <div className="hero-partner-row" style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            gap: '3rem',
                             flexWrap: 'wrap',
                             opacity: 0.7
                         }}>
                             {PARTNERS.map(partner => (
-                                <span key={partner.name} style={{ 
-                                    fontSize: '1.2rem', 
-                                    fontWeight: 700, 
+                                <span key={partner.name} style={{
+                                    fontSize: '1.2rem',
+                                    fontWeight: 700,
                                     color: 'var(--text-primary)',
                                     letterSpacing: '-0.02em'
                                 }}>

@@ -1,7 +1,7 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import {
     X, ArrowUpRight, Globe, Rss, Send, Zap,
-    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail,
+    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings,
     type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -16,6 +16,7 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
     { label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2 },
     { label: 'Life', href: '#life', num: '07', desc: 'Culture & people', icon: Smile },
     { label: 'Contact', href: '#contact', num: '08', desc: 'Start a conversation', icon: Mail },
+    { label: 'Settings', href: '#settings', num: '09', desc: 'Manage preferences', icon: Settings },
 ];
 
 const SOCIAL_LINKS = [
@@ -360,22 +361,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                         color: 'var(--sb-text-h)', marginTop: '1px',
                                     }}>CENTILLION</p>
                                 </div>
-                                {/* section count badge */}
-                                <motion.span
-                                    initial={{ scale: 0, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ delay: 0.55, type: 'spring', stiffness: 300 }}
-                                    style={{
-                                        background: 'var(--sb-badge-bg)',
-                                        color: 'var(--sb-badge-color)',
-                                        borderRadius: '20px', padding: '2px 9px',
-                                        fontSize: '0.65rem', fontWeight: 700,
-                                        letterSpacing: '0.05em',
-                                        alignSelf: 'flex-start', marginTop: '2px',
-                                    }}
-                                >
-                                    {NAV_LINKS.length} sections
-                                </motion.span>
                             </div>
 
                             <motion.button
