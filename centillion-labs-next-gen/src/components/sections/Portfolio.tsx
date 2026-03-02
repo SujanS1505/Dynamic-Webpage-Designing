@@ -2,7 +2,7 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const PRODUCTS = [
-    { icon: '01', title: 'AristotleAI', desc: 'Transform and manipulate data with ease. Built in Scala, Aristotle seamlessly integrates with existing Scala-based projects. Features: GMail Synthesizer Craft, Finance & Retail Language Models.' },
+    { icon: '01', title: 'SecureAI', desc: 'Transform and manipulate data with ease. Built in Scala, Aristotle seamlessly integrates with existing Scala-based projects. Features: GMail Synthesizer Craft, Finance & Retail Language Models.' },
     { icon: '02', title: 'Plato & Claudius', desc: 'Comprehensive Cloud Management and Cloud Modernization platforms. Abstract Generic Frameworks Written in Go Language emphasizing Functional Elegance (Monoids and Monads).' },
     { icon: '03', title: 'Hexacube', desc: 'Home Brewn LLM Models tailored for enterprise. Deep integrations with Vertex AI and Bedrock AI to power advanced predictive and generative pipelines securely.' }
 ];

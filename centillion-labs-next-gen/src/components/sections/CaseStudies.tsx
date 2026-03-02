@@ -2,7 +2,7 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const CASES = [
-    { tag: 'AI PRODUCT', title: 'AristotleAI', desc: 'A generative AI platform featuring GMail Synthesizer, Finance/Retail Language Models, and seamless Vertex AI/Bedrock integration.', result: 'Explore AI' },
+    { tag: 'AI PRODUCT', title: 'Secure AI', desc: 'A generative AI platform featuring GMail Synthesizer, Finance/Retail Language Models, and seamless Vertex AI/Bedrock integration.', result: 'Explore AI' },
     { tag: 'DATA PRODUCT', title: 'Plato', desc: 'Specialized Data Clean Room Architecture designed for privacy-preserving marketing and secure data collaboration.', result: 'Learn Privacy' },
     { tag: 'AI AGENT', title: 'Claudius', desc: 'Advanced AI/Data tool for intelligent automation and structural data processing across diverse enterprise ecosystems.', result: 'View Agent' },
     { tag: 'CASE STUDY', title: 'Reducing Hallucination – RAG', desc: 'A deep dive comparative study on Retrieval-Augmented Generation to minimize AI inaccuracies in production environments.', result: 'Read Study' },
