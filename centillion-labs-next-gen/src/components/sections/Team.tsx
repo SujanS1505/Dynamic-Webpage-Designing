@@ -4,8 +4,6 @@ import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 const TEAM = [
     { name: 'Mohanapriya', role: 'CEO & Cofounder', desc: 'Leading the vision for democratized AI and cloud-native solutions.' },
     { name: 'Chinnasamy', role: 'CTO & Cofounder', desc: 'Architecting high-performance data systems and advanced AI ontologies.' },
-    { name: 'AI Research Lead', role: 'Expertise', desc: 'Focusing on Ontology & LLM Architecture for complex business needs.' },
-    { name: 'Cloud Architects', role: 'Expertise', desc: 'Specialists in AWS, GCP, Azure, and Modern Data Mesh implementations.' }
 ];
 
 export const Team: React.FC = () => {
