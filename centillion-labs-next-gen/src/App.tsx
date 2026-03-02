@@ -1,6 +1,7 @@
 import { Layout } from './components/layout/Layout';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
+import { WhoWeAre } from './components/sections/WhoWeAre';
 import { Services } from './components/sections/Services';
 
 import { Portfolio } from './components/sections/Portfolio';
@@ -22,6 +23,7 @@ function App() {
         <Hero />
         <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
           <About onOpenRedTeam={() => { }} />
+          <WhoWeAre />
           <Services />
           <Portfolio />
           <Impact />

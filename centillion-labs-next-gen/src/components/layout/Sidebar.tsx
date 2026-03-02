@@ -1,7 +1,7 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import {
     X, ArrowUpRight, Zap, Linkedin, ChevronDown,
-    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings,
+    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings, Eye,
     type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -10,33 +10,33 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon: LucideIcon; subItems?: { label: string; href: string }[] }[] = [
     { label: 'Home', href: '#home', num: '01', desc: 'Welcome & overview', icon: Home },
     { label: 'About Us', href: '#about', num: '02', desc: 'Mission & values', icon: Info },
+    { label: 'Who We Are', href: '#who-we-are', num: '03', desc: 'Identity & expertise', icon: Eye },
     {
-        label: 'Services', href: '#services', num: '03', desc: 'What we offer', icon: Layers,
+        label: 'Services', href: '#services', num: '04', desc: 'What we offer', icon: Layers,
         subItems: [
             { label: 'Data Engineering & Advanced Analytics', href: '#services-advanced-analytics' },
             { label: 'Machine Learning & GenAI', href: '#services-ml-ai' },
             { label: 'DevOps & Infrastructure', href: '#services-devops' },
             { label: 'Kubernetes & Scalability', href: '#services-k8s' },
             { label: 'CTO as a Service', href: '#services-ctaas' },
-
         ]
     },
     {
-        label: 'Portfolio', href: '#portfolio', num: '04', desc: 'Featured work', icon: FolderOpen,
+        label: 'Portfolio', href: '#portfolio', num: '05', desc: 'Featured work', icon: FolderOpen,
         subItems: [
             { label: 'Case Studies', href: '#portfolio-case-studies' },
             { label: 'Open Source', href: '#portfolio-open-source' },
         ]
     },
     {
-        label: 'Team', href: '#team', num: '05', desc: 'Meet the experts', icon: Users,
+        label: 'Team', href: '#team', num: '06', desc: 'Meet the experts', icon: Users,
         subItems: [
             { label: 'Mohanapriya', href: '#team-leadership' },
             { label: 'Chinnasamy', href: '#team-engineers' },
         ]
     },
     {
-        label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2,
+        label: 'Industries', href: '#industries', num: '07', desc: 'Sectors we serve', icon: Building2,
         subItems: [
             { label: 'Healthcare', href: '#industries-healthcare' },
             { label: 'Banking & Finance', href: '#industries-finance' },
@@ -45,10 +45,11 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
             { label: 'Retail', href: '#industries-retail' },
         ]
     },
-    { label: 'Life', href: '#life', num: '07', desc: 'Culture & people', icon: Smile },
-    { label: 'Contact', href: '#contact', num: '08', desc: 'Start a conversation', icon: Mail },
-    { label: 'Settings', href: '#settings', num: '09', desc: 'Manage preferences', icon: Settings },
+    { label: 'Life', href: '#life', num: '08', desc: 'Culture & people', icon: Smile },
+    { label: 'Contact', href: '#contact', num: '09', desc: 'Start a conversation', icon: Mail },
+    { label: 'Settings', href: '#settings', num: '10', desc: 'Manage preferences', icon: Settings },
 ];
+
 
 const SOCIAL_LINKS = [
     { icon: Linkedin, href: 'https://www.linkedin.com/company/centillionlabs/', label: 'LinkedIn' },
