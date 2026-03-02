@@ -1,6 +1,6 @@
 ﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import {
-    X, ArrowUpRight, Globe, Rss, Send, Zap,
+    X, ArrowUpRight, Rss, Zap,
     Home, Info, Layers, FolderOpen, Users, Building2, Smile, Mail, Settings,
     type LucideIcon,
 } from 'lucide-react';
@@ -20,9 +20,7 @@ const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon:
 ];
 
 const SOCIAL_LINKS = [
-    { icon: Globe, href: 'https://github.com', label: 'Website' },
-    { icon: Rss, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Send, href: 'https://twitter.com', label: 'Twitter' },
+    { icon: Rss, href: 'https://www.linkedin.com/company/centillionlabs/', label: 'LinkedIn' },
 ];
 
 /* â”€â”€ Theme hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -352,10 +350,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                         }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
                                 <div>
-                                    <p className="mono-text" style={{
-                                        fontSize: '0.65rem', letterSpacing: '0.28em',
-                                        color: 'var(--accent-primary)',
-                                    }}>Navigation</p>
                                     <p style={{
                                         fontSize: '1.1rem', fontWeight: 700, letterSpacing: '0.06em',
                                         color: 'var(--sb-text-h)', marginTop: '1px',
@@ -594,12 +588,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                     ))}
                                 </div>
 
-                                <p className="mono-text" style={{
-                                    fontSize: '0.6rem', letterSpacing: '0.14em',
-                                    color: 'var(--sb-label-muted)',
-                                }}>
-                                    AI Â· ETHICS Â· ARCH
-                                </p>
                             </div>
                         </motion.div>
                     </motion.div>
