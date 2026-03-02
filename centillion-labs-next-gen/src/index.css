@@ -119,6 +119,46 @@ h6 {
   will-change: transform, opacity, backdrop-filter;
 }
 
+/* Default card padding */
+.card-pad {
+  padding: 2rem;
+}
+
+/* Page-level centred max-width container */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Gradient heading text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-primary), var(--text-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient border */
+@keyframes borderPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1;   }
+}
+.border-pulse {
+  animation: borderPulse 3s ease-in-out infinite;
+}
+
+/* Shimmer sweep */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+  background-size: 200% auto;
+  animation: shimmer 2.5s linear infinite;
+}
+
 section {
   will-change: transform, opacity;
 }

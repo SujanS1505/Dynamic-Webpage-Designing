@@ -1,185 +1,118 @@
 import { motion } from 'framer-motion';
-import { Megaphone, ShieldCheck, Lock, ShoppingCart, Link2 } from 'lucide-react';
-import { PageLayout, PageHero, FadeIn } from './PageLayout';
+import { Megaphone, Shield, Lock, Cpu, ShoppingCart, ArrowRight } from 'lucide-react';
+import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag } from './PageLayout';
 
 const INDUSTRIES = [
   {
-    id: 'adtech',
-    icon: Megaphone,
-    name: 'Advertising & Media',
-    client: 'Taboola',
-    clientDesc: "World's leading discovery & native advertising platform",
-    color: '#00e5ff',
-    description: 'Centillion powers data-driven advertising at global scale. For Taboola — the world\'s largest native advertising platform — we architect real-time analytics pipelines, event stream processing, and ML-driven personalization models that run at billions of requests per day.',
-    solutions: [
-      'Real-time clickstream analytics and event processing',
-      'Recommendation model training & serving infrastructure',
-      'Data Clean Room for privacy-preserving audience analytics',
-      'Databricks-powered optimization for ad revenue',
-      'FinOps and cloud cost optimization at planetary scale',
-      'A/B experimentation frameworks for ad performance',
-    ],
-    techs: ['Spark', 'Databricks', 'GCP', 'Kafka', 'Scala', 'Data Clean Room'],
+    id: 'adtech', icon: Megaphone, client: 'Taboola', sector: 'Advertising & Media', color: '#00e5ff',
+    headline: 'Precision advertising intelligence at web scale.',
+    desc: "Enabling Taboola's global native advertising network with real-time analytics pipelines, Data Clean Room architecture, and privacy-preserving collaboration for their advertising partners.",
+    solutions: ['Real-time Analytics with Spark & Databricks', 'Data Clean Room (Plato)', 'Differential Privacy pipelines', 'Knowledge Graph for content signals', 'High-throughput event streaming'],
+    tags: ['Real-time Analytics', 'Data Clean Room', 'Plato', 'Databricks'],
   },
   {
-    id: 'insurance',
-    icon: ShieldCheck,
-    name: 'Insurance & Reinsurance',
-    client: 'SwissRe',
-    clientDesc: 'Global reinsurance and insurance leader',
-    color: '#00bcd4',
-    description: 'For SwissRe — a global reinsurance giant — Centillion brings cloud migration expertise, data governance frameworks, and AI-powered risk modeling. Our philosophy of Responsible AI and Ethical AI directly maps to the actuarial rigor demanded by the insurance sector.',
-    solutions: [
-      'Cloud migration (AWS / GCP / Azure) for legacy actuarial systems',
-      'Data Mesh architecture for distributed risk data ownership',
-      'Knowledge Graphs for complex relationship modeling',
-      'Generative AI for document synthesis and underwriting assistance',
-      'Post-quantum cryptography for long-term data security',
-      'Sovereignty and regulatory compliance frameworks',
-    ],
-    techs: ['AWS', 'GCP', 'Terraform', 'Knowledge Graphs', 'Data Mesh', 'Responsible AI'],
+    id: 'insurance', icon: Shield, client: 'SwissRe', sector: 'Insurance / Reinsurance', color: '#00bcd4',
+    headline: "Cloud-scale risk intelligence for the world's largest reinsurer.",
+    desc: 'Supporting SwissRe with a large-scale cloud migration to GCP, Data Mesh adoption, and Responsible AI frameworks — ensuring governance and ethical AI principles across all analytical workloads.',
+    solutions: ['GCP cloud migration strategy', 'Data Mesh with Databricks accelerators', 'Responsible AI governance framework', 'FinOps for cloud cost optimization', 'Regulatory compliance & data lineage'],
+    tags: ['Data Mesh', 'Responsible AI', 'FinOps', 'GCP', 'Governance'],
   },
   {
-    id: 'cybersecurity',
-    icon: Lock,
-    name: 'Cybersecurity & Supply Chain',
-    client: 'Security Scorecard',
-    clientDesc: 'Supply chain security intelligence platform',
-    color: '#26a69a',
-    description: 'Centillion partners with Security Scorecard to harden the modern cyber supply chain. Our expertise in Data Observability, Security as a Service, Multicloud DAM, and Post-quantum Cryptography gives security products the data backbone they need to operate at enterprise scale.',
-    solutions: [
-      'Security data pipelines at petabyte scale',
-      'Multicloud Data Access Management (DAM)',
-      'Post-quantum Cryptography implementation',
-      'Differential Privacy for sensitive telemetry data',
-      'Confidential Computing for secure data processing',
-      'Homomorphic Encryption for privacy-preserving analytics',
-    ],
-    techs: ['Go', 'Scala', 'Post-quantum Crypto', 'Differential Privacy', 'Confidential Computing'],
+    id: 'cyber', icon: Lock, client: 'Security Scorecard', sector: 'Cybersecurity / Supply Chain', color: '#26a69a',
+    headline: 'Post-quantum security for the connected enterprise.',
+    desc: 'Delivering cutting-edge security architecture for Security Scorecard — including post-quantum cryptography, Multicloud Data Access Management, and Homomorphic Encryption to future-proof sensitive data.',
+    solutions: ['Post-quantum Cryptography adoption', 'Multicloud Data Access Management', 'Homomorphic Encryption pipelines', 'Confidential Computing environments', 'Zero-trust data architecture'],
+    tags: ['Post-quantum', 'Multicloud DAM', 'Homomorphic Encryption', 'Confidential Computing'],
   },
   {
-    id: 'blockchain',
-    icon: Link2,
-    name: 'Blockchain & Web3',
-    client: 'BlockChainSentry',
-    clientDesc: 'Smart contract security platform',
-    color: '#0097a7',
-    description: 'For BlockChainSentry, Centillion applies its Go-based Claudius framework and distributed systems expertise to build high-performance smart contract auditing and on-chain data pipelines. etcd, Raft, and gRPC enable trustless coordination at the infrastructure layer.',
-    solutions: [
-      'Smart contract audit data pipeline architecture',
-      'Go-based distributed system backends (Claudius framework)',
-      'gRPC-based high-performance API layers',
-      'etcd + Raft consensus for distributed state management',
-      'On-chain event indexing and real-time analytics',
-      'DevOps / CI-CD pipeline for blockchain node infrastructure',
-    ],
-    techs: ['Go', 'Claudius', 'gRPC', 'etcd', 'Raft', 'Terraform'],
+    id: 'web3', icon: Cpu, client: 'BlockChainSentry', sector: 'Blockchain / Web3', color: '#0097a7',
+    headline: 'Distributed consensus at the heart of decentralized finance.',
+    desc: "Deploying Centillion's Claudius Go framework to power BlockChainSentry's distributed ledger infrastructure — using Goroutines, gRPC, etcd, and Raft for high-availability consensus and peer-to-peer communication.",
+    solutions: ['Claudius Go framework deployment', 'gRPC-based peer communication', 'etcd distributed key-value store', 'Raft consensus for ledger integrity', 'Goroutines for concurrent transaction processing'],
+    tags: ['Claudius', 'gRPC', 'etcd', 'Raft', 'Golang'],
   },
   {
-    id: 'retail',
-    icon: ShoppingCart,
-    name: 'Retail & Grocery',
-    client: 'EzOut',
-    clientDesc: 'AI-powered checkout for grocers',
-    color: '#007c91',
-    description: 'Centillion helps retail players like EzOut boost revenue and profit margins through AristotleAI-powered demand forecasting, inventory optimization, and personalized retail language models. Our Retail LM is fine-tuned for grocery and retail-specific corpora.',
-    solutions: [
-      'Retail Language Model (Retail LM) — fine-tuned LLM',
-      'Demand forecasting and inventory optimization',
-      'Real-time recommendation & personalization engines',
-      'In-store edge AI (Micro Models + Sensor Fusion)',
-      'POS and operational data pipelines on GCP',
-      'FinOps — reducing cloud costs for margin improvement',
-    ],
-    techs: ['AristotleAI', 'Retail LM', 'Vertex AI', 'Edge AI', 'Databricks', 'GCP'],
+    id: 'retail', icon: ShoppingCart, client: 'EzOut', sector: 'Retail / Grocery', color: '#007c91',
+    headline: 'AI at the shelf — instant, intelligent, in-store.',
+    desc: "EzOut's smart checkout experience is powered by Centillion's Retail Language Model, Edge AI inference, and Databricks lakehouse for real-time inventory and demand forecasting at scale.",
+    solutions: ['Retail Language Model (AristotleAI)', 'Edge AI for in-store inference', 'Databricks lakehouse', 'Real-time inventory intelligence', 'Demand forecasting & replenishment AI'],
+    tags: ['Retail LM', 'Edge AI', 'Databricks', 'AristotleAI', 'Real-time ML'],
   },
 ];
 
-export const IndustriesPage: React.FC = () => {
-  return (
-    <PageLayout>
-      <PageHero
-        tag="// INDUSTRIES"
-        headline={"Sectors We\nTransform."}
-        sub="From native advertising to global reinsurance, Centillion delivers bespoke AI and data solutions across the industries that are shaping the digital economy."
-      />
+const container = { visible: { transition: { staggerChildren: 0.09 } } };
+const item = { hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
 
-      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,7rem)' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-          {INDUSTRIES.map((ind, i) => {
-            const Icon = ind.icon;
-            const isEven = i % 2 === 0;
-            return (
-              <FadeIn key={ind.id} delay={i * 0.07}>
-                <motion.div
-                  whileHover={{ y: -3, boxShadow: `0 20px 50px ${ind.color}14` }}
-                  className="glass-panel card-pad"
-                  style={{ borderRadius: '22px', border: `1px solid ${ind.color}28`, overflow: 'hidden', transition: 'box-shadow 0.3s' }}
-                >
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: '2.5rem', alignItems: 'flex-start' }}>
-                    {/* Left */}
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                        <div style={{
-                          width: 52, height: 52, borderRadius: '16px',
-                          background: `linear-gradient(135deg, ${ind.color}20, ${ind.color}06)`,
-                          border: `1px solid ${ind.color}33`,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                        }}>
-                          <Icon size={24} style={{ color: ind.color }} />
-                        </div>
-                        <div>
-                          <div className="mono-text" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', color: ind.color, marginBottom: '0.2rem' }}>INDUSTRY</div>
-                          <h2 style={{ fontSize: 'clamp(1.1rem,2.5vw,1.5rem)', fontWeight: 500, color: 'var(--text-primary)', margin: 0 }}>{ind.name}</h2>
-                        </div>
-                      </div>
+export const IndustriesPage: React.FC = () => (
+  <PageLayout>
+    <PageHero
+      tag="// VERTICALS"
+      headline={"Industries\nWe Serve."}
+      sub="Centillion Labs extends bespoke AI and data engineering capabilities across five high-growth verticals — building production-grade platforms that power mission-critical enterprise decisions."
+    />
 
-                      {/* Client badge */}
-                      <div style={{
-                        display: 'inline-flex', alignItems: 'flex-start', flexDirection: 'column', gap: '0.2rem',
-                        background: `${ind.color}0d`, border: `1px solid ${ind.color}2a`,
-                        borderRadius: '10px', padding: '0.7rem 1rem', marginBottom: '1.2rem',
-                      }}>
-                        <span className="mono-text" style={{ fontSize: '0.65rem', color: ind.color, letterSpacing: '0.12em' }}>CLIENT ↓</span>
-                        <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{ind.client}</span>
-                        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{ind.clientDesc}</span>
-                      </div>
+    {/* Industry cards */}
+    <Sec>
+      <SectionHead tag="// CLIENT VERTICALS" headline="Five Industries. Real Results." sub="Each engagement is a reference architecture — a blueprint that compounds value over time." />
 
-                      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontWeight: 300, fontSize: '0.9rem', marginBottom: '1.2rem' }}>{ind.description}</p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {INDUSTRIES.map((ind, i) => {
+          const Icon = ind.icon;
+          return (
+            <FadeIn key={ind.id} delay={i * 0.07} direction={i % 2 === 0 ? 'left' : 'right'}>
+              <motion.div whileHover={{ y: -4, boxShadow: `0 20px 50px ${ind.color}14` }} className="glass-panel" style={{ borderRadius: '20px', overflow: 'hidden', border: `1px solid ${ind.color}1a` }}>
 
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                        {ind.techs.map(t => (
-                          <span key={t} style={{ background: `${ind.color}0e`, border: `1px solid ${ind.color}28`, color: ind.color, fontSize: '0.72rem', padding: '0.25rem 0.65rem', borderRadius: '6px' }}>{t}</span>
-                        ))}
-                      </div>
-                    </div>
+                {/* Header bar */}
+                <div style={{ padding: '2rem 2.5rem 1.5rem', borderBottom: `1px solid ${ind.color}1a`, display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                  <div style={{ width: 52, height: 52, borderRadius: '14px', background: `linear-gradient(135deg, ${ind.color}24, ${ind.color}06)`, border: `1px solid ${ind.color}2a`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                    <Icon size={24} style={{ color: ind.color }} />
+                  </div>
+                  <div>
+                    <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', color: ind.color, marginBottom: '0.2rem' }}>CLIENT</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '0.1rem' }}>{ind.client}</div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{ind.sector}</div>
+                  </div>
+                  <div style={{ flex: 1, minWidth: '200px' }}>
+                    <h3 style={{ fontWeight: 300, fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{ind.headline}</h3>
+                  </div>
+                </div>
 
-                    {/* Right — solutions */}
-                    <div>
-                      <div className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: ind.color, marginBottom: '1rem' }}>CENTILLION SOLUTIONS</div>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
-                        {ind.solutions.map((s, si) => (
-                          <motion.li
-                            key={s}
-                            initial={{ opacity: 0, x: -8 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: si * 0.05 }}
-                            style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', color: 'var(--text-secondary)', fontWeight: 300, fontSize: '0.88rem', lineHeight: 1.6 }}
-                          >
-                            <span style={{ color: ind.color, flexShrink: 0, fontWeight: 600 }}>▸</span>
-                            {s}
-                          </motion.li>
-                        ))}
-                      </ul>
+                {/* Body */}
+                <div style={{ padding: '1.5rem 2.5rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: '2rem' }}>
+                  <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontWeight: 300, fontSize: '0.9rem' }}>{ind.desc}</p>
+
+                  <div>
+                    <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.16em', color: ind.color, marginBottom: '1rem' }}>WHAT WE BUILT</div>
+                    <motion.ul variants={container} initial="hidden" whileInView="visible" viewport={{ once: true }} style={{ listStyle: 'none', padding: 0, margin: '0 0 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                      {ind.solutions.map(sol => (
+                        <motion.li key={sol} variants={item} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.88rem', fontWeight: 300 }}>
+                          <ArrowRight size={13} style={{ color: ind.color, flexShrink: 0, marginTop: '3px' }} />{sol}
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                      {ind.tags.map(t => <Tag key={t} label={t} color={ind.color} />)}
                     </div>
                   </div>
-                </motion.div>
-              </FadeIn>
-            );
-          })}
-        </div>
-      </section>
-    </PageLayout>
-  );
-};
+                </div>
+              </motion.div>
+            </FadeIn>
+          );
+        })}
+      </div>
+    </Sec>
+
+    {/* CTA */}
+    <Sec>
+      <FadeIn>
+        <motion.div whileHover={{ boxShadow: '0 24px 60px rgba(0,229,255,0.1)' }} className="glass-panel card-pad" style={{ maxWidth: '560px', margin: '0 auto', borderRadius: '22px', textAlign: 'center', borderTop: '2px solid var(--accent-primary)' }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '1rem' }}>Your Industry. Our Expertise.</h2>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '2rem', fontWeight: 300 }}>Ready to see what a bespoke AI and data platform looks like for your sector?</p>
+          <motion.a href="mailto:connect@centillionlabs.com" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--accent-primary)', color: '#000', padding: '0.9rem 2rem', borderRadius: '10px', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none', letterSpacing: '0.06em' }}>
+            START THE CONVERSATION →
+          </motion.a>
+        </motion.div>
+      </FadeIn>
+    </Sec>
+  </PageLayout>
+);

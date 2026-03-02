@@ -1,212 +1,159 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Briefcase, Zap, ShieldCheck, Globe2, Mail, ExternalLink } from 'lucide-react';
-import { PageLayout, PageHero, FadeIn } from './PageLayout';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Database, BarChart2, Layers, Code2, ChevronDown, Lightbulb, GitBranch, Users, Sparkles } from 'lucide-react';
+import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag } from './PageLayout';
 
-const OPENINGS = [
+const ROLES = [
   {
-    title: 'Data Engineer',
-    type: 'Full-time',
-    location: 'Remote (India / Global)',
-    color: '#00e5ff',
-    desc: "Join Centillion's engineering core. Work on high-throughput data pipelines, event stream processing, and batch analytics at enterprise scale. You'll be part of a small, cross-functional team that ships autonomously.",
-    skills: ['PySpark', 'Apache Spark', 'Scala', 'Databricks', 'GCP / AWS', 'Data Mesh'],
-    highlights: [
-      'Build and maintain distributed data pipelines at petabyte scale',
-      'Collaborate with Data Architects on Data Mesh implementation',
-      "Contribute to Centillion's AristotleAI data layer",
-      'Work with Cloud teams on GCP / Databricks optimization',
-    ],
+    id: 'de', icon: Database, title: 'Data Engineer', color: '#00e5ff',
+    type: 'Full-time', location: 'Bangalore, India',
+    summary: 'Build and maintain data pipelines at petabyte scale. Join the team behind AristotleAI and Plato.',
+    desc: "We are looking for a Data Engineer who thrives at the intersection of distributed computing and enterprise data systems. You'll design, build, and optimize Apache Spark-based pipelines on Databricks and GCP, working closely with our AI and Platform teams.",
+    skills: ['PySpark', 'Apache Spark', 'Scala', 'Databricks', 'GCP', 'BigQuery', 'Airflow', 'Data Mesh'],
+    nice: ['Knowledge Graphs', 'dbt', 'Kafka', 'Terraform'],
   },
   {
-    title: 'Technical Manager',
-    type: 'Full-time',
-    location: 'Remote (India / US)',
-    color: '#00bcd4',
-    desc: "Lead cross-functional teams that own full delivery — from architecture to deployment. You'll champion Centillion's AI-CoE culture, drive DevOps practices, and act as a bridge between strategy and execution.",
-    skills: ['Technical Leadership', 'Cloud Strategy', 'Agile/DevOps', 'AI-CoE Culture', 'Stakeholder Management'],
-    highlights: [
-      'Drive team autonomy and full delivery ownership',
-      'Define and maintain engineering standards across projects',
-      'Engage with C-suite clients as a trusted technical advisor',
-      'Champion cloud cost optimization and architecture best practices',
-    ],
+    id: 'tm', icon: BarChart2, title: 'Technical Manager', color: '#00bcd4',
+    type: 'Full-time', location: 'Bangalore / Remote',
+    summary: 'Lead a high-performance cross-functional engineering team. Shape technical strategy and delivery.',
+    desc: "The Technical Manager bridges engineering excellence and strategic delivery. You'll lead squads across cloud, data, and AI streams — setting technical direction, ensuring quality, and growing the next generation of Centillion engineers.",
+    skills: ['Leadership', 'Cloud Strategy', 'Agile Delivery', 'AWS/GCP/Azure', 'Team Building', 'Architecture Review'],
+    nice: ['AI/ML background', 'FinOps', 'Data strategy', 'Go or Scala'],
   },
   {
-    title: 'Data Architect',
-    type: 'Full-time',
-    location: 'Remote (India / US / Global)',
-    color: '#26a69a',
-    desc: "Design and govern enterprise data architectures for Centillion's global clients. Expertise in NoSQL, data stewardship, and semantic modeling is key. You'll set the standards that our engineering teams execute against.",
-    skills: ['NoSQL / NewSQL', 'Data Steward', 'Data Governance', 'Knowledge Graphs', 'Ontology Design', 'Data Clean Room'],
-    highlights: [
-      'Design scalable data models for complex enterprise domains',
-      'Implement Data Mesh patterns with decentralized ownership',
-      'Build Knowledge Graph architectures for semantic search',
-      'Define data governance and stewardship frameworks',
-    ],
+    id: 'da', icon: Layers, title: 'Data Architect', color: '#26a69a',
+    type: 'Full-time', location: 'Bangalore, India',
+    summary: 'Architect the data foundations for next-generation enterprise platforms and AI products.',
+    desc: "As a Data Architect, you'll define standards, govern data assets, and design the logical and physical models that underpin Centillion's product suite. Deep expertise in NoSQL, Knowledge Graphs, and Data Mesh is essential.",
+    skills: ['NoSQL (Cassandra, MongoDB)', 'Data Stewardship', 'Knowledge Graphs', 'Data Mesh', 'Data Governance', 'Ontology Design'],
+    nice: ['Graph databases (Neo4j)', 'dbt', 'Synthetic Data', 'Differential Privacy'],
   },
   {
-    title: 'Backend Engineer',
-    type: 'Full-time',
-    location: 'Remote (India / US / Global)',
-    color: '#0097a7',
-    desc: "Build the high-performance backend systems that Centillion's products run on. Mastery of Go and microservices is essential. You'll contribute to the Claudius framework and client-facing APIs.",
-    skills: ['Golang', 'Microservices', 'gRPC', 'etcd', 'Raft', 'Kubernetes'],
-    highlights: [
-      "Contribute to Claudius — Centillion's open Go framework",
-      'Build gRPC-based service meshes for enterprise clients',
-      'Design distributed systems using etcd and Raft consensus',
-      'Optimize performance and reliability at scale',
-    ],
+    id: 'be', icon: Code2, title: 'Backend Engineer', color: '#0097a7',
+    type: 'Full-time', location: 'Bangalore / Remote',
+    summary: "Build the distributed backend systems that power Claudius and Centillion's enterprise APIs.",
+    desc: "We need a Go engineer who lives and breathes distributed systems. You'll extend the Claudius framework — implementing new concurrency patterns, optimizing gRPC services, and working with etcd and Raft for consensus-critical systems.",
+    skills: ['Golang', 'Microservices', 'gRPC', 'etcd', 'Kubernetes', 'Raft', 'Protobuf', 'Docker'],
+    nice: ['Scala', 'Kafka', 'Terraform', 'Service mesh (Istio)'],
   },
 ];
 
-const CULTURE_PILLARS = [
-  { icon: Zap, title: 'AI-CoE Culture', desc: 'Small, autonomous, cross-functional teams that own end-to-end delivery — engineering, data, and AI in one unit.' },
-  { icon: ShieldCheck, title: 'Responsible AI', desc: "Every engineer contributes to Centillion's mission of Ethical AI. Human supervision and transparency are non-negotiable." },
-  { icon: Globe2, title: 'Remote-first & Global', desc: 'India HQ in Bangalore. US presence in New Jersey. Fully distributed team working across time zones.' },
-  { icon: Briefcase, title: 'Elite Work, Real Impact', desc: 'Work with the elite 3% of tech talent on enterprise problems that matter — serving clients like Taboola, SwissRe, and Security Scorecard.' },
+const PILLARS = [
+  { icon: Lightbulb, title: 'Innovation First', desc: "We challenge the status quo. Every sprint is an opportunity to architect something genuinely new." },
+  { icon: GitBranch, title: 'Ship with Purpose', desc: 'We build products used by global enterprises. Quality, governance, and performance are non-negotiable.' },
+  { icon: Users, title: 'Small, Empowered Teams', desc: 'Autonomous pods with full ownership. No bureaucracy. Maximum impact.' },
+  { icon: Sparkles, title: 'Continuous Growth', desc: "Conferences, knowledge-shares, open-source contributions, and domain sabbaticals — learning is part of the job." },
 ];
 
 export const LifePage: React.FC = () => {
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
     <PageLayout>
       <PageHero
         tag="// CAREERS"
         headline={"Life at\nCentillion."}
-        sub="Join a team of Data Ontologists, AI Engineers, and Cloud Architects. We are advocates of Open Source, Responsible AI, and the belief that elite engineers can change the world — 24 to 48 hours at a time."
+        sub="Work with the Elite 3%. We are a team of AI engineers, data architects, cloud consultants, and distributed systems experts — on a mission to make enterprise data work harder and smarter."
       />
 
-      {/* Culture Pillars */}
-      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,6rem)' }}>
-        <FadeIn>
-          <div className="mono-text" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--accent-primary)', marginBottom: '1rem' }}>// OUR CULTURE</div>
-          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '2rem' }}>Why Engineers Choose Centillion</h2>
-        </FadeIn>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(240px,100%), 1fr))', gap: '1.2rem' }}>
-          {CULTURE_PILLARS.map((p, i) => {
+      {/* Culture */}
+      <Sec>
+        <SectionHead tag="// CULTURE & VALUES" headline="What It Feels Like to Work Here" sub="We're building more than software — we're cultivating a culture of craft." />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(230px,100%), 1fr))', gap: '1.25rem' }}>
+          {PILLARS.map((p, i) => {
             const Icon = p.icon;
             return (
-              <FadeIn key={p.title} delay={i * 0.06}>
-                <motion.div whileHover={{ y: -4 }} className="glass-panel card-pad" style={{ borderRadius: '16px' }}>
-                  <div style={{
-                    width: 44, height: 44, borderRadius: '12px',
-                    background: 'rgba(0,229,255,0.07)', border: '1px solid rgba(0,229,255,0.18)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem',
-                  }}>
+              <FadeIn key={p.title} delay={i * 0.07}>
+                <motion.div whileHover={{ y: -5 }} className="glass-panel card-pad" style={{ borderRadius: '18px', borderTop: '2px solid var(--accent-primary)' }}>
+                  <div style={{ width: 44, height: 44, borderRadius: '12px', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
                     <Icon size={20} style={{ color: 'var(--accent-primary)' }} />
                   </div>
-                  <h3 style={{ fontWeight: 500, color: 'var(--text-primary)', marginBottom: '0.5rem', fontSize: '0.95rem' }}>{p.title}</h3>
-                  <p style={{ color: 'var(--text-secondary)', fontWeight: 300, lineHeight: 1.7, fontSize: '0.88rem', margin: 0 }}>{p.desc}</p>
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>{p.title}</h3>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.7, fontWeight: 300 }}>{p.desc}</p>
                 </motion.div>
               </FadeIn>
             );
           })}
         </div>
-      </section>
+      </Sec>
 
-      {/* Open Positions */}
-      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,6rem)' }}>
-        <FadeIn>
-          <div className="mono-text" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--accent-primary)', marginBottom: '1rem' }}>// OPEN POSITIONS</div>
-          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '2.5rem' }}>Join the Team</h2>
-        </FadeIn>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', maxWidth: '900px' }}>
-          {OPENINGS.map((job, i) => (
-            <FadeIn key={job.title} delay={i * 0.06}>
-              <motion.div
-                whileHover={{ x: 4 }}
-                onClick={() => setExpanded(expanded === i ? null : i)}
-                className="glass-panel card-pad"
-                style={{ borderRadius: '16px', cursor: 'pointer', border: `1px solid ${expanded === i ? job.color + '44' : 'var(--border-color)'}`, transition: 'border-color 0.3s' }}
-              >
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
-                      <h3 style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '1rem', margin: 0 }}>{job.title}</h3>
-                      <span style={{ background: `${job.color}12`, border: `1px solid ${job.color}2a`, color: job.color, fontSize: '0.7rem', padding: '0.2rem 0.6rem', borderRadius: '6px', fontWeight: 500 }}>{job.type}</span>
+      {/* Open Roles */}
+      <Sec>
+        <SectionHead tag="// OPEN POSITIONS" headline="Join the 3%" sub="We hire for curiosity, depth, and drive. If you are exceptional, there's always room for you." />
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          {ROLES.map((role, i) => {
+            const Icon = role.icon;
+            const isOpen = expanded === role.id;
+            return (
+              <FadeIn key={role.id} delay={i * 0.05}>
+                <motion.div layout className="glass-panel" style={{ borderRadius: '18px', border: `1px solid ${isOpen ? role.color + '44' : 'var(--border-color)'}`, overflow: 'hidden', transition: 'border-color 0.3s' }}>
+                  <motion.button onClick={() => setExpanded(isOpen ? null : role.id)} whileHover={{ backgroundColor: `${role.color}06` }}
+                    style={{ width: '100%', background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '1.25rem', padding: '1.5rem 2rem', textAlign: 'left' }}>
+                    <div style={{ width: 46, height: 46, borderRadius: '12px', background: `${role.color}14`, border: `1px solid ${role.color}22`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Icon size={20} style={{ color: role.color }} />
                     </div>
-                    <div className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', letterSpacing: '0.08em' }}>{job.location}</div>
-                  </div>
-                  <motion.div animate={{ rotate: expanded === i ? 45 : 0 }} transition={{ duration: 0.2 }}>
-                    <ExternalLink size={16} style={{ color: 'var(--text-secondary)' }} />
-                  </motion.div>
-                </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '0.15rem' }}>{role.title}</div>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', display: 'flex', gap: '1rem' }}>
+                        <span className="mono-text" style={{ letterSpacing: '0.1em', color: role.color }}>{role.type}</span>
+                        <span>{role.location}</span>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontStyle: 'italic', display: 'none', maxWidth: '300px' } as React.CSSProperties}>{role.summary}</div>
+                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
+                      <ChevronDown size={18} style={{ color: 'var(--text-secondary)' }} />
+                    </motion.div>
+                  </motion.button>
 
-                {expanded === i && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    style={{ overflow: 'hidden', marginTop: '1.5rem', borderTop: `1px solid ${job.color}1a`, paddingTop: '1.5rem' }}
-                  >
-                    <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontWeight: 300, fontSize: '0.9rem', marginBottom: '1.5rem' }}>{job.desc}</p>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px,1fr))', gap: '1.5rem' }}>
-                      <div>
-                        <div className="mono-text" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', color: job.color, marginBottom: '0.8rem' }}>KEY SKILLS</div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                          {job.skills.map(s => (
-                            <span key={s} style={{ background: `${job.color}0e`, border: `1px solid ${job.color}28`, color: job.color, fontSize: '0.72rem', padding: '0.25rem 0.65rem', borderRadius: '6px' }}>{s}</span>
-                          ))}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} style={{ overflow: 'hidden' }}>
+                        <div style={{ padding: '0 2rem 2rem', borderTop: `1px solid ${role.color}18` }}>
+                          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.85, fontWeight: 300, fontSize: '0.9rem', padding: '1.5rem 0 1.25rem', borderBottom: `1px dashed ${role.color}18` }}>{role.desc}</p>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px,100%), 1fr))', gap: '1.5rem', paddingTop: '1.25rem' }}>
+                            <div>
+                              <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.15em', color: role.color, marginBottom: '0.8rem' }}>REQUIRED SKILLS</div>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                                {role.skills.map(s => <Tag key={s} label={s} color={role.color} />)}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.15em', color: role.color, marginBottom: '0.8rem' }}>NICE TO HAVE</div>
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                                {role.nice.map(s => <Tag key={s} label={s} color="var(--text-secondary)" />)}
+                              </div>
+                            </div>
+                          </div>
+                          <div style={{ marginTop: '1.5rem' }}>
+                            <motion.a href={`mailto:connect@centillionlabs.com?subject=Application: ${role.title}`} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: role.color, color: '#000', padding: '0.7rem 1.6rem', borderRadius: '9px', fontWeight: 700, fontSize: '0.82rem', textDecoration: 'none', letterSpacing: '0.07em' }}>
+                              APPLY NOW →
+                            </motion.a>
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <div className="mono-text" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', color: job.color, marginBottom: '0.8rem' }}>RESPONSIBILITIES</div>
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                          {job.highlights.map(h => (
-                            <li key={h} style={{ display: 'flex', gap: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 300, lineHeight: 1.6 }}>
-                              <span style={{ color: job.color, flexShrink: 0 }}>▸</span>{h}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                    <motion.a
-                      href="mailto:connect@centillionlabs.com"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginTop: '1.5rem',
-                        background: job.color, color: '#000', padding: '0.7rem 1.5rem', borderRadius: '10px',
-                        fontWeight: 600, fontSize: '0.82rem', letterSpacing: '0.06em', textDecoration: 'none',
-                      }}
-                    >
-                      <Mail size={14} /> APPLY NOW
-                    </motion.a>
-                  </motion.div>
-                )}
-              </motion.div>
-            </FadeIn>
-          ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </FadeIn>
+            );
+          })}
         </div>
-      </section>
+      </Sec>
 
-      {/* Contact CTA */}
-      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,7rem)', textAlign: 'center' }}>
+      {/* General CTA */}
+      <Sec>
         <FadeIn>
-          <div className="glass-panel card-pad" style={{ maxWidth: '600px', margin: '0 auto', borderRadius: '22px', padding: '3rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '0.8rem' }}>Don't see the right role?</h2>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.7, fontWeight: 300, marginBottom: '2rem', fontSize: '0.95rem' }}>
-              We're always looking for extraordinary engineers. Reach out at <strong style={{ color: 'var(--accent-primary)' }}>connect@centillionlabs.com</strong> with your profile.
-            </p>
-            <motion.a
-              href="mailto:connect@centillionlabs.com"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                background: 'var(--accent-primary)', color: '#000',
-                padding: '0.9rem 2rem', borderRadius: '10px',
-                fontWeight: 600, fontSize: '0.9rem', letterSpacing: '0.05em', textDecoration: 'none',
-              }}
-            >
-              <Mail size={16} /> GET IN TOUCH
+          <motion.div whileHover={{ boxShadow: '0 24px 60px rgba(0,229,255,0.1)' }} className="glass-panel card-pad" style={{ maxWidth: '560px', margin: '0 auto', borderRadius: '22px', textAlign: 'center', borderTop: '2px solid var(--accent-primary)' }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem,3vw,2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '1rem' }}>Don't See Your Role?</h2>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '1.75rem', fontWeight: 300 }}>We're always open to exceptional individuals. Send us a note and we'll consider how your expertise fits our mission.</p>
+            <motion.a href="mailto:connect@centillionlabs.com?subject=General Application" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'var(--accent-primary)', color: '#000', padding: '0.9rem 2rem', borderRadius: '10px', fontWeight: 700, fontSize: '0.88rem', textDecoration: 'none', letterSpacing: '0.06em' }}>
+              INTRODUCE YOURSELF →
             </motion.a>
-          </div>
+          </motion.div>
         </FadeIn>
-      </section>
+      </Sec>
     </PageLayout>
   );
 };
