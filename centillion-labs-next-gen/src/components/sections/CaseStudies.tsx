@@ -29,7 +29,7 @@ export const CaseStudies: React.FC = () => {
                         marginBottom: '4rem',
                         letterSpacing: '-0.02em',
                     }}>
-                        Portfolio
+                        Centillion Case Studies
                     </h2>
                 </AnimatedItem>
 
@@ -40,16 +40,11 @@ export const CaseStudies: React.FC = () => {
                 }}>
                     {CASES.map((study, idx) => (
                         <AnimatedItem key={study.title} delay={0.1 * idx}>
-                            <div style={{
+                            <div className="glass-panel card-pad" style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 height: '100%',
                                 padding: '2.5rem',
-                                borderRadius: '16px',
-                                border: '1px solid var(--border-color)',
-                                background: 'var(--glass-bg)',
-                                backdropFilter: 'blur(12px)',
-                                WebkitBackdropFilter: 'blur(12px)',
                             }}>
                                 {/* Tag */}
                                 <span className="mono-text" style={{
