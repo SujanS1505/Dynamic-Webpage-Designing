@@ -349,7 +349,7 @@ export const NeuralNetwork: React.FC = () => {
                             textAlign="center"
                             outlineWidth={0.007}
                             outlineColor="#000000"
-                            outlineOpacity={fOp * 0.6}
+                            outlineOpacity={fOp * 0.25}
                             fillOpacity={fOp}
                         >
                             {f.text}
@@ -364,7 +364,7 @@ export const NeuralNetwork: React.FC = () => {
                             position={[0, -0.05, 0]}
                             maxWidth={3.8}
                             textAlign="center"
-                            fillOpacity={fOp * 0.6}
+                            fillOpacity={fOp * 0.25}
                         >
                             {f.label}
                         </Text>
