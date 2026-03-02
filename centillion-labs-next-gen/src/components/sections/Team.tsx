@@ -11,7 +11,7 @@ const TEAM = [
 export const Team: React.FC = () => {
     return (
         <AnimatedSection id="team">
-            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec">
                 <AnimatedItem>
                     <h2 style={{
                         fontSize: 'clamp(3rem, 5vw, 5rem)',
@@ -26,13 +26,13 @@ export const Team: React.FC = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: '2.5rem'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px, 100%), 1fr))',
+                    gap: 'clamp(1.5rem, 3vw, 2.5rem)'
                 }}>
                     {TEAM.map((member, idx) => (
                         <AnimatedItem key={member.name} delay={0.1 * idx}>
                             <div
-                                className="glass-panel"
+                                className="glass-panel card-pad"
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',

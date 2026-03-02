@@ -199,3 +199,111 @@ section {
   border-color: var(--accent-primary) !important;
   background: var(--sb-item-hover) !important;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE LAYOUT SYSTEM
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --px:    clamp(1rem,   5vw,  2rem);
+  --py:    clamp(5rem,  10vw, 10rem);
+  --py-sm: clamp(3rem,   7vw,  8rem);
+  --gap-l: clamp(2rem,   5vw,  4rem);
+  --gap-m: clamp(1.5rem, 3vw,  2.5rem);
+}
+
+/* Section containers */
+.sec     { padding: var(--py)    var(--px); max-width: 1200px; margin: 0 auto; }
+.sec-sm  { padding: var(--py-sm) var(--px); max-width: 1200px; margin: 0 auto; }
+
+/* ── 2-col grids → collapse to 1-col on mobile ── */
+.split-grid {           /* 1 : 1.5  (About vision)  */
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--gap-l);
+  align-items: center;
+}
+.row-grid {             /* 1 : 2  (Service cards)   */
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--gap-m);
+}
+.row-grid-wide {        /* 1.2 : 2  (Industry rows) */
+  display: grid;
+  grid-template-columns: 1.2fr 2fr;
+  gap: var(--gap-m);
+  align-items: center;
+}
+
+/* ── Mobile overrides (≤ 767 px) ── */
+@media (max-width: 767px) {
+  .split-grid,
+  .row-grid,
+  .row-grid-wide {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Tighten vertical section rhythm on small screens */
+  .sec, .sec-sm {
+    padding-top:    clamp(3.5rem, 10vw, 5rem);
+    padding-bottom: clamp(3.5rem, 10vw, 5rem);
+  }
+
+  /* Glass cards: less inner padding */
+  .card-pad { padding: 1.5rem !important; }
+
+  /* Service cards: stack label above title */
+  .service-meta { margin-bottom: 0.5rem; }
+}
+
+/* ── Tablet (768–1023 px) ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .split-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2.5rem;
+  }
+  .row-grid-wide {
+    grid-template-columns: 1fr 1.8fr;
+  }
+}
+
+/* ── Safe-area insets for notched phones ── */
+@supports (padding: env(safe-area-inset-left)) {
+  .safe-x {
+    padding-left:  max(var(--px), env(safe-area-inset-left));
+    padding-right: max(var(--px), env(safe-area-inset-right));
+  }
+}
+
+/* ── Hero responsive tweaks ── */
+@media (max-width: 480px) {
+  .hero-cta-row {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+  .hero-partner-row {
+    gap: 1.5rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
+
+/* ── Header: hide wordmark on very small screens ── */
+@media (max-width: 360px) {
+  .header-wordmark { display: none !important; }
+}
+
+/* ── Footer responsive ── */
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+}
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

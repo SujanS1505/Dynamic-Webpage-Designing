@@ -12,7 +12,7 @@ const CASES = [
 export const CaseStudies: React.FC = () => {
     return (
         <AnimatedSection id="portfolio" className="section-padding">
-            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec">
                 <AnimatedItem>
                     <h2 style={{
                         fontSize: 'clamp(3rem, 5vw, 5rem)',
@@ -27,12 +27,12 @@ export const CaseStudies: React.FC = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
                     gap: '2.5rem'
                 }}>
                     {CASES.map((study, idx) => (
                         <AnimatedItem key={study.title} delay={0.1 * idx}>
-                            <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem' }}>
+                            <div className="glass-panel card-pad" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                                 <span className="mono-text" style={{
                                     color: 'var(--accent-primary)',
                                     fontSize: '0.8rem',

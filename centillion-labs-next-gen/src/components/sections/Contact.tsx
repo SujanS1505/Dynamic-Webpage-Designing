@@ -4,8 +4,8 @@ import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 export const Contact: React.FC = () => {
     return (
         <AnimatedSection id="contact">
-            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '6rem' }}>
+            <div className="sec">
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: 'clamp(2.5rem, 8vw, 6rem)' }}>
                     <AnimatedItem>
                         <h2 style={{
                             fontSize: 'clamp(3rem, 5vw, 5rem)',

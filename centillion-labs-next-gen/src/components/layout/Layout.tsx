@@ -61,26 +61,24 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     position: 'relative',
                     zIndex: 'var(--z-content)',
                     width: '100%',
-                    maxWidth: '1440px',
-                    margin: '0 auto',
-                    padding: '0 2rem'
+                    overflowX: 'hidden',
                 }}
             >
                 {children}
             </main>
 
             <footer style={{
-                padding: '6rem 2rem',
+                padding: 'clamp(3rem,8vw,6rem) clamp(1rem,5vw,2rem)',
                 borderTop: '1px solid var(--border-color)',
-                marginTop: '10rem',
+                marginTop: 'clamp(4rem,10vw,10rem)',
                 color: 'var(--text-secondary)'
             }}>
-                <div style={{
+                <div className="footer-grid" style={{
                     maxWidth: '1200px',
                     margin: '0 auto',
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                    gap: '4rem',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gap: 'clamp(2rem,5vw,4rem)',
                     textAlign: 'left'
                 }}>
                     <div>

@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
                         gap: '2rem' 
                     }}
                 >
-                    <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <div className="hero-cta-row" style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                         <a href="#contact" className="glass-panel" style={{
                             padding: '1rem 2.5rem',
                             textDecoration: 'none',
@@ -113,7 +113,7 @@ export const Hero: React.FC = () => {
                         <p className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '1.5rem', letterSpacing: '0.2em' }}>
                             TRUSTED BY INDUSTRY LEADERS
                         </p>
-                        <div style={{ 
+                        <div className="hero-partner-row" style={{ 
                             display: 'flex', 
                             justifyContent: 'center', 
                             alignItems: 'center', 

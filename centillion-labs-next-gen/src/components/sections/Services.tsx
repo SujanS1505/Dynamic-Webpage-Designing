@@ -37,14 +37,10 @@ const SERVICES = [
 export const Services: React.FC = () => {
     return (
         <AnimatedSection id="services">
-            <div style={{
-                minHeight: '100vh',
+            <div className="sec" style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                padding: '10rem 2rem',
-                maxWidth: '1200px',
-                margin: '0 auto'
             }}>
                 <AnimatedItem>
                     <h2 style={{
@@ -66,16 +62,13 @@ export const Services: React.FC = () => {
                 }}>
                     {SERVICES.map((srv, idx) => (
                         <AnimatedItem key={srv.title} delay={0.1 * idx}>
-                            <div className="glass-panel" style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 2fr',
-                                gap: '2rem',
-                                padding: '3rem',
+                            <div className="glass-panel card-pad row-grid" style={{
+                                padding: '2.5rem',
                                 transition: 'all 0.3s ease'
                             }}>
                                 <div>
                                     <span className="mono-text" style={{ fontSize: '0.8rem', color: 'var(--accent-primary)', letterSpacing: '0.1em', display: 'block', marginBottom: '1rem' }}>{srv.type}</span>
-                                    <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.2 }}>{srv.title}</h3>
+                                    <h3 style={{ fontSize: 'clamp(1.25rem, 3vw, 2rem)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.2 }}>{srv.title}</h3>
                                 </div>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
                                     <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300 }}>

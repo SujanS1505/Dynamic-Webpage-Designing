@@ -10,14 +10,14 @@ const PRODUCTS = [
 export const Portfolio: React.FC = () => {
     return (
         <AnimatedSection id="portfolio">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec" style={{}}>
                 <AnimatedItem>
                     <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '4rem' }}>
                         Products.
                     </h2>
                 </AnimatedItem>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '4rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px,100%), 1fr))', gap: 'clamp(2rem,5vw,4rem)' }}>
                     {PRODUCTS.map((prod, idx) => (
                         <AnimatedItem key={prod.title} delay={0.1 * idx}>
                             <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>

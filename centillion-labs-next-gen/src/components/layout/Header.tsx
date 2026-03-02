@@ -37,7 +37,9 @@ export const Header: React.FC = () => {
                     display: 'grid',
                     gridTemplateColumns: '1fr auto 1fr',
                     alignItems: 'center',
-                    padding: scrolled ? '0.75rem 2rem' : '1.5rem 2rem',
+                    padding: scrolled
+                        ? `0.75rem clamp(1rem, 4vw, 2rem)`
+                        : `1.5rem clamp(1rem, 4vw, 2rem)`,
                     borderBottom: scrolled ? '1px solid var(--border-color)' : '1px solid transparent',
                     backdropFilter: scrolled ? 'blur(12px)' : 'none',
                 }}
@@ -59,8 +61,8 @@ export const Header: React.FC = () => {
                             }}
                         />
                         <span
-                            className="mono-text"
-                            style={{ fontSize: '1.2rem', fontWeight: 300, letterSpacing: '0.12em', display: 'inline-block' }}
+                            className="mono-text header-wordmark"
+                            style={{ fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', fontWeight: 300, letterSpacing: '0.12em', display: 'inline-block' }}
                         >
                             CENTILLION
                         </span>

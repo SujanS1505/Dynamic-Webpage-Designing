@@ -10,7 +10,7 @@ const LIFE_GALLERY = [
 export const LifeAtCentillion: React.FC = () => {
     return (
         <AnimatedSection id="life">
-            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec">
                 <AnimatedItem>
                     <h2 style={{
                         fontSize: 'clamp(3rem, 5vw, 5rem)',
@@ -28,7 +28,7 @@ export const LifeAtCentillion: React.FC = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px, 100%), 1fr))',
                     gap: '2.5rem'
                 }}>
                     {LIFE_GALLERY.map((item, idx) => (

@@ -42,7 +42,7 @@ const Counter: React.FC<{ target: number }> = ({ target }) => {
 export const Impact: React.FC = () => {
     return (
         <AnimatedSection id="stats" className="section-padding">
-            <div style={{ padding: '8rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec-sm" style={{ paddingLeft: 0, paddingRight: 0 }}>
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',

@@ -12,25 +12,14 @@ const SPECIALIZATIONS = [
 export const About: React.FC = () => {
     return (
         <AnimatedSection id="about">
-            <div style={{
-                minHeight: '100vh',
-                display: 'flex',
-                alignItems: 'center',
-                padding: '10rem 2rem',
-                maxWidth: '1200px',
-                margin: '0 auto'
-            }}>
+            <div className="sec" style={{ display: 'flex', alignItems: 'center' }}>
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '6rem'
+                    gap: 'clamp(3rem, 8vw, 6rem)',
+                    width: '100%',
                 }}>
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: '1fr 1.5fr',
-                        gap: '4rem',
-                        alignItems: 'center'
-                    }}>
+                    <div className="split-grid">
                         <AnimatedItem>
                             <h2 style={{
                                 fontSize: 'clamp(3rem, 5vw, 5rem)',
@@ -65,12 +54,12 @@ export const About: React.FC = () => {
 
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                        gap: '2rem'
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(250px, 100%), 1fr))',
+                        gap: 'clamp(1rem, 3vw, 2rem)'
                     }}>
                         {SPECIALIZATIONS.map((spec, index) => (
                             <AnimatedItem key={spec.title} delay={0.1 * index}>
-                                <div className="glass-panel" style={{ padding: '2.5rem', height: '100%' }}>
+                                <div className="glass-panel card-pad" style={{ padding: '2.5rem', height: '100%' }}>
                                     <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', fontWeight: 300 }}>{spec.title}</h3>
                                     <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300 }}>{spec.desc}</p>
                                 </div>

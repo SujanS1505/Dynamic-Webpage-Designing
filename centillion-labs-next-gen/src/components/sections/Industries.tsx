@@ -27,7 +27,7 @@ const INDUSTRIES = [
 export const Industries: React.FC = () => {
     return (
         <AnimatedSection id="industries">
-            <div style={{ padding: '10rem 2rem', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec">
                 <AnimatedItem>
                     <h2 style={{
                         fontSize: 'clamp(3rem, 5vw, 5rem)',
@@ -44,17 +44,14 @@ export const Industries: React.FC = () => {
                     {INDUSTRIES.map((ind, idx) => (
                         <AnimatedItem key={ind.title} delay={0.1 * idx}>
                             <div
+                                className="row-grid-wide"
                                 style={{
-                                    padding: '3rem 0',
+                                    padding: 'clamp(1.5rem, 4vw, 3rem) 0',
                                     borderTop: '1px solid var(--border-color)',
-                                    display: 'grid',
-                                    gridTemplateColumns: '1.2fr 2fr',
-                                    gap: '2rem',
-                                    alignItems: 'center'
                                 }}
                             >
-                                <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)' }}>{ind.title}</h3>
-                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300, fontSize: '1.2rem' }}>{ind.desc}</p>
+                                <h3 style={{ fontSize: 'clamp(1.2rem, 3vw, 2rem)', fontWeight: 300, color: 'var(--text-primary)' }}>{ind.title}</h3>
+                                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6, fontWeight: 300, fontSize: 'clamp(0.95rem, 2vw, 1.2rem)' }}>{ind.desc}</p>
                             </div>
                         </AnimatedItem>
                     ))}

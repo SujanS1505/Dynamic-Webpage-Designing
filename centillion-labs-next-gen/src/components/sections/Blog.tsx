@@ -10,7 +10,7 @@ const ARTICLES = [
 export const Blog: React.FC = () => {
     return (
         <AnimatedSection id="blog">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto', marginBottom: '8rem' }}>
+            <div className="sec-sm">
                 <AnimatedItem>
                     <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '4rem' }}>
                         Insights.
@@ -19,7 +19,7 @@ export const Blog: React.FC = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
                     gap: '4rem'
                 }}>
                     {ARTICLES.map((article, idx) => (

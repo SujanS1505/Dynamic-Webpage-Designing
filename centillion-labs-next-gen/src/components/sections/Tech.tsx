@@ -10,7 +10,7 @@ const TECHNOLOGIES = [
 export const Tech: React.FC = () => {
     return (
         <AnimatedSection id="tech" className="section-padding">
-            <div style={{ padding: '6rem 0', maxWidth: '1200px', margin: '0 auto' }}>
+            <div className="sec-sm">
                 <AnimatedItem>
                     <h2 style={{ fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '1rem' }}>
                         Ecosystem.
@@ -22,7 +22,7 @@ export const Tech: React.FC = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(180px, 100%), 1fr))',
                     gap: '2rem'
                 }}>
                     {TECHNOLOGIES.map((tech, idx) => (
