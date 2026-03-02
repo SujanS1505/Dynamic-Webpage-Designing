@@ -2,9 +2,9 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const SPECIALIZATIONS = [
+    { title: 'Red Teaming', desc: 'Centillion Red Team works around the clock — adversarially testing LLMs, probing inference pipelines, and hardening AI systems before threats do.' },
     { title: 'Go Lang', desc: 'Concurrency patterns, gRPC, and performance-critical systems.' },
     { title: 'Scala', desc: 'Spark core, functional design patterns, and big data processing.' },
-    { title: 'Red Teaming', desc: 'Adversary simulation testing people, processes, and technology against real-world, high-stakes threats.' },
     { title: 'Modern Data Mesh', desc: 'Data Mesh, Knowledge Graphs, and Synthetic Data solutions.' },
 ];
 
