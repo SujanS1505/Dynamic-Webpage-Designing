@@ -1,219 +1,173 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Linkedin, Mail, Code2, Database, Brain, Cloud, BarChart3, Server } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Linkedin, Users, Building2 } from 'lucide-react';
 import { PageLayout, PageHero, FadeIn } from './PageLayout';
 
-const TEAM = [
+const LEADERS = [
   {
     name: 'Mohanapriya',
-    role: 'Co-Founder & Chief Data Scientist',
-    specialty: 'ML Engineering · LLMs · Data Architecture',
-    bio: 'Leading Centillion\'s AI and machine learning strategy with deep expertise in generative AI, graph neural networks, and enterprise ML platforms. Previously led data science initiatives at top FinTech companies.',
-    skills: ['LLM Fine-Tuning', 'MLOps', 'PyTorch', 'Vertex AI', 'Feature Engineering'],
-    icon: Brain,
+    role: 'CEO & Co-Founder',
+    desc: 'Visionary leader driving Centillion\'s mission as an AI Ontology Company. Championing Responsible AI, Ethical AI, and data-driven transformation for enterprise clients worldwide. Her leadership bridges deep technical expertise with strategic business acumen.',
+    linkedin: 'https://www.linkedin.com/in/mohanapriya-appusamy-590a75340/',
     color: '#00e5ff',
-    linkedin: 'https://linkedin.com',
+    initial: 'M',
+    expertise: ['Responsible AI', 'AI Strategy', 'Data Ontology', 'Business Development'],
   },
   {
     name: 'Chinnasamy',
-    role: 'Co-Founder & Chief Technology Officer',
-    specialty: 'Data Engineering · Cloud · DevOps',
-    bio: 'Architect of Centillion\'s most ambitious data platforms. Expert in distributed systems, lakehouse architecture, and scalable cloud-native infrastructure across AWS, GCP, and Azure.',
-    skills: ['Apache Spark', 'Kubernetes', 'Terraform', 'Kafka', 'Delta Lake'],
-    icon: Cloud,
+    role: 'CTO & Co-Founder',
+    desc: 'Technical architect behind Centillion\'s full product suite — AristotleAI, Plato, Claudius, and Hexacube. Deep expertise across Go, Scala, Cloud, and Generative AI. Leads the engineering culture that delivers elite results for enterprise clients in 24–48 hours.',
+    linkedin: 'https://www.linkedin.com/company/96900585',
     color: '#00bcd4',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Arjun Krishnan',
-    role: 'Senior Data Engineer',
-    specialty: 'Pipelines · Streaming · dbt',
-    bio: 'Specializes in real-time data pipelines and transformation layers. Has built petabyte-scale streaming architectures for BFSI clients using Kafka, Flink, and Delta Lake.',
-    skills: ['Kafka', 'Apache Flink', 'dbt', 'Airflow', 'BigQuery'],
-    icon: Database,
-    color: '#26a69a',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Priya Venkatesh',
-    role: 'ML Engineer',
-    specialty: 'RAG · NLP · Deployment',
-    bio: 'Expert in NLP and retrieval-augmented generation. Designed the RAG pipeline that reduced hallucinations by 70% in production banking environments. Passionate about model evaluation and reliability.',
-    skills: ['RAG', 'LangChain', 'FAISS', 'Hugging Face', 'FastAPI'],
-    icon: Brain,
-    color: '#00e5ff',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Ravi Kumar',
-    role: 'Backend & DevOps Engineer',
-    specialty: 'CI/CD · Kubernetes · IaC',
-    bio: 'Infrastructure architect with deep expertise in cloud-native deployments. Has designed zero-downtime deployment pipelines for enterprise Kubernetes workloads across multi-cloud environments.',
-    skills: ['Kubernetes', 'Helm', 'GitHub Actions', 'Pulumi', 'Prometheus'],
-    icon: Server,
-    color: '#0097a7',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Divya Srinivasan',
-    role: 'Data Analyst & Visualization Lead',
-    specialty: 'Analytics · Dashboards · Insights',
-    bio: 'Translates complex data into clear business narratives. Expert in building executive-level dashboards and self-serve analytics platforms that empower non-technical stakeholders.',
-    skills: ['Looker', 'Tableau', 'Python', 'dbt', 'BigQuery'],
-    icon: BarChart3,
-    color: '#26a69a',
-    linkedin: 'https://linkedin.com',
-  },
-  {
-    name: 'Santhosh Raj',
-    role: 'AI Platform Engineer',
-    specialty: 'LLM APIs · Agents · MLflow',
-    bio: 'Builder of intelligent AI agents and LLM-powered applications. Contributed to the Claudius agent framework and Secure AI platform, specializing in prompt engineering and agent orchestration.',
-    skills: ['LangGraph', 'OpenAI', 'MLflow', 'Redis', 'Docker'],
-    icon: Code2,
-    color: '#00bcd4',
-    linkedin: 'https://linkedin.com',
+    initial: 'C',
+    expertise: ['Go & Scala Architecture', 'Generative AI', 'Cloud Engineering', 'Data Engineering'],
   },
 ];
 
-export const TeamPage: React.FC = () => {
-  const [hovered, setHovered] = useState<string | null>(null);
+const CLIENTS = [
+  { name: 'Taboola', desc: "World's leading discovery & native advertising platform", sector: 'Advertising & Media' },
+  { name: 'SwissRe', desc: 'Global insurance & reinsurance leader', sector: 'Insurance' },
+  { name: 'Security Scorecard', desc: 'Secure your supply chain', sector: 'Cybersecurity' },
+  { name: 'BlockChainSentry', desc: 'Secure your smart contract', sector: 'Blockchain / Web3' },
+  { name: 'EzOut', desc: 'Boosts revenue and profit margins for grocers', sector: 'Retail & Grocery' },
+];
 
+export const TeamPage: React.FC = () => {
   return (
     <PageLayout>
       <PageHero
-        tag="// THE TEAM"
+        tag="// LEADERSHIP"
         headline={"The Minds\nBehind\nCentillion."}
-        sub="A team of engineers, scientists, and architects who bring curiosity, rigor, and craft to every engagement. Meet the people who make impossible data problems solvable."
+        sub="Co-founded by two technology practitioners who have dedicated their careers to responsible AI, cloud transformation, and data excellence — serving enterprise clients across the globe."
       />
 
-      {/* Team grid */}
+      {/* Leadership */}
       <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,7rem)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px,100%), 1fr))', gap: '1.5rem' }}>
-          {TEAM.map((member, i) => {
-            const Icon = member.icon;
-            const isHov = hovered === member.name;
-            return (
-              <FadeIn key={member.name} delay={i * 0.06}>
-                <motion.div
-                  onHoverStart={() => setHovered(member.name)}
-                  onHoverEnd={() => setHovered(null)}
-                  whileHover={{ y: -6, boxShadow: `0 20px 50px ${member.color}20` }}
-                  className="glass-panel card-pad"
-                  style={{ borderRadius: '18px', border: `1px solid ${isHov ? member.color + '44' : 'var(--border-color)'}`, transition: 'border-color 0.3s', position: 'relative', overflow: 'hidden' }}
-                >
-                  {/* Decorative gradient top */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(320px,100%), 1fr))', gap: '2rem', maxWidth: '900px' }}>
+          {LEADERS.map((leader, i) => (
+            <FadeIn key={leader.name} delay={i * 0.1}>
+              <motion.div
+                whileHover={{ y: -6, boxShadow: `0 24px 60px ${leader.color}18` }}
+                className="glass-panel card-pad"
+                style={{ borderRadius: '20px', border: `1px solid ${leader.color}28`, position: 'relative', overflow: 'hidden' }}
+              >
+                {/* ambient bg */}
+                <div style={{
+                  position: 'absolute', top: '-60px', right: '-60px',
+                  width: '180px', height: '180px', borderRadius: '50%',
+                  background: `radial-gradient(circle, ${leader.color}14, transparent 70%)`,
+                  pointerEvents: 'none',
+                }} />
+
+                {/* Avatar */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.5rem' }}>
                   <motion.div
-                    animate={{ opacity: isHov ? 1 : 0 }}
+                    whileHover={{ rotate: 5 }}
                     style={{
-                      position: 'absolute', top: 0, left: 0, right: 0, height: '3px',
-                      background: `linear-gradient(90deg, ${member.color}, transparent)`,
+                      width: 72, height: 72, borderRadius: '20px', flexShrink: 0,
+                      background: `linear-gradient(135deg, ${leader.color}30, ${leader.color}08)`,
+                      border: `2px solid ${leader.color}44`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: '1.8rem', fontWeight: 200, color: leader.color,
                     }}
-                  />
-
-                  {/* Avatar */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.2rem' }}>
-                    <motion.div
-                      whileHover={{ rotate: 10, scale: 1.1 }}
-                      style={{
-                        width: 56, height: 56, borderRadius: '16px', flexShrink: 0,
-                        background: `linear-gradient(135deg, ${member.color}22, ${member.color}0a)`,
-                        border: `1px solid ${member.color}33`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      }}
-                    >
-                      <Icon size={26} style={{ color: member.color }} />
-                    </motion.div>
-                    <div>
-                      <div style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '1rem' }}>{member.name}</div>
-                      <div style={{ fontSize: '0.8rem', color: member.color, fontWeight: 400, marginTop: '2px' }}>{member.role}</div>
-                    </div>
+                  >
+                    {leader.initial}
+                  </motion.div>
+                  <div>
+                    <h2 style={{ fontSize: '1.4rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>{leader.name}</h2>
+                    <div className="mono-text" style={{ fontSize: '0.75rem', color: leader.color, letterSpacing: '0.12em' }}>{leader.role}</div>
                   </div>
+                </div>
 
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginBottom: '0.8rem', letterSpacing: '0.04em' }}>{member.specialty}</div>
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontWeight: 300, fontSize: '0.9rem', marginBottom: '1.5rem' }}>{leader.desc}</p>
 
-                  <AnimatePresence>
-                    {isHov && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <p style={{ color: 'var(--text-secondary)', fontWeight: 300, fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1rem' }}>{member.bio}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.5rem' }}>
+                  {leader.expertise.map(e => (
+                    <span key={e} style={{
+                      background: `${leader.color}10`, border: `1px solid ${leader.color}28`,
+                      color: leader.color, fontSize: '0.72rem', padding: '0.25rem 0.7rem', borderRadius: '6px',
+                    }}>{e}</span>
+                  ))}
+                </div>
 
-                  {/* Skills */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '1.2rem' }}>
-                    {member.skills.map(s => (
-                      <span key={s} style={{
-                        background: `${member.color}10`, border: `1px solid ${member.color}25`,
-                        color: member.color, fontSize: '0.72rem', padding: '0.2rem 0.6rem', borderRadius: '6px',
-                      }}>{s}</span>
-                    ))}
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '0.6rem' }}>
-                    <motion.a
-                      href={member.linkedin} target="_blank" rel="noopener noreferrer"
-                      whileHover={{ scale: 1.1 }}
-                      style={{
-                        width: 30, height: 30, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none',
-                      }}
-                    >
-                      <Linkedin size={14} />
-                    </motion.a>
-                    <motion.a
-                      href="mailto:connect@centillionlabs.com"
-                      whileHover={{ scale: 1.1 }}
-                      style={{
-                        width: 30, height: 30, borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        border: '1px solid var(--border-color)', color: 'var(--text-secondary)', textDecoration: 'none',
-                      }}
-                    >
-                      <Mail size={14} />
-                    </motion.a>
-                  </div>
-                </motion.div>
-              </FadeIn>
-            );
-          })}
+                <motion.a
+                  href={leader.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '0.6rem',
+                    background: `${leader.color}14`, border: `1px solid ${leader.color}33`,
+                    color: leader.color, padding: '0.6rem 1.2rem', borderRadius: '10px',
+                    fontSize: '0.82rem', fontWeight: 500, letterSpacing: '0.05em', textDecoration: 'none',
+                  }}
+                >
+                  <Linkedin size={15} /> CONNECT ON LINKEDIN
+                </motion.a>
+              </motion.div>
+            </FadeIn>
+          ))}
         </div>
       </section>
 
-      {/* Join CTA */}
-      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,6rem)' }}>
+      {/* Culture Stats */}
+      <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(2rem,6vw,5rem)' }}>
         <FadeIn>
-          <motion.div
-            whileHover={{ scale: 1.01 }}
-            className="glass-panel card-pad"
-            style={{ borderRadius: '20px', maxWidth: '800px', padding: 'clamp(2rem,5vw,3.5rem)', border: '1px solid rgba(0,229,255,0.15)' }}
-          >
-            <div className="mono-text" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--accent-primary)', marginBottom: '1rem' }}>// JOIN THE TEAM</div>
-            <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '1rem' }}>
-              We're always looking for exceptional engineers.
-            </h2>
-            <p style={{ color: 'var(--text-secondary)', fontWeight: 300, lineHeight: 1.8, marginBottom: '1.5rem' }}>
-              If you're passionate about data, AI, and solving hard problems at enterprise scale — we'd love to hear from you.
-            </p>
-            <motion.a
-              href="mailto:connect@centillionlabs.com"
-              whileHover={{ scale: 1.04 }}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                background: 'var(--accent-primary)', color: '#000',
-                padding: '0.8rem 1.8rem', borderRadius: '10px',
-                fontWeight: 600, fontSize: '0.85rem', textDecoration: 'none',
-              }}
-            >
-              <Mail size={14} />
-              GET IN TOUCH
-            </motion.a>
-          </motion.div>
+          <div className="mono-text" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--accent-primary)', marginBottom: '3rem' }}>// HOW WE OPERATE</div>
         </FadeIn>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px,100%), 1fr))', gap: '1.2rem', maxWidth: '900px' }}>
+          {[
+            { val: 'Elite 3%', sub: 'of Tech Talent', desc: 'Centillion collaborates with the elite 3% of tech experts worldwide.' },
+            { val: '24–48h', sub: 'Engagement Start', desc: 'Connect with world-class engineers within 24 to 48 hours.' },
+            { val: 'AI-CoE', sub: 'Culture', desc: 'Small, cross-functional, autonomous teams with full ownership.' },
+            { val: 'Global', sub: 'Remote-first', desc: 'India HQ (Bangalore) and US presence (River Edge, NJ).' },
+          ].map((s, i) => (
+            <FadeIn key={s.val} delay={i * 0.07}>
+              <motion.div whileHover={{ y: -4 }} className="glass-panel card-pad" style={{ borderRadius: '14px', textAlign: 'center' }}>
+                <div style={{ fontSize: 'clamp(1.4rem,3vw,1.8rem)', fontWeight: 200, color: 'var(--accent-primary)', marginBottom: '0.25rem' }}>{s.val}</div>
+                <div className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-primary)', letterSpacing: '0.12em', marginBottom: '0.5rem' }}>{s.sub}</div>
+                <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', fontWeight: 300, lineHeight: 1.6 }}>{s.desc}</div>
+              </motion.div>
+            </FadeIn>
+          ))}
+        </div>
+      </section>
+
+      {/* Clients */}
+      <section style={{ padding: 'clamp(3rem,8vw,6rem) clamp(1.5rem,8vw,10rem)' }}>
+        <FadeIn>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2.5rem' }}>
+            <Users size={18} style={{ color: 'var(--accent-primary)' }} />
+            <div className="mono-text" style={{ fontSize: '0.75rem', letterSpacing: '0.2em', color: 'var(--accent-primary)' }}>// CLIENTS WE SERVE</div>
+          </div>
+          <h2 style={{ fontSize: 'clamp(1.5rem,3vw,2.2rem)', fontWeight: 200, color: 'var(--text-primary)', marginBottom: '2.5rem' }}>Enterprise Partners</h2>
+        </FadeIn>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(260px,100%), 1fr))', gap: '1.2rem' }}>
+          {CLIENTS.map((c, i) => (
+            <FadeIn key={c.name} delay={i * 0.07}>
+              <motion.div
+                whileHover={{ y: -4, boxShadow: '0 12px 30px rgba(0,229,255,0.08)' }}
+                className="glass-panel card-pad"
+                style={{ borderRadius: '14px', position: 'relative' }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
+                  <div style={{
+                    width: 40, height: 40, borderRadius: '10px', flexShrink: 0,
+                    background: 'rgba(0,229,255,0.07)', border: '1px solid rgba(0,229,255,0.15)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  }}>
+                    <Building2 size={18} style={{ color: 'var(--accent-primary)' }} />
+                  </div>
+                  <div>
+                    <h3 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.2rem', fontSize: '1rem' }}>{c.name}</h3>
+                    <div className="mono-text" style={{ fontSize: '0.68rem', color: 'var(--accent-primary)', letterSpacing: '0.12em', marginBottom: '0.4rem' }}>{c.sector}</div>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', fontWeight: 300, margin: 0, lineHeight: 1.6 }}>{c.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </FadeIn>
+          ))}
+        </div>
       </section>
     </PageLayout>
   );

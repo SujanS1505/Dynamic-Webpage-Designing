@@ -1,167 +1,183 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { HeartPulse, Landmark, Shield, Factory, ShoppingCart, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Megaphone, ShieldCheck, Lock, ShoppingCart, Link2 } from 'lucide-react';
 import { PageLayout, PageHero, FadeIn } from './PageLayout';
 
 const INDUSTRIES = [
   {
-    id: 'healthcare',
-    icon: HeartPulse,
-    title: 'Healthcare & Life Sciences',
+    id: 'adtech',
+    icon: Megaphone,
+    name: 'Advertising & Media',
+    client: 'Taboola',
+    clientDesc: "World's leading discovery & native advertising platform",
     color: '#00e5ff',
-    summary: 'AI-powered clinical intelligence and patient data platforms.',
-    challenges: ['Fragmented EHR data across systems', 'HIPAA compliance at scale', 'Predictive patient outcomes', 'Drug discovery acceleration'],
-    solutions: ['Unified patient data lakehouse', 'Privacy-preserving federated ML', 'Clinical NLP for unstructured records', 'Real-time patient risk scoring'],
-    useCases: ['Hospital readmission prediction (saved 30% costs)', 'Drug interaction audit engine', 'Predictive ICU staffing model'],
-  },
-  {
-    id: 'finance',
-    icon: Landmark,
-    title: 'Banking & Financial Services',
-    color: '#00bcd4',
-    summary: 'Real-time fraud detection, risk analytics, and GenAI for banking.',
-    challenges: ['Real-time fraud at scale', 'Regulatory reporting complexity', 'LLM hallucination risk in finance', 'Customer churn analytics'],
-    solutions: ['Streaming fraud detection with sub-50ms latency', 'RAG pipelines with 70% hallucination reduction', 'Automated regulatory report generation', 'Customer 360 data platform'],
-    useCases: ['$12M fraud prevented annually (Fortune 500 bank)', 'Automated regulatory reports across 40+ jurisdictions', '98% accuracy customer risk scoring'],
+    description: 'Centillion powers data-driven advertising at global scale. For Taboola — the world\'s largest native advertising platform — we architect real-time analytics pipelines, event stream processing, and ML-driven personalization models that run at billions of requests per day.',
+    solutions: [
+      'Real-time clickstream analytics and event processing',
+      'Recommendation model training & serving infrastructure',
+      'Data Clean Room for privacy-preserving audience analytics',
+      'Databricks-powered optimization for ad revenue',
+      'FinOps and cloud cost optimization at planetary scale',
+      'A/B experimentation frameworks for ad performance',
+    ],
+    techs: ['Spark', 'Databricks', 'GCP', 'Kafka', 'Scala', 'Data Clean Room'],
   },
   {
     id: 'insurance',
-    icon: Shield,
-    title: 'Insurance',
-    color: '#26a69a',
-    summary: 'Underwriting intelligence and claims automation powered by ML.',
-    challenges: ['Manual claims processing bottlenecks', 'Underwriting accuracy at scale', 'Document extraction from unstructured forms', 'Risk model drift detection'],
-    solutions: ['Automated claims triage and routing', 'ML-powered underwriting scoring', 'Document extraction and classification', 'Real-time risk model monitoring'],
-    useCases: ['60% reduction in claims processing time', 'AI underwriting model with 91% accuracy', 'Zero-touch document ingestion pipeline'],
+    icon: ShieldCheck,
+    name: 'Insurance & Reinsurance',
+    client: 'SwissRe',
+    clientDesc: 'Global reinsurance and insurance leader',
+    color: '#00bcd4',
+    description: 'For SwissRe — a global reinsurance giant — Centillion brings cloud migration expertise, data governance frameworks, and AI-powered risk modeling. Our philosophy of Responsible AI and Ethical AI directly maps to the actuarial rigor demanded by the insurance sector.',
+    solutions: [
+      'Cloud migration (AWS / GCP / Azure) for legacy actuarial systems',
+      'Data Mesh architecture for distributed risk data ownership',
+      'Knowledge Graphs for complex relationship modeling',
+      'Generative AI for document synthesis and underwriting assistance',
+      'Post-quantum cryptography for long-term data security',
+      'Sovereignty and regulatory compliance frameworks',
+    ],
+    techs: ['AWS', 'GCP', 'Terraform', 'Knowledge Graphs', 'Data Mesh', 'Responsible AI'],
   },
   {
-    id: 'manufacturing',
-    icon: Factory,
-    title: 'Manufacturing & Supply Chain',
+    id: 'cybersecurity',
+    icon: Lock,
+    name: 'Cybersecurity & Supply Chain',
+    client: 'Security Scorecard',
+    clientDesc: 'Supply chain security intelligence platform',
+    color: '#26a69a',
+    description: 'Centillion partners with Security Scorecard to harden the modern cyber supply chain. Our expertise in Data Observability, Security as a Service, Multicloud DAM, and Post-quantum Cryptography gives security products the data backbone they need to operate at enterprise scale.',
+    solutions: [
+      'Security data pipelines at petabyte scale',
+      'Multicloud Data Access Management (DAM)',
+      'Post-quantum Cryptography implementation',
+      'Differential Privacy for sensitive telemetry data',
+      'Confidential Computing for secure data processing',
+      'Homomorphic Encryption for privacy-preserving analytics',
+    ],
+    techs: ['Go', 'Scala', 'Post-quantum Crypto', 'Differential Privacy', 'Confidential Computing'],
+  },
+  {
+    id: 'blockchain',
+    icon: Link2,
+    name: 'Blockchain & Web3',
+    client: 'BlockChainSentry',
+    clientDesc: 'Smart contract security platform',
     color: '#0097a7',
-    summary: 'Predictive maintenance, quality analytics, and supply chain intelligence.',
-    challenges: ['Unplanned equipment downtime', 'Quality defect detection in production', 'Supply chain demand volatility', 'Sensor data at factory scale'],
-    solutions: ['IoT predictive maintenance platform', 'Computer vision quality control', 'Demand forecasting with ML', 'Real-time OEE analytics dashboards'],
-    useCases: ['40% reduction in unplanned downtime', '2.3% quality defect rate improvement', 'Supply chain forecast accuracy +25%'],
+    description: 'For BlockChainSentry, Centillion applies its Go-based Claudius framework and distributed systems expertise to build high-performance smart contract auditing and on-chain data pipelines. etcd, Raft, and gRPC enable trustless coordination at the infrastructure layer.',
+    solutions: [
+      'Smart contract audit data pipeline architecture',
+      'Go-based distributed system backends (Claudius framework)',
+      'gRPC-based high-performance API layers',
+      'etcd + Raft consensus for distributed state management',
+      'On-chain event indexing and real-time analytics',
+      'DevOps / CI-CD pipeline for blockchain node infrastructure',
+    ],
+    techs: ['Go', 'Claudius', 'gRPC', 'etcd', 'Raft', 'Terraform'],
   },
   {
     id: 'retail',
     icon: ShoppingCart,
-    title: 'Retail & E-Commerce',
-    color: '#00838f',
-    summary: 'Personalization, demand forecasting, and customer intelligence platforms.',
-    challenges: ['Personalization at millions of users', 'Inventory optimization complexity', 'Customer churn prediction', 'Pricing strategy analytics'],
-    solutions: ['Real-time recommendation engine', 'Demand forecasting with seasonal adjustments', 'Customer lifetime value modeling', 'Dynamic pricing ML models'],
-    useCases: ['18% revenue lift from personalization engine', '35% inventory waste reduction', 'Customer churn reduced by 22%'],
+    name: 'Retail & Grocery',
+    client: 'EzOut',
+    clientDesc: 'AI-powered checkout for grocers',
+    color: '#007c91',
+    description: 'Centillion helps retail players like EzOut boost revenue and profit margins through AristotleAI-powered demand forecasting, inventory optimization, and personalized retail language models. Our Retail LM is fine-tuned for grocery and retail-specific corpora.',
+    solutions: [
+      'Retail Language Model (Retail LM) — fine-tuned LLM',
+      'Demand forecasting and inventory optimization',
+      'Real-time recommendation & personalization engines',
+      'In-store edge AI (Micro Models + Sensor Fusion)',
+      'POS and operational data pipelines on GCP',
+      'FinOps — reducing cloud costs for margin improvement',
+    ],
+    techs: ['AristotleAI', 'Retail LM', 'Vertex AI', 'Edge AI', 'Databricks', 'GCP'],
   },
 ];
 
 export const IndustriesPage: React.FC = () => {
-  const [active, setActive] = useState(INDUSTRIES[0].id);
-  const selected = INDUSTRIES.find(i => i.id === active)!;
-
   return (
     <PageLayout>
       <PageHero
-        tag="// SECTORS WE SERVE"
-        headline={"Industries\nWe Transform."}
-        sub="Deep domain expertise meets engineering excellence. We've delivered mission-critical AI and data systems across five industries — and understand the unique challenges in each."
+        tag="// INDUSTRIES"
+        headline={"Sectors We\nTransform."}
+        sub="From native advertising to global reinsurance, Centillion delivers bespoke AI and data solutions across the industries that are shaping the digital economy."
       />
 
       <section style={{ padding: '0 clamp(1.5rem,8vw,10rem) clamp(3rem,8vw,7rem)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(220px, 1fr) 3fr', gap: '2rem', maxWidth: '1200px' }}>
-          {/* Selector */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {INDUSTRIES.map((ind, i) => {
-              const Icon = ind.icon;
-              const isActive = active === ind.id;
-              return (
-                <FadeIn key={ind.id} delay={i * 0.06}>
-                  <motion.button
-                    onClick={() => setActive(ind.id)}
-                    whileHover={{ x: 4 }}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '0.8rem',
-                      padding: '0.85rem 1rem', borderRadius: '12px', border: 'none',
-                      background: isActive ? `${ind.color}18` : 'transparent',
-                      cursor: 'pointer', textAlign: 'left', width: '100%',
-                      borderLeft: `3px solid ${isActive ? ind.color : 'transparent'}`,
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    <Icon size={18} style={{ color: isActive ? ind.color : 'var(--text-secondary)', flexShrink: 0 }} />
-                    <span style={{ fontSize: '0.9rem', fontWeight: isActive ? 600 : 300, color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)', transition: 'all 0.2s' }}>
-                      {ind.title.split(' ')[0]}
-                    </span>
-                  </motion.button>
-                </FadeIn>
-              );
-            })}
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+          {INDUSTRIES.map((ind, i) => {
+            const Icon = ind.icon;
+            const isEven = i % 2 === 0;
+            return (
+              <FadeIn key={ind.id} delay={i * 0.07}>
+                <motion.div
+                  whileHover={{ y: -3, boxShadow: `0 20px 50px ${ind.color}14` }}
+                  className="glass-panel card-pad"
+                  style={{ borderRadius: '22px', border: `1px solid ${ind.color}28`, overflow: 'hidden', transition: 'box-shadow 0.3s' }}
+                >
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: '2.5rem', alignItems: 'flex-start' }}>
+                    {/* Left */}
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+                        <div style={{
+                          width: 52, height: 52, borderRadius: '16px',
+                          background: `linear-gradient(135deg, ${ind.color}20, ${ind.color}06)`,
+                          border: `1px solid ${ind.color}33`,
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        }}>
+                          <Icon size={24} style={{ color: ind.color }} />
+                        </div>
+                        <div>
+                          <div className="mono-text" style={{ fontSize: '0.68rem', letterSpacing: '0.15em', color: ind.color, marginBottom: '0.2rem' }}>INDUSTRY</div>
+                          <h2 style={{ fontSize: 'clamp(1.1rem,2.5vw,1.5rem)', fontWeight: 500, color: 'var(--text-primary)', margin: 0 }}>{ind.name}</h2>
+                        </div>
+                      </div>
 
-          {/* Detail panel */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="glass-panel card-pad" style={{ borderRadius: '20px', border: `1px solid ${selected.color}33`, padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                  {(() => { const Icon = selected.icon; return (
-                    <div style={{
-                      width: 52, height: 52, borderRadius: '15px',
-                      background: `${selected.color}18`, border: `1px solid ${selected.color}33`,
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                      <Icon size={26} style={{ color: selected.color }} />
+                      {/* Client badge */}
+                      <div style={{
+                        display: 'inline-flex', alignItems: 'flex-start', flexDirection: 'column', gap: '0.2rem',
+                        background: `${ind.color}0d`, border: `1px solid ${ind.color}2a`,
+                        borderRadius: '10px', padding: '0.7rem 1rem', marginBottom: '1.2rem',
+                      }}>
+                        <span className="mono-text" style={{ fontSize: '0.65rem', color: ind.color, letterSpacing: '0.12em' }}>CLIENT ↓</span>
+                        <span style={{ fontWeight: 600, color: 'var(--text-primary)', fontSize: '0.95rem' }}>{ind.client}</span>
+                        <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{ind.clientDesc}</span>
+                      </div>
+
+                      <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontWeight: 300, fontSize: '0.9rem', marginBottom: '1.2rem' }}>{ind.description}</p>
+
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+                        {ind.techs.map(t => (
+                          <span key={t} style={{ background: `${ind.color}0e`, border: `1px solid ${ind.color}28`, color: ind.color, fontSize: '0.72rem', padding: '0.25rem 0.65rem', borderRadius: '6px' }}>{t}</span>
+                        ))}
+                      </div>
                     </div>
-                  ); })()}
-                  <div>
-                    <h2 style={{ fontWeight: 500, color: 'var(--text-primary)', fontSize: 'clamp(1.1rem,2.5vw,1.5rem)' }}>{selected.title}</h2>
-                    <p style={{ color: 'var(--text-secondary)', fontWeight: 300, fontSize: '0.9rem', marginTop: '0.2rem' }}>{selected.summary}</p>
-                  </div>
-                </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(220px,100%), 1fr))', gap: '1.5rem' }}>
-                  <div>
-                    <div className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: selected.color, marginBottom: '0.8rem' }}>CHALLENGES WE SOLVE</div>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                      {selected.challenges.map(c => (
-                        <li key={c} style={{ display: 'flex', gap: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.88rem', fontWeight: 300, lineHeight: 1.5 }}>
-                          <span style={{ color: selected.color, flexShrink: 0 }}>—</span>{c}
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Right — solutions */}
+                    <div>
+                      <div className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: ind.color, marginBottom: '1rem' }}>CENTILLION SOLUTIONS</div>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+                        {ind.solutions.map((s, si) => (
+                          <motion.li
+                            key={s}
+                            initial={{ opacity: 0, x: -8 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: si * 0.05 }}
+                            style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', color: 'var(--text-secondary)', fontWeight: 300, fontSize: '0.88rem', lineHeight: 1.6 }}
+                          >
+                            <span style={{ color: ind.color, flexShrink: 0, fontWeight: 600 }}>▸</span>
+                            {s}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <div>
-                    <div className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: selected.color, marginBottom: '0.8rem' }}>OUR SOLUTIONS</div>
-                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-                      {selected.solutions.map(s => (
-                        <li key={s} style={{ display: 'flex', gap: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.88rem', fontWeight: 300, lineHeight: 1.5, alignItems: 'flex-start' }}>
-                          <ArrowRight size={13} style={{ color: selected.color, flexShrink: 0, marginTop: 2 }} />{s}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: `1px solid ${selected.color}22` }}>
-                  <div className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: selected.color, marginBottom: '0.8rem' }}>PROVEN RESULTS</div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.7rem' }}>
-                    {selected.useCases.map(uc => (
-                      <span key={uc} style={{
-                        background: `${selected.color}12`, border: `1px solid ${selected.color}30`,
-                        color: selected.color, fontSize: '0.8rem', padding: '0.4rem 1rem', borderRadius: '20px', fontWeight: 400,
-                      }}>{uc}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+                </motion.div>
+              </FadeIn>
+            );
+          })}
         </div>
       </section>
     </PageLayout>
