@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Centillion Red Team — Secure Inference. Secure Future.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --red:#e84118;--red2:#c5350e;--orange:#f0a500;--yellow:#FFD700;--blue:#0e2244;
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bg4:#1c1c1c;
+  --text:#fff;--sub:rgba(255,255,255,.8);--muted:rgba(255,255,255,.42);
+  --brd:rgba(255,255,255,.1);--brd2:rgba(255,255,255,.22);
+  --nav:#0a0a0a;--card:#141414;
+  --shd:6px 6px 0 #e84118;--ht:rgba(232,65,24,.055);
+  --sp:#fff;--spt:#111;--ft:#060606;
+}
+[data-theme="light"]{
+  --red:#d63010;--red2:#b82a0c;--orange:#e09400;--yellow:#f0c000;--blue:#1a3a6e;
+  --bg:#fdf3e0;--bg2:#f5e8c8;--bg3:#ffe8c0;--bg4:#fff8e8;
+  --text:#1a0800;--sub:#2a1400;--muted:#7a4a20;
+  --brd:rgba(90,40,5,.18);--brd2:rgba(90,40,5,.45);
+  --nav:#d63010;--card:#fff8e8;
+  --shd:6px 6px 0 #1a0800;--ht:rgba(214,48,16,.09);
+  --sp:#fff;--spt:#111;--ft:#1a0800;
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--sub);overflow-x:hidden;background-image:radial-gradient(var(--ht) 1.5px,transparent 1.5px);background-size:20px 20px;transition:background .3s,color .3s;}
+a{text-decoration:none;color:inherit;}
+img{display:block;width:100%;height:100%;object-fit:contain;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--nav);border-bottom:4px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1.2rem,4vw,3.5rem);height:54px;transition:background .3s;}
+.logo{font-family:'Bangers',cursive;font-size:1.5rem;letter-spacing:.1em;color:#fff;text-shadow:2px 2px 0 #000;}
+.logo b{color:var(--yellow);}
+[data-theme="dark"] .logo{text-shadow:3px 3px 0 var(--red);}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.14em;color:rgba(255,255,255,.85);text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--yellow);}
+[data-theme="light"] .nav-links a{color:rgba(255,255,255,.9);}
+.nav-r{display:flex;align-items:center;gap:.8rem;}
+.tbtn{background:transparent;border:2px solid rgba(255,255,255,.3);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:.7rem;font-family:'Barlow Condensed',sans-serif;font-weight:800;display:flex;align-items:center;justify-content:center;transition:border-color .2s,transform .2s;letter-spacing:0;}
+.tbtn:hover{border-color:var(--yellow);transform:rotate(18deg);}
+.nbtn{background:var(--yellow);color:#111;font-family:'Bangers',cursive;font-size:.9rem;letter-spacing:.1em;padding:.3rem 1.2rem;border:2px solid #111;box-shadow:3px 3px 0 #111;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.nbtn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 #111;}
+
+/* HERO */
+.hero{position:relative;padding:clamp(2rem,5vw,4rem) clamp(1.2rem,4vw,3.5rem) 0;display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;min-height:84vh;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 65% 50%,rgba(232,65,24,.1) 0%,transparent 60%);pointer-events:none;}
+.spl{position:absolute;inset:0;pointer-events:none;opacity:.045;background:repeating-conic-gradient(from 0deg at 75% 50%,var(--red) 0deg 1.5deg,transparent 1.5deg 9deg);}
+[data-theme="light"] .spl{opacity:.07;}
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.2em;color:var(--orange);margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem;}
+.etag{background:var(--red);color:#fff;padding:.1rem .55rem;font-size:.68rem;border:2px solid #111;box-shadow:2px 2px 0 #111;}
+h1{font-family:'Bangers',cursive;font-size:clamp(3rem,6.5vw,6rem);line-height:.9;letter-spacing:.03em;color:var(--text);text-shadow:4px 4px 0 var(--red);}
+[data-theme="light"] h1{text-shadow:4px 4px 0 #1a0800;}
+h1 .hl{color:var(--red);text-shadow:3px 3px 0 var(--orange);}
+.tagline{font-family:'Barlow Condensed',sans-serif;font-style:italic;font-size:.95rem;color:var(--orange);background:var(--bg4);border:2px solid var(--red);display:inline-block;padding:.28rem .85rem;transform:rotate(-1.5deg);box-shadow:3px 3px 0 var(--red);margin:.8rem 0 .9rem;}
+.hsub{max-width:390px;color:var(--muted);font-size:.88rem;line-height:1.75;font-weight:300;margin-bottom:1.4rem;}
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;}
+.br{display:inline-block;background:var(--red);color:#fff;font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.1em;padding:.45rem 1.5rem;border:2px solid #111;box-shadow:4px 4px 0 #111;cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.br:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 #111;}
+.bo{display:inline-block;background:transparent;color:var(--text);font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.1em;padding:.45rem 1.5rem;border:2px solid var(--brd2);box-shadow:4px 4px 0 rgba(0,0,0,.3);cursor:pointer;transition:border-color .2s,color .2s;}
+[data-theme="light"] .bo{border-color:#1a0800;box-shadow:4px 4px 0 #1a0800;}
+.bo:hover{border-color:var(--red);color:var(--red);}
+
+/* Hero Right */
+.hero-r{display:flex;flex-direction:column;align-items:center;gap:1rem;position:relative;}
+.logo-w{position:relative;width:240px;height:240px;}
+.logo-w img{filter:drop-shadow(0 0 28px rgba(232,65,24,.55));animation:glow 3s ease-in-out infinite;}
+@keyframes glow{0%,100%{filter:drop-shadow(0 0 18px rgba(232,65,24,.4));}50%{filter:drop-shadow(0 0 52px rgba(232,65,24,.85));}}
+.bwrap{position:absolute;top:-22px;right:-22px;width:100px;height:100px;animation:spin 18s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.binner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bangers',cursive;font-size:.65rem;letter-spacing:.06em;color:#111;text-align:center;line-height:1.2;z-index:1;padding:20px;}
+.speech{position:relative;background:var(--sp);color:var(--spt);border:3px solid #111;border-radius:12px;padding:.55rem .95rem;font-family:'Bangers',cursive;font-size:.9rem;letter-spacing:.05em;box-shadow:3px 3px 0 #111;display:inline-block;max-width:260px;text-align:center;}
+.speech::after{content:'';position:absolute;bottom:-15px;left:18px;border-width:15px 8px 0;border-style:solid;border-color:#111 transparent transparent;}
+.speech::before{content:'';position:absolute;bottom:-9px;left:20px;border-width:11px 6px 0;border-style:solid;border-color:var(--sp) transparent transparent;z-index:1;}
+.fbadges{display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;}
+.fb{background:var(--red);color:#fff;font-family:'Bangers',cursive;font-size:.7rem;letter-spacing:.1em;padding:.22rem .7rem;border:2px solid #111;box-shadow:2px 2px 0 #111;display:inline-block;animation:flt 3s ease-in-out infinite;}
+.fb.b2{background:var(--orange);color:#111;animation-delay:.8s;}
+@keyframes flt{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* MARQUEE */
+.mqw{overflow:hidden;border-top:3px solid #111;border-bottom:3px solid #111;background:var(--red);padding:.6rem 0;white-space:nowrap;}
+.mqt{display:inline-block;animation:mq 16s linear infinite;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.mqt span{font-family:'Bangers',cursive;font-size:1.2rem;letter-spacing:.18em;color:rgba(255,255,255,.9);padding:0 1.6rem;}
+.mqdot{color:var(--yellow)!important;}
+
+/* TORN */
+.torn{display:block;width:100%;height:50px;overflow:hidden;line-height:0;margin:0;}
+.torn svg{display:block;width:100%;height:100%;}
+
+/* THREAT BAND */
+.tband{position:relative;background:var(--blue);padding:clamp(2rem,4.5vw,3.5rem) clamp(1.2rem,4vw,3.5rem);display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;border-top:4px solid var(--yellow);border-bottom:4px solid var(--yellow);overflow:hidden;}
+.tbl{position:absolute;inset:0;pointer-events:none;opacity:.04;background:repeating-conic-gradient(from 0deg at 50% 50%,#fff 0deg 1.5deg,transparent 1.5deg 8deg);}
+.tbh{font-family:'Bangers',cursive;font-size:clamp(2rem,4.5vw,3.8rem);line-height:.95;color:#fff;letter-spacing:.05em;text-shadow:3px 3px 0 var(--red);}
+.tbh em{color:var(--yellow);font-style:normal;}
+.tbitems{display:flex;flex-direction:column;gap:.55rem;}
+.tbi{display:flex;align-items:center;gap:.8rem;background:rgba(0,0,0,.3);padding:.55rem .9rem;border:2px solid rgba(255,255,255,.1);border-left:4px solid var(--red);}
+.tbd{width:7px;height:7px;background:var(--red);flex-shrink:0;}
+.tblabel{font-family:'Bangers',cursive;font-size:1.2rem;color:#fff;letter-spacing:.06em;}
+.tbsub{font-size:.72rem;color:rgba(255,255,255,.48);font-family:'Barlow Condensed',sans-serif;}
+
+/* SECTION */
+.sec{padding:clamp(2.5rem,5.5vw,4.5rem) clamp(1.2rem,4vw,3.5rem);}
+.si{max-width:1200px;margin:0 auto;}
+.ssplit{display:grid;grid-template-columns:1.5fr 1fr;gap:3rem;align-items:end;margin-bottom:2rem;}
+.sh{font-family:'Bangers',cursive;font-size:clamp(2.8rem,6vw,5.5rem);line-height:.9;color:var(--red);letter-spacing:.03em;text-shadow:4px 4px 0 rgba(0,0,0,.2);}
+[data-theme="light"] .sh{text-shadow:4px 4px 0 #1a0800;}
+.sdesc{color:var(--muted);font-size:.88rem;line-height:1.75;font-weight:300;}
+
+/* CAP GRID */
+.cgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+@media(max-width:1100px){.cgrid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:700px){.cgrid{grid-template-columns:1fr 1fr;}}
+.cc{background:var(--card);border:3px solid var(--red);box-shadow:var(--shd);padding:1.1rem 1rem;position:relative;overflow:hidden;cursor:pointer;transition:transform .25s,box-shadow .25s;}
+[data-theme="light"] .cc{border-color:#1a0800;box-shadow:6px 6px 0 #1a0800;}
+.cc::before{content:'';position:absolute;top:0;right:0;width:26px;height:26px;background:var(--red);clip-path:polygon(100% 0,100% 100%,0 0);}
+[data-theme="light"] .cc::before{background:#1a0800;}
+.cc:hover{transform:translate(-4px,-4px);box-shadow:10px 10px 0 var(--red);}
+[data-theme="light"] .cc:hover{box-shadow:10px 10px 0 #1a0800;}
+.cclabel{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.18em;color:var(--red);text-transform:uppercase;margin-bottom:.35rem;}
+[data-theme="light"] .cclabel{color:var(--red);}
+.cctitle{font-family:'Bangers',cursive;font-size:1.15rem;letter-spacing:.05em;color:var(--text);margin-bottom:.35rem;line-height:1.1;}
+.ccdesc{font-size:.77rem;color:var(--muted);line-height:1.5;}
+
+/* ALERT */
+.aband{background:var(--red);padding:clamp(2rem,4.5vw,3.5rem) clamp(1.2rem,4vw,3.5rem);border-top:4px solid #111;border-bottom:4px solid #111;position:relative;overflow:hidden;}
+.aband::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 16px,rgba(0,0,0,.055) 16px,rgba(0,0,0,.055) 32px);}
+.ainner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:2rem;align-items:center;position:relative;z-index:1;}
+.ah{font-family:'Bangers',cursive;font-size:clamp(2.8rem,5.5vw,5rem);line-height:.9;color:#fff;text-shadow:4px 4px 0 #111;}
+.abadge{display:inline-block;background:var(--yellow);color:#111;font-family:'Bangers',cursive;font-size:1rem;letter-spacing:.1em;padding:.2rem .9rem;border:3px solid #111;box-shadow:3px 3px 0 #111;margin-bottom:.7rem;transform:rotate(-2deg);display:block;width:fit-content;}
+.atext{color:rgba(255,255,255,.9);font-size:.85rem;line-height:1.7;font-weight:300;}
+.abtn{display:inline-block;margin-top:1.1rem;background:#fff;color:var(--red);font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.1em;padding:.45rem 1.6rem;border:3px solid #111;box-shadow:4px 4px 0 #111;cursor:pointer;}
+.sburst{position:relative;width:148px;height:148px;margin:0 auto;animation:spin 22s linear infinite;}
+.sbinner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Bangers',cursive;font-size:.78rem;letter-spacing:.06em;color:#111;text-align:center;line-height:1.25;z-index:1;padding:26px;}
+
+/* PLANS */
+.plans{padding:clamp(2.5rem,5.5vw,4.5rem) clamp(1.2rem,4vw,3.5rem);position:relative;overflow:hidden;}
+.plans::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(232,65,24,.09) 0%,transparent 70%);pointer-events:none;}
+.sch{font-family:'Bangers',cursive;font-size:clamp(2.2rem,5.5vw,4.5rem);color:var(--red);text-align:center;margin-bottom:.35rem;letter-spacing:.05em;}
+.schs{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:2rem;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:1050px;margin:0 auto;}
+.pc{background:var(--card);border:3px solid var(--red);box-shadow:var(--shd);display:flex;flex-direction:column;position:relative;transition:transform .25s,box-shadow .25s;}
+[data-theme="light"] .pc{border-color:#1a0800;box-shadow:6px 6px 0 #1a0800;}
+.pc.feat{border-color:var(--yellow);box-shadow:6px 6px 0 var(--yellow);}
+.pc:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--red);}
+[data-theme="light"] .pc:hover{box-shadow:9px 9px 0 #1a0800;}
+.pc.feat:hover{box-shadow:9px 9px 0 var(--yellow);}
+.ftag{position:absolute;top:-2px;left:50%;transform:translateX(-50%);background:var(--yellow);color:#111;font-family:'Bangers',cursive;font-size:.72rem;letter-spacing:.1em;padding:.12rem .9rem;border:2px solid #111;white-space:nowrap;}
+.ph{padding:1.1rem 1.1rem .9rem;background:var(--bg4);border-bottom:3px solid var(--brd);}
+[data-theme="light"] .ph{background:var(--bg3);}
+.pc.feat .ph{background:var(--red);border-bottom-color:var(--red2);}
+.pp{font-family:'Bangers',cursive;font-size:1.35rem;color:var(--orange);letter-spacing:.04em;}
+.pc.feat .pp{color:var(--yellow);}
+.pn{font-family:'Bangers',cursive;font-size:2.4rem;color:var(--text);letter-spacing:.05em;line-height:1;}
+.pc.feat .pn{color:#fff;}
+.pb{padding:1.1rem;display:flex;flex-direction:column;gap:.8rem;flex:1;}
+.pf{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.pf li{font-size:.8rem;color:var(--muted);padding-left:1.2rem;position:relative;line-height:1.5;}
+.pf li::before{content:'>';position:absolute;left:0;color:var(--red);font-weight:700;font-size:.65rem;top:3px;}
+.pc.feat .pf li::before{color:var(--orange);}
+.pbtn{margin-top:auto;padding:.6rem;background:transparent;border:2px solid var(--brd2);color:var(--text);font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.1em;text-align:center;cursor:pointer;transition:all .2s;}
+.pbtn:hover,.pc.feat .pbtn{background:var(--red);border-color:var(--red);color:#fff;box-shadow:3px 3px 0 #111;}
+
+/* WATERMARK */
+.wm{padding:clamp(2.5rem,5vw,4rem) clamp(1.2rem,4vw,3.5rem);background:var(--bg2);border-top:4px solid var(--red);border-bottom:4px solid var(--red);}
+[data-theme="light"] .wm{background:var(--bg3);}
+.wmi{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+.wmh{font-family:'Bangers',cursive;font-size:clamp(2rem,4vw,3.5rem);line-height:.95;letter-spacing:.04em;color:var(--text);margin-bottom:.8rem;}
+.wmh span{color:var(--red);}
+.wmsub{color:var(--muted);font-size:.86rem;line-height:1.75;margin-bottom:1.1rem;}
+.wmlist{display:flex;flex-direction:column;gap:.8rem;}
+.wmitem{display:flex;gap:.8rem;background:var(--card);padding:.8rem .95rem;border:2px solid var(--brd);border-left:4px solid var(--orange);}
+.wmdot{width:4px;background:var(--orange);flex-shrink:0;align-self:stretch;}
+.wmct .wmt{font-family:'Bangers',cursive;font-size:1.05rem;letter-spacing:.05em;color:var(--text);margin-bottom:.2rem;}
+.wmct .wmd{font-size:.78rem;color:var(--muted);line-height:1.5;}
+
+/* INSIGHTS */
+.insights{padding:clamp(2.5rem,5vw,4rem) clamp(1.2rem,4vw,3.5rem);background:var(--bg2);}
+[data-theme="light"] .insights{background:var(--bg2);}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.8rem;max-width:1200px;}
+.mc{background:var(--card);border:3px solid var(--red);box-shadow:var(--shd);overflow:hidden;transition:transform .2s,box-shadow .2s;}
+[data-theme="light"] .mc{border-color:#1a0800;box-shadow:6px 6px 0 #1a0800;}
+.mc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--red);}
+.mthumb{width:100%;aspect-ratio:16/9;background:var(--bg4);border-bottom:2px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:.65rem;font-family:'Barlow Condensed',sans-serif;color:var(--muted);letter-spacing:.1em;}
+.minfo{padding:.9rem .95rem .85rem;}
+.mtag{background:var(--red);color:#fff;font-family:'Bangers',cursive;font-size:.72rem;letter-spacing:.15em;padding:.08rem .55rem;display:inline-block;margin-bottom:.45rem;}
+.mtitle{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:.9rem;color:var(--text);margin-bottom:.3rem;line-height:1.3;}
+.mdate{font-size:.72rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;}
+
+/* FOOTER */
+footer{background:var(--ft);border-top:4px solid var(--red);padding:clamp(2.5rem,5vw,4rem) clamp(1.2rem,4vw,3.5rem);}
+.fi{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:2rem;}
+.fbrand{font-family:'Bangers',cursive;font-size:1.9rem;letter-spacing:.1em;color:#fff;text-shadow:3px 3px 0 var(--red);margin-bottom:.6rem;}
+.fbrand span{color:var(--red);}
+.ftag2{font-size:.82rem;color:rgba(255,255,255,.38);line-height:1.6;margin-bottom:.8rem;}
+.femail{display:inline-block;background:var(--yellow);color:#111;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.78rem;padding:.3rem .85rem;border:2px solid rgba(255,255,255,.4);letter-spacing:.08em;}
+.fcol h4{font-family:'Bangers',cursive;font-size:.95rem;letter-spacing:.15em;color:#fff;margin-bottom:.7rem;}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:.38rem;}
+.fcol a{font-size:.8rem;color:rgba(255,255,255,.36);transition:color .2s;}
+.fcol a:hover{color:var(--red);}
+.fbot{max-width:1200px;margin:1.8rem auto 0;border-top:1px solid rgba(255,255,255,.1);padding-top:1.1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:.72rem;color:rgba(255,255,255,.22);font-family:'Barlow Condensed',sans-serif;letter-spacing:.08em;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.rv.vis{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;min-height:auto;}.hero-r{display:none;}
+  .ssplit{grid-template-columns:1fr;}.tband{grid-template-columns:1fr;}
+  .ainner{grid-template-columns:1fr;text-align:center;}
+  .pgrid{grid-template-columns:1fr;}.wmi{grid-template-columns:1fr;gap:1.5rem;}
+  .mgrid{grid-template-columns:1fr;}.fi{grid-template-columns:1fr 1fr;}
+  .sburst{display:none;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}.fi{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">CENTILLION <b>RED TEAM</b></div>
+  <ul class="nav-links">
+    <li><a href="#capabilities">CAPABILITIES</a></li>
+    <li><a href="#plans">PLANS</a></li>
+    <li><a href="#insights">INSIGHTS</a></li>
+    <li><a href="#contact">CONTACT</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="tbtn" id="ttbtn" onclick="toggleTheme()">LT</button>
+    <button class="nbtn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="spl"></div>
+  <div>
+    <div class="eyebrow"><span class="etag">THREAT ALERT</span> ENTERPRISE AI SECURITY</div>
+    <h1>SECURE<br/><span class="hl">INFERENCE.</span><br/>SECURE<br/>FUTURE.</h1>
+    <div class="tagline">"City Sleeps. Centillion Red Team Doesn't."</div>
+    <p class="hsub">Detect rogue infrastructure and adversarial attacks before they compromise your AI systems. Runtime shielding, provable watermarking, and real-time threat detection — because model theft is real.</p>
+    <div class="cta-row">
+      <a href="#capabilities" class="br">EXPLORE CAPABILITIES</a>
+      <a href="#contact" class="bo">GET PROTECTED</a>
+    </div>
+  </div>
+  <!-- REACT: motion.div initial={{opacity:0,x:60}} animate={{opacity:1,x:0}} transition={{duration:0.8,delay:0.3}} -->
+  <div class="hero-r">
+    <div class="logo-w">
+      <!-- REACT: motion.img animate={{scale:[1,1.04,1],filter:[glow...]}} transition={{duration:3,repeat:Infinity}} -->
+      <img src="/mnt/user-data/uploads/38734383.png" alt="Centillion Red Team"/>
+      <!-- REACT: motion.div animate={{rotate:360}} transition={{duration:18,repeat:Infinity,ease:'linear'}} -->
+      <div class="bwrap">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50,4 L53,42 L84,15 L57,44 L96,48 L59,54 L90,76 L55,56 L62,96 L46,58 L20,92 L40,56 L4,66 L40,50 L10,26 L44,48 Z" fill="#FFD700" stroke="#111" stroke-width="2"/>
+        </svg>
+        <div class="binner">IS YOUR MODEL READY?</div>
+      </div>
+    </div>
+    <!-- REACT: each badge motion.div animate={{y:[-5,5,-5]}} transition={{duration:3,repeat:Infinity,delay:i*0.6}} -->
+    <div class="fbadges">
+      <span class="fb">GPU MEMORY DUMPING</span>
+      <span class="fb b2">ADVERSARIAL ATTACKS</span>
+    </div>
+    <div class="speech">Sleep well. Centillion is awake for you.</div>
+  </div>
+</section>
+
+<!-- TORN TOP -->
+<svg class="torn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 50" preserveAspectRatio="none">
+  <path d="M0,0 L0,50 L1440,50 L1440,0 L1416,16 L1392,5 L1368,20 L1344,7 L1318,22 L1292,8 L1266,24 L1240,6 L1214,26 L1188,10 L1162,28 L1136,12 L1108,30 L1082,8 L1056,26 L1028,4 L1002,22 L974,2 L946,20 L918,0 L888,18 L858,0 L828,16 L798,0 L768,16 L738,2 L708,18 L678,2 L648,18 L618,2 L588,20 L558,0 L526,16 L494,0 L462,16 L430,2 L398,18 L366,2 L334,20 L302,4 L270,22 L238,6 L206,24 L174,8 L144,26 L114,10 L86,26 L60,12 L36,28 L14,14 L0,20 Z" fill="#0e2244"/>
+</svg>
+
+<!-- THREAT BAND -->
+<section class="tband">
+  <div class="tbl"></div>
+  <h2 class="tbh">WE <em>DETECT</em> &amp;<br/>SHIELD AGAINST</h2>
+  <div class="tbitems">
+    <!-- REACT: each item motion.div initial={{x:50,opacity:0}} whileInView={{x:0,opacity:1}} transition={{delay:i*0.1}} viewport={{once:true}} -->
+    <div class="tbi"><div class="tbd"></div><div><div class="tblabel">GPU MEMORY DUMPING</div><div class="tbsub">Extract model weights from GPU runtime memory</div></div></div>
+    <div class="tbi"><div class="tbd"></div><div><div class="tblabel">ADVERSARIAL MANIPULATION</div><div class="tbsub">Crafted inputs designed to deceive your AI systems</div></div></div>
+    <div class="tbi"><div class="tbd"></div><div><div class="tblabel">ROGUE INFRASTRUCTURE</div><div class="tbsub">Unauthorized endpoints and shadow AI deployments</div></div></div>
+    <div class="tbi"><div class="tbd"></div><div><div class="tblabel">MODEL THEFT VIA FINE-TUNING</div><div class="tbsub">IP extraction through distillation and unauthorized training</div></div></div>
+  </div>
+</section>
+
+<!-- TORN BOTTOM (flipped) -->
+<svg class="torn" style="transform:rotate(180deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 50" preserveAspectRatio="none">
+  <path d="M0,0 L0,50 L1440,50 L1440,0 L1416,16 L1392,5 L1368,20 L1344,7 L1318,22 L1292,8 L1266,24 L1240,6 L1214,26 L1188,10 L1162,28 L1136,12 L1108,30 L1082,8 L1056,26 L1028,4 L1002,22 L974,2 L946,20 L918,0 L888,18 L858,0 L828,16 L798,0 L768,16 L738,2 L708,18 L678,2 L648,18 L618,2 L588,20 L558,0 L526,16 L494,0 L462,16 L430,2 L398,18 L366,2 L334,20 L302,4 L270,22 L238,6 L206,24 L174,8 L144,26 L114,10 L86,26 L60,12 L36,28 L14,14 L0,20 Z" fill="#0e2244"/>
+</svg>
+
+<!-- MARQUEE -->
+<div class="mqw">
+  <div class="mqt">
+    <span>RUNTIME SHIELDING</span><span class="mqdot">*</span><span>PROVABLE WATERMARKING</span><span class="mqdot">*</span><span>REAL-TIME THREAT DETECTION</span><span class="mqdot">*</span><span>DYNAMIC OBFUSCATION</span><span class="mqdot">*</span><span>SECURE AI GOVERNANCE</span><span class="mqdot">*</span><span>LLM WATERMARKING</span><span class="mqdot">*</span><span>RUNTIME SHIELDING</span><span class="mqdot">*</span><span>PROVABLE WATERMARKING</span><span class="mqdot">*</span><span>REAL-TIME THREAT DETECTION</span><span class="mqdot">*</span><span>DYNAMIC OBFUSCATION</span><span class="mqdot">*</span><span>SECURE AI GOVERNANCE</span><span class="mqdot">*</span><span>LLM WATERMARKING</span><span class="mqdot">*</span>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section class="sec" id="capabilities">
+  <div class="si">
+    <div class="ssplit rv">
+      <h2 class="sh">OUR<br/>CAPABILITIES</h2>
+      <div class="sdesc">End-to-end AI security — from runtime shielding to provable watermarking. We shield your model weights, activations, and memory in real-time with dynamic obfuscation, ensuring your intellectual property stays protected from the moment inference begins.<br/><br/><a href="#contact" class="br" style="margin-top:.4rem;display:inline-block;">REQUEST A DEMO</a></div>
+    </div>
+    <!-- REACT: stagger via variants container/item, whileHover y:-6 scale:1.02 -->
+    <div class="cgrid rv">
+      <div class="cc"><div class="cclabel">CORE PROTECTION</div><div class="cctitle">RUNTIME SHIELDING</div><div class="ccdesc">Shield weights, activations, and memory in real-time. Secure AI starts at runtime, not just at deployment.</div></div>
+      <div class="cc"><div class="cclabel">IP PROTECTION</div><div class="cctitle">PROVABLE WATERMARKING</div><div class="ccdesc">LLM watermarking with cryptographic proof. Trace, track, and prove ownership of every deployed model.</div></div>
+      <div class="cc"><div class="cclabel">ACTIVE DEFENSE</div><div class="cctitle">REAL-TIME THREAT DETECTION</div><div class="ccdesc">Detect rogue infrastructure and adversarial attacks instantly with zero latency overhead.</div></div>
+      <div class="cc"><div class="cclabel">STEALTH LAYER</div><div class="cctitle">DYNAMIC OBFUSCATION</div><div class="ccdesc">Continuously morph your model's attack surface, making reverse-engineering computationally infeasible.</div></div>
+      <div class="cc"><div class="cclabel">CONTINUOUS</div><div class="cctitle">MODEL MONITORING</div><div class="ccdesc">Monitor deployed models 24/7. Detect unauthorized fine-tunes, distillation attempts, and IP violations.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALERT BAND -->
+<section class="aband rv">
+  <div class="ainner">
+    <h2 class="ah">MODEL<br/>THEFT<br/>IS REAL</h2>
+    <div>
+      <div class="abadge">THREAT ALERT</div>
+      <p class="atext">Don't let your IP walk away. Every enterprise AI model deployed without runtime protection is a target. GPU memory dumping, adversarial manipulation, and unauthorized fine-tuning attacks are escalating — your model weights are the new crown jewels.</p>
+      <a href="#contact" class="abtn">SECURE YOUR MODEL NOW</a>
+    </div>
+    <!-- REACT: motion.div animate={{rotate:360}} transition={{duration:22,repeat:Infinity,ease:'linear'}} -->
+    <div class="sburst">
+      <svg viewBox="0 0 148 148" xmlns="http://www.w3.org/2000/svg">
+        <path d="M74,7 L78,62 L128,26 L82,66 L142,70 L86,78 L138,116 L80,80 L88,142 L68,82 L32,136 L62,78 L6,102 L64,72 L14,34 L70,66 Z" fill="#FFD700" stroke="#111" stroke-width="3"/>
+      </svg>
+      <div class="sbinner">SECURE AI STARTS AT RUNTIME</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="plans" id="plans">
+  <h2 class="sch">CHOOSE YOUR PLAN</h2>
+  <p class="schs">Enterprise AI security, scaled to your mission.</p>
+  <div class="pgrid">
+    <!-- REACT: motion.div whileHover={{y:-6}} transition={{type:'spring',stiffness:300}} -->
+    <div class="pc rv">
+      <div class="ph"><div class="pp">$499 / MONTH</div><div class="pn">RECON</div></div>
+      <div class="pb">
+        <ul class="pf">
+          <li>Up to 3 AI model deployments monitored</li>
+          <li>Basic adversarial threat scanning</li>
+          <li>Monthly vulnerability reports</li>
+          <li>Email support — 48hr response</li>
+        </ul>
+        <button class="pbtn">GET STARTED</button>
+      </div>
+    </div>
+    <div class="pc feat rv">
+      <div class="ftag">MOST POPULAR</div>
+      <div class="ph"><div class="pp">$1,499 / MONTH</div><div class="pn">STRIKE</div></div>
+      <div class="pb">
+        <ul class="pf">
+          <li>Unlimited model deployments</li>
+          <li>Runtime shielding + dynamic obfuscation</li>
+          <li>Provable LLM watermarking</li>
+          <li>Real-time GPU memory dumping protection</li>
+          <li>24/7 threat detection dashboard</li>
+          <li>Dedicated security engineer</li>
+        </ul>
+        <button class="pbtn">GET STARTED</button>
+      </div>
+    </div>
+    <div class="pc rv">
+      <div class="ph"><div class="pp">CUSTOM PRICING</div><div class="pn">SIEGE</div></div>
+      <div class="pb">
+        <ul class="pf">
+          <li>Full enterprise AI governance suite</li>
+          <li>Custom red team exercises</li>
+          <li>AI policy and compliance auditing</li>
+          <li>Strengthen AI governance frameworks</li>
+          <li>On-premise deployment available</li>
+          <li>1-hour SLA response guarantee</li>
+        </ul>
+        <button class="pbtn">CONTACT US</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WATERMARK -->
+<section class="wm">
+  <div class="wmi rv">
+    <div>
+      <div class="eyebrow" style="margin-bottom:.7rem;"><span class="etag">NEW</span> LLM PROTECTION</div>
+      <h2 class="wmh">LLM <span>WATERMARKING</span><br/>WITH PROVABLE<br/>SECURITY</h2>
+      <p class="wmsub">Trace. Track. Prove ownership. Monitor deployed models, detect unauthorized fine-tunes, and strengthen AI governance — with cryptographically verifiable watermarks embedded at inference time.</p>
+      <a href="#contact" class="br">LEARN MORE</a>
+    </div>
+    <div class="wmlist">
+      <div class="wmitem"><div class="wmdot"></div><div class="wmct"><div class="wmt">TRACE &amp; TRACK</div><div class="wmd">Every output carries an invisible, provable ownership signature that survives fine-tuning and distillation attacks.</div></div></div>
+      <div class="wmitem"><div class="wmdot"></div><div class="wmct"><div class="wmt">PROVE OWNERSHIP</div><div class="wmd">Cryptographic proof that stands up in legal and governance contexts — court-admissible evidence of IP violation.</div></div></div>
+      <div class="wmitem"><div class="wmdot"></div><div class="wmct"><div class="wmt">STRENGTHEN GOVERNANCE</div><div class="wmd">Build AI compliance frameworks with automated monitoring for unauthorized model usage across your ecosystem.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section class="insights" id="insights">
+  <div class="si">
+    <h2 class="sch rv" style="text-align:left;">RED TEAM <span style="color:var(--text)">INSIGHTS</span></h2>
+    <div class="mgrid rv">
+      <div class="mc"><div class="mthumb">+ ADD IMAGE</div><div class="minfo"><span class="mtag">THREAT BRIEF</span><h3 class="mtitle">GPU Memory Dumping: The Silent AI Heist</h3><p class="mdate">MARCH 1, 2025</p></div></div>
+      <div class="mc"><div class="mthumb">+ ADD IMAGE</div><div class="minfo"><span class="mtag">RESEARCH</span><h3 class="mtitle">Adversarial Attacks on Enterprise LLMs: 2025 Landscape</h3><p class="mdate">FEBRUARY 24, 2025</p></div></div>
+      <div class="mc"><div class="mthumb">+ ADD IMAGE</div><div class="minfo"><span class="mtag">GUIDE</span><h3 class="mtitle">Building an AI Governance Framework That Actually Works</h3><p class="mdate">FEBRUARY 18, 2025</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="fi">
+    <div>
+      <div class="fbrand">CENTILLION<br/><span>RED TEAM</span></div>
+      <p class="ftag2">Engineering intelligence for a secure AI future. Detect rogue infrastructure, shield model IP, and govern your AI with confidence.</p>
+      <a href="mailto:connect@centillionlabs.com" class="femail">connect@centillionlabs.com</a>
+    </div>
+    <div class="fcol"><h4>SERVICES</h4><ul><li><a href="#">Runtime Shielding</a></li><li><a href="#">LLM Watermarking</a></li><li><a href="#">Threat Detection</a></li><li><a href="#">AI Red Teaming</a></li><li><a href="#">Model Monitoring</a></li></ul></div>
+    <div class="fcol"><h4>COMPANY</h4><ul><li><a href="#">About Centillion</a></li><li><a href="#">Research</a></li><li><a href="#">Careers</a></li><li><a href="#">Press Kit</a></li></ul></div>
+    <div class="fcol"><h4>SUPPORT</h4><ul><li><a href="#">Documentation</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="fbot">
+    <span>© 2025 CENTILLION LABS. ALL RIGHTS RESERVED.</span>
+    <span>SECURE INFERENCE. SECURE FUTURE.</span>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement,b=document.getElementById('ttbtn');
+  const n=h.getAttribute('data-theme')==='dark'?'light':'dark';
+  h.setAttribute('data-theme',n);
+  b.textContent=n==='dark'?'LT':'DK';
+}
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target);}});},{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+<!--
+=================================================================
+REACT / FRAMER MOTION ANIMATION GUIDE FOR ANTIGRAVITY
+=================================================================
+1. HERO LOGO GLOW:
+   <motion.img animate={{scale:[1,1.04,1],filter:['drop-shadow(0 0 18px #e84118)','drop-shadow(0 0 55px #e84118)','drop-shadow(0 0 18px #e84118)']}} transition={{duration:3,repeat:Infinity}}/>
+
+2. HERO SLIDE IN:
+   <motion.div initial={{opacity:0,x:60}} animate={{opacity:1,x:0}} transition={{duration:0.8,delay:0.3}}/>
+
+3. STARBURST SPIN (.bwrap, .sburst):
+   <motion.div animate={{rotate:360}} transition={{duration:18,repeat:Infinity,ease:'linear'}}/>
+
+4. FLOAT BADGES:
+   <motion.div animate={{y:[-5,5,-5]}} transition={{duration:3,repeat:Infinity,delay:i*0.6}}/>
+
+5. THREAT BAND ITEMS:
+   <motion.div initial={{x:50,opacity:0}} whileInView={{x:0,opacity:1}} transition={{delay:i*0.1}} viewport={{once:true}}/>
+
+6. CAP CARDS STAGGER:
+   const c={show:{transition:{staggerChildren:0.1}}}
+   const item={hidden:{y:28,opacity:0},show:{y:0,opacity:1}}
+   whileHover={{y:-6,scale:1.02}}
+
+7. PLAN CARDS:
+   <motion.div whileHover={{y:-6}} transition={{type:'spring',stiffness:300}}/>
+
+8. HEADLINE LETTER REVEAL:
+   Split chars, each: <motion.span initial={{y:50,opacity:0}} animate={{y:0,opacity:1}} transition={{delay:i*0.04}}/>
+
+9. ALERT STARBURST:
+   animate={{rotate:360,scale:[1,1.05,1]}}
+   transition={{rotate:{duration:22,repeat:Infinity,ease:'linear'},scale:{duration:2,repeat:Infinity}}}
+=================================================================
+-->
+</body>
+</html>
