@@ -8,9 +8,9 @@ const SPECIALIZATIONS = [
     { title: 'Modern Data Mesh', desc: 'Data Mesh, Knowledge Graphs, and Synthetic Data solutions.', isRedTeam: false },
 ];
 
-interface Props { onOpenRedTeam: () => void }
+interface Props { onOpenRedTeam?: () => void }
 
-export const About: React.FC<Props> = ({ onOpenRedTeam }) => {
+export const About: React.FC<Props> = (_props) => {
     return (
         <AnimatedSection id="about">
             <div className="sec" style={{ display: 'flex', alignItems: 'center' }}>
@@ -88,33 +88,7 @@ export const About: React.FC<Props> = ({ onOpenRedTeam }) => {
                                         </div>
                                         <h3 style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--text-primary)' }}>{spec.title}</h3>
                                         <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300, flexGrow: 1 }}>{spec.desc}</p>
-                                        <button
-                                            onClick={onOpenRedTeam}
-                                            className="mono-text"
-                                            style={{
-                                                marginTop: '0.5rem',
-                                                padding: '0.6rem 1.25rem',
-                                                background: 'rgba(220,30,30,0.12)',
-                                                border: '1px solid rgba(220,30,30,0.4)',
-                                                borderRadius: '6px',
-                                                color: '#ff5555',
-                                                cursor: 'pointer',
-                                                fontSize: '0.78rem',
-                                                letterSpacing: '0.12em',
-                                                width: 'fit-content',
-                                                transition: 'background 0.2s, box-shadow 0.2s',
-                                            }}
-                                            onMouseEnter={e => {
-                                                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(220,30,30,0.22)';
-                                                (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 20px rgba(200,0,0,0.25)';
-                                            }}
-                                            onMouseLeave={e => {
-                                                (e.currentTarget as HTMLButtonElement).style.background = 'rgba(220,30,30,0.12)';
-                                                (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
-                                            }}
-                                        >
-                                            EXPLORE RED TEAM →
-                                        </button>
+                                        {/* EXPLORE RED TEAM button disabled — will re-enable after integration */}
                                     </div>
                                 ) : (
                                     /* ── Standard card ── */

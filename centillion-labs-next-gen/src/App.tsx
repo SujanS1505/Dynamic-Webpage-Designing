@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Layout } from './components/layout/Layout';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
+import { WhoWeAre } from './components/sections/WhoWeAre';
 import { Services } from './components/sections/Services';
 
 import { Portfolio } from './components/sections/Portfolio';
@@ -13,18 +13,17 @@ import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
 import { Contact } from './components/sections/Contact';
-import { RedTeamPage } from './pages/RedTeamPage';
+// RedTeamPage disabled — import { RedTeamPage } from './pages/RedTeamPage';
 
 function App() {
-  const [showRedTeam, setShowRedTeam] = useState(false);
 
   return (
     <>
-      {showRedTeam && <RedTeamPage onClose={() => setShowRedTeam(false)} />}
       <Layout>
         <Hero />
         <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
-          <About onOpenRedTeam={() => setShowRedTeam(true)} />
+          <About onOpenRedTeam={() => { }} />
+          <WhoWeAre />
           <Services />
           <Portfolio />
           <Impact />
