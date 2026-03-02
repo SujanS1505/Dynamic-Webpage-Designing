@@ -32,14 +32,7 @@ const DATA_DRIVEN_ITEMS = [
     },
 ];
 
-const ARISTOTLE_ITEMS = [
-    'GMail Synthesizer Craft',
-    'Finance Language Model',
-    'Retail Language Model',
-    'Home Brewn LLM Model',
-    'Vertex AI',
-    'Bedrock AI',
-];
+
 
 /* ─── Sub-components ────────────────────────────────────────── */
 
@@ -331,84 +324,7 @@ export const WhoWeAre: React.FC = () => {
                     </div>
                 </div>
 
-                <SectionDivider />
 
-                {/* ── Section 4: AristotleAI ── */}
-                <div className="split-grid" style={{ alignItems: 'center', gap: 'clamp(2rem, 5vw, 5rem)' }}>
-                    <div>
-                        <AnimatedItem>
-                            <p className="mono-text" style={{
-                                fontSize: '0.72rem',
-                                letterSpacing: '0.2em',
-                                color: 'var(--accent-primary)',
-                                marginBottom: '0.8rem',
-                            }}>
-                                OUR FLAGSHIP PRODUCT
-                            </p>
-                            <h3 style={{
-                                fontSize: 'clamp(2rem, 4vw, 3rem)',
-                                fontWeight: 200,
-                                color: 'var(--text-primary)',
-                                letterSpacing: '-0.01em',
-                                marginBottom: '1rem',
-                                lineHeight: 1.2,
-                            }}>
-                                AristotleAI
-                            </h3>
-                        </AnimatedItem>
-                        <AnimatedItem delay={0.1}>
-                            <p style={{
-                                color: 'var(--text-secondary)',
-                                fontSize: '1rem',
-                                fontWeight: 300,
-                                lineHeight: 1.7,
-                                marginBottom: '2rem',
-                            }}>
-                                A suite of AI-powered tools and language models crafted to deliver intelligent, domain-specific solutions that put ethics and responsibility first.
-                            </p>
-                        </AnimatedItem>
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(min(200px, 100%), 1fr))',
-                            gap: '0.75rem',
-                        }}>
-                            {ARISTOTLE_ITEMS.map((item, i) => (
-                                <AnimatedItem key={item} delay={0.1 + i * 0.07}>
-                                    <div className="glass-panel" style={{
-                                        padding: '0.9rem 1.2rem',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.6rem',
-                                        borderRadius: '0.6rem',
-                                        border: '1px solid rgba(99,179,237,0.12)',
-                                        transition: 'border-color 0.25s, box-shadow 0.25s',
-                                    }}
-                                        onMouseEnter={e => {
-                                            (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(99,179,237,0.35)';
-                                            (e.currentTarget as HTMLDivElement).style.boxShadow = '0 0 20px rgba(99,179,237,0.1)';
-                                        }}
-                                        onMouseLeave={e => {
-                                            (e.currentTarget as HTMLDivElement).style.borderColor = 'rgba(99,179,237,0.12)';
-                                            (e.currentTarget as HTMLDivElement).style.boxShadow = 'none';
-                                        }}
-                                    >
-                                        <span style={{
-                                            color: 'var(--accent-primary)',
-                                            fontSize: '0.75rem',
-                                            filter: 'drop-shadow(0 0 5px var(--accent-primary))',
-                                        }}>✓</span>
-                                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', fontWeight: 300 }}>{item}</span>
-                                    </div>
-                                </AnimatedItem>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Right: photo placeholder */}
-                    <AnimatedItem delay={0.2}>
-                        <PhotoPlaceholder label="ARISTOTLEAI VERTEX" minHeight="320px" />
-                    </AnimatedItem>
-                </div>
             </div>
         </AnimatedSection>
     );

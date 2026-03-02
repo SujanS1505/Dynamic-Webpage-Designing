@@ -2,15 +2,13 @@ import React from 'react';
 import { AnimatedSection, AnimatedItem } from '../layout/AnimatedSection';
 
 const SPECIALIZATIONS = [
-    { title: 'Go Lang', desc: 'Concurrency patterns, gRPC, and performance-critical systems.', isRedTeam: false },
-    { title: 'Scala', desc: 'Spark core, functional design patterns, and big data processing.', isRedTeam: false },
-    { title: 'Red Teaming', desc: 'Adversary simulation testing people, processes, and technology against real-world, high-stakes threats.', isRedTeam: true },
-    { title: 'Modern Data Mesh', desc: 'Data Mesh, Knowledge Graphs, and Synthetic Data solutions.', isRedTeam: false },
+    { title: 'Go Lang', desc: 'Concurrency patterns, gRPC, and performance-critical systems.' },
+    { title: 'Scala', desc: 'Spark core, functional design patterns, and big data processing.' },
+    { title: 'Red Teaming', desc: 'Adversary simulation testing people, processes, and technology against real-world, high-stakes threats.' },
+    { title: 'Modern Data Mesh', desc: 'Data Mesh, Knowledge Graphs, and Synthetic Data solutions.' },
 ];
 
-interface Props { onOpenRedTeam?: () => void }
-
-export const About: React.FC<Props> = (_props) => {
+export const About: React.FC = () => {
     return (
         <AnimatedSection id="about">
             <div className="sec" style={{ display: 'flex', alignItems: 'center' }}>
@@ -60,51 +58,16 @@ export const About: React.FC<Props> = (_props) => {
                     }}>
                         {SPECIALIZATIONS.map((spec, index) => (
                             <AnimatedItem key={spec.title} delay={0.1 * index}>
-                                {spec.isRedTeam ? (
-                                    /* ── Red Teaming card with special styling & CTA ── */
-                                    <div
-                                        className="glass-panel card-pad"
-                                        style={{
-                                            padding: '2.5rem',
-                                            height: '100%',
-                                            border: '1px solid rgba(220,30,30,0.35)',
-                                            background: 'linear-gradient(135deg, rgba(180,20,20,0.08) 0%, rgba(0,0,0,0) 70%)',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '1rem',
-                                        }}
-                                    >
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
-                                            <span style={{
-                                                width: 8, height: 8, borderRadius: '50%',
-                                                background: '#ff3333',
-                                                boxShadow: '0 0 8px #ff3333',
-                                                display: 'inline-block',
-                                                animation: 'pulse 2s infinite',
-                                            }} />
-                                            <span className="mono-text" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', color: '#ff5555' }}>
-                                                SECURITY DIVISION
-                                            </span>
-                                        </div>
-                                        <h3 style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--text-primary)' }}>{spec.title}</h3>
-                                        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300, flexGrow: 1 }}>{spec.desc}</p>
-                                        {/* EXPLORE RED TEAM button disabled — will re-enable after integration */}
-                                    </div>
-                                ) : (
-                                    /* ── Standard card ── */
-                                    <div className="glass-panel card-pad" style={{ padding: '2.5rem', height: '100%' }}>
-                                        <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', fontWeight: 300 }}>{spec.title}</h3>
-                                        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300 }}>{spec.desc}</p>
-                                    </div>
-                                )}
+                                <div className="glass-panel card-pad" style={{ padding: '2.5rem', height: '100%' }}>
+                                    <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', fontWeight: 300 }}>{spec.title}</h3>
+                                    <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', fontWeight: 300 }}>{spec.desc}</p>
+                                </div>
                             </AnimatedItem>
                         ))}
                     </div>
                 </div>
             </div>
-            <style>{`
-                @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
-            `}</style>
+
         </AnimatedSection>
     );
 };

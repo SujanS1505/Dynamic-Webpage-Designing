@@ -2,1700 +2,1453 @@
 <html lang="en" data-theme="dark">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Centillion Red Team — Secure Inference. Secure Future.</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bangers&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&family=Patrick+Hand&display=swap" rel="stylesheet" />
-    <style>
-        /* ═══════════════════════════════════════
-           RESET & BASE
-        ═══════════════════════════════════════ */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        /* ── Dark theme (default) ── */
-        :root {
-            --red: #e84118;
-            --red-dark: #c5350e;
-            --orange: #f0a500;
-            --yellow: #FFD700;
-            --blue: #1a3a6e;
-            --cyan: #00c8ff;
-
-            --bg: #0a0a0a;
-            --bg-dark: #111111;
-            --bg-mid: #1c1c1c;
-            --bg-card: #1a1a1a;
-
-            --text-main: rgba(255,255,255,0.92);
-            --text-sub: rgba(255,255,255,0.82);
-            --text-muted: rgba(255,255,255,0.45);
-            --text-head: #ffffff;
-
-            --border: rgba(255,255,255,0.1);
-            --border-strong: rgba(255,255,255,0.25);
-            --ph-bg: #1e1e1e;
-            --ph-text: rgba(255,255,255,0.2);
-            --ph-border: rgba(255,255,255,0.12);
-
-            --nav-bg: #0a0a0a;
-            --panel-bg: #111;
-            --panel-border: #e84118;
-
-            --btn-bg: #1c1c1c;
-            --btn-text: #ffffff;
-            --btn-border: rgba(255,255,255,0.2);
-
-            --marquee-bg: #1c1c1c;
-            --marquee-text: rgba(255,255,255,0.12);
-
-            --footer-bg: #0a0a0a;
-
-            --halftone-color: rgba(232,65,24,0.06);
-            --speech-bg: #ffffff;
-            --speech-text: #111;
-
-            --panel-shadow: 6px 6px 0px #e84118;
-        }
-
-        /* ── Light / Comic theme ── */
-        [data-theme="light"] {
-            --red: #e84118;
-            --red-dark: #c5350e;
-            --orange: #f0a500;
-            --yellow: #FFD700;
-            --blue: #1a3a6e;
-            --cyan: #007bff;
-
-            --bg: #f7e8c8;
-            --bg-dark: #f0d9a8;
-            --bg-mid: #ffe0b2;
-            --bg-card: #fff8e7;
-
-            --text-main: #1a0a00;
-            --text-sub: #2a1200;
-            --text-muted: #5a3a1a;
-            --text-head: #1a0a00;
-
-            --border: rgba(80,30,10,0.2);
-            --border-strong: rgba(80,30,10,0.5);
-            --ph-bg: #e8d4b0;
-            --ph-text: rgba(80,30,10,0.3);
-            --ph-border: rgba(80,30,10,0.2);
-
-            --nav-bg: #e84118;
-            --panel-bg: #fff8e7;
-            --panel-border: #1a0a00;
-
-            --btn-bg: #ffffff;
-            --btn-text: #1a0a00;
-            --btn-border: rgba(80,30,10,0.4);
-
-            --marquee-bg: #e84118;
-            --marquee-text: rgba(255,255,255,0.25);
-
-            --footer-bg: #1a0a00;
-
-            --halftone-color: rgba(232,65,24,0.12);
-            --speech-bg: #ffffff;
-            --speech-text: #111;
-
-            --panel-shadow: 6px 6px 0px #1a0a00;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'Barlow', sans-serif;
-            background: var(--bg);
-            color: var(--text-sub);
-            overflow-x: hidden;
-            transition: background 0.35s ease, color 0.35s ease;
-            /* Halftone dot background */
-            background-image: radial-gradient(var(--halftone-color) 1.5px, transparent 1.5px);
-            background-size: 22px 22px;
-        }
-
-        a { text-decoration: none; color: inherit; }
-        img { display: block; width: 100%; height: 100%; object-fit: cover; }
-
-        .display { font-family: 'Bebas Neue', sans-serif; }
-        .bangers { font-family: 'Bangers', cursive; letter-spacing: 0.05em; }
-        .condensed { font-family: 'Barlow Condensed', sans-serif; }
-        .red { color: var(--red); }
-        .orange { color: var(--orange); }
-        .yellow { color: var(--yellow); }
-        .cyan { color: var(--cyan); }
-
-        /* ── Comic panel border style ── */
-        .panel-border {
-            border: 3px solid var(--panel-border);
-            box-shadow: var(--panel-shadow);
-        }
-
-        /* ── Speech bubble ── */
-        .speech-bubble {
-            position: relative;
-            background: var(--speech-bg);
-            color: var(--speech-text);
-            border: 3px solid #111;
-            border-radius: 16px;
-            padding: 0.8rem 1.2rem;
-            font-family: 'Bangers', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.05em;
-            box-shadow: 4px 4px 0 #111;
-            display: inline-block;
-        }
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            bottom: -18px;
-            left: 24px;
-            border-width: 18px 10px 0;
-            border-style: solid;
-            border-color: #111 transparent transparent;
-        }
-        .speech-bubble::before {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 26px;
-            border-width: 14px 8px 0;
-            border-style: solid;
-            border-color: var(--speech-bg) transparent transparent;
-            z-index: 1;
-        }
-
-        /* ── Shout burst ── */
-        .burst {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bangers', cursive;
-            letter-spacing: 0.08em;
-            text-align: center;
-        }
-        .burst svg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* ── Placeholder image ── */
-        .ph {
-            background: var(--ph-bg);
-            border: 2px dashed var(--ph-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--ph-text);
-            font-size: 0.7rem;
-            font-family: monospace;
-            letter-spacing: 0.1em;
-            overflow: hidden;
-        }
-        .ph::after { content: '+ IMAGE'; }
-
-        /* ═══════════════════════════════════════
-           NAV
-        ═══════════════════════════════════════ */
-        nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--nav-bg);
-            border-bottom: 4px solid var(--red);
-            padding: 0 clamp(1.5rem, 5vw, 4rem);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 62px;
-            transition: background 0.35s ease;
-        }
-
-        .nav-logo {
-            font-family: 'Bangers', cursive;
-            font-size: 1.8rem;
-            letter-spacing: 0.1em;
-            color: var(--text-head);
-            text-shadow: 3px 3px 0 var(--red);
-        }
-        [data-theme="light"] .nav-logo { color: #fff; text-shadow: 3px 3px 0 #1a0a00; }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        .nav-links a {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 0.12em;
-            color: var(--text-sub);
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-        [data-theme="light"] .nav-links a { color: rgba(255,255,255,0.9); }
-        .nav-links a:hover { color: var(--yellow); }
-
-        .nav-meta { display: flex; align-items: center; gap: 1rem; }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            background: transparent;
-            border: 2px solid var(--btn-border);
-            color: var(--text-sub);
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex; align-items: center; justify-content: center;
-            transition: border-color 0.2s, transform 0.2s;
-        }
-        [data-theme="light"] .theme-toggle { border-color: rgba(255,255,255,0.5); color: #fff; }
-        .theme-toggle:hover { border-color: var(--yellow); transform: rotate(20deg); }
-
-        .nav-btn {
-            background: var(--yellow);
-            color: #111;
-            font-family: 'Bangers', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.1em;
-            padding: 0.4rem 1.4rem;
-            border-radius: 3px;
-            cursor: pointer;
-            border: 2px solid #111;
-            box-shadow: 3px 3px 0 #111;
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-        .nav-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 #111; }
-
-        /* ═══════════════════════════════════════
-           HERO SECTION
-        ═══════════════════════════════════════ */
-        .hero {
-            position: relative;
-            background: var(--bg);
-            padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem) 0;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 3rem;
-            align-items: center;
-            min-height: 88vh;
-            overflow: hidden;
-        }
-
-        /* Comic panel lines in hero */
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 60% 50%, rgba(232,65,24,0.12) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        /* Speed lines */
-        .hero-speedlines {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            opacity: 0.04;
-            background: repeating-conic-gradient(from 0deg at 80% 50%, #e84118 0deg 2deg, transparent 2deg 10deg);
-        }
-        [data-theme="light"] .hero-speedlines { opacity: 0.07; }
-
-        .hero-eyebrow {
-            font-family: 'Bangers', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.2em;
-            color: var(--orange);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .hero-eyebrow span {
-            display: inline-block;
-            background: var(--red);
-            color: #fff;
-            padding: 0.1rem 0.7rem;
-            font-size: 0.8rem;
-            border: 2px solid #111;
-            box-shadow: 2px 2px 0 #111;
-        }
-
-        .hero-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(3.5rem, 7.5vw, 7rem);
-            line-height: 0.95;
-            color: var(--text-head);
-            letter-spacing: 0.03em;
-            /* Comic ink outline effect */
-            text-shadow: 4px 4px 0 var(--red), -1px -1px 0 rgba(0,0,0,0.5);
-            animation: slideIn 0.8s ease both;
-        }
-        [data-theme="light"] .hero-headline {
-            text-shadow: 4px 4px 0 var(--red), 2px 2px 0 #1a0a00;
-        }
-
-        .hero-headline .highlight {
-            color: var(--red);
-            text-shadow: 4px 4px 0 var(--orange), 2px 2px 0 rgba(0,0,0,0.6);
-        }
-        [data-theme="light"] .hero-headline .highlight {
-            text-shadow: 4px 4px 0 var(--orange), 2px 2px 0 #1a0a00;
-        }
-
-        .hero-tagline {
-            font-family: 'Patrick Hand', cursive;
-            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-            color: var(--orange);
-            margin: 1.2rem 0;
-            background: var(--bg-mid);
-            border: 2px solid var(--red);
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            transform: rotate(-1.5deg);
-            box-shadow: 3px 3px 0 var(--red);
-        }
-
-        .hero-sub {
-            max-width: 420px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.75;
-            font-weight: 300;
-            margin-bottom: 2rem;
-        }
-
-        .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem; }
-
-        .btn-red {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: var(--red);
-            color: #fff;
-            font-family: 'Bangers', cursive;
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            padding: 0.6rem 1.8rem;
-            border: 2px solid #111;
-            box-shadow: 4px 4px 0 #111;
-            cursor: pointer;
-            transition: transform 0.15s, box-shadow 0.15s;
-        }
-        .btn-red:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #111; }
-
-        .btn-outline {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: transparent;
-            color: var(--text-head);
-            font-family: 'Bangers', cursive;
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            padding: 0.6rem 1.8rem;
-            border: 2px solid var(--border-strong);
-            box-shadow: 4px 4px 0 rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: border-color 0.2s, color 0.2s;
-        }
-        [data-theme="light"] .btn-outline { border-color: #1a0a00; box-shadow: 4px 4px 0 #1a0a00; }
-        .btn-outline:hover { border-color: var(--red); color: var(--red); }
-
-        /* Hero right - comic panel visual */
-        .hero-right {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeUp 0.9s 0.2s ease both;
-        }
-
-        .hero-comic-panel {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .hero-logo-wrap {
-            width: 100%;
-            aspect-ratio: 1;
-            max-width: 320px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .hero-logo-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 0 30px rgba(232,65,24,0.5));
-            /* REACT ANIMATION COMMENT: Add pulse/glow animation — 
-               motion.img with animate={{ scale: [1, 1.05, 1], filter: ['drop-shadow(0 0 20px #e84118)', 'drop-shadow(0 0 50px #e84118)', 'drop-shadow(0 0 20px #e84118)'] }} transition={{ duration: 3, repeat: Infinity }} */
-        }
-
-        .hero-burst-wrap {
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 130px;
-            height: 130px;
-            /* REACT ANIMATION COMMENT: Rotate continuously — motion.div with animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} */
-        }
-
-        .hero-burst-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-        .hero-burst-text {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bangers', cursive;
-            font-size: 0.85rem;
-            letter-spacing: 0.08em;
-            color: #111;
-            text-align: center;
-            line-height: 1.2;
-            z-index: 1;
-            padding: 20px;
-        }
-
-        .hero-speech-wrap {
-            position: absolute;
-            bottom: 20px;
-            left: -40px;
-        }
-
-        /* Floating threat badges */
-        .threat-badge {
-            position: absolute;
-            background: var(--red);
-            color: #fff;
-            font-family: 'Bangers', cursive;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            padding: 0.3rem 0.8rem;
-            border: 2px solid #111;
-            box-shadow: 3px 3px 0 #111;
-            white-space: nowrap;
-            /* REACT ANIMATION COMMENT: Floating — motion.div with animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity, delay: index*0.5 }} */
-        }
-        .threat-badge:nth-child(2) { top: 10px; right: 10px; background: var(--orange); color: #111; }
-        .threat-badge:nth-child(3) { top: 50px; left: 0px; background: #1a3a6e; }
-
-        /* ═══════════════════════════════════════
-           TORN DIVIDER
-        ═══════════════════════════════════════ */
-        .torn-divider { display: block; width: 100%; height: 70px; overflow: hidden; line-height: 0; margin: 0; }
-        .torn-divider svg { display: block; width: 100%; height: 100%; }
-
-        /* ═══════════════════════════════════════
-           MARQUEE
-        ═══════════════════════════════════════ */
-        .marquee-wrap {
-            overflow: hidden;
-            border-top: 3px solid #111;
-            border-bottom: 3px solid #111;
-            background: var(--red);
-            padding: 0.8rem 0;
-            white-space: nowrap;
-        }
-        .marquee-track {
-            display: inline-block;
-            animation: marquee 18s linear infinite;
-        }
-        .marquee-track span {
-            font-family: 'Bangers', cursive;
-            font-size: 1.4rem;
-            letter-spacing: 0.18em;
-            color: rgba(255,255,255,0.9);
-            padding: 0 2rem;
-        }
-        .marquee-track span.dot { color: var(--yellow); opacity: 1; }
-
-        /* ═══════════════════════════════════════
-           THREAT SHOWCASE (formerly merch band)
-        ═══════════════════════════════════════ */
-        .threat-band {
-            position: relative;
-            background: var(--blue);
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-            flex-wrap: wrap;
-            border-top: 4px solid var(--yellow);
-            border-bottom: 4px solid var(--yellow);
-            overflow: hidden;
-        }
-        [data-theme="light"] .threat-band { background: #1a3a6e; }
-
-        .threat-band-speedlines {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            opacity: 0.05;
-            background: repeating-conic-gradient(from 0deg at 50% 50%, #fff 0deg 1.5deg, transparent 1.5deg 8deg);
-        }
-
-        .threat-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(2.5rem, 5.5vw, 4.5rem);
-            line-height: 1;
-            color: #ffffff;
-            flex: 1 1 300px;
-            letter-spacing: 0.05em;
-            text-shadow: 3px 3px 0 var(--red);
-        }
-        .threat-headline em { color: var(--yellow); font-style: normal; }
-
-        .threat-items {
-            flex: 1 1 220px;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .threat-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: rgba(0,0,0,0.3);
-            padding: 0.7rem 1rem;
-            border: 2px solid rgba(255,255,255,0.15);
-            border-left: 4px solid var(--red);
-        }
-
-        .threat-icon {
-            font-size: 1.6rem;
-            flex-shrink: 0;
-        }
-
-        .threat-item-label {
-            font-family: 'Bangers', cursive;
-            font-size: 1.4rem;
-            color: #fff;
-            letter-spacing: 0.06em;
-        }
-
-        .threat-item-sub {
-            font-size: 0.78rem;
-            color: rgba(255,255,255,0.55);
-            font-family: 'Barlow Condensed', sans-serif;
-        }
-
-        /* ═══════════════════════════════════════
-           SECTION — CAPABILITIES
-        ═══════════════════════════════════════ */
-        .section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
-        }
-        .section-inner { max-width: 1200px; margin: 0 auto; }
-
-        .wide-sel-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-            align-items: start;
-            margin-bottom: 3.5rem;
-        }
-
-        .wide-sel-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(4rem, 8vw, 7rem);
-            line-height: 0.9;
-            color: var(--red);
-            letter-spacing: 0.03em;
-            text-shadow: 4px 4px 0 rgba(0,0,0,0.3);
-        }
-        [data-theme="light"] .wide-sel-headline { text-shadow: 4px 4px 0 #1a0a00; }
-
-        .wide-sel-desc {
-            padding-top: 1.5rem;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            font-weight: 300;
-        }
-
-        .btn-primary {
-            display: inline-block;
-            margin-top: 1.5rem;
-            background: var(--btn-bg);
-            border: 2px solid var(--btn-border);
-            box-shadow: 3px 3px 0 var(--border-strong);
-            color: var(--btn-text);
-            font-family: 'Bangers', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.15em;
-            padding: 0.6rem 1.8rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: border-color 0.2s, color 0.2s, transform 0.15s;
-        }
-        .btn-primary:hover { border-color: var(--red); color: var(--red); transform: translate(-2px,-2px); }
-
-        /* Capabilities grid */
-        .cap-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
-            gap: 1.5rem;
-        }
-
-        .cap-card {
-            cursor: pointer;
-            background: var(--bg-card);
-            border: 3px solid var(--panel-border);
-            box-shadow: 5px 5px 0 var(--red);
-            padding: 1.5rem 1.2rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        [data-theme="light"] .cap-card { border-color: #1a0a00; box-shadow: 5px 5px 0 #1a0a00; }
-
-        .cap-card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 40px; height: 40px;
-            background: var(--red);
-            clip-path: polygon(100% 0, 100% 100%, 0 0);
-        }
-
-        .cap-card:hover {
-            transform: translate(-4px,-4px);
-            box-shadow: 9px 9px 0 var(--red);
-        }
-
-        .cap-icon {
-            font-size: 2.2rem;
-            margin-bottom: 0.8rem;
-            display: block;
-        }
-
-        .cap-title {
-            font-family: 'Bangers', cursive;
-            font-size: 1.35rem;
-            letter-spacing: 0.06em;
-            color: var(--text-head);
-            margin-bottom: 0.4rem;
-        }
-
-        .cap-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        .cap-tag {
-            display: inline-block;
-            margin-top: 0.8rem;
-            background: var(--red);
-            color: #fff;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 0.68rem;
-            letter-spacing: 0.15em;
-            padding: 0.15rem 0.6rem;
-            text-transform: uppercase;
-        }
-
-        /* ═══════════════════════════════════════
-           ALERT BAND
-        ═══════════════════════════════════════ */
-        .alert-band {
-            background: var(--red);
-            padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
-            border-top: 4px solid #111;
-            border-bottom: 4px solid #111;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .alert-band::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent, transparent 18px,
-                rgba(0,0,0,0.06) 18px, rgba(0,0,0,0.06) 36px
-            );
-        }
-
-        .alert-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
-        }
-
-        .alert-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(3.5rem, 8vw, 7rem);
-            line-height: 0.9;
-            color: #fff;
-            text-shadow: 4px 4px 0 #111, 6px 6px 0 rgba(0,0,0,0.3);
-            flex: 1 1 300px;
-        }
-
-        .alert-content { flex: 1 1 280px; }
-
-        .alert-badge {
-            display: inline-block;
-            background: var(--yellow);
-            color: #111;
-            font-family: 'Bangers', cursive;
-            font-size: 1.3rem;
-            letter-spacing: 0.1em;
-            padding: 0.3rem 1.2rem;
-            border: 3px solid #111;
-            box-shadow: 4px 4px 0 #111;
-            margin-bottom: 1rem;
-            transform: rotate(-2deg);
-            display: inline-block;
-        }
-
-        .alert-text {
-            color: rgba(255,255,255,0.9);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            font-weight: 300;
-        }
-
-        /* Burst starburst (static CSS) */
-        .starburst {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            flex-shrink: 0;
-        }
-        .starburst svg { position: absolute; inset: 0; }
-        .starburst-text {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Bangers', cursive;
-            font-size: 1rem;
-            letter-spacing: 0.06em;
-            color: #111;
-            text-align: center;
-            line-height: 1.25;
-            padding: 30px;
-            z-index: 1;
-        }
-
-        /* ═══════════════════════════════════════
-           CHOOSE YOUR PLAN
-        ═══════════════════════════════════════ */
-        .plan-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .plan-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 100%, rgba(232,65,24,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .section-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(3rem, 7vw, 6rem);
-            color: var(--red);
-            text-align: center;
-            margin-bottom: 0.5rem;
-            letter-spacing: 0.06em;
-            text-shadow: 4px 4px 0 rgba(0,0,0,0.2);
-        }
-        [data-theme="light"] .section-headline { text-shadow: 4px 4px 0 #1a0a00; }
-
-        .section-sub {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 3rem;
-        }
-
-        .plans-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
-            gap: 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .plan-card {
-            border-radius: 0;
-            overflow: hidden;
-            position: relative;
-            border: 3px solid var(--panel-border);
-            background: var(--bg-card);
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--panel-shadow);
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-        .plan-card:hover {
-            transform: translate(-4px,-4px);
-            box-shadow: 10px 10px 0 var(--red);
-        }
-        [data-theme="light"] .plan-card { border-color: #1a0a00; box-shadow: 5px 5px 0 #1a0a00; }
-        [data-theme="light"] .plan-card:hover { box-shadow: 10px 10px 0 #1a0a00; }
-
-        .plan-card.featured {
-            border-color: var(--yellow);
-            box-shadow: 6px 6px 0 var(--yellow);
-        }
-        .plan-card.featured:hover { box-shadow: 10px 10px 0 var(--yellow); }
-
-        .plan-header {
-            padding: 1.5rem;
-            background: var(--bg-mid);
-            border-bottom: 3px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .plan-card.featured .plan-header { background: var(--red); border-bottom-color: #c5350e; }
-
-        .plan-price {
-            font-family: 'Bangers', cursive;
-            font-size: 2rem;
-            color: var(--orange);
-            letter-spacing: 0.05em;
-        }
-        .plan-card.featured .plan-price { color: var(--yellow); }
-
-        .plan-name {
-            font-family: 'Bangers', cursive;
-            font-size: 3rem;
-            color: var(--text-head);
-            letter-spacing: 0.05em;
-        }
-        .plan-card.featured .plan-name { color: #fff; }
-
-        .plan-body {
-            padding: 1.75rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            flex: 1;
-        }
-
-        .plan-features {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .plan-features li {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            padding-left: 1.5rem;
-            position: relative;
-            line-height: 1.5;
-        }
-        .plan-features li::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            color: var(--red);
-            font-size: 0.6rem;
-            top: 4px;
-        }
-        .plan-card.featured .plan-features li::before { color: var(--orange); }
-
-        .plan-btn {
-            margin-top: auto;
-            padding: 0.75rem;
-            background: transparent;
-            border: 2px solid var(--border-strong);
-            box-shadow: 3px 3px 0 var(--border-strong);
-            color: var(--btn-text);
-            font-family: 'Bangers', cursive;
-            font-size: 1.1rem;
-            letter-spacing: 0.12em;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .plan-btn:hover,
-        .plan-card.featured .plan-btn {
-            background: var(--red);
-            border-color: var(--red);
-            box-shadow: 3px 3px 0 #111;
-            color: #fff;
-        }
-        .plan-card.featured .plan-btn:hover { background: var(--red-dark); }
-
-        /* Featured badge */
-        .featured-tag {
-            position: absolute;
-            top: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--yellow);
-            color: #111;
-            font-family: 'Bangers', cursive;
-            font-size: 0.85rem;
-            letter-spacing: 0.1em;
-            padding: 0.2rem 1.2rem;
-            border: 2px solid #111;
-            white-space: nowrap;
-        }
-
-        /* ═══════════════════════════════════════
-           MEDIA / BLOG
-        ═══════════════════════════════════════ */
-        .media-section {
-            padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 4rem);
-            background: var(--bg-dark);
-            transition: background 0.35s;
-        }
-        [data-theme="light"] .media-section { background: var(--bg-mid); }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-            max-width: 1200px;
-        }
-
-        .media-card {
-            border: 3px solid var(--panel-border);
-            box-shadow: var(--panel-shadow);
-            background: var(--bg-card);
-            overflow: hidden;
-            transition: transform 0.25s, box-shadow 0.25s;
-        }
-        [data-theme="light"] .media-card { border-color: #1a0a00; box-shadow: 5px 5px 0 #1a0a00; }
-
-        .media-card:hover {
-            transform: translate(-3px,-3px);
-            box-shadow: 9px 9px 0 var(--red);
-        }
-
-        .media-thumb { width: 100%; aspect-ratio: 16/9; }
-
-        .media-info { padding: 1.25rem; }
-
-        .media-tag {
-            font-family: 'Bangers', cursive;
-            font-size: 0.85rem;
-            letter-spacing: 0.18em;
-            color: #fff;
-            background: var(--red);
-            display: inline-block;
-            padding: 0.1rem 0.7rem;
-            margin-bottom: 0.6rem;
-        }
-
-        .media-title {
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 800;
-            font-size: 1.05rem;
-            color: var(--text-head);
-            margin-bottom: 0.4rem;
-            line-height: 1.3;
-        }
-
-        .media-date {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            font-family: 'Barlow Condensed', sans-serif;
-            letter-spacing: 0.08em;
-        }
-
-        /* ═══════════════════════════════════════
-           WATERMARK SECTION
-        ═══════════════════════════════════════ */
-        .watermark-section {
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-            background: var(--bg-mid);
-            border-top: 4px solid var(--red);
-            border-bottom: 4px solid var(--red);
-        }
-
-        .watermark-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .watermark-headline {
-            font-family: 'Bangers', cursive;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            line-height: 1;
-            letter-spacing: 0.05em;
-            color: var(--text-head);
-            margin-bottom: 1rem;
-        }
-        .watermark-headline .red { text-shadow: 3px 3px 0 rgba(0,0,0,0.3); }
-
-        .watermark-items {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .watermark-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            background: var(--bg-card);
-            padding: 1rem 1.2rem;
-            border: 2px solid var(--border);
-            border-left: 4px solid var(--orange);
-        }
-
-        .watermark-item-icon { font-size: 1.5rem; flex-shrink: 0; }
-
-        .watermark-item-title {
-            font-family: 'Bangers', cursive;
-            font-size: 1.2rem;
-            letter-spacing: 0.05em;
-            color: var(--text-head);
-            margin-bottom: 0.2rem;
-        }
-
-        .watermark-item-desc {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        /* ═══════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════ */
-        footer {
-            background: var(--footer-bg);
-            border-top: 4px solid var(--red);
-            padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-        }
-        [data-theme="light"] footer { color: rgba(255,255,255,0.8); }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr repeat(3, 1fr);
-            gap: 3rem;
-        }
-
-        .footer-brand {
-            font-family: 'Bangers', cursive;
-            font-size: 2.2rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-            color: #fff;
-            text-shadow: 3px 3px 0 var(--red);
-        }
-
-        .footer-tagline {
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.45);
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .footer-email {
-            display: inline-block;
-            margin-top: 1rem;
-            background: var(--yellow);
-            color: #111;
-            font-family: 'Barlow Condensed', sans-serif;
-            font-weight: 700;
-            font-size: 0.88rem;
-            padding: 0.4rem 1rem;
-            letter-spacing: 0.1em;
-            border: 2px solid #fff;
-        }
-
-        .footer-col h4 {
-            font-family: 'Bangers', cursive;
-            font-size: 1.1rem;
-            letter-spacing: 0.15em;
-            color: #fff;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-        }
-
-        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-
-        .footer-col a {
-            font-size: 0.88rem;
-            color: rgba(255,255,255,0.45);
-            transition: color 0.2s;
-        }
-        .footer-col a:hover { color: var(--red); }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 3rem auto 0;
-            border-top: 1px solid rgba(255,255,255,0.12);
-            padding-top: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.3);
-            font-family: 'Barlow Condensed', sans-serif;
-            letter-spacing: 0.08em;
-        }
-
-        /* ═══════════════════════════════════════
-           ANIMATIONS
-        ═══════════════════════════════════════ */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-40px); }
-            to { opacity: 1; transform: none; }
-        }
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: none; }
-        }
-        @keyframes marquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-        @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(232,65,24,0.4); }
-            50% { box-shadow: 0 0 50px rgba(232,65,24,0.8); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes blink {
-            0%, 90%, 100% { opacity: 1; }
-            95% { opacity: 0; }
-        }
-
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-        .reveal.visible { opacity: 1; transform: none; }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════ */
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; min-height: auto; }
-            .hero-right { display: none; }
-            .wide-sel-grid { grid-template-columns: 1fr; }
-            .watermark-inner { grid-template-columns: 1fr; gap: 2rem; }
-            .footer-inner { grid-template-columns: 1fr 1fr; }
-        }
-        @media (max-width: 600px) {
-            .nav-links { display: none; }
-            .threat-band { flex-direction: column; }
-            .footer-inner { grid-template-columns: 1fr; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centillion Red Team — Secure Inference. Secure Future.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #e84118;
+      --red2: #c5350e;
+      --orange: #f0a500;
+      --yellow: #FFD700;
+      --blue: #0e2244;
+      --bg: #0a0a0a;
+      --bg2: #111;
+      --bg3: #1a1a1a;
+      --bg4: #1c1c1c;
+      --text: #fff;
+      --sub: rgba(255, 255, 255, .88);
+      --muted: rgba(255, 255, 255, .6);
+      --brd: rgba(255, 255, 255, .1);
+      --brd2: rgba(255, 255, 255, .28);
+      --nav: #0a0a0a;
+      --card: #141414;
+      --shd: 5px 5px 0 #e84118;
+      --ht: rgba(232, 65, 24, .055);
+      --sp: #fff;
+      --spt: #111;
+      --ft: #060606;
+    }
+
+    [data-theme="light"] {
+      --red: #c42800;
+      --red2: #a82200;
+      --orange: #c07000;
+      --yellow: #d4a000;
+      --blue: #1a3a6e;
+      --bg: #fdf3e0;
+      --bg2: #f0e0c0;
+      --bg3: #ffe0b0;
+      --bg4: #fff4d8;
+      --text: #1a0500;
+      --sub: #2a0e00;
+      --muted: #6b3a10;
+      --brd: rgba(100, 40, 5, .2);
+      --brd2: rgba(100, 40, 5, .5);
+      --nav: #c42800;
+      --card: #fff8e0;
+      --shd: 5px 5px 0 #1a0500;
+      --ht: rgba(196, 40, 0, .07);
+      --sp: #fff;
+      --spt: #111;
+      --ft: #1a0500;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--sub);
+      overflow-x: hidden;
+      background-image: radial-gradient(var(--ht) 1.5px, transparent 1.5px);
+      background-size: 20px 20px;
+      transition: background .3s, color .3s;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav);
+      border-bottom: 3px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1rem, 3vw, 2.5rem);
+      height: 48px;
+      transition: background .3s;
+    }
+
+    .logo {
+      font-family: 'Bangers', cursive;
+      font-size: 1.35rem;
+      letter-spacing: .1em;
+      color: #fff;
+      text-shadow: 2px 2px 0 #000;
+    }
+
+    .logo b {
+      color: var(--yellow);
+    }
+
+    [data-theme="dark"] .logo {
+      text-shadow: 2px 2px 0 var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .78rem;
+      letter-spacing: .14em;
+      color: rgba(255, 255, 255, .9);
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--yellow);
+    }
+
+    .nav-r {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+    }
+
+    .tbtn {
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, .35);
+      color: #fff;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: .65rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .tbtn:hover {
+      border-color: var(--yellow);
+      transform: rotate(18deg);
+    }
+
+    .nbtn {
+      background: var(--yellow);
+      color: #111;
+      font-family: 'Bangers', cursive;
+      font-size: .85rem;
+      letter-spacing: .1em;
+      padding: .25rem 1rem;
+      border: 2px solid #111;
+      box-shadow: 2px 2px 0 #111;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .nbtn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 #111;
+    }
+
+    /* LANDING — full viewport, headline + caps in one view */
+    .landing {
+      position: relative;
+      height: calc(100vh - 48px);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      overflow: hidden;
+      padding: 0 clamp(1rem, 3vw, 2.5rem);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      padding: clamp(1rem, 2.5vw, 2rem) 0 .8rem;
+    }
+
+    .landing::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 65% 40%, rgba(232, 65, 24, .1) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .spl {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .04;
+      background: repeating-conic-gradient(from 0deg at 75% 40%, var(--red) 0deg 1.5deg, transparent 1.5deg 9deg);
+      z-index: 0;
+    }
+
+    [data-theme="light"] .spl {
+      opacity: .06;
+    }
+
+    .eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      color: var(--orange);
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+    }
+
+    .etag {
+      background: var(--red);
+      color: #fff;
+      padding: .08rem .5rem;
+      font-size: .65rem;
+      border: 2px solid #111;
+      box-shadow: 2px 2px 0 #111;
+    }
+
+    h1 {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(4rem, 9vw, 10.5rem);
+      line-height: .88;
+      letter-spacing: .03em;
+      color: var(--text);
+      text-shadow: 5px 5px 0 var(--red);
+    }
+
+    [data-theme="light"] h1 {
+      text-shadow: 4px 4px 0 rgba(0, 0, 0, .35);
+    }
+
+    h1 .hl {
+      color: var(--red);
+    }
+
+    [data-theme="light"] h1 .hl {
+      text-shadow: 3px 3px 0 rgba(0, 0, 0, .25);
+    }
+
+    .tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic;
+      font-size: .85rem;
+      color: var(--orange);
+      background: var(--bg4);
+      border: 2px solid var(--red);
+      display: inline-block;
+      padding: .18rem .65rem;
+      transform: rotate(-1.5deg);
+      box-shadow: 2px 2px 0 var(--red);
+      margin: .5rem 0 .6rem;
+    }
+
+    [data-theme="light"] .tagline {
+      color: var(--red2);
+    }
+
+    .hsub {
+      max-width: 420px;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.65;
+      font-weight: 300;
+      margin-bottom: .9rem;
+    }
+
+    [data-theme="light"] .hsub {
+      color: var(--sub);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: .65rem;
+      flex-wrap: wrap;
+    }
+
+    .br {
+      display: inline-block;
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: .88rem;
+      letter-spacing: .1em;
+      padding: .35rem 1.2rem;
+      border: 2px solid #111;
+      box-shadow: 3px 3px 0 #111;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .br:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 #111;
+    }
+
+    .bo {
+      display: inline-block;
+      background: transparent;
+      color: var(--text);
+      font-family: 'Bangers', cursive;
+      font-size: .88rem;
+      letter-spacing: .1em;
+      padding: .35rem 1.2rem;
+      border: 2px solid var(--brd2);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, .3);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+
+    [data-theme="light"] .bo {
+      border-color: var(--brd2);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, .25);
+      color: var(--text);
+    }
+
+    .bo:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* INLINE CAPS STRIP */
+    .caps-strip {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .55rem;
+      padding: .75rem 0 .9rem;
+      border-top: 2px solid var(--brd2);
+    }
+
+    [data-theme="light"] .caps-strip {
+      border-top-color: var(--brd2);
+    }
+
+    .cs-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: .22rem;
+    }
+
+    [data-theme="light"] .cs-label {
+      color: var(--red);
+    }
+
+    .cs-title {
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      letter-spacing: .05em;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: .2rem;
+    }
+
+    .cs-desc {
+      font-size: .68rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    [data-theme="light"] .cs-desc {
+      color: var(--sub);
+    }
+
+    .cs-item {
+      background: var(--card);
+      border: 2px solid var(--red);
+      box-shadow: 3px 3px 0 var(--red);
+      padding: .65rem .7rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    [data-theme="light"] .cs-item {
+      border-color: #7a1a00;
+      box-shadow: 3px 3px 0 #1a0500;
+    }
+
+    .cs-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 16px;
+      height: 16px;
+      background: var(--red);
+      clip-path: polygon(100% 0, 100% 100%, 0 0);
+    }
+
+    [data-theme="light"] .cs-item::before {
+      background: #7a1a00;
+    }
+
+    .cs-item:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--red);
+    }
+
+    /* Hero Right */
+    .hero-r {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .8rem;
+      position: relative;
+    }
+
+    .logo-w {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .logo-w img {
+      filter: drop-shadow(0 0 24px rgba(232, 65, 24, .5));
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        filter: drop-shadow(0 0 16px rgba(232, 65, 24, .38));
+      }
+
+      50% {
+        filter: drop-shadow(0 0 44px rgba(232, 65, 24, .8));
+      }
+    }
+
+    .bwrap {
+      position: absolute;
+      top: -18px;
+      right: -18px;
+      width: 88px;
+      height: 88px;
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .binner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bangers', cursive;
+      font-size: .6rem;
+      letter-spacing: .06em;
+      color: #111;
+      text-align: center;
+      line-height: 1.2;
+      z-index: 1;
+      padding: 18px;
+    }
+
+    .speech {
+      position: relative;
+      background: var(--sp);
+      color: var(--spt);
+      border: 3px solid #111;
+      border-radius: 10px;
+      padding: .45rem .8rem;
+      font-family: 'Bangers', cursive;
+      font-size: .85rem;
+      letter-spacing: .05em;
+      box-shadow: 3px 3px 0 #111;
+      display: inline-block;
+      max-width: 230px;
+      text-align: center;
+    }
+
+    .speech::after {
+      content: '';
+      position: absolute;
+      bottom: -13px;
+      left: 16px;
+      border-width: 13px 7px 0;
+      border-style: solid;
+      border-color: #111 transparent transparent;
+    }
+
+    .speech::before {
+      content: '';
+      position: absolute;
+      bottom: -7px;
+      left: 18px;
+      border-width: 9px 5px 0;
+      border-style: solid;
+      border-color: var(--sp) transparent transparent;
+      z-index: 1;
+    }
+
+    .fbadges {
+      display: flex;
+      gap: .45rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .fb {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      padding: .18rem .6rem;
+      border: 2px solid #111;
+      box-shadow: 2px 2px 0 #111;
+      display: inline-block;
+      animation: flt 3s ease-in-out infinite;
+    }
+
+    .fb.b2 {
+      background: var(--orange);
+      color: #111;
+      animation-delay: .8s;
+    }
+
+    @keyframes flt {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* MARQUEE */
+    .mqw {
+      overflow: hidden;
+      border-top: 3px solid #111;
+      border-bottom: 3px solid #111;
+      background: var(--red);
+      padding: .45rem 0;
+      white-space: nowrap;
+    }
+
+    .mqt {
+      display: inline-block;
+      animation: mq 16s linear infinite;
+    }
+
+    @keyframes mq {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .mqt span {
+      font-family: 'Bangers', cursive;
+      font-size: 1.05rem;
+      letter-spacing: .18em;
+      color: rgba(255, 255, 255, .95);
+      padding: 0 1.2rem;
+    }
+
+    .mqdot {
+      color: var(--yellow) !important;
+    }
+
+    /* TORN */
+    .torn {
+      display: block;
+      width: 100%;
+      height: 40px;
+      overflow: hidden;
+      line-height: 0;
+      margin: 0;
+    }
+
+    .torn svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* THREAT BAND */
+    .tband {
+      position: relative;
+      background: var(--blue);
+      padding: clamp(1.2rem, 3vw, 2.2rem) clamp(1rem, 3vw, 2.5rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      border-top: 3px solid var(--yellow);
+      border-bottom: 3px solid var(--yellow);
+      overflow: hidden;
+    }
+
+    .tbl {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .04;
+      background: repeating-conic-gradient(from 0deg at 50% 50%, #fff 0deg 1.5deg, transparent 1.5deg 8deg);
+    }
+
+    .tbh {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      line-height: .95;
+      color: #fff;
+      letter-spacing: .05em;
+      text-shadow: 2px 2px 0 var(--red);
+    }
+
+    .tbh em {
+      color: var(--yellow);
+      font-style: normal;
+    }
+
+    .tbitems {
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+
+    .tbi {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      background: rgba(0, 0, 0, .3);
+      padding: .45rem .8rem;
+      border: 2px solid rgba(255, 255, 255, .1);
+      border-left: 4px solid var(--red);
+    }
+
+    .tbd {
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+
+    .tblabel {
+      font-family: 'Bangers', cursive;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: .06em;
+    }
+
+    .tbsub {
+      font-size: .68rem;
+      color: rgba(255, 255, 255, .55);
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    /* SECTION (for sections after the fold) */
+    .sec {
+      padding: clamp(1rem, 2.5vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+    }
+
+    .si {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ALERT BAND */
+    .aband {
+      background: var(--red);
+      padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+      border-top: 3px solid #111;
+      border-bottom: 3px solid #111;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .aband::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 16px, rgba(0, 0, 0, .05) 16px, rgba(0, 0, 0, .05) 32px);
+    }
+
+    .ainner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.6fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ah {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: .9;
+      color: #fff;
+      text-shadow: 3px 3px 0 #111;
+    }
+
+    .abadge {
+      display: block;
+      width: fit-content;
+      background: var(--yellow);
+      color: #111;
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      padding: .15rem .8rem;
+      border: 2px solid #111;
+      box-shadow: 2px 2px 0 #111;
+      margin-bottom: .55rem;
+      transform: rotate(-2deg);
+    }
+
+    .atext {
+      color: rgba(255, 255, 255, .92);
+      font-size: .82rem;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    .abtn {
+      display: inline-block;
+      margin-top: .9rem;
+      background: #fff;
+      color: var(--red);
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      padding: .38rem 1.4rem;
+      border: 2px solid #111;
+      box-shadow: 3px 3px 0 #111;
+      cursor: pointer;
+      transition: transform .15s;
+    }
+
+    .abtn:hover {
+      transform: translate(-2px, -2px);
+    }
+
+    .sburst {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      animation: spin 22s linear infinite;
+    }
+
+    .sbinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bangers', cursive;
+      font-size: .7rem;
+      letter-spacing: .06em;
+      color: #111;
+      text-align: center;
+      line-height: 1.2;
+      z-index: 1;
+      padding: 22px;
+    }
+
+    /* WATERMARK */
+    .wm {
+      padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+      background: var(--bg2);
+      border-top: 3px solid var(--red);
+      border-bottom: 3px solid var(--red);
+    }
+
+    [data-theme="light"] .wm {
+      background: var(--bg3);
+    }
+
+    .wmi {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .wmh {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+      line-height: .95;
+      letter-spacing: .04em;
+      color: var(--text);
+      margin-bottom: .6rem;
+    }
+
+    .wmh span {
+      color: var(--red);
+    }
+
+    .wmsub {
+      color: var(--muted);
+      font-size: .83rem;
+      line-height: 1.7;
+      margin-bottom: .9rem;
+    }
+
+    [data-theme="light"] .wmsub {
+      color: var(--sub);
+    }
+
+    .wmlist {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+    }
+
+    .wmitem {
+      display: flex;
+      gap: .7rem;
+      background: var(--card);
+      padding: .65rem .85rem;
+      border: 2px solid var(--brd);
+      border-left: 4px solid var(--orange);
+    }
+
+    [data-theme="light"] .wmitem {
+      background: var(--bg4);
+      border-color: var(--brd);
+    }
+
+    .wmdot {
+      width: 3px;
+      background: var(--orange);
+      flex-shrink: 0;
+      align-self: stretch;
+    }
+
+    .wmct .wmt {
+      font-family: 'Bangers', cursive;
+      font-size: .95rem;
+      letter-spacing: .05em;
+      color: var(--text);
+      margin-bottom: .15rem;
+    }
+
+    .wmct .wmd {
+      font-size: .74rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    [data-theme="light"] .wmct .wmd {
+      color: var(--sub);
+    }
+
+    /* INSIGHTS */
+    .insights {
+      padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 3vw, 2.5rem);
+      background: var(--bg2);
+    }
+
+    [data-theme="light"] .insights {
+      background: var(--bg2);
+    }
+
+    .sch {
+      font-family: 'Bangers', cursive;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      color: var(--red);
+      text-align: left;
+      margin-bottom: 1rem;
+      letter-spacing: .05em;
+    }
+
+    .mgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .9rem;
+      max-width: 1200px;
+    }
+
+    .mc {
+      background: var(--card);
+      border: 2px solid var(--red);
+      box-shadow: var(--shd);
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    [data-theme="light"] .mc {
+      border-color: #7a1a00;
+      box-shadow: 5px 5px 0 #1a0500;
+    }
+
+    .mc:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 7px 7px 0 var(--red);
+    }
+
+    .mthumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--bg4);
+      border-bottom: 2px solid var(--brd);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .62rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      color: var(--muted);
+      letter-spacing: .1em;
+    }
+
+    [data-theme="light"] .mthumb {
+      color: var(--muted);
+    }
+
+    .minfo {
+      padding: .75rem .85rem .7rem;
+    }
+
+    .mtag {
+      background: var(--red);
+      color: #fff;
+      font-family: 'Bangers', cursive;
+      font-size: .68rem;
+      letter-spacing: .15em;
+      padding: .06rem .5rem;
+      display: inline-block;
+      margin-bottom: .38rem;
+    }
+
+    .mtitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: .85rem;
+      color: var(--text);
+      margin-bottom: .25rem;
+      line-height: 1.3;
+    }
+
+    .mdate {
+      font-size: .68rem;
+      color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .08em;
+    }
+
+    [data-theme="light"] .mdate {
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--ft);
+      border-top: 3px solid var(--red);
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem);
+    }
+
+    [data-theme="light"] footer {
+      background: #1a0500;
+    }
+
+    .fi {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 1.8rem;
+    }
+
+    .fbrand {
+      font-family: 'Bangers', cursive;
+      font-size: 1.7rem;
+      letter-spacing: .1em;
+      color: #fff;
+      text-shadow: 2px 2px 0 var(--red);
+      margin-bottom: .5rem;
+    }
+
+    .fbrand span {
+      color: var(--red);
+    }
+
+    .ftag2 {
+      font-size: .78rem;
+      color: rgba(255, 255, 255, .42);
+      line-height: 1.55;
+      margin-bottom: .65rem;
+    }
+
+    .femail {
+      display: inline-block;
+      background: var(--yellow);
+      color: #111;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .75rem;
+      padding: .25rem .75rem;
+      border: 2px solid rgba(255, 255, 255, .35);
+      letter-spacing: .08em;
+    }
+
+    .fcol h4 {
+      font-family: 'Bangers', cursive;
+      font-size: .9rem;
+      letter-spacing: .15em;
+      color: #fff;
+      margin-bottom: .55rem;
+    }
+
+    .fcol ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+    }
+
+    .fcol a {
+      font-size: .76rem;
+      color: rgba(255, 255, 255, .36);
+      transition: color .2s;
+    }
+
+    .fcol a:hover {
+      color: var(--red);
+    }
+
+    .fbot {
+      max-width: 1200px;
+      margin: 1.4rem auto 0;
+      border-top: 1px solid rgba(255, 255, 255, .1);
+      padding-top: .9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: .6rem;
+      font-size: .68rem;
+      color: rgba(255, 255, 255, .22);
+      font-family: 'Barlow Condensed', sans-serif;
+      letter-spacing: .08em;
+    }
+
+    /* REVEAL */
+    .rv {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .rv.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      .landing {
+        height: auto;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-r {
+        display: none;
+      }
+
+      .caps-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .tband {
+        grid-template-columns: 1fr;
+      }
+
+      .ainner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .wmi {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .mgrid {
+        grid-template-columns: 1fr;
+      }
+
+      .fi {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .sburst {
+        display: none;
+      }
+    }
+
+    @media(max-width:600px) {
+      .nav-links {
+        display: none;
+      }
+
+      .fi {
+        grid-template-columns: 1fr;
+      }
+
+      .caps-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <!-- ═══════════ NAV ═══════════ -->
-    <nav>
-        <div class="nav-logo">CENTILLION <span style="color:var(--yellow)">RED TEAM</span></div>
-        <ul class="nav-links">
-            <li><a href="#capabilities">CAPABILITIES</a></li>
-            <li><a href="#plans">PLANS</a></li>
-            <li><a href="#media">INSIGHTS</a></li>
-            <li><a href="#contact">CONTACT</a></li>
-        </ul>
-        <div class="nav-meta">
-            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">☀</button>
-            <button class="nav-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE NOW</button>
-        </div>
-    </nav>
-
-    <!-- ═══════════ HERO ═══════════ -->
-    <section class="hero">
-        <div class="hero-speedlines"></div>
-
-        <div class="hero-left">
-            <div class="hero-eyebrow">
-                <span>⚡ THREAT ALERT</span>
-                ENTERPRISE AI SECURITY
-            </div>
-            <h1 class="hero-headline">
-                SECURE<br/>
-                <span class="highlight">INFERENCE.</span><br/>
-                SECURE<br/>
-                FUTURE.
-            </h1>
-            <div class="hero-tagline">"City Sleeps. Centillion Red Team Doesn't."</div>
-            <p class="hero-sub">
-                Detect rogue infrastructure and adversarial attacks before they compromise your AI systems. Runtime shielding, provable watermarking, and real-time threat detection — because model theft is real.
-            </p>
-            <div class="hero-cta-group">
-                <a href="#capabilities" class="btn-red">⚔ EXPLORE CAPABILITIES</a>
-                <a href="#contact" class="btn-outline">🔒 GET PROTECTED</a>
-            </div>
-        </div>
-
-        <div class="hero-right">
-            <!-- REACT ANIMATION COMMENT: Wrap entire hero-right in motion.div with initial={{ opacity:0, x: 60 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.8, delay:0.3 }} -->
-            <div class="hero-comic-panel">
-                <!-- Floating threat badges -->
-                <!-- REACT ANIMATION COMMENT: Each badge: motion.div with animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity, delay: index * 0.6 }} -->
-                <div class="threat-badge" style="position:relative; display:inline-block; margin-bottom:1.5rem; margin-right:1rem;">⚠ GPU MEMORY DUMPING</div>
-                <div class="threat-badge" style="position:relative; display:inline-block; margin-bottom:1.5rem; background:var(--orange); color:#111;">⚡ ADVERSARIAL MANIPULATION</div>
-
-                <!-- Logo image -->
-                <div class="hero-logo-wrap" style="position:relative;">
-                    <!-- REACT ANIMATION COMMENT: motion.img with animate={{ scale: [1, 1.04, 1], filter: ['drop-shadow(0 0 20px #e84118)', 'drop-shadow(0 0 60px #e84118)', 'drop-shadow(0 0 20px #e84118)'] }} transition={{ duration:3, repeat:Infinity }} -->
-                    <img src="/mnt/user-data/uploads/38734383.png" alt="Centillion Red Team Logo" style="filter: drop-shadow(0 0 30px rgba(232,65,24,0.6)); animation: pulse-glow 3s ease-in-out infinite;" />
-
-                    <!-- Rotating starburst around logo -->
-                    <div style="position:absolute; top:-30px; right:-30px; width:120px; height:120px; animation:spin-slow 15s linear infinite;">
-                        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M60,5 L63,50 L100,15 L70,52 L115,55 L72,62 L108,90 L65,68 L70,115 L55,72 L25,110 L48,68 L5,80 L46,58 L12,30 L52,52 Z" fill="#FFD700" stroke="#111" stroke-width="2"/>
-                        </svg>
-                        <div class="starburst-text" style="font-size:0.7rem; color:#111; padding:25px;">IS YOUR<br/>MODEL<br/>READY?</div>
-                    </div>
-                </div>
-
-                <!-- Speech bubble -->
-                <div style="margin-top:1.5rem;">
-                    <div class="speech-bubble">Sleep well. Centillion is awake for you.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Torn paper divider -->
-    <svg class="torn-divider" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path d="M0,0 L0,70 L1440,70 L1440,0 L1420,22 L1400,8 L1378,28 L1355,10 L1330,30 L1308,14 L1282,34 L1258,12 L1234,35 L1210,16 L1186,38 L1160,18 L1136,40 L1110,15 L1085,36 L1060,10 L1035,32 L1010,8 L985,30 L960,6 L935,28 L908,4 L882,26 L855,2 L828,24 L800,0 L772,22 L744,2 L716,24 L688,4 L660,26 L632,6 L604,28 L576,4 L548,26 L520,2 L490,24 L460,0 L430,22 L400,4 L370,26 L340,6 L310,28 L280,8 L250,30 L220,10 L190,32 L160,12 L132,34 L106,14 L80,36 L55,18 L32,38 L12,20 L0,28 Z" fill="#1a3a6e" />
-    </svg>
-
-    <!-- ═══════════ THREAT SHOWCASE BAND ═══════════ -->
-    <section class="threat-band">
-        <div class="threat-band-speedlines"></div>
-        <h2 class="threat-headline">
-            WE <em>DETECT</em> &<br/>SHIELD AGAINST
-        </h2>
-        <div class="threat-items">
-            <!-- REACT ANIMATION COMMENT: Each threat-item: motion.div with initial={{ x: 60, opacity:0 }} whileInView={{ x:0, opacity:1 }} transition={{ delay: index * 0.1 }} viewport={{ once:true }} -->
-            <div class="threat-item">
-                <span class="threat-icon">🧠</span>
-                <div>
-                    <div class="threat-item-label">GPU MEMORY DUMPING</div>
-                    <div class="threat-item-sub">Extract model weights from GPU runtime</div>
-                </div>
-            </div>
-            <div class="threat-item">
-                <span class="threat-icon">⚔</span>
-                <div>
-                    <div class="threat-item-label">ADVERSARIAL MANIPULATION</div>
-                    <div class="threat-item-sub">Crafted inputs to fool your AI systems</div>
-                </div>
-            </div>
-            <div class="threat-item">
-                <span class="threat-icon">🔓</span>
-                <div>
-                    <div class="threat-item-label">ROGUE INFRASTRUCTURE</div>
-                    <div class="threat-item-sub">Unauthorized endpoints and shadow deployments</div>
-                </div>
-            </div>
-            <div class="threat-item">
-                <span class="threat-icon">💀</span>
-                <div>
-                    <div class="threat-item-label">MODEL THEFT</div>
-                    <div class="threat-item-sub">IP extraction via fine-tuning and distillation</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Torn paper divider (flipped) -->
-    <svg class="torn-divider" style="transform:rotate(180deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 70" preserveAspectRatio="none">
-        <path d="M0,0 L0,70 L1440,70 L1440,0 L1420,22 L1400,8 L1378,28 L1355,10 L1330,30 L1308,14 L1282,34 L1258,12 L1234,35 L1210,16 L1186,38 L1160,18 L1136,40 L1110,15 L1085,36 L1060,10 L1035,32 L1010,8 L985,30 L960,6 L935,28 L908,4 L882,26 L855,2 L828,24 L800,0 L772,22 L744,2 L716,24 L688,4 L660,26 L632,6 L604,28 L576,4 L548,26 L520,2 L490,24 L460,0 L430,22 L400,4 L370,26 L340,6 L310,28 L280,8 L250,30 L220,10 L190,32 L160,12 L132,34 L106,14 L80,36 L55,18 L32,38 L12,20 L0,28 Z" fill="#1a3a6e" />
-    </svg>
-
-    <!-- ═══════════ MARQUEE ═══════════ -->
-    <div class="marquee-wrap">
-        <div class="marquee-track">
-            <span>RUNTIME SHIELDING</span><span class="dot">★</span>
-            <span>PROVABLE WATERMARKING</span><span class="dot">★</span>
-            <span>REAL-TIME THREAT DETECTION</span><span class="dot">★</span>
-            <span>DYNAMIC OBFUSCATION</span><span class="dot">★</span>
-            <span>SECURE AI GOVERNANCE</span><span class="dot">★</span>
-            <span>RUNTIME SHIELDING</span><span class="dot">★</span>
-            <span>PROVABLE WATERMARKING</span><span class="dot">★</span>
-            <span>REAL-TIME THREAT DETECTION</span><span class="dot">★</span>
-            <span>DYNAMIC OBFUSCATION</span><span class="dot">★</span>
-            <span>SECURE AI GOVERNANCE</span><span class="dot">★</span>
-        </div>
+  <!-- NAV -->
+  <nav>
+    <div class="logo">CENTILLION <b>RED TEAM</b></div>
+    <ul class="nav-links">
+      <li><a href="#insights">INSIGHTS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="tbtn" id="ttbtn" onclick="toggleTheme()">LT</button>
+      <button class="nbtn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">ENQUIRE
+        NOW</button>
     </div>
+  </nav>
 
-    <!-- ═══════════ CAPABILITIES ═══════════ -->
-    <section class="section" id="capabilities">
-        <div class="section-inner">
-            <div class="wide-sel-grid reveal">
-                <div>
-                    <h2 class="wide-sel-headline">OUR<br/>CAPABILITIES</h2>
-                </div>
-                <div class="wide-sel-desc">
-                    <p>Centillion Red Team provides end-to-end AI security — from runtime shielding to provable watermarking. We shield your model weights, activations, and memory in real-time with dynamic obfuscation, ensuring your intellectual property stays protected from the moment inference begins.</p>
-                    <a href="#contact" class="btn-primary">REQUEST A DEMO</a>
-                </div>
-            </div>
-
-            <!-- Capabilities grid -->
-            <!-- REACT ANIMATION COMMENT: Wrap cap-grid in motion.div with whileInView staggered children via variants={{ container: { transition: { staggerChildren: 0.1 } }, item: { initial:{ y:30, opacity:0 }, animate:{ y:0, opacity:1 } } }} -->
-            <div class="cap-grid reveal">
-                <div class="cap-card">
-                    <span class="cap-icon">🛡</span>
-                    <div class="cap-title">RUNTIME SHIELDING</div>
-                    <div class="cap-desc">Shield weights, activations, and memory in real-time. Secure AI starts at runtime — not just at deployment.</div>
-                    <span class="cap-tag">CORE PROTECTION</span>
-                </div>
-                <div class="cap-card">
-                    <span class="cap-icon">💧</span>
-                    <div class="cap-title">PROVABLE WATERMARKING</div>
-                    <div class="cap-desc">LLM watermarking with cryptographic proof. Trace, track, and prove ownership of every deployed model.</div>
-                    <span class="cap-tag">IP PROTECTION</span>
-                </div>
-                <div class="cap-card">
-                    <span class="cap-icon">⚡</span>
-                    <div class="cap-title">REAL-TIME THREAT DETECTION</div>
-                    <div class="cap-desc">Detect rogue infrastructure and adversarial attacks the moment they occur with zero latency overhead.</div>
-                    <span class="cap-tag">ACTIVE DEFENSE</span>
-                </div>
-                <div class="cap-card">
-                    <span class="cap-icon">🔀</span>
-                    <div class="cap-title">DYNAMIC OBFUSCATION</div>
-                    <div class="cap-desc">Continuously morph your model's attack surface. Make reverse-engineering computationally infeasible.</div>
-                    <span class="cap-tag">STEALTH LAYER</span>
-                </div>
-                <div class="cap-card">
-                    <span class="cap-icon">🔍</span>
-                    <div class="cap-title">MODEL MONITORING</div>
-                    <div class="cap-desc">Monitor deployed models 24/7. Detect unauthorized fine-tunes, distillation attempts, and IP violations.</div>
-                    <span class="cap-tag">CONTINUOUS</span>
-                </div>
-            </div>
+  <!-- LANDING: hero + capabilities in one viewport -->
+  <div class="landing">
+    <div class="spl"></div>
+    <div class="hero" style="position:relative;z-index:1;">
+      <!-- LEFT: Headline + CTA -->
+      <div>
+        <div class="eyebrow"><span class="etag">THREAT ALERT</span> ENTERPRISE AI SECURITY</div>
+        <h1>SECURE<br /><span class="hl">INFERENCE.</span><br />SECURE<br />FUTURE.</h1>
+        <p class="hsub">Detect rogue infrastructure and adversarial attacks before they compromise your AI systems.
+          Runtime shielding, provable watermarking, and real-time threat detection.</p>
+        <div class="cta-row">
+          <a href="#contact" class="br">GET PROTECTED</a>
+          <a href="#contact" class="bo">REQUEST DEMO</a>
         </div>
-    </section>
-
-    <!-- ═══════════ ALERT BAND ═══════════ -->
-    <section class="alert-band reveal">
-        <div class="alert-inner">
-            <h2 class="alert-headline">MODEL<br/>THEFT<br/>IS REAL</h2>
-
-            <div class="alert-content">
-                <div class="alert-badge">⚠ THREAT ALERT</div>
-                <p class="alert-text">
-                    Don't let your IP walk away. Every enterprise AI model deployed without runtime protection is a target. GPU memory dumping, adversarial manipulation, and unauthorized fine-tuning attacks are escalating — your model's weights are the new crown jewels.
-                </p>
-                <div style="margin-top:1.5rem;">
-                    <a href="#contact" style="display:inline-block; background:#fff; color:var(--red); font-family:'Bangers',cursive; font-size:1.1rem; letter-spacing:0.1em; padding:0.6rem 2rem; border:3px solid #111; box-shadow:4px 4px 0 #111; cursor:pointer; transition:transform 0.15s;">SECURE YOUR MODEL NOW →</a>
-                </div>
-            </div>
-
-            <div class="starburst" style="animation:spin-slow 20s linear infinite;">
-                <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M90,10 L95,75 L155,30 L100,80 L170,85 L103,92 L160,140 L95,95 L105,165 L85,98 L40,158 L78,93 L10,120 L80,87 L20,40 L85,80 Z" fill="#FFD700" stroke="#111" stroke-width="3"/>
-                </svg>
-                <div class="starburst-text">SECURE AI STARTS AT RUNTIME</div>
-            </div>
+      </div>
+      <!-- RIGHT: visual -->
+      <div class="hero-r">
+        <div class="tagline" style="margin-bottom:.8rem;font-size:1.25rem;padding:.3rem 1rem;">"City Sleeps. Centillion
+          Red Team Doesn't."
         </div>
-    </section>
-
-    <!-- ═══════════ CHOOSE YOUR PLAN ═══════════ -->
-    <section class="plan-section" id="plans">
-        <h2 class="section-headline">CHOOSE YOUR PLAN</h2>
-        <p class="section-sub">Enterprise AI security, scaled to your mission.</p>
-        <div class="plans-grid">
-
-            <!-- BASIC -->
-            <div class="plan-card reveal">
-                <div class="plan-header">
-                    <div>
-                        <div class="plan-price">$499/MONTH</div>
-                        <div class="plan-name">RECON</div>
-                    </div>
-                    <span style="font-size:2.5rem;">🔍</span>
-                </div>
-                <div class="plan-body">
-                    <ul class="plan-features">
-                        <li>Up to 3 AI model deployments monitored</li>
-                        <li>Basic adversarial threat scanning</li>
-                        <li>Monthly vulnerability reports</li>
-                        <li>Email support with 48hr response</li>
-                    </ul>
-                    <button class="plan-btn">GET STARTED</button>
-                </div>
-            </div>
-
-            <!-- FEATURED / ULTIMATE -->
-            <div class="plan-card featured reveal">
-                <div class="featured-tag">⭐ MOST POPULAR</div>
-                <div class="plan-header">
-                    <div>
-                        <div class="plan-price">$1,499/MONTH</div>
-                        <div class="plan-name">STRIKE</div>
-                    </div>
-                    <span style="font-size:2.5rem;">⚔</span>
-                </div>
-                <div class="plan-body">
-                    <ul class="plan-features">
-                        <li>Unlimited model deployments</li>
-                        <li>Runtime shielding + dynamic obfuscation</li>
-                        <li>Provable LLM watermarking</li>
-                        <li>Real-time GPU memory dumping protection</li>
-                        <li>24/7 threat detection dashboard</li>
-                        <li>Dedicated security engineer</li>
-                    </ul>
-                    <button class="plan-btn">GET STARTED</button>
-                </div>
-            </div>
-
-            <!-- ENTERPRISE -->
-            <div class="plan-card reveal">
-                <div class="plan-header">
-                    <div>
-                        <div class="plan-price">CUSTOM</div>
-                        <div class="plan-name">SIEGE</div>
-                    </div>
-                    <span style="font-size:2.5rem;">🏰</span>
-                </div>
-                <div class="plan-body">
-                    <ul class="plan-features">
-                        <li>Full enterprise AI governance suite</li>
-                        <li>Custom red team exercises</li>
-                        <li>AI policy and compliance auditing</li>
-                        <li>Strengthen AI governance frameworks</li>
-                        <li>On-premise deployment available</li>
-                        <li>SLA with 1hr response guarantee</li>
-                    </ul>
-                    <button class="plan-btn">CONTACT US</button>
-                </div>
-            </div>
-
+        <div class="logo-w" style="width:300px;height:300px;">
+          <img src="../centillion-labs-next-gen/public/logo.png" alt="Centillion Red Team" />
         </div>
-    </section>
-
-    <!-- ═══════════ WATERMARK / LLM SECTION ═══════════ -->
-    <section class="watermark-section" id="watermark">
-        <div class="watermark-inner reveal">
-            <div>
-                <div class="hero-eyebrow" style="margin-bottom:1rem;">
-                    <span>🔏 NEW</span> LLM PROTECTION
-                </div>
-                <h2 class="watermark-headline">
-                    LLM <span class="red">WATERMARKING</span><br/>
-                    WITH PROVABLE<br/>SECURITY
-                </h2>
-                <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.75; max-width:420px; margin-top:1rem;">
-                    Trace. Track. Prove ownership. Monitor deployed models, detect unauthorized fine-tunes, and strengthen AI governance — with cryptographically verifiable watermarks embedded at inference time.
-                </p>
-                <a href="#contact" class="btn-red" style="display:inline-flex; margin-top:1.5rem;">🔏 LEARN MORE</a>
-            </div>
-
-            <div class="watermark-items">
-                <div class="watermark-item">
-                    <span class="watermark-item-icon">🎯</span>
-                    <div>
-                        <div class="watermark-item-title">TRACE & TRACK</div>
-                        <div class="watermark-item-desc">Every output carries an invisible, provable ownership signature that survives fine-tuning and distillation attacks.</div>
-                    </div>
-                </div>
-                <div class="watermark-item">
-                    <span class="watermark-item-icon">⚖</span>
-                    <div>
-                        <div class="watermark-item-title">PROVE OWNERSHIP</div>
-                        <div class="watermark-item-desc">Cryptographic proof that stands up in legal and governance contexts — court-admissible evidence of IP violation.</div>
-                    </div>
-                </div>
-                <div class="watermark-item">
-                    <span class="watermark-item-icon">🏛</span>
-                    <div>
-                        <div class="watermark-item-title">STRENGTHEN GOVERNANCE</div>
-                        <div class="watermark-item-desc">Build AI compliance frameworks with automated monitoring for unauthorized model usage across your ecosystem.</div>
-                    </div>
-                </div>
-            </div>
+        <div class="fbadges">
+          <span class="fb">GPU MEMORY DUMPING</span>
+          <span class="fb b2">ADVERSARIAL ATTACKS</span>
         </div>
-    </section>
+        <div class="speech" style="font-size:1rem;max-width:300px;">Sleep well. Centillion is awake for you.</div>
+      </div>
+    </div>
+    <!-- CAPABILITIES STRIP — bottom of landing viewport -->
+    <div class="caps-strip" style="position:relative;z-index:1;">
+      <div class="cs-item">
+        <div class="cs-label">CORE PROTECTION</div>
+        <div class="cs-title">RUNTIME SHIELDING</div>
+        <div class="cs-desc">Shield weights, activations &amp; memory in real-time.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-label">IP PROTECTION</div>
+        <div class="cs-title">PROVABLE WATERMARKING</div>
+        <div class="cs-desc">Cryptographic proof of ownership for every model.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-label">ACTIVE DEFENSE</div>
+        <div class="cs-title">REAL-TIME THREAT DETECTION</div>
+        <div class="cs-desc">Detect rogue infrastructure &amp; adversarial attacks instantly.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-label">STEALTH LAYER</div>
+        <div class="cs-title">DYNAMIC OBFUSCATION</div>
+        <div class="cs-desc">Morph your attack surface — reverse-engineering infeasible.</div>
+      </div>
+      <div class="cs-item">
+        <div class="cs-label">CONTINUOUS</div>
+        <div class="cs-title">MODEL MONITORING</div>
+        <div class="cs-desc">24/7 detection of unauthorized fine-tunes &amp; IP violations.</div>
+      </div>
+    </div>
+  </div>
 
-    <!-- ═══════════ MEDIA / BLOG ═══════════ -->
-    <section class="media-section" id="media">
-        <div class="section-inner">
-            <h2 class="section-headline reveal" style="text-align:left;">RED TEAM <span style="color:var(--text-head)">INSIGHTS</span></h2>
-            <div class="media-grid reveal">
-                <div class="media-card">
-                    <div class="ph media-thumb"></div>
-                    <div class="media-info">
-                        <p class="media-tag">THREAT BRIEF</p>
-                        <h3 class="media-title">GPU Memory Dumping: The Silent AI Heist</h3>
-                        <p class="media-date">MARCH 1, 2025</p>
-                    </div>
-                </div>
-                <div class="media-card">
-                    <div class="ph media-thumb"></div>
-                    <div class="media-info">
-                        <p class="media-tag">RESEARCH</p>
-                        <h3 class="media-title">Adversarial Attacks on Enterprise LLMs: 2025 Landscape</h3>
-                        <p class="media-date">FEBRUARY 24, 2025</p>
-                    </div>
-                </div>
-                <div class="media-card">
-                    <div class="ph media-thumb"></div>
-                    <div class="media-info">
-                        <p class="media-tag">GUIDE</p>
-                        <h3 class="media-title">Building an AI Governance Framework That Actually Works</h3>
-                        <p class="media-date">FEBRUARY 18, 2025</p>
-                    </div>
-                </div>
-            </div>
+  <!-- MARQUEE -->
+  <div class="mqw">
+    <div class="mqt">
+      <span>RUNTIME SHIELDING</span><span class="mqdot">*</span><span>PROVABLE WATERMARKING</span><span
+        class="mqdot">*</span><span>REAL-TIME THREAT DETECTION</span><span class="mqdot">*</span><span>DYNAMIC
+        OBFUSCATION</span><span class="mqdot">*</span><span>SECURE AI GOVERNANCE</span><span
+        class="mqdot">*</span><span>LLM WATERMARKING</span><span class="mqdot">*</span><span>RUNTIME
+        SHIELDING</span><span class="mqdot">*</span><span>PROVABLE WATERMARKING</span><span
+        class="mqdot">*</span><span>REAL-TIME THREAT DETECTION</span><span class="mqdot">*</span><span>DYNAMIC
+        OBFUSCATION</span><span class="mqdot">*</span><span>SECURE AI GOVERNANCE</span><span
+        class="mqdot">*</span><span>LLM WATERMARKING</span><span class="mqdot">*</span>
+    </div>
+  </div>
+
+  <!-- TORN TOP -->
+  <svg class="torn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 40" preserveAspectRatio="none">
+    <path
+      d="M0,0 L0,40 L1440,40 L1440,0 L1416,13 L1392,4 L1368,16 L1344,6 L1318,18 L1292,6 L1266,19 L1240,5 L1214,21 L1188,8 L1162,22 L1136,10 L1108,24 L1082,6 L1056,21 L1028,3 L1002,18 L974,2 L946,16 L918,0 L888,14 L858,0 L828,13 L798,0 L768,13 L738,2 L708,14 L678,2 L648,14 L618,2 L588,16 L558,0 L526,13 L494,0 L462,13 L430,2 L398,14 L366,2 L334,16 L302,3 L270,18 L238,5 L206,19 L174,6 L144,21 L114,8 L86,21 L60,10 L36,22 L14,11 L0,16 Z"
+      fill="#0e2244" />
+  </svg>
+
+  <!-- THREAT BAND -->
+  <section class="tband">
+    <div class="tbl"></div>
+    <h2 class="tbh">WE <em>DETECT</em> &amp;<br />SHIELD AGAINST</h2>
+    <div class="tbitems">
+      <div class="tbi">
+        <div class="tbd"></div>
+        <div>
+          <div class="tblabel">GPU MEMORY DUMPING</div>
+          <div class="tbsub">Extract model weights from GPU runtime memory</div>
         </div>
-    </section>
-
-    <!-- ═══════════ FOOTER ═══════════ -->
-    <footer id="contact">
-        <div class="footer-inner">
-            <div>
-                <div class="footer-brand">CENTILLION<br/><span style="color:var(--red);">RED TEAM</span></div>
-                <p class="footer-tagline">Engineering intelligence for a secure AI future. Detect rogue infrastructure, shield model IP, and govern your AI with confidence.</p>
-                <a href="mailto:connect@centillionlabs.com" class="footer-email">✉ connect@centillionlabs.com</a>
-            </div>
-            <div class="footer-col">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="#">Runtime Shielding</a></li>
-                    <li><a href="#">LLM Watermarking</a></li>
-                    <li><a href="#">Threat Detection</a></li>
-                    <li><a href="#">AI Red Teaming</a></li>
-                    <li><a href="#">Model Monitoring</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Centillion</a></li>
-                    <li><a href="#">Research</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Press Kit</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
+      </div>
+      <div class="tbi">
+        <div class="tbd"></div>
+        <div>
+          <div class="tblabel">ADVERSARIAL MANIPULATION</div>
+          <div class="tbsub">Crafted inputs designed to deceive your AI systems</div>
         </div>
-        <div class="footer-bottom">
-            <span>© 2025 CENTILLION LABS. ALL RIGHTS RESERVED.</span>
-            <span>SECURE INFERENCE. SECURE FUTURE. ⚡</span>
+      </div>
+      <div class="tbi">
+        <div class="tbd"></div>
+        <div>
+          <div class="tblabel">ROGUE INFRASTRUCTURE</div>
+          <div class="tbsub">Unauthorized endpoints and shadow AI deployments</div>
         </div>
-    </footer>
+      </div>
+      <div class="tbi">
+        <div class="tbd"></div>
+        <div>
+          <div class="tblabel">MODEL THEFT VIA FINE-TUNING</div>
+          <div class="tbsub">IP extraction through distillation and unauthorized training</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══════════ SCRIPTS ═══════════ -->
-    <script>
-        // Theme toggle
-        function toggleTheme() {
-            const html = document.documentElement;
-            const current = html.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            html.setAttribute('data-theme', next);
-            document.querySelector('.theme-toggle').textContent = next === 'dark' ? '☀' : '🌙';
-        }
+  <!-- TORN BOTTOM -->
+  <svg class="torn" style="transform:rotate(180deg)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 40"
+    preserveAspectRatio="none">
+    <path
+      d="M0,0 L0,40 L1440,40 L1440,0 L1416,13 L1392,4 L1368,16 L1344,6 L1318,18 L1292,6 L1266,19 L1240,5 L1214,21 L1188,8 L1162,22 L1136,10 L1108,24 L1082,6 L1056,21 L1028,3 L1002,18 L974,2 L946,16 L918,0 L888,14 L858,0 L828,13 L798,0 L768,13 L738,2 L708,14 L678,2 L648,14 L618,2 L588,16 L558,0 L526,13 L494,0 L462,13 L430,2 L398,14 L366,2 L334,16 L302,3 L270,18 L238,5 L206,19 L174,6 L144,21 L114,8 L86,21 L60,10 L36,22 L14,11 L0,16 Z"
+      fill="#0e2244" />
+  </svg>
 
-        // Scroll reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const io = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    io.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        reveals.forEach(el => io.observe(el));
-    </script>
+  <!-- ALERT BAND -->
+  <section class="aband rv">
+    <div class="ainner">
+      <h2 class="ah">MODEL<br />THEFT<br />IS REAL</h2>
+      <div>
+        <div class="abadge">THREAT ALERT</div>
+        <p class="atext">Don't let your IP walk away. Every enterprise AI model deployed without runtime protection is a
+          target. GPU memory dumping, adversarial manipulation, and unauthorized fine-tuning attacks are escalating —
+          your model weights are the new crown jewels.</p>
+        <a href="#contact" class="abtn">SECURE YOUR MODEL NOW</a>
+      </div>
+      <div class="sburst">
+        <svg viewBox="0 0 148 148" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M74,7 L78,62 L128,26 L82,66 L142,70 L86,78 L138,116 L80,80 L88,142 L68,82 L32,136 L62,78 L6,102 L64,72 L14,34 L70,66 Z"
+            fill="#FFD700" stroke="#111" stroke-width="3" />
+        </svg>
+        <div class="sbinner">SECURE AI STARTS AT RUNTIME</div>
+      </div>
+    </div>
+  </section>
 
-    <!--
-    ═══════════════════════════════════════════════════════════
-    REACT / FRAMER MOTION ANIMATION UPGRADE GUIDE
-    ═══════════════════════════════════════════════════════════
+  <!-- WATERMARK -->
+  <section class="wm">
+    <div class="wmi rv">
+      <div>
+        <div class="eyebrow" style="margin-bottom:.55rem;"><span class="etag">NEW</span> LLM PROTECTION</div>
+        <h2 class="wmh">LLM <span>WATERMARKING</span><br />WITH PROVABLE<br />SECURITY</h2>
+        <p class="wmsub">Trace. Track. Prove ownership. Monitor deployed models, detect unauthorized fine-tunes, and
+          strengthen AI governance — with cryptographically verifiable watermarks embedded at inference time.</p>
+        <a href="#contact" class="br">LEARN MORE</a>
+      </div>
+      <div class="wmlist">
+        <div class="wmitem">
+          <div class="wmdot"></div>
+          <div class="wmct">
+            <div class="wmt">TRACE &amp; TRACK</div>
+            <div class="wmd">Every output carries an invisible, provable ownership signature that survives fine-tuning
+              and distillation attacks.</div>
+          </div>
+        </div>
+        <div class="wmitem">
+          <div class="wmdot"></div>
+          <div class="wmct">
+            <div class="wmt">PROVE OWNERSHIP</div>
+            <div class="wmd">Cryptographic proof that stands up in legal and governance contexts — court-admissible
+              evidence of IP violation.</div>
+          </div>
+        </div>
+        <div class="wmitem">
+          <div class="wmdot"></div>
+          <div class="wmct">
+            <div class="wmt">STRENGTHEN GOVERNANCE</div>
+            <div class="wmd">Build AI compliance frameworks with automated monitoring for unauthorized model usage
+              across your ecosystem.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    1. HERO LOGO — Pulsing glow:
-       <motion.img
-         animate={{ scale: [1, 1.04, 1], filter: ['drop-shadow(0 0 20px #e84118)', 'drop-shadow(0 0 60px #e84118)', 'drop-shadow(0 0 20px #e84118)'] }}
-         transition={{ duration: 3, repeat: Infinity }}
-       />
+  <!-- INSIGHTS -->
+  <section class="insights" id="insights">
+    <div class="si">
+      <h2 class="sch rv">RED TEAM <span style="color:var(--text)">INSIGHTS</span></h2>
+      <div class="mgrid rv">
+        <div class="mc">
+          <div class="mthumb">+ ADD IMAGE</div>
+          <div class="minfo"><span class="mtag">THREAT BRIEF</span>
+            <h3 class="mtitle">GPU Memory Dumping: The Silent AI Heist</h3>
+            <p class="mdate">MARCH 1, 2025</p>
+          </div>
+        </div>
+        <div class="mc">
+          <div class="mthumb">+ ADD IMAGE</div>
+          <div class="minfo"><span class="mtag">RESEARCH</span>
+            <h3 class="mtitle">Adversarial Attacks on Enterprise LLMs: 2025 Landscape</h3>
+            <p class="mdate">FEBRUARY 24, 2025</p>
+          </div>
+        </div>
+        <div class="mc">
+          <div class="mthumb">+ ADD IMAGE</div>
+          <div class="minfo"><span class="mtag">GUIDE</span>
+            <h3 class="mtitle">Building an AI Governance Framework That Actually Works</h3>
+            <p class="mdate">FEBRUARY 18, 2025</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    2. HERO RIGHT — Slide in:
-       <motion.div initial={{ opacity:0, x:60 }} animate={{ opacity:1, x:0 }} transition={{ duration:0.8, delay:0.3 }}>
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="fi">
+      <div>
+        <div class="fbrand">CENTILLION<br /><span>RED TEAM</span></div>
+        <p class="ftag2">Engineering intelligence for a secure AI future. Detect rogue infrastructure, shield model IP,
+          and govern your AI with confidence.</p>
+        <a href="mailto:connect@centillionlabs.com" class="femail">connect@centillionlabs.com</a>
+      </div>
+      <div class="fcol">
+        <h4>SERVICES</h4>
+        <ul>
+          <li><a href="#">Runtime Shielding</a></li>
+          <li><a href="#">LLM Watermarking</a></li>
+          <li><a href="#">Threat Detection</a></li>
+          <li><a href="#">AI Red Teaming</a></li>
+          <li><a href="#">Model Monitoring</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="#">About Centillion</a></li>
+          <li><a href="#">Research</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press Kit</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h4>SUPPORT</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbot">
+      <span>© 2025 CENTILLION LABS. ALL RIGHTS RESERVED.</span>
+      <span>SECURE INFERENCE. SECURE FUTURE.</span>
+    </div>
+  </footer>
 
-    3. STARBURST — Continuous rotation:
-       <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}>
-
-    4. THREAT BADGES — Float up/down:
-       <motion.div animate={{ y: [-5, 5, -5] }} transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}>
-
-    5. THREAT ITEMS — Slide in from right on scroll:
-       <motion.div
-         initial={{ x: 60, opacity: 0 }}
-         whileInView={{ x: 0, opacity: 1 }}
-         transition={{ delay: index * 0.1 }}
-         viewport={{ once: true }}
-       >
-
-    6. CAP CARDS — Stagger reveal:
-       const container = { hidden: {}, show: { transition: { staggerChildren: 0.1 } } }
-       const item = { hidden: { y: 30, opacity: 0 }, show: { y: 0, opacity: 1 } }
-       <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
-         {caps.map(cap => <motion.div variants={item} whileHover={{ y: -6, scale: 1.02 }}>...)}
-       </motion.div>
-
-    7. PLAN CARDS — Hover lift:
-       <motion.div whileHover={{ y: -8, boxShadow: '10px 10px 0 #e84118' }} transition={{ type: 'spring', stiffness: 300 }}>
-
-    8. MARQUEE — Use CSS animation (already implemented), or use Framer Motion's useAnimationFrame for physics-based scroll.
-
-    9. HERO HEADLINE — Letter-by-letter reveal:
-       Use motion.span with stagger for each character via split-text animation:
-       transition={{ staggerChildren: 0.04 }}
-       Each letter: initial={{ y: 50, opacity:0 }} animate={{ y:0, opacity:1 }}
-
-    10. ALERT BAND STARBURST — Spin + pulse:
-        <motion.div animate={{ rotate: 360, scale: [1, 1.05, 1] }} transition={{ rotate: { duration: 20, repeat: Infinity, ease: 'linear' }, scale: { duration: 2, repeat: Infinity } }}>
-    ═══════════════════════════════════════════════════════════
-    -->
+  <script>
+    function toggleTheme() {
+      const h = document.documentElement, b = document.getElementById('ttbtn');
+      const n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      h.setAttribute('data-theme', n);
+      b.textContent = n === 'dark' ? 'LT' : 'DK';
+    }
+    const io = new IntersectionObserver(e => { e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('vis'); io.unobserve(x.target); } }); }, { threshold: .1 });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  </script>
 
 </body>
+
 </html>

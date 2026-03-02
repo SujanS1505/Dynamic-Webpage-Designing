@@ -13,33 +13,27 @@ import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
 import { Contact } from './components/sections/Contact';
-// RedTeamPage disabled — import { RedTeamPage } from './pages/RedTeamPage';
 
 function App() {
-
   return (
-    <>
-      <Layout>
-        <Hero />
-        <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
-          <About onOpenRedTeam={() => { }} />
-          <WhoWeAre />
-          <Services />
-          <Portfolio />
-          <Impact />
-          <Tech />
-          <LifeAtCentillion />
-          <Team />
-          <Industries />
-          <CaseStudies />
-          <Blog />
-          <Contact />
-        </div>
-      </Layout>
-    </>
+    <Layout>
+      <Hero />
+      <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
+        <About />
+        <WhoWeAre />
+        <Services />
+        <Portfolio />
+        <Impact />
+        <Tech />
+        <LifeAtCentillion />
+        <Team />
+        <Industries />
+        <CaseStudies />
+        <Blog />
+        <Contact />
+      </div>
+    </Layout>
   );
 }
-
-
 
 export default App;
