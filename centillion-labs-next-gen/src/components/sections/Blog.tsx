@@ -20,21 +20,22 @@ export const Blog: React.FC = () => {
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))',
-                    gap: '4rem'
+                    gap: '2rem'
                 }}>
                     {ARTICLES.map((article, idx) => (
                         <AnimatedItem key={article.title} delay={0.1 * idx}>
                             <article
+                                className="glass-panel"
                                 style={{
                                     display: 'flex',
                                     flexDirection: 'column',
                                     height: '100%',
-                                    borderTop: '1px solid var(--border-color)',
-                                    paddingTop: '2rem',
-                                    cursor: 'pointer'
+                                    padding: '2.5rem',
+                                    cursor: 'pointer',
+                                    transition: 'border-color 0.3s'
                                 }}
                                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--accent-primary)')}
-                                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--border-color)')}
+                                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '')}
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
                                     <span className="mono-text" style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>{article.date}</span>

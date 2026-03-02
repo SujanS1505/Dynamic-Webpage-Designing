@@ -20,7 +20,7 @@ export const Portfolio: React.FC = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px,100%), 1fr))', gap: 'clamp(2rem,5vw,4rem)' }}>
                     {PRODUCTS.map((prod, idx) => (
                         <AnimatedItem key={prod.title} delay={0.1 * idx}>
-                            <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                            <div className="glass-panel card-pad" style={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '2.5rem' }}>
                                 <div className="mono-text" style={{ fontSize: '1.5rem', color: 'var(--accent-primary)', marginBottom: '1.5rem', fontWeight: 300 }}>
                                     {prod.icon}
                                 </div>

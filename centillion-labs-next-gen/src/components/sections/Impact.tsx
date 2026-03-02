@@ -42,13 +42,11 @@ export const Impact: React.FC = () => {
     return (
         <AnimatedSection id="stats" className="section-padding">
             <div className="sec-sm" style={{ paddingLeft: 0, paddingRight: 0 }}>
-                <div style={{
+                <div className="glass-panel" style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                     gap: '4rem',
-                    borderTop: '1px solid var(--border-color)',
-                    borderBottom: '1px solid var(--border-color)',
-                    padding: '4rem 0'
+                    padding: '4rem 3rem'
                 }}>
                     {STATS.map((stat, idx) => (
                         <AnimatedItem key={stat.label} delay={0.1 * idx}>

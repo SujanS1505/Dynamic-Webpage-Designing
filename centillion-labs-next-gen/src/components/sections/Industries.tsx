@@ -40,14 +40,14 @@ export const Industries: React.FC = () => {
                     </h2>
                 </AnimatedItem>
 
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                     {INDUSTRIES.map((ind, idx) => (
                         <AnimatedItem key={ind.title} delay={0.1 * idx}>
                             <div
                                 className="row-grid-wide"
                                 style={{
-                                    padding: 'clamp(1.5rem, 4vw, 3rem) 0',
-                                    borderTop: '1px solid var(--border-color)',
+                                    padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem)',
+                                    borderTop: idx === 0 ? 'none' : '1px solid var(--border-color)',
                                 }}
                             >
                                 <h3 style={{ fontSize: 'clamp(1.2rem, 3vw, 2rem)', fontWeight: 300, color: 'var(--text-primary)' }}>{ind.title}</h3>

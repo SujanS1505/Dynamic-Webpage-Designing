@@ -20,10 +20,11 @@ export const Tech: React.FC = () => {
                     </p>
                 </AnimatedItem>
 
-                <div style={{
+                <div className="glass-panel" style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fill, minmax(min(180px, 100%), 1fr))',
-                    gap: '2rem'
+                    gap: '2rem',
+                    padding: '2.5rem'
                 }}>
                     {TECHNOLOGIES.map((tech, idx) => (
                         <AnimatedItem key={tech} delay={0.02 * idx}>

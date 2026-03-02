@@ -5,7 +5,7 @@ export const Contact: React.FC = () => {
     return (
         <AnimatedSection id="contact">
             <div className="sec">
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: 'clamp(2.5rem, 8vw, 6rem)' }}>
+                <div className="glass-panel" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(280px,100%), 1fr))', gap: 'clamp(2.5rem, 8vw, 6rem)', padding: 'clamp(2rem, 5vw, 4rem)' }}>
                     <AnimatedItem>
                         <h2 style={{
                             fontSize: 'clamp(3rem, 5vw, 5rem)',
