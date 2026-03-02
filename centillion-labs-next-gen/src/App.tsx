@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Layout } from './components/layout/Layout';
 import { Hero } from './components/sections/Hero';
 import { About } from './components/sections/About';
@@ -12,26 +13,31 @@ import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
 import { Contact } from './components/sections/Contact';
+import { RedTeamPage } from './pages/RedTeamPage';
 
 function App() {
-  return (
-    <Layout>
-      <Hero />
+  const [showRedTeam, setShowRedTeam] = useState(false);
 
-      <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
-        <About />
-        <Services />
-        <Portfolio />
-        <Impact />
-        <Tech />
-        <LifeAtCentillion />
-        <Team />
-        <Industries />
-        <CaseStudies />
-        <Blog />
-        <Contact />
-      </div>
-    </Layout>
+  return (
+    <>
+      {showRedTeam && <RedTeamPage onClose={() => setShowRedTeam(false)} />}
+      <Layout>
+        <Hero />
+        <div style={{ position: 'relative', zIndex: 10, background: 'transparent' }}>
+          <About onOpenRedTeam={() => setShowRedTeam(true)} />
+          <Services />
+          <Portfolio />
+          <Impact />
+          <Tech />
+          <LifeAtCentillion />
+          <Team />
+          <Industries />
+          <CaseStudies />
+          <Blog />
+          <Contact />
+        </div>
+      </Layout>
+    </>
   );
 }
 
