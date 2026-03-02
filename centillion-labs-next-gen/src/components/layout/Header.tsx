@@ -5,13 +5,6 @@ import { Sidebar } from './Sidebar';
 
 const NAV_LINKS = [
     { label: 'Home', href: '#home' },
-    { label: 'About Us', href: '#about' },
-    { label: 'Services', href: '#services' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Team', href: '#team' },
-    { label: 'Industries', href: '#industries' },
-    { label: 'Life', href: '#life' },
-    { label: 'Contact', href: '#contact' },
 ];
 
 export const Header: React.FC = () => {
