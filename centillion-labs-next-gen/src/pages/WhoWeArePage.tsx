@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { Bot, Database, Cloud, Server, Cpu, GitBranch, ShieldCheck, BarChart3 } from 'lucide-react';
+import { Bot, Database, Cloud, Server, Cpu, GitBranch, ShieldCheck, BarChart3, ShieldAlert } from 'lucide-react';
 import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag, ProgressBar, Wrap } from './PageLayout';
 
 const CAPS = [
+  { icon: ShieldAlert, color: '#e84118', title: 'AI Red Teaming', sub: 'Adversarial AI Security', desc: 'Centillion Red Team works around the clock — adversarially testing LLMs, probing inference pipelines, and hardening AI systems before threats do. Secure Inference. Secure Future.', tags: ['LLM Adversarial Testing', 'Inference Security', 'Prompt Injection', 'Jailbreak Analysis', 'AI Threat Modelling'] },
   { icon: Bot, color: '#00e5ff', title: 'Generative AI Platform', sub: 'LLMs & Enterprise AI', desc: 'Seamlessly blend expert guidance & technical proficiency to craft impactful architecture use cases. GenAI Workshops & Preparedness ensure clients are equipped to embrace revolutionary capabilities.', tags: ['GMail Synthesizer', 'Finance LM', 'Retail LM', 'Vertex AI', 'Bedrock AI', 'Home Brewn LLM'] },
   { icon: Cloud, color: '#00bcd4', title: 'Cloud Migration', sub: 'AWS / GCP / Azure', desc: 'Rich experience aiding clients in migrating to all three major cloud platforms. Maximize data potential with Databricks and GCP — Data Integration, Real-time Analytics, and Warehousing.', tags: ['AWS', 'GCP', 'Azure', 'Databricks', 'Real-time Analytics'] },
   { icon: Database, color: '#26a69a', title: 'Data Observability', sub: 'Governance & Mesh', desc: 'Specialists in identifying code, config, schema, data, metadata, and tech drift. Data Mesh, Knowledge Graphs, and Synthetic Data for sustainable governance.', tags: ['Data Mesh', 'Knowledge Graphs', 'Synthetic Data', 'Observability'] },
@@ -14,6 +15,7 @@ const CAPS = [
 ];
 
 const BARS = [
+  { label: 'AI Red Teaming & Adversarial Security', pct: 99 },
   { label: 'Generative AI & LLMs', pct: 96 },
   { label: 'Cloud Migration (AWS / GCP / Azure)', pct: 98 },
   { label: 'Data Engineering & Observability', pct: 95 },
@@ -42,35 +44,55 @@ export const WhoWeArePage: React.FC = () => (
         style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(290px,100%), 1fr))', gap: '1.5rem' }}
       >
         {CAPS.map((c) => {
-          const Icon = c.icon;
+          const isRed = c.color === '#e84118';
+          const accent = isRed ? '#e84118' : 'var(--text-secondary)';
           return (
             <motion.div
               key={c.title} variants={item}
-              whileHover={{ scale: 1.02, borderColor: c.color + '66', boxShadow: `0 16px 44px ${c.color}12` }}
+              whileHover={{ scale: 1.02, boxShadow: isRed ? `0 16px 44px rgba(232,65,24,0.1)` : '0 16px 44px rgba(0,0,0,0.06)' }}
               className="glass-panel card-pad"
-              style={{ borderRadius: '18px', border: '1px solid var(--border-color)', transition: 'border-color 0.3s, box-shadow 0.3s' }}
+              style={{ borderRadius: '18px', border: '1px solid var(--border-color)', transition: 'box-shadow 0.3s' }}
             >
-              <motion.div
-                whileHover={{ rotate: 6, scale: 1.1 }}
-                style={{
-                  width: 50, height: 50, borderRadius: '14px',
-                  background: `linear-gradient(135deg, ${c.color}18, ${c.color}06)`,
-                  border: `1px solid ${c.color}2a`,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.2rem',
-                }}
-              >
-                <Icon size={22} style={{ color: c.color }} />
-              </motion.div>
-              <div className="mono-text" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: c.color, marginBottom: '0.3rem' }}>{c.sub}</div>
+              <div className="mono-text" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', color: accent, marginBottom: '0.3rem' }}>{c.sub}</div>
               <h3 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.6rem', fontSize: '0.95rem' }}>{c.title}</h3>
               <p style={{ color: 'var(--text-secondary)', fontWeight: 300, lineHeight: 1.7, fontSize: '0.87rem', marginBottom: '1rem' }}>{c.desc}</p>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-                {c.tags.map(t => <Tag key={t} label={t} color={c.color} />)}
+                {c.tags.map(t => <Tag key={t} label={t} color={accent} />)}
               </div>
             </motion.div>
           );
         })}
       </motion.div>
+    </Sec>
+
+    {/* ── Red Team spotlight ─────────────────────────────────── */}
+    <Sec>
+      {/* Red Team statement banner */}
+      <FadeIn>
+        <div style={{
+          padding: 'clamp(1.5rem, 3vw, 2.5rem)',
+          borderRadius: '18px',
+          background: 'linear-gradient(135deg, rgba(232,65,24,0.07) 0%, rgba(176,24,0,0.04) 100%)',
+          border: '1px solid rgba(232,65,24,0.22)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.5rem',
+          flexWrap: 'wrap',
+        }}>
+          <motion.div
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.4, repeat: Infinity }}
+            style={{ width: 10, height: 10, borderRadius: '50%', background: '#e84118', boxShadow: '0 0 12px #e84118', flexShrink: 0 }}
+          />
+          <div style={{ flex: 1, minWidth: '220px' }}>
+            <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.68rem', letterSpacing: '0.2em', color: '#e84118', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Centillion Red Team · Signature Capability</p>
+            <p style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.55, margin: 0 }}>
+              City Sleeps. Centillion Red Team Doesn't. — Adversarially testing LLMs, probing inference pipelines, and hardening AI systems before threats do.
+              <span style={{ color: '#e84118', fontWeight: 400 }}> Secure Inference. Secure Future.</span>
+            </p>
+          </div>
+        </div>
+      </FadeIn>
     </Sec>
 
     {/* Responsible AI + bars */}
