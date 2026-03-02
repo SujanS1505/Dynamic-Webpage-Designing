@@ -8,20 +8,20 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 
 /* ── Nav data ─────────────────────────────────────────────────── */
 const NAV_LINKS: { label: string; href: string; num: string; desc: string; icon: LucideIcon }[] = [
-    { label: 'Home',       href: '#home',       num: '01', desc: 'Welcome & overview',   icon: Home      },
-    { label: 'About Us',   href: '#about',      num: '02', desc: 'Mission & values',     icon: Info      },
-    { label: 'Services',   href: '#services',   num: '03', desc: 'What we offer',        icon: Layers    },
-    { label: 'Portfolio',  href: '#portfolio',  num: '04', desc: 'Featured work',        icon: FolderOpen},
-    { label: 'Team',       href: '#team',       num: '05', desc: 'Meet the experts',     icon: Users     },
-    { label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve',     icon: Building2 },
-    { label: 'Life',       href: '#life',       num: '07', desc: 'Culture & people',     icon: Smile     },
-    { label: 'Contact',    href: '#contact',    num: '08', desc: 'Start a conversation', icon: Mail      },
+    { label: 'Home', href: '#home', num: '01', desc: 'Welcome & overview', icon: Home },
+    { label: 'About Us', href: '#about', num: '02', desc: 'Mission & values', icon: Info },
+    { label: 'Services', href: '#services', num: '03', desc: 'What we offer', icon: Layers },
+    { label: 'Portfolio', href: '#portfolio', num: '04', desc: 'Featured work', icon: FolderOpen },
+    { label: 'Team', href: '#team', num: '05', desc: 'Meet the experts', icon: Users },
+    { label: 'Industries', href: '#industries', num: '06', desc: 'Sectors we serve', icon: Building2 },
+    { label: 'Life', href: '#life', num: '07', desc: 'Culture & people', icon: Smile },
+    { label: 'Contact', href: '#contact', num: '08', desc: 'Start a conversation', icon: Mail },
 ];
 
 const SOCIAL_LINKS = [
-    { icon: Globe, href: 'https://github.com',   label: 'Website'  },
-    { icon: Rss,   href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: Send,  href: 'https://twitter.com',  label: 'Twitter'  },
+    { icon: Globe, href: 'https://github.com', label: 'Website' },
+    { icon: Rss, href: 'https://linkedin.com', label: 'LinkedIn' },
+    { icon: Send, href: 'https://twitter.com', label: 'Twitter' },
 ];
 
 /* â”€â”€ Theme hook â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -72,7 +72,7 @@ function NodeCanvas({ isDark }: Readonly<NodeCanvasProps>) {
         const ctx = canvas.getContext('2d')!;
         let raf: number;
 
-        const W = canvas.width  = canvas.offsetWidth;
+        const W = canvas.width = canvas.offsetWidth;
         const H = canvas.height = canvas.offsetHeight;
 
         const nodes = Array.from({ length: 26 }, () => ({
@@ -111,7 +111,7 @@ function NodeCanvas({ isDark }: Readonly<NodeCanvasProps>) {
             nodes.forEach(n => {
                 n.pulse += 0.025;
                 const pulsedR = n.r * (1 + 0.25 * Math.sin(n.pulse));
-                const alpha   = isDark ? 0.55 : 0.45;
+                const alpha = isDark ? 0.55 : 0.45;
                 ctx.beginPath();
                 ctx.arc(n.x, n.y, pulsedR, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(${r},${g},${b},${alpha})`;
@@ -176,13 +176,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     const sectionHrefs = NAV_LINKS.map(l => l.href);
     const activeSection = useActiveSection(sectionHrefs);
 
-    const [hoveredIdx, setHoveredIdx]         = useState<number | null>(null);
-    const [clickedIdx, setClickedIdx]         = useState<number | null>(null);
+    const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+    const [clickedIdx, setClickedIdx] = useState<number | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
 
     /* â”€â”€ Mouse-tracking glow â”€â”€ */
-    const mouseYRaw   = useMotionValue(300);
-    const glowY       = useTransform(mouseYRaw, v => `${v}px`);
+    const mouseYRaw = useMotionValue(300);
+    const glowY = useTransform(mouseYRaw, v => `${v}px`);
     const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         const rect = sidebarRef.current?.getBoundingClientRect();
         if (rect) mouseYRaw.set(e.clientY - rect.top);
@@ -193,14 +193,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     const tiltY = useMotionValue(0);
     const springTX = useSpring(tiltX, { stiffness: 140, damping: 22 });
     const springTY = useSpring(tiltY, { stiffness: 140, damping: 22 });
-    const rotateX  = useTransform(springTX, [-1, 1], [1.5, -1.5]);
-    const rotateY  = useTransform(springTY, [-1, 1], [-1.5, 1.5]);
+    const rotateX = useTransform(springTX, [-1, 1], [1.5, -1.5]);
+    const rotateY = useTransform(springTY, [-1, 1], [-1.5, 1.5]);
 
     const handleTilt = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         const rect = sidebarRef.current?.getBoundingClientRect();
         if (!rect) return;
-        tiltX.set(((e.clientY - rect.top)  / rect.height - 0.5) * 2);
-        tiltY.set(((e.clientX - rect.left) / rect.width  - 0.5) * 2);
+        tiltX.set(((e.clientY - rect.top) / rect.height - 0.5) * 2);
+        tiltY.set(((e.clientX - rect.left) / rect.width - 0.5) * 2);
     }, [tiltX, tiltY]);
 
     const resetTilt = useCallback(() => { tiltX.set(0); tiltY.set(0); }, [tiltX, tiltY]);
@@ -208,7 +208,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     /* â”€â”€ Swipe-to-close â”€â”€ */
     const touchStartX = useRef(0);
     const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
-    const handleTouchEnd   = (e: React.TouchEvent) => {
+    const handleTouchEnd = (e: React.TouchEvent) => {
         if (e.changedTouches[0].clientX - touchStartX.current > 72) onClose();
     };
 
@@ -235,19 +235,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
     /* â”€â”€ Variants â”€â”€ */
     const backdropV = { hidden: { opacity: 0 }, visible: { opacity: 1 } };
     const panelV = {
-        hidden:  { x: '100%', opacity: 0.7, scale: 0.97 },
-        visible: { x: '0%',   opacity: 1,   scale: 1,
-                   transition: { type: 'spring' as const, stiffness: 340, damping: 34 } },
-        exit:    { x: '100%', opacity: 0,   scale: 0.97,
-                   transition: { type: 'spring' as const, stiffness: 300, damping: 30 } },
+        hidden: { x: '100%', opacity: 0.7, scale: 0.97 },
+        visible: {
+            x: '0%', opacity: 1, scale: 1,
+            transition: { type: 'spring' as const, stiffness: 340, damping: 34 }
+        },
+        exit: {
+            x: '100%', opacity: 0, scale: 0.97,
+            transition: { type: 'spring' as const, stiffness: 300, damping: 30 }
+        },
     };
     const containerV = {
         hidden: {},
         visible: { transition: { staggerChildren: 0.055, delayChildren: 0.2 } },
     };
     const itemV = {
-        hidden:  { x: 50, opacity: 0 },
-        visible: { x: 0,  opacity: 1, transition: { type: 'spring' as const, stiffness: 280, damping: 24 } },
+        hidden: { x: 50, opacity: 0 },
+        visible: { x: 0, opacity: 1, transition: { type: 'spring' as const, stiffness: 280, damping: 24 } },
     };
 
     return (
@@ -404,9 +408,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                         >
                             {NAV_LINKS.map((link, i) => {
                                 const isHovered = hoveredIdx === i;
-                                const isActive  = activeSection === link.href;
+                                const isActive = activeSection === link.href;
                                 const isClicked = clickedIdx === i;
-                                const NavIcon   = link.icon;
+                                const NavIcon = link.icon;
                                 return (
                                     <motion.div key={link.href} variants={itemV}>
                                         <motion.a

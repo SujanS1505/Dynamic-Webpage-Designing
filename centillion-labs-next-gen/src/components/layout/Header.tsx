@@ -4,18 +4,18 @@ import { ThemeToggle } from './ThemeToggle';
 import { Sidebar } from './Sidebar';
 
 const NAV_LINKS = [
-    { label: 'Home',       href: '#home'       },
-    { label: 'About Us',   href: '#about'      },
-    { label: 'Services',   href: '#services'   },
-    { label: 'Portfolio',  href: '#portfolio'  },
-    { label: 'Team',       href: '#team'       },
+    { label: 'Home', href: '#home' },
+    { label: 'About Us', href: '#about' },
+    { label: 'Services', href: '#services' },
+    { label: 'Portfolio', href: '#portfolio' },
+    { label: 'Team', href: '#team' },
     { label: 'Industries', href: '#industries' },
-    { label: 'Life',       href: '#life'       },
-    { label: 'Contact',    href: '#contact'    },
+    { label: 'Life', href: '#life' },
+    { label: 'Contact', href: '#contact' },
 ];
 
 export const Header: React.FC = () => {
-    const [scrolled, setScrolled]       = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useEffect(() => {
@@ -30,9 +30,8 @@ export const Header: React.FC = () => {
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                className={`fixed top-0 left-0 w-full z-[var(--z-nav)] transition-all duration-300 ${
-                    scrolled ? 'glass-panel shadow-lg' : 'bg-transparent'
-                }`}
+                className={`fixed top-0 left-0 w-full z-[var(--z-nav)] transition-all duration-300 ${scrolled ? 'glass-panel shadow-lg' : 'bg-transparent'
+                    }`}
                 style={{
                     display: 'grid',
                     gridTemplateColumns: '1fr auto 1fr',
