@@ -29,7 +29,7 @@ export const CaseStudies: React.FC = () => {
                         marginBottom: '4rem',
                         letterSpacing: '-0.02em',
                     }}>
-                        Portfolio &amp; Insights.
+                        Portfolio
                     </h2>
                 </AnimatedItem>
 

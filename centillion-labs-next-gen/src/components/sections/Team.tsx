@@ -18,7 +18,7 @@ export const Team: React.FC = () => {
                         marginBottom: '4rem',
                         letterSpacing: '-0.02em'
                     }}>
-                        Leadership & Expertise.
+                        Leadership
                     </h2>
                 </AnimatedItem>
 
