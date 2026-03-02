@@ -4,23 +4,23 @@ import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 // ─── Formulas embedded inside the cube, revealed on scroll ───────────────────
-// Positions are in cube-local space (±3.5 range = cube face distance)
+// Positions are in cube-local space — all strictly inside (cube face = ±3.5)
 const CUBE_FORMULAS = [
-    { text: 'ζ(s) = Σ 1/nˢ',             label: 'Riemann Hypothesis',          threshold: 0.06,  pos: [-2.8,  3.5,  0.5] as [number,number,number] },
-    { text: 'eⁱᵖⁱ + 1 = 0',              label: "Euler's Identity",            threshold: 0.12,  pos: [ 3.5,  1.8, -1.5] as [number,number,number] },
-    { text: 'P(H|E) ∝ P(E|H)·P(H)',      label: "Bayes' Theorem",              threshold: 0.18,  pos: [ 1.2, -3.5,  2.0] as [number,number,number] },
-    { text: 'θ ← θ − α ∇J(θ)',          label: 'Gradient Descent',            threshold: 0.24,  pos: [-3.5, -1.5,  1.8] as [number,number,number] },
-    { text: 'Attn = softmax(QKᵀ/√d)V',   label: 'Transformer Attention',        threshold: 0.30,  pos: [ 2.2,  3.5, -2.5] as [number,number,number] },
-    { text: 'L = −Σ yᵢ log ŷᵢ',         label: 'Cross-Entropy Loss',           threshold: 0.36,  pos: [-3.5,  2.5,  2.2] as [number,number,number] },
-    { text: '∂L/∂W = δ (aˡ⁻¹)ᵀ',       label: 'Backpropagation',              threshold: 0.42,  pos: [ 0.8, -3.5, -2.8] as [number,number,number] },
-    { text: 'D_KL(P‖Q) = Σ P log(P/Q)', label: 'KL Divergence',                threshold: 0.48,  pos: [ 3.5, -2.0,  0.5] as [number,number,number] },
-    { text: 'H(X) = −Σ p log₂ p',       label: 'Shannon Entropy',              threshold: 0.54,  pos: [-1.5,  3.5, -3.0] as [number,number,number] },
-    { text: 'f̂(ξ) = ∫ f(x) e^{−2πixξ} dx', label: 'Fourier Transform',        threshold: 0.59,  pos: [-3.5, -3.0, -1.2] as [number,number,number] },
-    { text: '∇·E = ρ/ε₀',              label: "Maxwell's Eq.",               threshold: 0.64,  pos: [ 3.0,  2.8,  3.5] as [number,number,number] },
-    { text: 'σ(x) = 1/(1+e^{−x})',      label: 'Sigmoid',                      threshold: 0.69,  pos: [-2.0, -3.5,  3.2] as [number,number,number] },
-    { text: 'Var(X) = E[X²]−(EX)²',    label: 'Variance',                     threshold: 0.74,  pos: [ 3.5,  0.2,  2.8] as [number,number,number] },
-    { text: 'F(s) = ∫₀^∞ f(t)e^{−st}dt', label: 'Laplace Transform',          threshold: 0.80,  pos: [-3.5,  3.0, -2.0] as [number,number,number] },
-    { text: 'E = mc²',                   label: 'Mass-Energy Equivalence',      threshold: 0.86,  pos: [ 1.5, -2.5, -3.5] as [number,number,number] },
+    { text: 'ζ(s) = Σ 1/nˢ',               label: 'Riemann Hypothesis',       threshold: 0.06, pos: [-1.8,  2.0,  1.2] as [number,number,number] },
+    { text: 'eⁱᵖⁱ + 1 = 0',                label: "Euler's Identity",          threshold: 0.12, pos: [ 2.1,  1.5, -1.0] as [number,number,number] },
+    { text: 'P(H|E) ∝ P(E|H)·P(H)',        label: "Bayes' Theorem",            threshold: 0.18, pos: [ 0.8, -2.0,  1.5] as [number,number,number] },
+    { text: 'θ ← θ − α ∇J(θ)',             label: 'Gradient Descent',          threshold: 0.24, pos: [-2.1, -1.2,  0.9] as [number,number,number] },
+    { text: 'Attn = softmax(QKᵀ/√d)V',     label: 'Transformer Attention',     threshold: 0.30, pos: [ 1.5,  2.0, -1.8] as [number,number,number] },
+    { text: 'L = −Σ yᵢ log ŷᵢ',           label: 'Cross-Entropy Loss',        threshold: 0.36, pos: [-2.0,  1.8,  1.5] as [number,number,number] },
+    { text: '∂L/∂W = δ (aˡ⁻¹)ᵀ',          label: 'Backpropagation',           threshold: 0.42, pos: [ 0.5, -2.1, -2.0] as [number,number,number] },
+    { text: 'D_KL(P‖Q) = Σ P log(P/Q)',   label: 'KL Divergence',             threshold: 0.48, pos: [ 2.1, -1.5,  0.5] as [number,number,number] },
+    { text: 'H(X) = −Σ p log₂ p',         label: 'Shannon Entropy',           threshold: 0.54, pos: [-1.0,  2.0, -2.1] as [number,number,number] },
+    { text: 'f̂(ξ) = ∫ f(x) e^{−2πixξ}dx', label: 'Fourier Transform',         threshold: 0.59, pos: [-2.1, -2.0, -0.8] as [number,number,number] },
+    { text: '∇·E = ρ/ε₀',                  label: "Maxwell's Eq.",             threshold: 0.64, pos: [ 2.0,  2.1,  1.8] as [number,number,number] },
+    { text: 'σ(x) = 1/(1+e^{−x})',         label: 'Sigmoid',                   threshold: 0.69, pos: [-1.5, -2.0,  2.1] as [number,number,number] },
+    { text: 'Var(X) = E[X²]−(EX)²',       label: 'Variance',                  threshold: 0.74, pos: [ 2.1,  0.2,  2.0] as [number,number,number] },
+    { text: 'F(s) = ∫₀^∞ f(t)e^{−st}dt',  label: 'Laplace Transform',         threshold: 0.80, pos: [-2.1,  2.1, -1.5] as [number,number,number] },
+    { text: 'E = mc²',                      label: 'Mass-Energy Equivalence',   threshold: 0.86, pos: [ 1.2, -1.8, -2.1] as [number,number,number] },
 ] as const;
 
 export const NeuralNetwork: React.FC = () => {
@@ -57,12 +57,8 @@ export const NeuralNetwork: React.FC = () => {
 
     // Scroll-driven formula transition
     const scrollY    = useRef(0);
-    const fOpacities = useRef(CUBE_FORMULAS.map(() => 0));
+    const [scrollFrac, setScrollFrac] = useState(0);   // drives JSX fillOpacity via React reconciler
     const lineMatRef = useRef<THREE.LineBasicMaterial>(null!);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const textRefs   = useRef<any[]>([]);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const lblRefs    = useRef<any[]>([]);
     const dotRefs    = useRef<THREE.Mesh[]>([]);
 
     useEffect(() => {
@@ -130,7 +126,9 @@ export const NeuralNetwork: React.FC = () => {
 
         const handleScroll = () => {
             const total = document.body.scrollHeight - window.innerHeight;
-            scrollY.current = total > 0 ? window.scrollY / total : 0;
+            const frac = total > 0 ? window.scrollY / total : 0;
+            scrollY.current = frac;
+            setScrollFrac(frac);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -230,26 +228,13 @@ export const NeuralNetwork: React.FC = () => {
             groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
         }
 
-        // ── Scroll-driven formula fade-in (lines always stay visible) ────
-        const scroll = scrollY.current;
-        // Lines stay at constant opacity — no scroll-based fade
-        if (lineMatRef.current && lineMatRef.current.opacity !== 0.15) {
-            lineMatRef.current.opacity = 0.15;
-        }
-
-        // Formulas: fully hidden at scroll 0, each fades in at its own threshold
+        // ── Dot float animation (opacity driven by scrollY ref, not state) ──
         CUBE_FORMULAS.forEach((f, i) => {
-            const target = scroll >= f.threshold ? 1 : 0;
-            fOpacities.current[i] += (target - fOpacities.current[i]) * 0.045;
-            const op = fOpacities.current[i];
-
-            // Gentle float along Y in local space
+            const op = Math.min(Math.max((scrollY.current - f.threshold) / 0.06, 0), 1);
             if (dotRefs.current[i]) {
                 dotRefs.current[i].position.y = Math.sin(state.clock.elapsedTime * 0.3 + i * 0.75) * 0.18;
                 (dotRefs.current[i].material as THREE.MeshBasicMaterial).opacity = op;
             }
-            if (textRefs.current[i]) textRefs.current[i].fillOpacity  = op;
-            if (lblRefs.current[i])  lblRefs.current[i].fillOpacity   = op * 0.6;
         });
 
         if (pointsRef.current && linesRef.current) {
@@ -342,48 +327,50 @@ export const NeuralNetwork: React.FC = () => {
             </lineSegments>
 
             {/* ── Math formulas embedded inside the cube ─────────────────── */}
-            {CUBE_FORMULAS.map((f, i) => (
-                <group key={f.label} position={f.pos}>
-                    {/* Glowing anchor dot */}
-                    <mesh ref={(el) => { if (el) dotRefs.current[i] = el; }}>
-                        <sphereGeometry args={[0.08, 8, 8]} />
-                        <meshBasicMaterial color={themeColor} transparent opacity={0} />
-                    </mesh>
+            {CUBE_FORMULAS.map((f, i) => {
+                // Compute opacity directly from React state — guaranteed correct via reconciler
+                const fOp = Math.min(Math.max((scrollFrac - f.threshold) / 0.06, 0), 1);
+                return (
+                    <group key={f.label} position={f.pos}>
+                        {/* Glowing anchor dot */}
+                        <mesh ref={(el) => { if (el) dotRefs.current[i] = el; }}>
+                            <sphereGeometry args={[0.07, 8, 8]} />
+                            <meshBasicMaterial color={themeColor} transparent opacity={0} />
+                        </mesh>
 
-                    {/* Formula text — sits just above the dot */}
-                    <Text
-                        ref={(el: unknown) => { textRefs.current[i] = el; }}
-                        fontSize={0.20}
-                        color={themeColor}
-                        anchorX="center"
-                        anchorY="bottom"
-                        position={[0, 0.16, 0]}
-                        maxWidth={4.8}
-                        textAlign="center"
-                        outlineWidth={0.008}
-                        outlineColor="#000000"
-                        outlineOpacity={0.6}
-                        fillOpacity={0}
-                    >
-                        {f.text}
-                    </Text>
+                        {/* Formula text */}
+                        <Text
+                            fontSize={0.17}
+                            color={themeColor}
+                            anchorX="center"
+                            anchorY="bottom"
+                            position={[0, 0.14, 0]}
+                            maxWidth={3.8}
+                            textAlign="center"
+                            outlineWidth={0.007}
+                            outlineColor="#000000"
+                            outlineOpacity={fOp * 0.6}
+                            fillOpacity={fOp}
+                        >
+                            {f.text}
+                        </Text>
 
-                    {/* Label beneath formula */}
-                    <Text
-                        ref={(el: unknown) => { lblRefs.current[i] = el; }}
-                        fontSize={0.10}
-                        color={themeColor}
-                        anchorX="center"
-                        anchorY="top"
-                        position={[0, -0.06, 0]}
-                        maxWidth={4.8}
-                        textAlign="center"
-                        fillOpacity={0}
-                    >
-                        {f.label}
-                    </Text>
-                </group>
-            ))}
+                        {/* Label beneath formula */}
+                        <Text
+                            fontSize={0.09}
+                            color={themeColor}
+                            anchorX="center"
+                            anchorY="top"
+                            position={[0, -0.05, 0]}
+                            maxWidth={3.8}
+                            textAlign="center"
+                            fillOpacity={fOp * 0.6}
+                        >
+                            {f.label}
+                        </Text>
+                    </group>
+                );
+            })}
         </group>
     );
 };
