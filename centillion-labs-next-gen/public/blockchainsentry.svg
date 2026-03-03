@@ -1,0 +1,26 @@
+<svg viewBox="0 0 450 120" xmlns="http://www.w3.org/2000/svg">
+  <rect width="450" height="120" rx="15" fill="#000000"/>
+  
+  <g stroke="#3ab7f2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <circle cx="65" cy="55" r="22" stroke-width="4"/>
+    <circle cx="65" cy="55" r="12" stroke-width="2"/>
+    <circle cx="65" cy="55" r="5" fill="#3ab7f2"/>
+    
+    <path stroke-width="3" d="M15,25 h35 l10,12" />
+    <path stroke-width="3" d="M15,40 h20" />
+    <path stroke-width="3" d="M15,80 h25 l15,-10" />
+    <path stroke-width="3" d="M15,95 h35 l15,-10" />
+    <path stroke-width="3" d="M115,25 h-15 l-8,15" />
+    <path stroke-width="3" d="M115,45 h-20" />
+    <path stroke-width="3" d="M115,85 h-15 l-10,-15" />
+    
+    <!-- Dots -->
+     <circle cx="20" cy="40" r="3" fill="#3ab7f2"/>
+     <circle cx="45" cy="25" r="4" fill="#3ab7f2"/>
+     <circle cx="35" cy="95" r="4" fill="#3ab7f2"/>
+      <circle cx="100" cy="85" r="3" fill="#3ab7f2"/>
+  </g>
+  
+  <text x="135" y="60" fill="#ffffff" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="bold" letter-spacing="-1">BlockChainSentry</text>
+  <text x="140" y="95" fill="#cccccc" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20" letter-spacing="1.5">Secure your Smart contract</text>
+</svg>
