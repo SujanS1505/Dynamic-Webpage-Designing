@@ -1,13 +1,18 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { RedTeamPage } from '../pages/RedTeamPage';
 
 const AUTO_CLOSE_MS = 6000;
 
 export const RedTeamFlash: React.FC = () => {
     const [visible, setVisible] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [showPage, setShowPage] = useState(false);
+    const [paused, setPaused] = useState(false);
     const rafRef = useRef<number | null>(null);
     const startRef = useRef<number | null>(null);
+    const pausedAtRef = useRef<number | null>(null);
+    const pausedProgressRef = useRef<number>(0);
 
     /* Slight delay before showing — feels intentional, not jarring */
     useEffect(() => {
@@ -15,14 +20,22 @@ export const RedTeamFlash: React.FC = () => {
         return () => clearTimeout(t);
     }, []);
 
-    /* Progress bar + auto-close */
+    /* Progress bar + auto-close (pauseable) */
     useEffect(() => {
         if (!visible) return;
+        if (paused) {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            return;
+        }
+        const alreadyDone = pausedProgressRef.current;
+        const remainMs = AUTO_CLOSE_MS * (1 - alreadyDone / 100);
         startRef.current = null;
         const tick = (now: number) => {
             if (!startRef.current) startRef.current = now;
-            const pct = Math.min(((now - startRef.current) / AUTO_CLOSE_MS) * 100, 100);
+            const elapsed = now - startRef.current;
+            const pct = Math.min(alreadyDone + (elapsed / remainMs) * (100 - alreadyDone), 100);
             setProgress(pct);
+            pausedProgressRef.current = pct;
             if (pct < 100) {
                 rafRef.current = requestAnimationFrame(tick);
             } else {
@@ -31,7 +44,7 @@ export const RedTeamFlash: React.FC = () => {
         };
         rafRef.current = requestAnimationFrame(tick);
         return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-    }, [visible]);
+    }, [visible, paused]);
 
     /* Escape to dismiss */
     useEffect(() => {
@@ -41,6 +54,8 @@ export const RedTeamFlash: React.FC = () => {
     }, []);
 
     return (
+        <>
+        {showPage && <RedTeamPage onClose={() => setShowPage(false)} />}
         <AnimatePresence>
             {visible && (
                 <motion.div
@@ -150,10 +165,43 @@ export const RedTeamFlash: React.FC = () => {
                             color: 'rgba(232,65,24,0.45)',
                             letterSpacing: '0.16em',
                             textTransform: 'uppercase',
-                            margin: 0,
+                            margin: '0 0 1rem',
                         }}>
                             City Sleeps. Centillion Red Team Doesn't.
                         </p>
+
+                        {/* CTA button */}
+                        <motion.button
+                            whileHover={{ scale: 1.03, boxShadow: '0 0 24px rgba(232,65,24,0.45)' }}
+                            whileTap={{ scale: 0.97 }}
+                            onHoverStart={() => setPaused(true)}
+                            onHoverEnd={() => setPaused(false)}
+                            onClick={() => { setVisible(false); setShowPage(true); }}
+                            style={{
+                                width: '100%',
+                                background: 'linear-gradient(135deg, #e84118, #c42800)',
+                                border: 'none',
+                                borderRadius: '6px',
+                                color: '#fff',
+                                fontFamily: 'JetBrains Mono, monospace',
+                                fontSize: '0.68rem',
+                                fontWeight: 700,
+                                letterSpacing: '0.14em',
+                                textTransform: 'uppercase',
+                                padding: '0.65rem 1rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '0.5rem',
+                                boxShadow: '0 4px 16px rgba(232,65,24,0.3)',
+                                transition: 'box-shadow 0.2s',
+                            }}
+                        >
+                            <span style={{ fontSize: '0.8rem' }}>&#128737;&#65039;</span>
+                            Explore Red Team
+                            <span style={{ opacity: 0.7 }}>→</span>
+                        </motion.button>
                     </div>
 
                     {/* Auto-close progress bar at bottom */}
@@ -168,5 +216,6 @@ export const RedTeamFlash: React.FC = () => {
                 </motion.div>
             )}
         </AnimatePresence>
+        </>
     );
 };

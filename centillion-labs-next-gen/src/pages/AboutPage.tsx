@@ -16,15 +16,15 @@ const JOURNEY = [
   { num: '02', title: 'Cloud Migration Mastery', desc: 'Amassed deep experience aiding countless clients in migrating to AWS, GCP, and Azure — turning cloud complexity into competitive advantage.' },
   { num: '03', title: 'Data Observability', desc: 'Specialist identification of code, configuration, schema, data, metadata, and technology drift across all planes.' },
   { num: '04', title: 'Generative AI Platform', desc: 'Launched our generative AI platform blending expert guidance with technical proficiency to craft impactful architectures — including Finance & Retail LMs, GMail Synthesizer, and Home Brewn models.' },
-  { num: '05', title: 'Global Enterprise Clients', desc: 'Serving Taboola, SwissRe, Security Scorecard, BlockChainSentry, and EzOut — across advertising, insurance, cybersecurity, blockchain, and retail.' },
+  { num: '05', title: 'Global Enterprise Clients', desc: 'Serving Taboola, Swiss Re, Security Scorecard, Sentry, and EzOut — across advertising, insurance, cybersecurity, security, and retail.' },
   { num: '06', title: 'Full Product Suite', desc: 'Built Plato, Claudius, and Hexacube — all production-deployed at enterprise scale.' },
 ];
 
 const CLIENTS = [
-  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taboola_logo.svg', desc: "World's leading discovery & native advertising" },
-  { name: 'SwissRe', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Swiss_Re_logo.svg', desc: 'Global reinsurance leader' },
-  { name: 'Security Scorecard', img: 'https://cdn.brandfetch.io/securityscorecard.com/w/400/h/400/logo', desc: 'Secure your supply chain' },
-  { name: 'BlockChainSentry', img: 'https://logo.clearbit.com/blockchainsentry.com', desc: 'Secure your smart contract' },
+  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taboola_logo.svg/240px-Taboola_logo.svg.png', desc: "World's leading discovery & native advertising" },
+  { name: 'Swiss Re', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Swiss_Re_logo.svg/240px-Swiss_Re_logo.svg.png', desc: 'Global reinsurance leader' },
+  { name: 'Security Scorecard', img: 'https://logo.clearbit.com/securityscorecard.com', desc: 'Secure your supply chain' },
+  { name: 'Sentry', img: 'https://logo.clearbit.com/sentry.io', desc: 'Secure your smart contract' },
   { name: 'EzOut', img: 'https://logo.clearbit.com/ezout.com', desc: 'Revenue booster for grocers' },
 ];
 
@@ -166,6 +166,12 @@ export const AboutPage: React.FC = () => (
                 <img
                   src={c.img}
                   alt={c.name}
+                  onError={(e) => {
+                    const el = e.currentTarget;
+                    el.style.display = 'none';
+                    const fallback = el.nextElementSibling as HTMLElement | null;
+                    if (fallback) fallback.style.display = 'flex';
+                  }}
                   style={{
                     maxHeight: '100%',
                     maxWidth: '120px',
@@ -173,6 +179,9 @@ export const AboutPage: React.FC = () => (
                     filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))'
                   }}
                 />
+                <div style={{ display: 'none', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', borderRadius: '6px', padding: '0 0.65rem', height: '28px', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--accent-primary)' }}>
+                  {c.name.toUpperCase()}
+                </div>
               </div>
               <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>{c.name}</div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{c.desc}</div>

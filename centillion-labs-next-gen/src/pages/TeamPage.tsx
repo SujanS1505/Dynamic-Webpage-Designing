@@ -6,7 +6,7 @@ const LEADERS = [
   {
     name: 'Mohanapriya', role: 'CEO & Co-Founder', color: '#00e5ff',
     initials: 'MA', linkedin: 'https://www.linkedin.com/in/mohanapriya-appusamy-590a75340/',
-    bio: "Mohanapriya is the driving force behind Centillion Labs' strategic vision. With deep expertise in enterprise data architecture and AI strategy, she has guided the company from inception to delivering custom AI solutions for industry leaders including Taboola, SwissRe, and Security Scorecard.",
+    bio: "Mohanapriya is the driving force behind Centillion Labs' strategic vision. With deep expertise in enterprise data architecture and AI strategy, she has guided the company from inception to delivering custom AI solutions for industry leaders including Taboola, Swiss Re, and Security Scorecard.",
     tags: ['Data Strategy', 'AI Vision', 'Enterprise Architecture', 'Client Relationships'],
   },
   {
@@ -18,10 +18,10 @@ const LEADERS = [
 ];
 
 const CLIENTS = [
-  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taboola_logo.svg', sector: 'Advertising & Media', color: '#00e5ff', desc: 'Native advertising & real-time analytics at web scale.' },
-  { name: 'SwissRe', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Swiss_Re_logo.svg', sector: 'Insurance / Reinsurance', color: '#00bcd4', desc: 'Cloud migration, Data Mesh, and Responsible AI.' },
-  { name: 'Security Scorecard', img: 'https://cdn.brandfetch.io/securityscorecard.com/w/400/h/400/logo', sector: 'Cybersecurity', color: '#26a69a', desc: 'Post-quantum cryptography and Multicloud DAM.' },
-  { name: 'BlockChainSentry', img: 'https://logo.clearbit.com/blockchainsentry.com', sector: 'Blockchain / Web3', color: '#0097a7', desc: 'Claudius Go framework: gRPC, etcd, Raft.' },
+  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taboola_logo.svg/240px-Taboola_logo.svg.png', sector: 'Advertising & Media', color: '#00e5ff', desc: 'Native advertising & real-time analytics at web scale.' },
+  { name: 'Swiss Re', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Swiss_Re_logo.svg/240px-Swiss_Re_logo.svg.png', sector: 'Insurance / Reinsurance', color: '#00bcd4', desc: 'Cloud migration, Data Mesh, and Responsible AI.' },
+  { name: 'Security Scorecard', img: 'https://logo.clearbit.com/securityscorecard.com', sector: 'Cybersecurity', color: '#26a69a', desc: 'Post-quantum cryptography and Multicloud DAM.' },
+  { name: 'Sentry', img: 'https://logo.clearbit.com/sentry.io', sector: 'Blockchain / Web3', color: '#0097a7', desc: 'Claudius Go framework: gRPC, etcd, Raft.' },
   { name: 'EzOut', img: 'https://logo.clearbit.com/ezout.com', sector: 'Retail / Grocery', color: '#007c91', desc: 'Retail LM, Edge AI, and Databricks at the shelf.' },
 ];
 
@@ -121,7 +121,20 @@ export const TeamPage: React.FC = () => (
               <div>
                 {c.img && (
                   <div style={{ height: '24px', marginBottom: '0.4rem', display: 'flex', alignItems: 'flex-start' }}>
-                    <img src={c.img} alt={c.name} style={{ maxHeight: '100%', maxWidth: '100px', objectFit: 'contain', filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))' }} />
+                    <img
+                      src={c.img}
+                      alt={c.name}
+                      onError={(e) => {
+                        const el = e.currentTarget;
+                        el.style.display = 'none';
+                        const fallback = el.nextElementSibling as HTMLElement | null;
+                        if (fallback) fallback.style.display = 'flex';
+                      }}
+                      style={{ maxHeight: '100%', maxWidth: '100px', objectFit: 'contain', filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))' }}
+                    />
+                    <div style={{ display: 'none', alignItems: 'center', justifyContent: 'center', background: `${c.color}14`, border: `1px solid ${c.color}30`, borderRadius: '4px', padding: '0 0.5rem', height: '20px', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.1em', color: c.color }}>
+                      {c.name.toUpperCase()}
+                    </div>
                   </div>
                 )}
                 <div style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-primary)' }}>{c.name}</div>
