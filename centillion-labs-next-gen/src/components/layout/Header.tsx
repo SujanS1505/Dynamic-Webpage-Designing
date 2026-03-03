@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { Sidebar } from './Sidebar';
 import { useLocation } from 'react-router-dom';
+import { Logo3D } from './Logo3D';
 
 const PAGE_TITLES: Record<string, string> = {
     '/': 'Home',
@@ -48,27 +49,32 @@ export const Header: React.FC = () => {
                 }}
             >
                 {/* ── Logo ── */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', justifySelf: 'start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifySelf: 'start' }}>
                     <a
                         href="#home"
-                        style={{ display: 'flex', alignItems: 'center', gap: '1rem', textDecoration: 'none', color: 'inherit' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', textDecoration: 'none', color: 'inherit' }}
                     >
-                        <img
-                            src="/logo.png"
-                            alt="Centillion Logo"
-                            style={{
-                                height: '32px', width: 'auto',
-                                filter: 'drop-shadow(0px 4px 10px rgba(0, 229, 255, 0.4))',
-                                transform: 'perspective(400px) rotateY(-5deg)',
-                                transition: 'transform 0.4s ease',
-                            }}
-                        />
-                        <span
+                        <Logo3D size={38} />
+                        <motion.span
                             className="mono-text header-wordmark"
-                            style={{ fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', fontWeight: 300, letterSpacing: '0.12em', display: 'inline-block' }}
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            style={{
+                                fontSize: 'clamp(0.85rem, 2.5vw, 1.1rem)',
+                                fontWeight: 400,
+                                letterSpacing: '0.22em',
+                                display: 'inline-block',
+                                background: 'linear-gradient(90deg, var(--accent-primary, #00e5ff) 0%, #a855f7 50%, var(--accent-primary, #00e5ff) 100%)',
+                                backgroundSize: '200% auto',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text',
+                                animation: 'logoGradientShift 4s linear infinite',
+                            }}
                         >
                             CENTILLION
-                        </span>
+                        </motion.span>
                     </a>
                 </div>
 

@@ -242,7 +242,7 @@ export const NeuralNetwork: React.FC = () => {
             const target = sourceTargets[0];
             const curPos = positions;
 
-            let trailPoint = new THREE.Vector3(999, 999, 999);
+            const trailPoint = new THREE.Vector3(999, 999, 999);
             if (isMouseMoving.current && groupRef.current) {
                 const raycaster = new THREE.Raycaster();
                 raycaster.setFromCamera(mousePos.current, state.camera);

@@ -18,11 +18,11 @@ const LEADERS = [
 ];
 
 const CLIENTS = [
-  { name: 'Taboola', sector: 'Advertising & Media', color: '#00e5ff', desc: 'Native advertising & real-time analytics at web scale.' },
-  { name: 'SwissRe', sector: 'Insurance / Reinsurance', color: '#00bcd4', desc: 'Cloud migration, Data Mesh, and Responsible AI.' },
-  { name: 'Security Scorecard', sector: 'Cybersecurity', color: '#26a69a', desc: 'Post-quantum cryptography and Multicloud DAM.' },
-  { name: 'BlockChainSentry', sector: 'Blockchain / Web3', color: '#0097a7', desc: 'Claudius Go framework: gRPC, etcd, Raft.' },
-  { name: 'EzOut', sector: 'Retail / Grocery', color: '#007c91', desc: 'Retail LM, Edge AI, and Databricks at the shelf.' },
+  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taboola_logo.svg', sector: 'Advertising & Media', color: '#00e5ff', desc: 'Native advertising & real-time analytics at web scale.' },
+  { name: 'SwissRe', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Swiss_Re_logo.svg', sector: 'Insurance / Reinsurance', color: '#00bcd4', desc: 'Cloud migration, Data Mesh, and Responsible AI.' },
+  { name: 'Security Scorecard', img: 'https://cdn.brandfetch.io/securityscorecard.com/w/400/h/400/logo', sector: 'Cybersecurity', color: '#26a69a', desc: 'Post-quantum cryptography and Multicloud DAM.' },
+  { name: 'BlockChainSentry', img: 'https://logo.clearbit.com/blockchainsentry.com', sector: 'Blockchain / Web3', color: '#0097a7', desc: 'Claudius Go framework: gRPC, etcd, Raft.' },
+  { name: 'EzOut', img: 'https://logo.clearbit.com/ezout.com', sector: 'Retail / Grocery', color: '#007c91', desc: 'Retail LM, Edge AI, and Databricks at the shelf.' },
 ];
 
 const STATS = [
@@ -119,6 +119,11 @@ export const TeamPage: React.FC = () => (
           <FadeIn key={c.name} delay={i * 0.06}>
             <motion.div whileHover={{ x: 6 }} className="glass-panel" style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', alignItems: 'center', gap: '1.5rem', padding: '1.25rem 1.75rem', borderRadius: '14px', borderLeft: `3px solid ${c.color}` }}>
               <div>
+                {c.img && (
+                  <div style={{ height: '24px', marginBottom: '0.4rem', display: 'flex', alignItems: 'flex-start' }}>
+                    <img src={c.img} alt={c.name} style={{ maxHeight: '100%', maxWidth: '100px', objectFit: 'contain', filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))' }} />
+                  </div>
+                )}
                 <div style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-primary)' }}>{c.name}</div>
                 <div className="mono-text" style={{ fontSize: '0.65rem', letterSpacing: '0.14em', color: c.color, marginTop: '0.15rem' }}>{c.sector}</div>
               </div>

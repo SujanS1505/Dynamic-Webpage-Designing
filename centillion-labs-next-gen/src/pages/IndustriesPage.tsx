@@ -4,35 +4,35 @@ import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag } from './PageLayou
 
 const INDUSTRIES = [
   {
-    id: 'adtech', icon: Megaphone, client: 'Taboola', sector: 'Advertising & Media', color: '#00e5ff',
+    id: 'adtech', icon: Megaphone, client: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taboola_logo.svg', sector: 'Advertising & Media', color: '#00e5ff',
     headline: 'Precision advertising intelligence at web scale.',
     desc: "Enabling Taboola's global native advertising network with real-time analytics pipelines, Data Clean Room architecture, and privacy-preserving collaboration for their advertising partners.",
     solutions: ['Real-time Analytics with Spark & Databricks', 'Data Clean Room (Plato)', 'Differential Privacy pipelines', 'Knowledge Graph for content signals', 'High-throughput event streaming'],
     tags: ['Real-time Analytics', 'Data Clean Room', 'Plato', 'Databricks'],
   },
   {
-    id: 'insurance', icon: Shield, client: 'SwissRe', sector: 'Insurance / Reinsurance', color: '#00bcd4',
+    id: 'insurance', icon: Shield, client: 'SwissRe', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Swiss_Re_logo.svg', sector: 'Insurance / Reinsurance', color: '#00bcd4',
     headline: "Cloud-scale risk intelligence for the world's largest reinsurer.",
     desc: 'Supporting SwissRe with a large-scale cloud migration to GCP, Data Mesh adoption, and Responsible AI frameworks — ensuring governance and ethical AI principles across all analytical workloads.',
     solutions: ['GCP cloud migration strategy', 'Data Mesh with Databricks accelerators', 'Responsible AI governance framework', 'FinOps for cloud cost optimization', 'Regulatory compliance & data lineage'],
     tags: ['Data Mesh', 'Responsible AI', 'FinOps', 'GCP', 'Governance'],
   },
   {
-    id: 'cyber', icon: Lock, client: 'Security Scorecard', sector: 'Cybersecurity / Supply Chain', color: '#26a69a',
+    id: 'cyber', icon: Lock, client: 'Security Scorecard', img: 'https://cdn.brandfetch.io/securityscorecard.com/w/400/h/400/logo', sector: 'Cybersecurity / Supply Chain', color: '#26a69a',
     headline: 'Post-quantum security for the connected enterprise.',
     desc: 'Delivering cutting-edge security architecture for Security Scorecard — including post-quantum cryptography, Multicloud Data Access Management, and Homomorphic Encryption to future-proof sensitive data.',
     solutions: ['Post-quantum Cryptography adoption', 'Multicloud Data Access Management', 'Homomorphic Encryption pipelines', 'Confidential Computing environments', 'Zero-trust data architecture'],
     tags: ['Post-quantum', 'Multicloud DAM', 'Homomorphic Encryption', 'Confidential Computing'],
   },
   {
-    id: 'web3', icon: Cpu, client: 'BlockChainSentry', sector: 'Blockchain / Web3', color: '#0097a7',
+    id: 'web3', icon: Cpu, client: 'BlockChainSentry', img: 'https://logo.clearbit.com/blockchainsentry.com', sector: 'Blockchain / Web3', color: '#0097a7',
     headline: 'Distributed consensus at the heart of decentralized finance.',
     desc: "Deploying Centillion's Claudius Go framework to power BlockChainSentry's distributed ledger infrastructure — using Goroutines, gRPC, etcd, and Raft for high-availability consensus and peer-to-peer communication.",
     solutions: ['Claudius Go framework deployment', 'gRPC-based peer communication', 'etcd distributed key-value store', 'Raft consensus for ledger integrity', 'Goroutines for concurrent transaction processing'],
     tags: ['Claudius', 'gRPC', 'etcd', 'Raft', 'Golang'],
   },
   {
-    id: 'retail', icon: ShoppingCart, client: 'EzOut', sector: 'Retail / Grocery', color: '#007c91',
+    id: 'retail', icon: ShoppingCart, client: 'EzOut', img: 'https://logo.clearbit.com/ezout.com', sector: 'Retail / Grocery', color: '#007c91',
     headline: 'AI at the shelf — instant, intelligent, in-store.',
     desc: "EzOut's smart checkout experience is powered by Centillion's Retail Language Model, Edge AI inference, and Databricks lakehouse for real-time inventory and demand forecasting at scale.",
     solutions: ['Retail Language Model', 'Edge AI for in-store inference', 'Databricks lakehouse', 'Real-time inventory intelligence', 'Demand forecasting & replenishment AI'],
@@ -68,7 +68,12 @@ export const IndustriesPage: React.FC = () => (
                     <Icon size={24} style={{ color: ind.color }} />
                   </div>
                   <div>
-                    <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', color: ind.color, marginBottom: '0.2rem' }}>CLIENT</div>
+                    <div className="mono-text" style={{ fontSize: '0.66rem', letterSpacing: '0.18em', color: ind.color, marginBottom: '0.6rem' }}>CLIENT</div>
+                    {ind.img && (
+                      <div style={{ height: '24px', marginBottom: '0.5rem', display: 'flex', alignItems: 'flex-start' }}>
+                        <img src={ind.img} alt={ind.client} style={{ maxHeight: '100%', maxWidth: '120px', objectFit: 'contain', filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))' }} />
+                      </div>
+                    )}
                     <div style={{ fontSize: '1.5rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '0.1rem' }}>{ind.client}</div>
                     <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{ind.sector}</div>
                   </div>

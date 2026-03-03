@@ -21,11 +21,11 @@ const JOURNEY = [
 ];
 
 const CLIENTS = [
-  { name: 'Taboola', desc: "World's leading discovery & native advertising" },
-  { name: 'SwissRe', desc: 'Global reinsurance leader' },
-  { name: 'Security Scorecard', desc: 'Secure your supply chain' },
-  { name: 'BlockChainSentry', desc: 'Secure your smart contract' },
-  { name: 'EzOut', desc: 'Revenue booster for grocers' },
+  { name: 'Taboola', img: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taboola_logo.svg', desc: "World's leading discovery & native advertising" },
+  { name: 'SwissRe', img: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Swiss_Re_logo.svg', desc: 'Global reinsurance leader' },
+  { name: 'Security Scorecard', img: 'https://cdn.brandfetch.io/securityscorecard.com/w/400/h/400/logo', desc: 'Secure your supply chain' },
+  { name: 'BlockChainSentry', img: 'https://logo.clearbit.com/blockchainsentry.com', desc: 'Secure your smart contract' },
+  { name: 'EzOut', img: 'https://logo.clearbit.com/ezout.com', desc: 'Revenue booster for grocers' },
 ];
 
 const stagger = { visible: { transition: { staggerChildren: 0.07 } } };
@@ -162,6 +162,18 @@ export const AboutPage: React.FC = () => (
               className="glass-panel card-pad"
               style={{ borderRadius: '14px', minWidth: '180px', borderTop: '2px solid var(--accent-primary)' }}
             >
+              <div style={{ height: '36px', marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
+                <img
+                  src={c.img}
+                  alt={c.name}
+                  style={{
+                    maxHeight: '100%',
+                    maxWidth: '120px',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 0 2px rgba(255,255,255,0.4))'
+                  }}
+                />
+              </div>
               <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.3rem' }}>{c.name}</div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 300 }}>{c.desc}</div>
             </motion.div>

@@ -347,3 +347,9 @@ section {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ── Logo 3D gradient animation ── */
+@keyframes logoGradientShift {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}

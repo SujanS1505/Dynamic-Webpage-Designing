@@ -1,7 +1,0 @@
-<svg viewBox="0 0 250 80" xmlns="http://www.w3.org/2000/svg">
-  <g fill="#42554b">
-    <circle cx="40" cy="40" r="35"/>
-    <path fill="#ffffff" d="M15,25 h50 v8 h-50 z M18,36 h12 v25 h-12 z M34,36 h12 v25 h-12 z M50,36 h12 v25 h-12 z"/>
-    <text x="85" y="55" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="900" letter-spacing="-1">Swiss Re</text>
-  </g>
-</svg>
