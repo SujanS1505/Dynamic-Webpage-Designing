@@ -6,21 +6,21 @@ import * as THREE from 'three';
 // ─── Formulas embedded inside the cube, revealed on scroll ───────────────────
 // Positions are in cube-local space — all strictly inside (cube face = ±3.5)
 const CUBE_FORMULAS = [
-    { text: 'ζ(s) = Σ 1/nˢ',               label: 'Riemann Hypothesis',       threshold: 0.06, pos: [-1.8,  2.0,  1.2] as [number,number,number] },
-    { text: 'eⁱᵖⁱ + 1 = 0',                label: "Euler's Identity",          threshold: 0.12, pos: [ 2.1,  1.5, -1.0] as [number,number,number] },
-    { text: 'P(H|E) ∝ P(E|H)·P(H)',        label: "Bayes' Theorem",            threshold: 0.18, pos: [ 0.8, -2.0,  1.5] as [number,number,number] },
-    { text: 'θ ← θ − α ∇J(θ)',             label: 'Gradient Descent',          threshold: 0.24, pos: [-2.1, -1.2,  0.9] as [number,number,number] },
-    { text: 'Attn = softmax(QKᵀ/√d)V',     label: 'Transformer Attention',     threshold: 0.30, pos: [ 1.5,  2.0, -1.8] as [number,number,number] },
-    { text: 'L = −Σ yᵢ log ŷᵢ',           label: 'Cross-Entropy Loss',        threshold: 0.36, pos: [-2.0,  1.8,  1.5] as [number,number,number] },
-    { text: '∂L/∂W = δ (aˡ⁻¹)ᵀ',          label: 'Backpropagation',           threshold: 0.42, pos: [ 0.5, -2.1, -2.0] as [number,number,number] },
-    { text: 'D_KL(P‖Q) = Σ P log(P/Q)',   label: 'KL Divergence',             threshold: 0.48, pos: [ 2.1, -1.5,  0.5] as [number,number,number] },
-    { text: 'H(X) = −Σ p log₂ p',         label: 'Shannon Entropy',           threshold: 0.54, pos: [-1.0,  2.0, -2.1] as [number,number,number] },
-    { text: 'f̂(ξ) = ∫ f(x) e^{−2πixξ}dx', label: 'Fourier Transform',         threshold: 0.59, pos: [-2.1, -2.0, -0.8] as [number,number,number] },
-    { text: '∇·E = ρ/ε₀',                  label: "Maxwell's Eq.",             threshold: 0.64, pos: [ 2.0,  2.1,  1.8] as [number,number,number] },
-    { text: 'σ(x) = 1/(1+e^{−x})',         label: 'Sigmoid',                   threshold: 0.69, pos: [-1.5, -2.0,  2.1] as [number,number,number] },
-    { text: 'Var(X) = E[X²]−(EX)²',       label: 'Variance',                  threshold: 0.74, pos: [ 2.1,  0.2,  2.0] as [number,number,number] },
-    { text: 'F(s) = ∫₀^∞ f(t)e^{−st}dt',  label: 'Laplace Transform',         threshold: 0.80, pos: [-2.1,  2.1, -1.5] as [number,number,number] },
-    { text: 'E = mc²',                      label: 'Mass-Energy Equivalence',   threshold: 0.86, pos: [ 1.2, -1.8, -2.1] as [number,number,number] },
+    { text: 'Attn = softmax(QKᵀ/√d)V', label: 'Transformer Attention', threshold: 0.06, pos: [-1.8, 2.0, 1.2] as [number, number, number] },
+    { text: 'θ_t+1 = θ_t − η ∇L(θ_t)', label: 'Gradient Descent', threshold: 0.12, pos: [2.1, 1.5, -1.0] as [number, number, number] },
+    { text: 'L = −Σ y_i log ŷ_i', label: 'Cross-Entropy Loss', threshold: 0.18, pos: [0.8, -2.0, 1.5] as [number, number, number] },
+    { text: '∂L/∂W = δ (aˡ⁻¹)ᵀ', label: 'Backpropagation', threshold: 0.24, pos: [-2.1, -1.2, 0.9] as [number, number, number] },
+    { text: 'min_G max_D E[log D] + E[log(1−D(G))]', label: 'GAN Objective', threshold: 0.30, pos: [1.5, 2.0, -1.8] as [number, number, number] },
+    { text: 'D_KL(P‖Q) = Σ P log(P/Q)', label: 'KL Divergence', threshold: 0.36, pos: [-2.0, 1.8, 1.5] as [number, number, number] },
+    { text: 'L_{VAE} = −E[log P] + D_KL(Q‖P)', label: 'VAE Loss (ELBO)', threshold: 0.42, pos: [0.5, -2.1, -2.0] as [number, number, number] },
+    { text: 'q(x_t|x_0) = N(x_t; √ᾱ_t x_0, (1−ᾱ_t)I)', label: 'Diffusion Forward', threshold: 0.48, pos: [2.1, -1.5, 0.5] as [number, number, number] },
+    { text: 'θ ← θ − α m_t / (√v_t + ε)', label: 'Adam Optimizer', threshold: 0.54, pos: [-1.0, 2.0, -2.1] as [number, number, number] },
+    { text: 'y = γ(x − μ)/√(σ² + ε) + β', label: 'Layer Normalization', threshold: 0.59, pos: [-2.1, -2.0, -0.8] as [number, number, number] },
+    { text: 'f_t = σ(W_f [h_{t-1}, x_t] + b_f)', label: 'LSTM Forget Gate', threshold: 0.64, pos: [2.0, 2.1, 1.8] as [number, number, number] },
+    { text: 'ReLU(x) = max(0, x)', label: 'ReLU Activation', threshold: 0.69, pos: [-1.5, -2.0, 2.1] as [number, number, number] },
+    { text: 'P(y|x) = e^{x_y} / Σ e^{x_i}', label: 'Softmax Function', threshold: 0.74, pos: [2.1, 0.2, 2.0] as [number, number, number] },
+    { text: 'Q ← Q + α[r + γ max Q\' − Q]', label: 'Q-Learning Update', threshold: 0.80, pos: [-2.1, 2.1, -1.5] as [number, number, number] },
+    { text: 'L_q = −log(e^{q·k_+} / Σ e^{q·k_i})', label: 'Contrastive Loss', threshold: 0.86, pos: [1.2, -1.8, -2.1] as [number, number, number] },
 ] as const;
 
 export const NeuralNetwork: React.FC = () => {
@@ -56,10 +56,10 @@ export const NeuralNetwork: React.FC = () => {
     const { camera } = useThree();
 
     // Scroll-driven formula transition
-    const scrollY    = useRef(0);
+    const scrollY = useRef(0);
     const [scrollFrac, setScrollFrac] = useState(0);   // drives JSX fillOpacity via React reconciler
     const lineMatRef = useRef<THREE.LineBasicMaterial>(null!);
-    const dotRefs    = useRef<THREE.Mesh[]>([]);
+    const dotRefs = useRef<THREE.Mesh[]>([]);
 
     useEffect(() => {
         let lastMoveTime = Date.now();
