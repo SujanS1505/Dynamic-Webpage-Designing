@@ -2,10 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const PARTNERS = [
-    { name: 'AWS', color: '#FF9900' },
-    { name: 'Google Cloud', color: '#4285F4' },
-    { name: 'Databricks', color: '#FF3621' },
-    { name: 'Azure', color: '#0089D6' }
+    { name: 'AWS', img: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg', height: 40 },
+    { name: 'Google Cloud', img: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg', height: 40 },
+    { name: 'Databricks', img: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png', height: 35 },
+    { name: 'Azure', img: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg', height: 35 }
 ];
 
 export const Hero: React.FC = () => {
@@ -109,27 +109,33 @@ export const Hero: React.FC = () => {
                         </a>
                     </div>
 
-                    <div style={{ marginTop: '4rem', width: '100%' }}>
-                        <p className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '1.5rem', letterSpacing: '0.2em' }}>
+                    <div style={{ marginTop: '5rem', width: '100%' }}>
+                        <p className="mono-text" style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '2rem', letterSpacing: '0.2em' }}>
                             TRUSTED BY INDUSTRY LEADERS
                         </p>
                         <div className="hero-partner-row" style={{
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            gap: '3rem',
+                            gap: '3.5rem',
                             flexWrap: 'wrap',
-                            opacity: 0.7
+                            opacity: 0.85
                         }}>
                             {PARTNERS.map(partner => (
-                                <span key={partner.name} style={{
-                                    fontSize: '1.2rem',
-                                    fontWeight: 700,
-                                    color: 'var(--text-primary)',
-                                    letterSpacing: '-0.02em'
-                                }}>
-                                    {partner.name}
-                                </span>
+                                <img
+                                    key={partner.name}
+                                    src={partner.img}
+                                    alt={partner.name}
+                                    style={{
+                                        height: partner.height + 'px',
+                                        objectFit: 'contain',
+                                        filter: 'drop-shadow(0px 0px 4px rgba(255,255,255,0.4))', // Helps visibility on dark mode without changing colors
+                                        transition: 'transform 0.3s ease',
+                                        cursor: 'pointer'
+                                    }}
+                                    onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                                    onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                />
                             ))}
                         </div>
                     </div>
