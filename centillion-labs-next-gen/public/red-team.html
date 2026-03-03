@@ -1,47 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Centillion Red Team — Secure Inference. Secure Future.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     /* ── DARK THEME (default) ── */
-    :root, [data-theme="dark"] {
+    :root,
+    [data-theme="dark"] {
       --red: #e84118;
       --red2: #ff2d00;
-      --red-dim: rgba(232,65,24,0.15);
-      --red-glow: rgba(232,65,24,0.6);
+      --red-dim: rgba(232, 65, 24, 0.15);
+      --red-glow: rgba(232, 65, 24, 0.6);
       --crimson: #8b0000;
       --bg: #070304;
       --bg2: #0f0505;
       --bg3: #160808;
       --card: #110404;
-      --card-b: rgba(232,65,24,0.18);
+      --card-b: rgba(232, 65, 24, 0.18);
       --text: #fff;
       --heading: #fff;
-      --sub: rgba(255,255,255,0.85);
-      --muted: rgba(255,255,255,0.45);
-      --dim: rgba(255,255,255,0.2);
-      --nav-bg: rgba(7,3,4,0.88);
-      --nav-border: rgba(232,65,24,0.25);
+      --sub: rgba(255, 255, 255, 0.85);
+      --muted: rgba(255, 255, 255, 0.45);
+      --dim: rgba(255, 255, 255, 0.2);
+      --nav-bg: rgba(7, 3, 4, 0.88);
+      --nav-border: rgba(232, 65, 24, 0.25);
       --term-bg: #050202;
       --term-hd: #0e0404;
-      --scanline-color: rgba(0,0,0,0.07);
-      --hero-grad1: rgba(139,0,0,0.25);
-      --hero-grad2: rgba(232,65,24,0.08);
-      --grid-line: rgba(232,65,24,0.04);
-      --particle-color: rgba(232,65,24,0.6);
-      --marquee-bg: rgba(232,65,24,0.05);
-      --marquee-item: rgba(232,65,24,0.75);
-      --marquee-sep: rgba(255,255,255,0.15);
-      --stat-hover: rgba(139,0,0,0.15);
-      --tilt-shadow: rgba(0,0,0,0.5);
-      --matrix-head: rgba(232,65,24,0.07);
-      --matrix-hover: rgba(232,65,24,0.04);
+      --scanline-color: rgba(0, 0, 0, 0.07);
+      --hero-grad1: rgba(139, 0, 0, 0.25);
+      --hero-grad2: rgba(232, 65, 24, 0.08);
+      --grid-line: rgba(232, 65, 24, 0.04);
+      --particle-color: rgba(232, 65, 24, 0.6);
+      --marquee-bg: rgba(232, 65, 24, 0.05);
+      --marquee-item: rgba(232, 65, 24, 0.75);
+      --marquee-sep: rgba(255, 255, 255, 0.15);
+      --stat-hover: rgba(139, 0, 0, 0.15);
+      --tilt-shadow: rgba(0, 0, 0, 0.5);
+      --matrix-head: rgba(232, 65, 24, 0.07);
+      --matrix-hover: rgba(232, 65, 24, 0.04);
       --theme-icon: "☀";
       --mono: 'JetBrains Mono', monospace;
       --sans: 'Barlow', sans-serif;
@@ -52,38 +62,40 @@
     [data-theme="light"] {
       --red: #c42800;
       --red2: #a82200;
-      --red-dim: rgba(196,40,0,0.12);
-      --red-glow: rgba(196,40,0,0.4);
+      --red-dim: rgba(196, 40, 0, 0.12);
+      --red-glow: rgba(196, 40, 0, 0.4);
       --crimson: #7a1500;
       --bg: #fdf2ee;
       --bg2: #f9e8e3;
       --bg3: #f5ddd6;
       --card: #fffafa;
-      --card-b: rgba(196,40,0,0.2);
+      --card-b: rgba(196, 40, 0, 0.2);
       --text: #fff;
       --heading: #1a0300;
-      --sub: rgba(26,3,0,0.82);
-      --muted: rgba(26,3,0,0.5);
-      --dim: rgba(26,3,0,0.28);
-      --nav-bg: rgba(253,242,238,0.92);
-      --nav-border: rgba(196,40,0,0.22);
+      --sub: rgba(26, 3, 0, 0.82);
+      --muted: rgba(26, 3, 0, 0.5);
+      --dim: rgba(26, 3, 0, 0.28);
+      --nav-bg: rgba(253, 242, 238, 0.92);
+      --nav-border: rgba(196, 40, 0, 0.22);
       --term-bg: #0a0202;
       --term-hd: #0e0303;
-      --scanline-color: rgba(150,30,0,0.03);
-      --hero-grad1: rgba(196,40,0,0.14);
-      --hero-grad2: rgba(232,65,24,0.06);
-      --grid-line: rgba(196,40,0,0.06);
-      --particle-color: rgba(196,40,0,0.6);
-      --marquee-bg: rgba(196,40,0,0.06);
-      --marquee-item: rgba(196,40,0,0.85);
-      --marquee-sep: rgba(26,3,0,0.2);
-      --stat-hover: rgba(196,40,0,0.08);
-      --tilt-shadow: rgba(100,20,0,0.2);
-      --matrix-head: rgba(196,40,0,0.06);
-      --matrix-hover: rgba(196,40,0,0.04);
+      --scanline-color: rgba(150, 30, 0, 0.03);
+      --hero-grad1: rgba(196, 40, 0, 0.14);
+      --hero-grad2: rgba(232, 65, 24, 0.06);
+      --grid-line: rgba(196, 40, 0, 0.06);
+      --particle-color: rgba(196, 40, 0, 0.6);
+      --marquee-bg: rgba(196, 40, 0, 0.06);
+      --marquee-item: rgba(196, 40, 0, 0.85);
+      --marquee-sep: rgba(26, 3, 0, 0.2);
+      --stat-hover: rgba(196, 40, 0, 0.08);
+      --tilt-shadow: rgba(100, 20, 0, 0.2);
+      --matrix-head: rgba(196, 40, 0, 0.06);
+      --matrix-hover: rgba(196, 40, 0, 0.04);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: var(--sans);
@@ -93,938 +105,2499 @@
       transition: background 0.4s ease, color 0.4s ease;
     }
 
-    ::selection { background: rgba(232,65,24,0.4); color: #fff; }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+    ::selection {
+      background: rgba(232, 65, 24, 0.4);
+      color: #fff;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--red);
+      border-radius: 2px;
+    }
 
     /* ── CANVAS ── */
-    #particle-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
 
     .scanlines {
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
       background: repeating-linear-gradient(0deg, transparent, transparent 3px, var(--scanline-color) 3px, var(--scanline-color) 4px);
     }
 
-    .site { position: relative; z-index: 2; }
+    .site {
+      position: relative;
+      z-index: 2;
+    }
 
     /* ── NAV ── */
     nav {
-      position: sticky; top: 0; z-index: 999; height: 54px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      height: 54px;
       backdrop-filter: blur(20px);
       background: var(--nav-bg);
       border-bottom: 1px solid var(--nav-border);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(1.2rem,4vw,3rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.2rem, 4vw, 3rem);
       transition: background 0.4s ease, border-color 0.4s ease;
     }
-    .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-    .nav-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--red);
-      animation: pulse-dot 1.4s ease-in-out infinite; box-shadow: 0 0 12px var(--red-glow);
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
     }
-    @keyframes pulse-dot { 0%,100% { transform:scale(1);opacity:1; } 50% { transform:scale(1.4);opacity:.7; } }
-    .nav-wordmark { font-family:var(--cond); font-weight:800; font-size:.95rem; letter-spacing:.18em; color:var(--sub); text-transform:uppercase; }
-    .nav-wordmark span { color: var(--red); }
-    .nav-links { display:flex; gap:2rem; list-style:none; }
-    .nav-links a { font-family:var(--mono); font-size:.65rem; font-weight:500; letter-spacing:.12em; color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .2s; }
-    .nav-links a:hover { color: var(--red); }
-    .nav-r { display: flex; align-items: center; gap: 0.6rem; }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse-dot 1.4s ease-in-out infinite;
+      box-shadow: 0 0 12px var(--red-glow);
+    }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.4);
+        opacity: .7;
+      }
+    }
+
+    .nav-wordmark {
+      font-family: var(--cond);
+      font-weight: 800;
+      font-size: .95rem;
+      letter-spacing: .18em;
+      color: var(--sub);
+      text-transform: uppercase;
+    }
+
+    .nav-wordmark span {
+      color: var(--red);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--red);
+    }
+
+    .nav-r {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
     .theme-btn {
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(232,65,24,0.1); border: 1px solid rgba(232,65,24,0.3);
-      color: var(--red); cursor: pointer; font-size: 0.9rem;
-      display: flex; align-items: center; justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(232, 65, 24, 0.1);
+      border: 1px solid rgba(232, 65, 24, 0.3);
+      color: var(--red);
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: background 0.2s, transform 0.3s, box-shadow 0.2s;
       flex-shrink: 0;
     }
-    .theme-btn:hover { background: rgba(232,65,24,0.18); box-shadow: 0 0 14px rgba(232,65,24,0.35); transform: rotate(20deg); }
-    .nav-cta { font-family:var(--mono); font-size:.65rem; font-weight:700; letter-spacing:.14em; color:var(--red); text-transform:uppercase; border:1px solid rgba(232,65,24,.5); padding:.35rem 1rem; border-radius:4px; cursor:pointer; background:transparent; transition:background .2s,box-shadow .2s; }
-    .nav-cta:hover { background:rgba(232,65,24,.1); box-shadow:0 0 20px rgba(232,65,24,.3); }
+
+    .theme-btn:hover {
+      background: rgba(232, 65, 24, 0.18);
+      box-shadow: 0 0 14px rgba(232, 65, 24, 0.35);
+      transform: rotate(20deg);
+    }
+
+    .nav-cta {
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--red);
+      text-transform: uppercase;
+      border: 1px solid rgba(232, 65, 24, .5);
+      padding: .35rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+      transition: background .2s, box-shadow .2s;
+    }
+
+    .nav-cta:hover {
+      background: rgba(232, 65, 24, .1);
+      box-shadow: 0 0 20px rgba(232, 65, 24, .3);
+    }
 
     /* ── HERO ── */
     .hero {
-      min-height: 100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:5rem clamp(1.2rem,5vw,4rem) 3rem; position:relative; overflow:hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem clamp(1.2rem, 5vw, 4rem) 3rem;
+      position: relative;
+      overflow: hidden;
     }
+
     .hero-bg-grad {
-      position:absolute; inset:0; pointer-events:none;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       will-change: transform;
       background: radial-gradient(ellipse 80% 60% at 50% 30%, var(--hero-grad1) 0%, transparent 65%),
-                  radial-gradient(ellipse 50% 40% at 20% 80%, var(--hero-grad2) 0%, transparent 60%),
-                  radial-gradient(ellipse 50% 40% at 80% 80%, var(--hero-grad2) 0%, transparent 60%);
+        radial-gradient(ellipse 50% 40% at 20% 80%, var(--hero-grad2) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, var(--hero-grad2) 0%, transparent 60%);
     }
+
     .grid-deco {
-      position:absolute; inset:0; pointer-events:none;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
       background-size: 60px 60px;
       mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
     }
+
     .hero-eyebrow {
-      font-family:var(--mono); font-size:.65rem; font-weight:700; letter-spacing:.3em; color:var(--red);
-      text-transform:uppercase; margin-bottom:1.5rem; display:flex; align-items:center; gap:.8rem;
-      opacity:0; animation:fadeUp .8s ease .3s forwards;
+      font-family: var(--mono);
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      opacity: 0;
+      animation: fadeUp .8s ease .3s forwards;
     }
-    .hero-eyebrow::before,.hero-eyebrow::after { content:''; display:block; width:40px; height:1px; background:var(--red); }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
     .hero-title {
-      font-family:var(--cond); font-weight:800; font-size:clamp(3.5rem,11vw,9rem); line-height:.88;
-      letter-spacing:-.01em; color:var(--heading); margin-bottom:1rem; opacity:0; animation:fadeUp .8s ease .5s forwards;
+      font-family: var(--cond);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: .88;
+      letter-spacing: -.01em;
+      color: var(--heading);
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp .8s ease .5s forwards;
       transition: color 0.4s;
     }
-    .glitch { position:relative; display:inline-block; color:var(--red); }
-    .glitch::before,.glitch::after { content:attr(data-text); position:absolute; inset:0; pointer-events:none; }
-    .glitch::before { color:#00ffff; animation:glitch-1 3.5s infinite; clip-path:polygon(0 20%,100% 20%,100% 45%,0 45%); }
-    .glitch::after  { color:#ff00ff; animation:glitch-2 3.5s infinite; clip-path:polygon(0 60%,100% 60%,100% 80%,0 80%); }
-    @keyframes glitch-1 { 0%,90%,100%{transform:translate(0,0);opacity:0;} 91%{transform:translate(-3px,1px);opacity:.8;} 93%{transform:translate(3px,-1px);opacity:.8;} 95%{transform:translate(-2px,2px);opacity:.6;} 97%{transform:translate(0,0);opacity:0;} }
-    @keyframes glitch-2 { 0%,90%,100%{transform:translate(0,0);opacity:0;} 92%{transform:translate(4px,-2px);opacity:.7;} 94%{transform:translate(-3px,1px);opacity:.7;} 96%{transform:translate(2px,-1px);opacity:.5;} 98%{transform:translate(0,0);opacity:0;} }
-    .hero-sub { max-width:640px; color:var(--muted); font-size:clamp(.85rem,2vw,1rem); line-height:1.8; margin:0 auto 2.5rem; opacity:0; animation:fadeUp .8s ease .7s forwards; transition: color 0.4s; }
-    .hero-sub em { color:var(--red); font-style:normal; }
-    .hero-cta-row { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; opacity:0; animation:fadeUp .8s ease .9s forwards; }
-    .hero-scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; opacity:0; animation:fadeIn 1s ease 1.4s forwards; }
-    .scroll-line { width:1px; height:50px; background:linear-gradient(to bottom,transparent,var(--red)); animation:scroll-ln 1.8s ease-in-out infinite; }
-    @keyframes scroll-ln { 0%{opacity:0;transform:scaleY(0);transform-origin:top;} 50%{opacity:1;transform:scaleY(1);transform-origin:top;} 51%{transform:scaleY(1);transform-origin:bottom;} 100%{opacity:0;transform:scaleY(0);transform-origin:bottom;} }
-    .scroll-label { font-family:var(--mono); font-size:.55rem; letter-spacing:.2em; color:var(--muted); text-transform:uppercase; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    @keyframes fadeIn { to{opacity:1;} }
+
+    .glitch {
+      position: relative;
+      display: inline-block;
+      color: var(--red);
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .glitch::before {
+      color: #00ffff;
+      animation: glitch-1 3.5s infinite;
+      clip-path: polygon(0 20%, 100% 20%, 100% 45%, 0 45%);
+    }
+
+    .glitch::after {
+      color: #ff00ff;
+      animation: glitch-2 3.5s infinite;
+      clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+    }
+
+    @keyframes glitch-1 {
+
+      0%,
+      90%,
+      100% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+
+      91% {
+        transform: translate(-3px, 1px);
+        opacity: .8;
+      }
+
+      93% {
+        transform: translate(3px, -1px);
+        opacity: .8;
+      }
+
+      95% {
+        transform: translate(-2px, 2px);
+        opacity: .6;
+      }
+
+      97% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes glitch-2 {
+
+      0%,
+      90%,
+      100% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+
+      92% {
+        transform: translate(4px, -2px);
+        opacity: .7;
+      }
+
+      94% {
+        transform: translate(-3px, 1px);
+        opacity: .7;
+      }
+
+      96% {
+        transform: translate(2px, -1px);
+        opacity: .5;
+      }
+
+      98% {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+    }
+
+    .hero-sub {
+      max-width: 640px;
+      color: var(--muted);
+      font-size: clamp(.85rem, 2vw, 1rem);
+      line-height: 1.8;
+      margin: 0 auto 2.5rem;
+      opacity: 0;
+      animation: fadeUp .8s ease .7s forwards;
+      transition: color 0.4s;
+    }
+
+    .hero-sub em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp .8s ease .9s forwards;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.4s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, transparent, var(--red));
+      animation: scroll-ln 1.8s ease-in-out infinite;
+    }
+
+    @keyframes scroll-ln {
+      0% {
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: top;
+      }
+
+      50% {
+        opacity: 1;
+        transform: scaleY(1);
+        transform-origin: top;
+      }
+
+      51% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scaleY(0);
+        transform-origin: bottom;
+      }
+    }
+
+    .scroll-label {
+      font-family: var(--mono);
+      font-size: .55rem;
+      letter-spacing: .2em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
 
     /* ── BUTTONS ── */
-    .btn-primary { background:var(--red); color:#fff; font-family:var(--mono); font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.75rem 2rem; border:none; border-radius:6px; cursor:pointer; transition:transform .2s,box-shadow .2s; box-shadow:0 4px 24px rgba(232,65,24,.35); text-decoration:none; display:inline-block; position:relative; overflow:hidden; }
-    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(232,65,24,.55); }
-    .btn-ghost { background:transparent; color:var(--sub); font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; padding:.75rem 2rem; border:1px solid rgba(232,65,24,.3); border-radius:6px; cursor:pointer; transition:border-color .2s,color .2s; text-decoration:none; display:inline-block; }
-    .btn-ghost:hover { border-color:rgba(232,65,24,.7); color:var(--red); }
+    .btn-primary {
+      background: var(--red);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .75rem 2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 24px rgba(232, 65, 24, .35);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(232, 65, 24, .55);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--sub);
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .75rem 2rem;
+      border: 1px solid rgba(232, 65, 24, .3);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(232, 65, 24, .7);
+      color: var(--red);
+    }
 
     /* ripple */
-    .ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,0.3); transform:scale(0); animation:ripple-anim .6s linear; pointer-events:none; }
-    @keyframes ripple-anim { to { transform:scale(4); opacity:0; } }
+    .ripple {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(0);
+      animation: ripple-anim .6s linear;
+      pointer-events: none;
+    }
+
+    @keyframes ripple-anim {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
 
     /* ── MARQUEE ── */
-    .marquee-strip { overflow:hidden; background:var(--marquee-bg); border-top:1px solid rgba(232,65,24,.2); border-bottom:1px solid rgba(232,65,24,.2); padding:.65rem 0; white-space:nowrap; }
-    .marquee-inner { display:inline-block; animation:marquee 22s linear infinite; }
-    .marquee-inner span { font-family:var(--mono); font-size:.62rem; font-weight:700; letter-spacing:.18em; color:var(--marquee-item); text-transform:uppercase; padding:0 2.5rem; }
-    .marquee-inner span.sep { color:var(--marquee-sep); padding:0; }
-    @keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+    .marquee-strip {
+      overflow: hidden;
+      background: var(--marquee-bg);
+      border-top: 1px solid rgba(232, 65, 24, .2);
+      border-bottom: 1px solid rgba(232, 65, 24, .2);
+      padding: .65rem 0;
+      white-space: nowrap;
+    }
+
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 22s linear infinite;
+    }
+
+    .marquee-inner span {
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      color: var(--marquee-item);
+      text-transform: uppercase;
+      padding: 0 2.5rem;
+    }
+
+    .marquee-inner span.sep {
+      color: var(--marquee-sep);
+      padding: 0;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
 
     /* ── SECTIONS ── */
-    section { padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem); max-width:1260px; margin:0 auto; }
-    .section-label { font-family:var(--mono); font-size:.6rem; font-weight:700; letter-spacing:.3em; color:var(--red); text-transform:uppercase; margin-bottom:.7rem; display:flex; align-items:center; gap:.6rem; }
-    .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--red); }
-    .section-title { font-family:var(--cond); font-weight:800; font-size:clamp(2rem,5vw,3.4rem); line-height:1; color:var(--heading); margin-bottom:1rem; letter-spacing:-.01em; transition: color 0.4s; }
-    [data-theme="dark"] .section-title { color:#fff; }
-    .section-title .accent { color:var(--red); }
-    .section-desc { max-width:580px; color:var(--muted); font-size:.9rem; line-height:1.75; transition: color 0.4s; }
+    section {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 5vw, 5rem);
+      max-width: 1260px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .3em;
+      color: var(--red);
+      text-transform: uppercase;
+      margin-bottom: .7rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .section-title {
+      font-family: var(--cond);
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1;
+      color: var(--heading);
+      margin-bottom: 1rem;
+      letter-spacing: -.01em;
+      transition: color 0.4s;
+    }
+
+    [data-theme="dark"] .section-title {
+      color: #fff;
+    }
+
+    .section-title .accent {
+      color: var(--red);
+    }
+
+    .section-desc {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.75;
+      transition: color 0.4s;
+    }
 
     /* ── STATS ── */
-    .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:rgba(232,65,24,.1); border:1px solid rgba(232,65,24,.1); border-radius:12px; overflow:hidden; margin-top:4rem; }
-    .stat-item { background:var(--bg2); padding:2.2rem 1.8rem; text-align:center; transition:background .3s; position:relative; overflow:hidden; }
-    .stat-item:hover { background:var(--stat-hover); }
-    .stat-item::after { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 100%, rgba(232,65,24,0.15), transparent 70%); opacity:0; transition: opacity 0.3s; pointer-events:none; }
-    .stat-item:hover::after { opacity:1; }
-    .stat-num { font-family:var(--cond); font-weight:800; font-size:clamp(2.5rem,5vw,3.8rem); color:var(--red); line-height:1; letter-spacing:-.02em; display:block; }
-    .stat-suffix { font-size:clamp(1.5rem,3vw,2.2rem); color:rgba(232,65,24,.6); }
-    .stat-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.18em; color:var(--muted); text-transform:uppercase; margin-top:.5rem; transition: color 0.4s; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1px;
+      background: rgba(232, 65, 24, .1);
+      border: 1px solid rgba(232, 65, 24, .1);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 4rem;
+    }
+
+    .stat-item {
+      background: var(--bg2);
+      padding: 2.2rem 1.8rem;
+      text-align: center;
+      transition: background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-item:hover {
+      background: var(--stat-hover);
+    }
+
+    .stat-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 100%, rgba(232, 65, 24, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    .stat-item:hover::after {
+      opacity: 1;
+    }
+
+    .stat-num {
+      font-family: var(--cond);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      color: var(--red);
+      line-height: 1;
+      letter-spacing: -.02em;
+      display: block;
+    }
+
+    .stat-suffix {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: rgba(232, 65, 24, .6);
+    }
+
+    .stat-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-top: .5rem;
+      transition: color 0.4s;
+    }
 
     /* ── ATTACK CARDS ── */
-    .attacks-header { display:flex; flex-direction:column; gap:.6rem; margin-bottom:3rem; }
-    .attacks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.5rem; }
+    .attacks-header {
+      display: flex;
+      flex-direction: column;
+      gap: .6rem;
+      margin-bottom: 3rem;
+    }
+
+    .attacks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+
     .attack-card {
-      background:var(--card); border:1px solid var(--card-b); border-radius:12px; padding:1.8rem;
-      position:relative; overflow:hidden; cursor:pointer;
-      transition:box-shadow .3s ease, border-color .3s ease;
+      background: var(--card);
+      border: 1px solid var(--card-b);
+      border-radius: 12px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow .3s ease, border-color .3s ease;
       transform-style: preserve-3d;
       will-change: transform;
     }
-    .attack-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(232,65,24,.08), transparent 60%); opacity:0; transition:opacity .4s; pointer-events:none; }
-    .attack-card.hovered::before { opacity:1; }
-    .attack-card.hovered { box-shadow:0 16px 50px var(--tilt-shadow),0 0 30px rgba(232,65,24,.12); border-color:rgba(232,65,24,.45); }
-    .attack-card-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:1.2rem; }
-    .attack-icon { width:44px; height:44px; border-radius:10px; background:rgba(232,65,24,.1); border:1px solid rgba(232,65,24,.2); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; transition: transform 0.3s; }
-    .attack-card.hovered .attack-icon { transform: scale(1.12) rotate(-4deg); }
-    .attack-severity { font-family:var(--mono); font-size:.55rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:.25rem .65rem; border-radius:4px; }
-    .sev-critical { background:rgba(232,65,24,.15); color:#ff6b6b; border:1px solid rgba(232,65,24,.3); }
-    .sev-high { background:rgba(255,100,0,.12); color:#ff9966; border:1px solid rgba(255,100,0,.25); }
-    .sev-medium { background:rgba(255,193,7,.1); color:#ffc107; border:1px solid rgba(255,193,7,.2); }
-    .attack-name { font-family:var(--cond); font-weight:700; font-size:1.2rem; color:var(--sub); letter-spacing:.02em; margin-bottom:.5rem; transition: color 0.4s; }
-    [data-theme="dark"] .attack-name { color:#fff; }
-    [data-theme="light"] .attack-name { color:#1a0300; }
-    .attack-desc { font-size:.82rem; color:var(--muted); line-height:1.7; margin-bottom:1.2rem; transition: color 0.4s; }
-    .attack-tags { display:flex; flex-wrap:wrap; gap:.4rem; }
-    .tag { font-family:var(--mono); font-size:.55rem; font-weight:500; letter-spacing:.1em; color:rgba(232,65,24,.75); border:1px solid rgba(232,65,24,.18); background:rgba(232,65,24,.06); padding:.2rem .55rem; border-radius:3px; text-transform:uppercase; transition: background 0.2s; }
-    .tag:hover { background: rgba(232,65,24,.15); }
-    .attack-bar { position:absolute; bottom:0; left:0; height:2px; background:linear-gradient(90deg,var(--red),transparent); width:0; transition:width .6s ease; }
-    .attack-card.hovered .attack-bar { width:100%; }
+
+    .attack-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(232, 65, 24, .08), transparent 60%);
+      opacity: 0;
+      transition: opacity .4s;
+      pointer-events: none;
+    }
+
+    .attack-card.hovered::before {
+      opacity: 1;
+    }
+
+    .attack-card.hovered {
+      box-shadow: 0 16px 50px var(--tilt-shadow), 0 0 30px rgba(232, 65, 24, .12);
+      border-color: rgba(232, 65, 24, .45);
+    }
+
+    .attack-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .attack-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(232, 65, 24, .1);
+      border: 1px solid rgba(232, 65, 24, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .attack-card.hovered .attack-icon {
+      transform: scale(1.12) rotate(-4deg);
+    }
+
+    .attack-severity {
+      font-family: var(--mono);
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      padding: .25rem .65rem;
+      border-radius: 4px;
+    }
+
+    .sev-critical {
+      background: rgba(232, 65, 24, .15);
+      color: #ff6b6b;
+      border: 1px solid rgba(232, 65, 24, .3);
+    }
+
+    .sev-high {
+      background: rgba(255, 100, 0, .12);
+      color: #ff9966;
+      border: 1px solid rgba(255, 100, 0, .25);
+    }
+
+    .sev-medium {
+      background: rgba(255, 193, 7, .1);
+      color: #ffc107;
+      border: 1px solid rgba(255, 193, 7, .2);
+    }
+
+    .attack-name {
+      font-family: var(--cond);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--sub);
+      letter-spacing: .02em;
+      margin-bottom: .5rem;
+      transition: color 0.4s;
+    }
+
+    [data-theme="dark"] .attack-name {
+      color: #fff;
+    }
+
+    [data-theme="light"] .attack-name {
+      color: #1a0300;
+    }
+
+    .attack-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+      transition: color 0.4s;
+    }
+
+    .attack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: .55rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      color: rgba(232, 65, 24, .75);
+      border: 1px solid rgba(232, 65, 24, .18);
+      background: rgba(232, 65, 24, .06);
+      padding: .2rem .55rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+
+    .tag:hover {
+      background: rgba(232, 65, 24, .15);
+    }
+
+    .attack-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+      width: 0;
+      transition: width .6s ease;
+    }
+
+    .attack-card.hovered .attack-bar {
+      width: 100%;
+    }
 
     /* expand panel */
     .attack-expand {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
-      border-top: 0px solid rgba(232,65,24,0.15);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+      border-top: 0px solid rgba(232, 65, 24, 0.15);
     }
+
     .attack-card.expanded .attack-expand {
       max-height: 200px;
       padding-top: 1rem;
       border-top-width: 1px;
       margin-top: 0.8rem;
     }
-    .expand-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; font-family: var(--mono); font-size: 0.65rem; }
-    .expand-row .ek { color: var(--red); font-weight: 700; min-width: 100px; }
-    .expand-row .ev { color: var(--muted); }
-    .expand-hint { font-family: var(--mono); font-size: 0.55rem; color: rgba(232,65,24,0.4); letter-spacing: 0.1em; text-transform: uppercase; text-align: right; margin-top: 0.5rem; }
-    .card-expand-icon { position: absolute; top: 1.4rem; right: 1.6rem; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 0.7rem; color: rgba(232,65,24,0.45); transition: transform 0.3s, color 0.2s; pointer-events: none; }
-    .attack-card.expanded .card-expand-icon { transform: rotate(45deg); color: var(--red); }
+
+    .expand-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+    }
+
+    .expand-row .ek {
+      color: var(--red);
+      font-weight: 700;
+      min-width: 100px;
+    }
+
+    .expand-row .ev {
+      color: var(--muted);
+    }
+
+    .expand-hint {
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      color: rgba(232, 65, 24, 0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+
+    .card-expand-icon {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.6rem;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: rgba(232, 65, 24, 0.45);
+      transition: transform 0.3s, color 0.2s;
+      pointer-events: none;
+    }
+
+    .attack-card.expanded .card-expand-icon {
+      transform: rotate(45deg);
+      color: var(--red);
+    }
 
     /* ── TERMINAL ── */
-    .terminal-section { background:var(--bg2); padding:clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem); border-top:1px solid rgba(232,65,24,.1); border-bottom:1px solid rgba(232,65,24,.1); position:relative; overflow:hidden; transition: background 0.4s; }
-    .terminal-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 100% 50%, rgba(139,0,0,.1), transparent); pointer-events:none; }
-    .terminal-grid { max-width:1260px; margin:0 auto; display:grid; grid-template-columns:1fr 1.1fr; gap:4rem; align-items:center; }
-    .terminal-window { background:var(--term-bg); border:1px solid rgba(232,65,24,.25); border-radius:12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(232,65,24,.06); }
-    .terminal-titlebar { background:var(--term-hd); border-bottom:1px solid rgba(232,65,24,.15); padding:.65rem 1rem; display:flex; align-items:center; gap:.55rem; cursor:default; }
-    .tb-dot { width:10px; height:10px; border-radius:50%; transition: opacity 0.2s; }
-    .tb-dot:hover { opacity: 0.7; }
-    .tb-red { background:#e84118; box-shadow:0 0 6px rgba(232,65,24,.6); }
-    .tb-yellow { background:#f0a500; opacity:.6; }
-    .tb-green { background:#27c93f; opacity:.6; }
-    .tb-title { font-family:var(--mono); font-size:.6rem; color:var(--muted); letter-spacing:.1em; margin-left:.5rem; }
-    .terminal-body { padding:1.2rem 1.4rem; min-height:320px; font-family:var(--mono); font-size:.72rem; line-height:1.8; overflow-y:auto; max-height:400px; }
-    .t-line { display:block; margin-bottom:.1rem; }
-    .t-prompt { color:var(--red); }
-    .t-cmd { color:rgba(255,255,255,.85); }
-    .t-out { color:rgba(255,255,255,.42); }
-    .t-warn { color:#f0a500; }
-    .t-err { color:#ff4444; }
-    .t-ok { color:#27c93f; }
-    .t-cursor { display:inline-block; width:7px; height:13px; background:var(--red); animation:blink 1s steps(1) infinite; vertical-align:middle; margin-left:2px; }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-    .info-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(232,65,24,.08); border:1px solid rgba(232,65,24,.2); border-radius:6px; padding:.4rem .85rem; font-family:var(--mono); font-size:.6rem; font-weight:700; letter-spacing:.14em; color:var(--red); text-transform:uppercase; width:fit-content; margin-bottom:.5rem; }
-    .info-dot { width:6px; height:6px; border-radius:50%; background:var(--red); animation:pulse-dot 1.4s infinite; }
+    .terminal-section {
+      background: var(--bg2);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 5vw, 5rem);
+      border-top: 1px solid rgba(232, 65, 24, .1);
+      border-bottom: 1px solid rgba(232, 65, 24, .1);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+    }
+
+    .terminal-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 100% 50%, rgba(139, 0, 0, .1), transparent);
+      pointer-events: none;
+    }
+
+    .terminal-grid {
+      max-width: 1260px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .terminal-window {
+      background: var(--term-bg);
+      border: 1px solid rgba(232, 65, 24, .25);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .6), 0 0 40px rgba(232, 65, 24, .06);
+    }
+
+    .terminal-titlebar {
+      background: var(--term-hd);
+      border-bottom: 1px solid rgba(232, 65, 24, .15);
+      padding: .65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      cursor: default;
+    }
+
+    .tb-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transition: opacity 0.2s;
+    }
+
+    .tb-dot:hover {
+      opacity: 0.7;
+    }
+
+    .tb-red {
+      background: #e84118;
+      box-shadow: 0 0 6px rgba(232, 65, 24, .6);
+    }
+
+    .tb-yellow {
+      background: #f0a500;
+      opacity: .6;
+    }
+
+    .tb-green {
+      background: #27c93f;
+      opacity: .6;
+    }
+
+    .tb-title {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-left: .5rem;
+    }
+
+    .terminal-body {
+      padding: 1.2rem 1.4rem;
+      min-height: 320px;
+      font-family: var(--mono);
+      font-size: .72rem;
+      line-height: 1.8;
+      overflow-y: auto;
+      max-height: 400px;
+    }
+
+    .t-line {
+      display: block;
+      margin-bottom: .1rem;
+    }
+
+    .t-prompt {
+      color: var(--red);
+    }
+
+    .t-cmd {
+      color: rgba(255, 255, 255, .85);
+    }
+
+    .t-out {
+      color: rgba(255, 255, 255, .42);
+    }
+
+    .t-warn {
+      color: #f0a500;
+    }
+
+    .t-err {
+      color: #ff4444;
+    }
+
+    .t-ok {
+      color: #27c93f;
+    }
+
+    .t-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 13px;
+      background: var(--red);
+      animation: blink 1s steps(1) infinite;
+      vertical-align: middle;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .info-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(232, 65, 24, .08);
+      border: 1px solid rgba(232, 65, 24, .2);
+      border-radius: 6px;
+      padding: .4rem .85rem;
+      font-family: var(--mono);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      color: var(--red);
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: .5rem;
+    }
+
+    .info-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse-dot 1.4s infinite;
+    }
 
     /* ── THREAT MATRIX ── */
-    .matrix-wrap { overflow-x:auto; margin-top:3rem; border:1px solid rgba(232,65,24,.1); border-radius:12px; overflow:hidden; }
-    table.threat-matrix { width:100%; border-collapse:collapse; font-family:var(--mono); font-size:.68rem; }
-    .threat-matrix thead th { background:var(--matrix-head); color:var(--red); font-weight:700; letter-spacing:.12em; text-transform:uppercase; padding:.9rem 1.1rem; border-bottom:1px solid rgba(232,65,24,.15); text-align:left; white-space:nowrap; }
-    .threat-matrix tbody tr { border-bottom:1px solid rgba(255,255,255,.04); transition:background .2s; }
-    [data-theme="light"] .threat-matrix tbody tr { border-bottom-color: rgba(0,0,0,0.05); }
-    .threat-matrix tbody tr:last-child { border-bottom:none; }
-    .threat-matrix tbody tr:hover { background:var(--matrix-hover); }
-    .threat-matrix tbody td { padding:.85rem 1.1rem; color:var(--muted); white-space:nowrap; transition: color 0.4s; }
-    .threat-matrix tbody td:first-child { color:var(--sub); font-weight:500; }
-    .risk-pill { display:inline-block; padding:.2rem .65rem; border-radius:20px; font-size:.55rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
-    .risk-critical { background:rgba(232,65,24,.2); color:#ff6b6b; }
-    .risk-high { background:rgba(255,120,0,.15); color:#ff9966; }
-    .risk-medium { background:rgba(255,193,7,.12); color:#e8a800; }
-    .risk-low { background:rgba(100,255,100,.08); color:#22bb55; }
-    .check { color:var(--red); font-weight:700; }
-    .dash { color:var(--dim); }
+    .matrix-wrap {
+      overflow-x: auto;
+      margin-top: 3rem;
+      border: 1px solid rgba(232, 65, 24, .1);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    table.threat-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: .68rem;
+    }
+
+    .threat-matrix thead th {
+      background: var(--matrix-head);
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .9rem 1.1rem;
+      border-bottom: 1px solid rgba(232, 65, 24, .15);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .threat-matrix tbody tr {
+      border-bottom: 1px solid rgba(255, 255, 255, .04);
+      transition: background .2s;
+    }
+
+    [data-theme="light"] .threat-matrix tbody tr {
+      border-bottom-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .threat-matrix tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .threat-matrix tbody tr:hover {
+      background: var(--matrix-hover);
+    }
+
+    .threat-matrix tbody td {
+      padding: .85rem 1.1rem;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color 0.4s;
+    }
+
+    .threat-matrix tbody td:first-child {
+      color: var(--sub);
+      font-weight: 500;
+    }
+
+    .risk-pill {
+      display: inline-block;
+      padding: .2rem .65rem;
+      border-radius: 20px;
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .risk-critical {
+      background: rgba(232, 65, 24, .2);
+      color: #ff6b6b;
+    }
+
+    .risk-high {
+      background: rgba(255, 120, 0, .15);
+      color: #ff9966;
+    }
+
+    .risk-medium {
+      background: rgba(255, 193, 7, .12);
+      color: #e8a800;
+    }
+
+    .risk-low {
+      background: rgba(100, 255, 100, .08);
+      color: #22bb55;
+    }
+
+    .check {
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .dash {
+      color: var(--dim);
+    }
 
     /* ── METHODOLOGY ── */
-    .method-steps { position:relative; display:flex; flex-direction:column; gap:0; margin-top:3rem; }
-    .method-step { display:grid; grid-template-columns:60px 1fr; gap:1.5rem; padding-bottom:2.5rem; position:relative; }
-    .method-step:last-child { padding-bottom:0; }
-    .step-num-col { display:flex; flex-direction:column; align-items:center; }
-    .step-num { width:44px; height:44px; border-radius:50%; background:rgba(232,65,24,.1); border:2px solid rgba(232,65,24,.4); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:.75rem; font-weight:700; color:var(--red); flex-shrink:0; transition:background .3s,box-shadow .3s; position:relative; z-index:1; }
-    .method-step:hover .step-num { background:rgba(232,65,24,.22); box-shadow:0 0 22px rgba(232,65,24,.4); }
-    .step-line { flex:1; width:1px; background:linear-gradient(to bottom,rgba(232,65,24,.3),rgba(232,65,24,.05)); margin-top:4px; }
-    .method-step:last-child .step-line { display:none; }
-    .step-content { padding-top:.45rem; }
-    .step-title { font-family:var(--cond); font-weight:700; font-size:1.1rem; color:var(--sub); letter-spacing:.02em; margin-bottom:.45rem; transition: color 0.4s; }
-    [data-theme="dark"] .step-title { color:#fff; }
-    [data-theme="light"] .step-title { color:#1a0300; }
-    .step-desc { font-size:.83rem; color:var(--muted); line-height:1.7; margin-bottom:.7rem; transition: color 0.4s; }
-    .step-chips { display:flex; flex-wrap:wrap; gap:.4rem; }
-    .step-chip { font-family:var(--mono); font-size:.55rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:.18rem .6rem; border-radius:3px; background:rgba(232,65,24,.06); border:1px solid rgba(232,65,24,.12); color:rgba(232,65,24,.65); }
+    .method-steps {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 3rem;
+    }
+
+    .method-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.5rem;
+      padding-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .method-step:last-child {
+      padding-bottom: 0;
+    }
+
+    .step-num-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(232, 65, 24, .1);
+      border: 2px solid rgba(232, 65, 24, .4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--red);
+      flex-shrink: 0;
+      transition: background .3s, box-shadow .3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .method-step:hover .step-num {
+      background: rgba(232, 65, 24, .22);
+      box-shadow: 0 0 22px rgba(232, 65, 24, .4);
+    }
+
+    .step-line {
+      flex: 1;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(232, 65, 24, .3), rgba(232, 65, 24, .05));
+      margin-top: 4px;
+    }
+
+    .method-step:last-child .step-line {
+      display: none;
+    }
+
+    .step-content {
+      padding-top: .45rem;
+    }
+
+    .step-title {
+      font-family: var(--cond);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--sub);
+      letter-spacing: .02em;
+      margin-bottom: .45rem;
+      transition: color 0.4s;
+    }
+
+    [data-theme="dark"] .step-title {
+      color: #fff;
+    }
+
+    [data-theme="light"] .step-title {
+      color: #1a0300;
+    }
+
+    .step-desc {
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: .7rem;
+      transition: color 0.4s;
+    }
+
+    .step-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+
+    .step-chip {
+      font-family: var(--mono);
+      font-size: .55rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .18rem .6rem;
+      border-radius: 3px;
+      background: rgba(232, 65, 24, .06);
+      border: 1px solid rgba(232, 65, 24, .12);
+      color: rgba(232, 65, 24, .65);
+    }
 
     /* ── TOOLS ── */
-    .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; margin-top:3rem; }
-    .tool-card { background:var(--card); border:1px solid rgba(232,65,24,.1); border-radius:10px; padding:1.4rem; position:relative; overflow:hidden; transition:border-color .3s,transform .3s,box-shadow .3s; cursor:pointer; }
-    .tool-card:hover { border-color:rgba(232,65,24,.3); transform:translateY(-4px); box-shadow:0 12px 30px var(--tilt-shadow); }
-    .tool-card::after { content:''; position:absolute; bottom:0; left:0; height:2px; width:0; background:var(--red); transition:width .4s ease; }
-    .tool-card:hover::after { width:100%; }
-    .tool-icon { font-size:1.6rem; margin-bottom:.7rem; }
-    .tool-name { font-family:var(--mono); font-size:.75rem; font-weight:700; color:var(--sub); letter-spacing:.05em; margin-bottom:.35rem; transition: color 0.4s; }
-    [data-theme="dark"] .tool-name { color:#fff; }
-    [data-theme="light"] .tool-name { color:#1a0300; }
-    .tool-desc { font-size:.72rem; color:var(--muted); line-height:1.55; transition: color 0.4s; }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .tool-card {
+      background: var(--card);
+      border: 1px solid rgba(232, 65, 24, .1);
+      border-radius: 10px;
+      padding: 1.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      cursor: pointer;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(232, 65, 24, .3);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px var(--tilt-shadow);
+    }
+
+    .tool-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 2px;
+      width: 0;
+      background: var(--red);
+      transition: width .4s ease;
+    }
+
+    .tool-card:hover::after {
+      width: 100%;
+    }
+
+    .tool-icon {
+      font-size: 1.6rem;
+      margin-bottom: .7rem;
+    }
+
+    .tool-name {
+      font-family: var(--mono);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--sub);
+      letter-spacing: .05em;
+      margin-bottom: .35rem;
+      transition: color 0.4s;
+    }
+
+    [data-theme="dark"] .tool-name {
+      color: #fff;
+    }
+
+    [data-theme="light"] .tool-name {
+      color: #1a0300;
+    }
+
+    .tool-desc {
+      font-size: .72rem;
+      color: var(--muted);
+      line-height: 1.55;
+      transition: color 0.4s;
+    }
 
     /* ── CTA ── */
-    .cta-section { position:relative; overflow:hidden; background:var(--bg2); border-top:1px solid rgba(232,65,24,.1); transition: background 0.4s; }
-    .cta-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 80% 80% at 50% 100%, rgba(139,0,0,.2), transparent 70%); pointer-events:none; }
-    .cta-inner { max-width:900px; margin:0 auto; text-align:center; padding:clamp(5rem,10vw,8rem) clamp(1.2rem,5vw,4rem); position:relative; }
-    .cta-tagline { font-family:var(--mono); font-size:.62rem; letter-spacing:.3em; color:rgba(232,65,24,.7); text-transform:uppercase; margin-bottom:1.5rem; }
-    .cta-title { font-family:var(--cond); font-weight:800; font-size:clamp(2.5rem,6vw,5rem); line-height:.95; color:var(--heading); margin-bottom:1.5rem; transition: color 0.4s; }
-    [data-theme="dark"] .cta-title { color:#fff; }
-    .cta-title .red { color:var(--red); }
-    .cta-desc { color:var(--muted); font-size:.9rem; line-height:1.75; margin-bottom:2.5rem; max-width:540px; margin-left:auto; margin-right:auto; transition: color 0.4s; }
-    .contact-row { display:flex; align-items:center; justify-content:center; gap:.6rem; margin-top:2rem; flex-wrap:wrap; }
-    .contact-chip { font-family:var(--mono); font-size:.62rem; font-weight:500; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; }
-    .contact-sep { color:var(--dim); }
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg2);
+      border-top: 1px solid rgba(232, 65, 24, .1);
+      transition: background 0.4s;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(139, 0, 0, .2), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+      padding: clamp(5rem, 10vw, 8rem) clamp(1.2rem, 5vw, 4rem);
+      position: relative;
+    }
+
+    .cta-tagline {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .3em;
+      color: rgba(232, 65, 24, .7);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-title {
+      font-family: var(--cond);
+      font-weight: 800;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: .95;
+      color: var(--heading);
+      margin-bottom: 1.5rem;
+      transition: color 0.4s;
+    }
+
+    [data-theme="dark"] .cta-title {
+      color: #fff;
+    }
+
+    .cta-title .red {
+      color: var(--red);
+    }
+
+    .cta-desc {
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 540px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: color 0.4s;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-chip {
+      font-family: var(--mono);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .contact-sep {
+      color: var(--dim);
+    }
 
     /* ── FOOTER ── */
-    footer { padding:2rem clamp(1.2rem,5vw,3rem); border-top:1px solid rgba(232,65,24,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
-    .foot-l { font-family:var(--mono); font-size:.62rem; color:var(--muted); letter-spacing:.08em; transition: color 0.4s; }
-    .foot-l span { color:var(--red); }
-    .foot-r { font-family:var(--mono); font-size:.6rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; transition: color 0.4s; }
+    footer {
+      padding: 2rem clamp(1.2rem, 5vw, 3rem);
+      border-top: 1px solid rgba(232, 65, 24, .08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .foot-l {
+      font-family: var(--mono);
+      font-size: .62rem;
+      color: var(--muted);
+      letter-spacing: .08em;
+      transition: color 0.4s;
+    }
+
+    .foot-l span {
+      color: var(--red);
+    }
+
+    .foot-r {
+      font-family: var(--mono);
+      font-size: .6rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      transition: color 0.4s;
+    }
 
     /* ── REVEAL ── */
-    .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease,transform .7s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── FLOATING LIVE BADGE ── */
     .live-badge {
-      position: fixed; bottom: 2rem; left: 2rem; z-index: 998;
-      display: flex; align-items: center; gap: 0.6rem;
-      background: rgba(7,3,4,0.85); backdrop-filter: blur(12px);
-      border: 1px solid rgba(232,65,24,0.3); border-radius: 8px;
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      z-index: 998;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(7, 3, 4, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(232, 65, 24, 0.3);
+      border-radius: 8px;
       padding: 0.55rem 0.9rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 20px rgba(232,65,24,0.08);
-      font-family: var(--mono); font-size: 0.58rem; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase; color: rgba(232,65,24,0.85);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(232, 65, 24, 0.08);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(232, 65, 24, 0.85);
       transition: background 0.4s, transform 0.2s;
       cursor: default;
     }
+
     [data-theme="light"] .live-badge {
-      background: rgba(253,242,238,0.9);
+      background: rgba(253, 242, 238, 0.9);
     }
-    .live-badge:hover { transform: translateY(-2px); }
-    .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse-dot 1s infinite; box-shadow: 0 0 6px var(--red); flex-shrink: 0; }
-    .live-count { color: var(--muted); font-weight: 400; margin-left: 0.2rem; }
+
+    .live-badge:hover {
+      transform: translateY(-2px);
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      animation: pulse-dot 1s infinite;
+      box-shadow: 0 0 6px var(--red);
+      flex-shrink: 0;
+    }
+
+    .live-count {
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 0.2rem;
+    }
 
     /* ── KEYBOARD SHORTCUT HINT ── */
     .kbd-hint {
-      position: fixed; bottom: 2rem; right: 2rem; z-index: 997;
-      font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em;
-      color: var(--muted); text-transform: uppercase;
-      display: flex; align-items: center; gap: 0.4rem;
-      opacity: 0.6; transition: opacity 0.2s;
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 997;
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
       pointer-events: none;
     }
-    .kbd-hint:hover { opacity: 1; }
-    .kbd { background: rgba(232,65,24,0.1); border: 1px solid rgba(232,65,24,0.2); border-radius: 3px; padding: 0.1rem 0.4rem; color: var(--red); font-weight: 700; }
+
+    .kbd-hint:hover {
+      opacity: 1;
+    }
+
+    .kbd {
+      background: rgba(232, 65, 24, 0.1);
+      border: 1px solid rgba(232, 65, 24, 0.2);
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      color: var(--red);
+      font-weight: 700;
+    }
 
     /* ── MOUSE TRAIL ── */
     .trail {
-      position: fixed; pointer-events: none; z-index: 9999;
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--red); opacity: 0;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--red);
+      opacity: 0;
       transition: opacity 0.1s;
       transform: translate(-50%, -50%);
     }
 
-    @media (max-width:768px) { .nav-links{display:none;} .terminal-grid{grid-template-columns:1fr;} .attacks-grid{grid-template-columns:1fr;} .live-badge{display:none;} .kbd-hint{display:none;} }
-  </style>
-</head>
-<body>
+    @media (max-width:768px) {
+      .nav-links {
+        display: none;
+      }
 
-<canvas id="particle-canvas"></canvas>
-<div class="scanlines"></div>
-<div id="trail" class="trail"></div>
+      .terminal-grid {
+        grid-template-columns: 1fr;
+      }
 
-<div class="site">
+      .attacks-grid {
+        grid-template-columns: 1fr;
+      }
 
-  <!-- NAV -->
-  <nav>
-    <a class="nav-logo" href="#">
-      <div class="nav-dot"></div>
-      <span class="nav-wordmark">CENTILLION <span>RED TEAM</span></span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#attacks">Attack Vectors</a></li>
-      <li><a href="#terminal">Live Ops</a></li>
-      <li><a href="#methodology">Methodology</a></li>
-      <li><a href="#tools">Tools</a></li>
-    </ul>
-    <div class="nav-r">
-      <button class="theme-btn" id="theme-btn" title="Toggle theme (T)" aria-label="Toggle theme">&#9728;&#65039;</button>
-      <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Engage Red Team</button>
-    </div>
-  </nav>
+      .live-badge {
+        display: none;
+      }
 
-  <!-- HERO -->
-  <section class="hero" style="max-width:100%;padding-left:0;padding-right:0;">
-    <div class="hero-bg-grad" id="hero-bg"></div>
-    <div class="grid-deco"></div>
-    <div class="hero-eyebrow">AI Security &amp; Adversarial Testing</div>
-    <h1 class="hero-title">
-      <span class="glitch" data-text="RED TEAM">RED TEAM</span><br>OPERATIONS
-    </h1>
-    <p class="hero-sub">
-      We break AI before adversaries do. From <em>prompt injection</em> and <em>jailbreaks</em> to
-      <em>safety guardrail probing</em> &mdash; Centillion Red Team runs continuous adversarial campaigns
-      against LLMs, inference pipelines, and AI-powered products.
-    </p>
-    <div class="hero-cta-row">
-      <a class="btn-primary" href="#attacks">Explore Attack Vectors</a>
-      <a class="btn-ghost" href="#methodology">Our Methodology &rarr;</a>
-    </div>
-    <div class="hero-scroll-hint">
-      <div class="scroll-line"></div>
-      <span class="scroll-label">Scroll</span>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-strip">
-    <div class="marquee-inner">
-      <span>Prompt Injection</span><span class="sep">///</span><span>Jailbreaks</span><span class="sep">///</span><span>Adversarial Examples</span><span class="sep">///</span><span>Data Poisoning</span><span class="sep">///</span><span>Model Inversion</span><span class="sep">///</span><span>Safety Bypasses</span><span class="sep">///</span><span>Indirect Injection</span><span class="sep">///</span><span>Extraction Attacks</span><span class="sep">///</span><span>Guardrail Evasion</span><span class="sep">///</span><span>Alignment Failure</span><span class="sep">///</span>
-      <span>Prompt Injection</span><span class="sep">///</span><span>Jailbreaks</span><span class="sep">///</span><span>Adversarial Examples</span><span class="sep">///</span><span>Data Poisoning</span><span class="sep">///</span><span>Model Inversion</span><span class="sep">///</span><span>Safety Bypasses</span><span class="sep">///</span><span>Indirect Injection</span><span class="sep">///</span><span>Extraction Attacks</span><span class="sep">///</span><span>Guardrail Evasion</span><span class="sep">///</span><span>Alignment Failure</span><span class="sep">///</span>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <section style="max-width:100%;padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem);">
-    <div class="stats-grid reveal">
-      <div class="stat-item">
-        <span class="stat-num"><span class="counter" data-target="1400">0</span><span class="stat-suffix">+</span></span>
-        <div class="stat-label">Vulnerabilities Discovered</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num"><span class="counter" data-target="38">0</span></span>
-        <div class="stat-label">LLMs Tested</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num"><span class="counter" data-target="99">0</span><span class="stat-suffix">%</span></span>
-        <div class="stat-label">Safety Bypass Rate (Lab)</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num"><span class="counter" data-target="24">0</span><span class="stat-suffix">/7</span></span>
-        <div class="stat-label">Continuous Ops</div>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num"><span class="counter" data-target="320">0</span><span class="stat-suffix">+</span></span>
-        <div class="stat-label">Attack Patterns Catalogued</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ATTACK VECTORS -->
-  <section id="attacks">
-    <div class="attacks-header reveal">
-      <div class="section-label">Attack Surface</div>
-      <h2 class="section-title">Known <span class="accent">Attack Vectors</span></h2>
-      <p class="section-desc">Every angle of adversarial AI exploitation &mdash; catalogued, tested, and hardened by our red team operators. <strong style="color:var(--red);font-size:.78rem;font-family:var(--mono)">Click any card to expand.</strong></p>
-    </div>
-    <div class="attacks-grid">
-
-      <div class="attack-card reveal" data-card>
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#128137;</div><span class="attack-severity sev-critical">Critical</span></div>
-        <div class="attack-name">Prompt Injection</div>
-        <p class="attack-desc">Malicious instructions embedded in user input that hijack the model's behavior, override system prompts, or exfiltrate context. Direct injections target the model directly; indirect injections arrive via external data sources.</p>
-        <div class="attack-tags"><span class="tag">Direct Injection</span><span class="tag">Indirect Injection</span><span class="tag">Context Hijack</span><span class="tag">Exfiltration</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0051</span></div>
-          <div class="expand-row"><span class="ek">Detection</span><span class="ev">Input validation, semantic similarity guards</span></div>
-          <div class="expand-row"><span class="ek">Bypass Rate</span><span class="ev">~87% on unguarded endpoints</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.05s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#128275;</div><span class="attack-severity sev-critical">Critical</span></div>
-        <div class="attack-name">Jailbreaks</div>
-        <p class="attack-desc">Crafted inputs that convince models to bypass their alignment training and safety constraints. Techniques include roleplay framing, hypothetical escaping, encoding tricks, token obfuscation, and many-shot induction strategies.</p>
-        <div class="attack-tags"><span class="tag">Roleplay Escaping</span><span class="tag">Hypothetical Framing</span><span class="tag">Token Smuggling</span><span class="tag">Many-Shot</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0054</span></div>
-          <div class="expand-row"><span class="ek">Detection</span><span class="ev">Classifier probes, perplexity filters</span></div>
-          <div class="expand-row"><span class="ek">Active Variants</span><span class="ev">DAN, AIM, Dev Mode, Opposite Day</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.1s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#128737;&#65039;</div><span class="attack-severity sev-high">High</span></div>
-        <div class="attack-name">Safety Guardrail Probing</div>
-        <p class="attack-desc">Systematic exploration of a model's content policy enforcement boundaries. We map thresholds, identify inconsistencies across languages and dialects, test for policy gaps under adversarial load, and measure recall degradation over turns.</p>
-        <div class="attack-tags"><span class="tag">Boundary Mapping</span><span class="tag">Multi-Language</span><span class="tag">Policy Gaps</span><span class="tag">Turn Erosion</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">Method</span><span class="ev">Systematic fuzzing + language sweep</span></div>
-          <div class="expand-row"><span class="ek">Finding</span><span class="ev">Recall drops avg 19% after turn 7</span></div>
-          <div class="expand-row"><span class="ek">Languages</span><span class="ev">42+ including low-resource languages</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.15s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#129514;</div><span class="attack-severity sev-critical">Critical</span></div>
-        <div class="attack-name">Adversarial Examples</div>
-        <p class="attack-desc">Inputs crafted to cause targeted misclassification or misbehavior in ML models. Imperceptible perturbations across text, image, and multi-modal inputs stress-test robustness of deployed model artifacts and embeddings.</p>
-        <div class="attack-tags"><span class="tag">FGSM / PGD</span><span class="tag">Text Perturbation</span><span class="tag">Multimodal</span><span class="tag">Embedding Attacks</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0043</span></div>
-          <div class="expand-row"><span class="ek">Modalities</span><span class="ev">Text, Image, Audio, Multimodal</span></div>
-          <div class="expand-row"><span class="ek">Tool</span><span class="ev">IBM ART, custom perturbation harness</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.2s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#9763;&#65039;</div><span class="attack-severity sev-high">High</span></div>
-        <div class="attack-name">Data Poisoning</div>
-        <p class="attack-desc">Corrupting model behavior at the training data level &mdash; backdoor triggers, gradient manipulation, or label flipping to cause silent failures at deploy time. We audit fine-tuning pipelines and RAG knowledge sources.</p>
-        <div class="attack-tags"><span class="tag">Backdoor Triggers</span><span class="tag">Label Flipping</span><span class="tag">RAG Poisoning</span><span class="tag">Gradient Attack</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0020</span></div>
-          <div class="expand-row"><span class="ek">RAG Vector</span><span class="ev">Document injection at chunk boundaries</span></div>
-          <div class="expand-row"><span class="ek">Activation</span><span class="ev">Trigger phrase or image watermark</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.25s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#128269;</div><span class="attack-severity sev-high">High</span></div>
-        <div class="attack-name">Model Extraction &amp; Inversion</div>
-        <p class="attack-desc">Black-box queries designed to reconstruct model weights, training data segments, or system prompts. Membership inference determines if specific records were in training data. Prompt extraction yields confidential instructions.</p>
-        <div class="attack-tags"><span class="tag">Membership Inference</span><span class="tag">Prompt Extraction</span><span class="tag">Model Cloning</span><span class="tag">Data Reconstruction</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0035 / AML.T0024</span></div>
-          <div class="expand-row"><span class="ek">Min Queries</span><span class="ev">~500 for system prompt recovery</span></div>
-          <div class="expand-row"><span class="ek">Mitigation</span><span class="ev">Output perturbation, rate limiting</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.3s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#128375;&#65039;</div><span class="attack-severity sev-critical">Critical</span></div>
-        <div class="attack-name">Indirect Prompt Injection</div>
-        <p class="attack-desc">Malicious instructions hidden in external content that LLM-powered agents consume &mdash; websites, PDFs, emails, code repos. When processed, the agent's behavior is silently hijacked enabling unauthorized actions and exfiltration chains.</p>
-        <div class="attack-tags"><span class="tag">Web Content</span><span class="tag">Document Injection</span><span class="tag">Agent Hijack</span><span class="tag">Exfil Chains</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">Vector</span><span class="ev">Hidden HTML, Unicode steganography</span></div>
-          <div class="expand-row"><span class="ek">Impact</span><span class="ev">Full agent control, credential exfil</span></div>
-          <div class="expand-row"><span class="ek">Affected</span><span class="ev">Copilot, AutoGPT, LangChain agents</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.35s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#127917;</div><span class="attack-severity sev-medium">Medium</span></div>
-        <div class="attack-name">Alignment Failure &amp; Goal Misgeneralization</div>
-        <p class="attack-desc">Stress-testing reward model fidelity and RLHF alignment through distributional shift. We probe mesa-optimization failures, reward hacking opportunities, and scenarios where proxy goals diverge from human intent in novel contexts.</p>
-        <div class="attack-tags"><span class="tag">Reward Hacking</span><span class="tag">Mesa-Optimization</span><span class="tag">Goal Divergence</span><span class="tag">Dist. Shift</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">Test Surface</span><span class="ev">RLHF reward model stress tests</span></div>
-          <div class="expand-row"><span class="ek">Key Risk</span><span class="ev">Silent policy failure in edge domains</span></div>
-          <div class="expand-row"><span class="ek">Framework</span><span class="ev">AI Safety Gridworlds, custom evals</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-      <div class="attack-card reveal" data-card style="transition-delay:.4s">
-        <div class="card-expand-icon">+</div>
-        <div class="attack-card-top"><div class="attack-icon">&#9889;</div><span class="attack-severity sev-high">High</span></div>
-        <div class="attack-name">Inference Pipeline Attacks</div>
-        <p class="attack-desc">Exploiting the serving infrastructure around the model &mdash; API abuse, rate-limit bypass, prompt-length-based side channels, cache poisoning, and timeout manipulation to extract information or degrade service availability.</p>
-        <div class="attack-tags"><span class="tag">API Abuse</span><span class="tag">Side Channels</span><span class="tag">Cache Poisoning</span><span class="tag">DoS / Rate</span></div>
-        <div class="attack-expand">
-          <div class="expand-row"><span class="ek">Side Channel</span><span class="ev">Timing analysis on token generation</span></div>
-          <div class="expand-row"><span class="ek">Cache Vector</span><span class="ev">KV cache poisoning via shared infra</span></div>
-          <div class="expand-row"><span class="ek">Impact</span><span class="ev">Info leak, availability degradation</span></div>
-          <div class="expand-hint">Click to collapse</div>
-        </div>
-        <div class="attack-bar"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- LIVE OPS TERMINAL -->
-  <div class="terminal-section" id="terminal">
-    <div class="terminal-grid">
-      <div class="terminal-window reveal">
-        <div class="terminal-titlebar">
-          <div class="tb-dot tb-red"></div>
-          <div class="tb-dot tb-yellow"></div>
-          <div class="tb-dot tb-green"></div>
-          <span class="tb-title">centillion-rt &mdash; live ops &mdash; bash</span>
-        </div>
-        <div class="terminal-body" id="term-body"></div>
-      </div>
-      <div class="reveal" style="transition-delay:.15s;display:flex;flex-direction:column;gap:1.2rem;">
-        <div class="info-badge"><div class="info-dot"></div> Active Red Team</div>
-        <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.8rem)">Round-the-Clock <span class="accent">Adversarial Ops</span></h2>
-        <p class="section-desc">Our operators run continuous attack campaigns against production LLMs, inference APIs, and RAG pipelines. Every bypass we discover feeds directly into the hardening playbook delivered to you.</p>
-        <ul style="list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.8rem;">
-          <li style="display:flex;align-items:flex-start;gap:.75rem;"><span style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span style="font-size:.83rem;color:var(--muted);line-height:1.6;">Automated jailbreak generation using genetic optimization and LLM-assisted mutation</span></li>
-          <li style="display:flex;align-items:flex-start;gap:.75rem;"><span style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span style="font-size:.83rem;color:var(--muted);line-height:1.6;">Cross-model policy diffing to surface inconsistent safety behavior across vendors</span></li>
-          <li style="display:flex;align-items:flex-start;gap:.75rem;"><span style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span style="font-size:.83rem;color:var(--muted);line-height:1.6;">Real-time guardrail regression testing integrated into your CI/CD pipeline</span></li>
-          <li style="display:flex;align-items:flex-start;gap:.75rem;"><span style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span style="font-size:.83rem;color:var(--muted);line-height:1.6;">Zero-day LLM vulnerability disclosure coordination with model providers</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- THREAT MATRIX -->
-  <section>
-    <div class="reveal">
-      <div class="section-label">Threat Intelligence</div>
-      <h2 class="section-title">Attack <span class="accent">Threat Matrix</span></h2>
-      <p class="section-desc">Mapping AI attack categories to impact dimensions and the layers they affect.</p>
-    </div>
-    <div class="matrix-wrap reveal" style="transition-delay:.1s">
-      <table class="threat-matrix">
-        <thead>
-          <tr><th>Attack Type</th><th>Risk Level</th><th>Pre-Training</th><th>Fine-Tuning</th><th>Inference</th><th>RAG / Agent</th><th>Confidentiality</th><th>Integrity</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Prompt Injection</td><td><span class="risk-pill risk-critical">Critical</span></td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Jailbreaks</td><td><span class="risk-pill risk-critical">Critical</span></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Safety Guardrail Probing</td><td><span class="risk-pill risk-high">High</span></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Data Poisoning</td><td><span class="risk-pill risk-critical">Critical</span></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Model Extraction</td><td><span class="risk-pill risk-high">High</span></td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td></tr>
-          <tr><td>Adversarial Examples</td><td><span class="risk-pill risk-high">High</span></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Indirect Injection</td><td><span class="risk-pill risk-critical">Critical</span></td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td></tr>
-          <tr><td>Inference Pipeline</td><td><span class="risk-pill risk-medium">Medium</span></td><td class="dash">&#8211;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td></tr>
-          <tr><td>Alignment Failure</td><td><span class="risk-pill risk-high">High</span></td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="dash">&#8211;</td><td class="check">&#10003;</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- METHODOLOGY -->
-  <section id="methodology" style="max-width:100%;padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem);">
-    <div style="max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start;">
-      <div class="reveal" style="position:sticky;top:6rem;">
-        <div class="section-label">How We Operate</div>
-        <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem)">Red Team <span class="accent">Methodology</span></h2>
-        <p class="section-desc" style="margin-top:1rem;">A disciplined, repeatable 6-phase process from threat modeling to hardening &mdash; designed for production AI systems at scale.</p>
-      </div>
-      <div class="method-steps reveal" style="transition-delay:.1s">
-        <div class="method-step"><div class="step-num-col"><div class="step-num">01</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Threat Modeling &amp; Scoping</div><p class="step-desc">Define the attack surface, actors, objectives, and rules of engagement. Map the full model stack &mdash; from training pipeline to inference API &mdash; to identify entry points.</p><div class="step-chips"><span class="step-chip">STRIDE</span><span class="step-chip">Attack Trees</span><span class="step-chip">MITRE ATLAS</span></div></div></div>
-        <div class="method-step"><div class="step-num-col"><div class="step-num">02</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Reconnaissance &amp; Profiling</div><p class="step-desc">Black-box interaction to fingerprint the model &mdash; identify base model lineage, RLHF artifacts, system prompt structure, guardrail layers, and function-calling capabilities.</p><div class="step-chips"><span class="step-chip">Fingerprinting</span><span class="step-chip">Capability Mapping</span><span class="step-chip">Prompt Archaeology</span></div></div></div>
-        <div class="method-step"><div class="step-num-col"><div class="step-num">03</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Adversarial Campaign Execution</div><p class="step-desc">Launch structured attack campaigns across all vectors &mdash; prompt injection, jailbreaks, indirect injection, extraction, and alignment probing &mdash; using automated fuzzing and manual operator creativity.</p><div class="step-chips"><span class="step-chip">AutoRT</span><span class="step-chip">Manual Ops</span><span class="step-chip">Fuzzing</span><span class="step-chip">Genetic Search</span></div></div></div>
-        <div class="method-step"><div class="step-num-col"><div class="step-num">04</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Vulnerability Triage &amp; Scoring</div><p class="step-desc">Document every successful bypass with full reproduction steps, CVSS-adapted severity scores, potential impact analysis, and exploitability ratings specific to AI threat models.</p><div class="step-chips"><span class="step-chip">CVSS-AI</span><span class="step-chip">Exploitability</span><span class="step-chip">Impact Chain</span></div></div></div>
-        <div class="method-step"><div class="step-num-col"><div class="step-num">05</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Hardening &amp; Mitigation Design</div><p class="step-desc">Concrete, tested mitigations for each vulnerability &mdash; input sanitization, output validation, RLHF fine-tuning patches, guardrail rule updates, and architectural hardening recommendations.</p><div class="step-chips"><span class="step-chip">Input Guards</span><span class="step-chip">Output Filters</span><span class="step-chip">RLHF Patches</span></div></div></div>
-        <div class="method-step"><div class="step-num-col"><div class="step-num">06</div><div class="step-line"></div></div><div class="step-content"><div class="step-title">Continuous Regression &amp; Retesting</div><p class="step-desc">Integrate red team tests into CI/CD for regression monitoring, track guardrail drift over model updates, and schedule periodic full-scope re-engagement campaigns aligned with your release cycle.</p><div class="step-chips"><span class="step-chip">CI/CD Integration</span><span class="step-chip">Drift Detection</span><span class="step-chip">Scheduled Re-Test</span></div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TOOLS -->
-  <section id="tools">
-    <div class="reveal">
-      <div class="section-label">Arsenal</div>
-      <h2 class="section-title">Red Team <span class="accent">Tooling</span></h2>
-      <p class="section-desc">Purpose-built and open-source tools used by our operators for adversarial AI testing.</p>
-    </div>
-    <div class="tools-grid">
-      <div class="tool-card reveal"><div class="tool-icon">&#129302;</div><div class="tool-name">AutoRT Engine</div><p class="tool-desc">Centillion's proprietary automated red-teaming engine &mdash; LLM-guided attacker that mutates prompts using genetic algorithms and adversarial reward shaping.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.05s"><div class="tool-icon">&#127919;</div><div class="tool-name">Garak</div><p class="tool-desc">Open-source LLM vulnerability scanner. Runs systematic probe suites across injection, jailbreak, hallucination, and information disclosure categories.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.1s"><div class="tool-icon">&#128302;</div><div class="tool-name">PromptBench</div><p class="tool-desc">Adversarial robustness evaluation framework for LLMs. Tests model performance under semantic-preserving and adversarial prompt perturbations.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.15s"><div class="tool-icon">&#129516;</div><div class="tool-name">PyRIT</div><p class="tool-desc">Microsoft's Python Risk Identification Toolkit for Generative AI &mdash; automated attacks across safety, harmful content, and agentic risk categories.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.2s"><div class="tool-icon">&#128225;</div><div class="tool-name">Vigil</div><p class="tool-desc">Real-time prompt injection and jailbreak scanner integrated into inference pipelines as a runtime guard layer with sub-millisecond latency.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.25s"><div class="tool-icon">&#9881;&#65039;</div><div class="tool-name">ART (IBM)</div><p class="tool-desc">IBM Adversarial Robustness Toolbox &mdash; white-box and black-box adversarial example generation for ML model stress testing across modalities.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.3s"><div class="tool-icon">&#128373;&#65039;</div><div class="tool-name">LLMFuzzer</div><p class="tool-desc">Custom fuzzing harness designed for LLM API endpoints &mdash; generates boundary-pushing inputs at scale to surface unexpected model behaviors.</p></div>
-      <div class="tool-card reveal" style="transition-delay:.35s"><div class="tool-icon">&#128202;</div><div class="tool-name">RT Dashboard</div><p class="tool-desc">Centillion's internal ops command center &mdash; real-time tracking of active campaigns, bypass rates, guardrail regressions, and vulnerability triage queues.</p></div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <div class="cta-section" id="cta">
-    <div class="cta-inner">
-      <p class="cta-tagline">City Sleeps. Centillion Red Team Doesn't.</p>
-      <h2 class="cta-title">Is Your AI <span class="red">Really</span><br>Secure?</h2>
-      <p class="cta-desc">Don't wait for adversaries to find what we can. Engage Centillion Red Team for a full-scope AI security assessment &mdash; from threat modeling to continuous regression testing.</p>
-      <div class="hero-cta-row">
-        <a class="btn-primary" href="#" id="assess-btn">Request an Assessment</a>
-        <a class="btn-ghost" href="#">&#128196; Download Red Team Brief</a>
-      </div>
-      <div class="contact-row">
-        <span class="contact-chip">redteam@centillion.ai</span>
-        <span class="contact-sep">|</span>
-        <span class="contact-chip">Secure Signal Available</span>
-        <span class="contact-sep">|</span>
-        <span class="contact-chip">NDA-Ready</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="foot-l">&copy; 2026 Centillion Labs &mdash; <span>Red Team Division</span></div>
-    <div class="foot-r">Secure Inference. Secure Future.</div>
-  </footer>
-
-</div>
-
-<!-- FLOATING LIVE BADGE -->
-<div class="live-badge" id="live-badge">
-  <div class="live-dot"></div>
-  LIVE OPS
-  <span class="live-count" id="live-count">&bull;</span>
-</div>
-
-<!-- KEYBOARD SHORTCUT HINT -->
-<div class="kbd-hint">
-  Press <span class="kbd">T</span> to toggle theme
-</div>
-
-<script>
-/* ── THEME TOGGLE ── */
-(function(){
-  const html = document.documentElement;
-  const btn = document.getElementById('theme-btn');
-  const saved = localStorage.getItem('rt-theme') || 'dark';
-  html.setAttribute('data-theme', saved);
-  btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-
-  function toggleTheme(){
-    const cur = html.getAttribute('data-theme');
-    const next = cur === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('rt-theme', next);
-    btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-    btn.style.transform = 'rotate(360deg) scale(1.2)';
-    setTimeout(()=>{ btn.style.transform = ''; }, 400);
-  }
-  btn.addEventListener('click', toggleTheme);
-  document.addEventListener('keydown', e => {
-    if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT') {
-      toggleTheme();
-    }
-  });
-})();
-
-/* ── PARTICLE CANVAS ── */
-(function(){
-  const cv = document.getElementById('particle-canvas');
-  const cx = cv.getContext('2d');
-  let W, H, ns = [];
-
-  function getColor(){
-    return document.documentElement.getAttribute('data-theme') === 'light'
-      ? 'rgba(196,40,0,' : 'rgba(232,65,24,';
-  }
-
-  function resize(){ W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
-
-  function make(n){
-    ns = [];
-    for(let i=0;i<n;i++) ns.push({
-      x: Math.random()*W, y: Math.random()*H,
-      vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
-      r: Math.random()*1.5+.5, a: Math.random()*.45+.15
-    });
-  }
-
-  function draw(){
-    cx.clearRect(0,0,W,H);
-    const c = getColor();
-    for(let i=0;i<ns.length;i++){
-      for(let j=i+1;j<ns.length;j++){
-        const dx=ns[i].x-ns[j].x, dy=ns[i].y-ns[j].y, d=Math.sqrt(dx*dx+dy*dy);
-        if(d<140){
-          cx.beginPath();
-          cx.strokeStyle = c+(1-d/140)*.25+')';
-          cx.lineWidth=.5;
-          cx.moveTo(ns[i].x,ns[i].y);
-          cx.lineTo(ns[j].x,ns[j].y);
-          cx.stroke();
-        }
+      .kbd-hint {
+        display: none;
       }
     }
-    ns.forEach(n=>{
-      cx.beginPath(); cx.arc(n.x,n.y,n.r,0,Math.PI*2);
-      cx.fillStyle = c+n.a+')'; cx.fill();
-      n.x+=n.vx; n.y+=n.vy;
-      if(n.x<0||n.x>W) n.vx*=-1;
-      if(n.y<0||n.y>H) n.vy*=-1;
-    });
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',()=>{ resize(); make(90); });
-  resize(); make(90); draw();
-})();
+  </style>
+</head>
 
-/* ── HERO MOUSE PARALLAX ── */
-(function(){
-  const bg = document.getElementById('hero-bg');
-  let tx=0,ty=0,cx=0,cy=0;
-  document.addEventListener('mousemove', e=>{
-    tx = (e.clientX/window.innerWidth-.5)*18;
-    ty = (e.clientY/window.innerHeight-.5)*12;
-  });
-  function tick(){
-    cx += (tx-cx)*0.08; cy += (ty-cy)*0.08;
-    bg.style.transform = `translate(${cx}px,${cy}px) scale(1.05)`;
-    requestAnimationFrame(tick);
-  }
-  tick();
-})();
+<body>
 
-/* ── MOUSE TRAIL ── */
-(function(){
-  const trail = document.getElementById('trail');
-  let tx=0,ty=0,cx=0,cy=0,vis=false;
-  document.addEventListener('mousemove', e=>{
-    tx=e.clientX; ty=e.clientY;
-    if(!vis){ vis=true; trail.style.opacity='0.55'; }
-  });
-  function tick(){
-    cx+=(tx-cx)*0.15; cy+=(ty-cy)*0.15;
-    trail.style.left=cx+'px'; trail.style.top=cy+'px';
-    requestAnimationFrame(tick);
-  }
-  tick();
-  document.addEventListener('mouseleave',()=>{ vis=false; trail.style.opacity='0'; });
-})();
+  <canvas id="particle-canvas"></canvas>
+  <div class="scanlines"></div>
+  <div id="trail" class="trail"></div>
 
-/* ── 3D TILT ON ATTACK CARDS ── */
-(function(){
-  document.querySelectorAll('[data-card]').forEach(card=>{
-    card.addEventListener('mouseenter',()=>card.classList.add('hovered'));
-    card.addEventListener('mouseleave',()=>{
-      card.classList.remove('hovered');
-      card.style.transform='';
-    });
-    card.addEventListener('mousemove', e=>{
-      const r = card.getBoundingClientRect();
-      const mx = (e.clientX-r.left)/r.width;
-      const my = (e.clientY-r.top)/r.height;
-      const rotX = (my-.5)*-12;
-      const rotY = (mx-.5)*14;
-      card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
-      card.style.setProperty('--mx',(mx*100).toFixed(1)+'%');
-      card.style.setProperty('--my',(my*100).toFixed(1)+'%');
-    });
-  });
-})();
+  <div class="site">
 
-/* ── CLICK TO EXPAND ATTACK CARDS ── */
-(function(){
-  document.querySelectorAll('[data-card]').forEach(card=>{
-    card.addEventListener('click', ()=>{
-      const wasExpanded = card.classList.contains('expanded');
-      document.querySelectorAll('[data-card].expanded').forEach(c=>c.classList.remove('expanded'));
-      if(!wasExpanded) card.classList.add('expanded');
-    });
-  });
-})();
+    <!-- NAV -->
+    <nav>
+      <a class="nav-logo" href="#">
+        <div class="nav-dot"></div>
+        <span class="nav-wordmark">CENTILLION <span>RED TEAM</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#attacks">Attack Vectors</a></li>
+        <li><a href="#terminal">Live Ops</a></li>
+        <li><a href="#methodology">Methodology</a></li>
+        <li><a href="#tools">Tools</a></li>
+      </ul>
+      <div class="nav-r">
+        <button class="theme-btn" id="theme-btn" title="Toggle theme (T)"
+          aria-label="Toggle theme">&#9728;&#65039;</button>
+        <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Engage Red
+          Team</button>
+      </div>
+    </nav>
 
-/* ── RIPPLE ON BUTTONS ── */
-(function(){
-  document.querySelectorAll('.btn-primary').forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      const r = btn.getBoundingClientRect();
-      const size = Math.max(r.width, r.height)*2;
-      const rip = document.createElement('span');
-      rip.className = 'ripple';
-      rip.style.cssText = `left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px;width:${size}px;height:${size}px`;
-      btn.appendChild(rip);
-      setTimeout(()=>rip.remove(), 700);
-    });
-  });
-})();
+    <!-- HERO -->
+    <section class="hero" style="max-width:100%;padding-left:0;padding-right:0;">
+      <div class="hero-bg-grad" id="hero-bg"></div>
+      <div class="grid-deco"></div>
+      <div class="hero-eyebrow">AI Security &amp; Adversarial Testing</div>
+      <h1 class="hero-title">
+        <span class="glitch" data-text="RED TEAM">RED TEAM</span><br>OPERATIONS
+      </h1>
+      <p class="hero-sub">
+        We break AI before adversaries do. From <em>prompt injection</em> and <em>jailbreaks</em> to
+        <em>safety guardrail probing</em> &mdash; Centillion Red Team runs continuous adversarial campaigns
+        against LLMs, inference pipelines, and AI-powered products.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-primary" href="#attacks">Explore Attack Vectors</a>
+        <a class="btn-ghost" href="#methodology">Our Methodology &rarr;</a>
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <span class="scroll-label">Scroll</span>
+      </div>
+    </section>
 
-/* ── SCROLL REVEAL ── */
-(function(){
-  const ob=new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); ob.unobserve(e.target); } });
-  },{threshold:.08});
-  document.querySelectorAll('.reveal').forEach(el=>ob.observe(el));
-})();
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+      <div class="marquee-inner">
+        <span>Prompt Injection</span><span class="sep">///</span><span>Jailbreaks</span><span
+          class="sep">///</span><span>Adversarial Examples</span><span class="sep">///</span><span>Data
+          Poisoning</span><span class="sep">///</span><span>Model Inversion</span><span
+          class="sep">///</span><span>Safety Bypasses</span><span class="sep">///</span><span>Indirect
+          Injection</span><span class="sep">///</span><span>Extraction Attacks</span><span
+          class="sep">///</span><span>Guardrail Evasion</span><span class="sep">///</span><span>Alignment
+          Failure</span><span class="sep">///</span>
+        <span>Prompt Injection</span><span class="sep">///</span><span>Jailbreaks</span><span
+          class="sep">///</span><span>Adversarial Examples</span><span class="sep">///</span><span>Data
+          Poisoning</span><span class="sep">///</span><span>Model Inversion</span><span
+          class="sep">///</span><span>Safety Bypasses</span><span class="sep">///</span><span>Indirect
+          Injection</span><span class="sep">///</span><span>Extraction Attacks</span><span
+          class="sep">///</span><span>Guardrail Evasion</span><span class="sep">///</span><span>Alignment
+          Failure</span><span class="sep">///</span>
+      </div>
+    </div>
 
-/* ── ANIMATED COUNTERS ── */
-(function(){
-  const ob=new IntersectionObserver(es=>{
-    es.forEach(en=>{
-      if(!en.isIntersecting) return;
-      const el=en.target, tgt=+el.dataset.target, dur=1600, step=16, inc=tgt/(dur/step);
-      let cur=0;
-      const t=setInterval(()=>{
-        cur=Math.min(cur+inc,tgt);
-        el.textContent=Math.floor(cur).toLocaleString();
-        if(cur>=tgt) clearInterval(t);
-      },step);
-      ob.unobserve(el);
-    });
-  },{threshold:.2});
-  document.querySelectorAll('.counter').forEach(el=>ob.observe(el));
-})();
+    <!-- STATS -->
+    <section style="max-width:100%;padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem);">
+      <div class="stats-grid reveal">
+        <div class="stat-item">
+          <span class="stat-num"><span class="counter" data-target="1400">0</span><span
+              class="stat-suffix">+</span></span>
+          <div class="stat-label">Vulnerabilities Discovered</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num"><span class="counter" data-target="38">0</span></span>
+          <div class="stat-label">LLMs Tested</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num"><span class="counter" data-target="99">0</span><span
+              class="stat-suffix">%</span></span>
+          <div class="stat-label">Safety Bypass Rate (Lab)</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num"><span class="counter" data-target="24">0</span><span
+              class="stat-suffix">/7</span></span>
+          <div class="stat-label">Continuous Ops</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num"><span class="counter" data-target="320">0</span><span
+              class="stat-suffix">+</span></span>
+          <div class="stat-label">Attack Patterns Catalogued</div>
+        </div>
+      </div>
+    </section>
 
-/* ── LIVE OPS TICKER ── */
-(function(){
-  const badge = document.getElementById('live-count');
-  const msgs = ['3 campaigns active','2 bypasses found today','GPT-4o scan live','Running jailbreak gen','Probing guardrails'];
-  let i=0;
-  function tick(){
-    badge.style.opacity='0';
-    setTimeout(()=>{
-      badge.textContent = msgs[i++ % msgs.length];
-      badge.style.opacity='1';
-    }, 400);
-  }
-  badge.style.transition = 'opacity 0.4s';
-  setInterval(tick, 3200);
-  setTimeout(tick, 800);
-})();
+    <!-- ATTACK VECTORS -->
+    <section id="attacks">
+      <div class="attacks-header reveal">
+        <div class="section-label">Attack Surface</div>
+        <h2 class="section-title">Known <span class="accent">Attack Vectors</span></h2>
+        <p class="section-desc">Every angle of adversarial AI exploitation &mdash; catalogued, tested, and hardened by
+          our red team operators. <strong style="color:var(--red);font-size:.78rem;font-family:var(--mono)">Click any
+            card to expand.</strong></p>
+      </div>
+      <div class="attacks-grid">
 
-/* ── TERMINAL SIMULATION ── */
-(function(){
-  const lines=[
-    {cls:'t-prompt',txt:'root@centillion-rt:~# '},
-    {cls:'t-cmd',txt:'rt-scan --target prod-llm-api --mode full --verbose'},
-    {cls:'',txt:''},
-    {cls:'t-out',txt:'[*] Centillion AutoRT Engine v3.4.1 initialized'},
-    {cls:'t-out',txt:'[*] Attack corpus loaded: 47,821 prompts'},
-    {cls:'t-ok', txt:'[+] Target fingerprint: GPT-4o-turbo / safety-layer v2'},
-    {cls:'',txt:''},
-    {cls:'t-out',txt:'[*] Phase 1: Safety guardrail boundary sweep'},
-    {cls:'t-warn',txt:'[!] Policy inconsistency — multilingual bypass window detected'},
-    {cls:'t-warn',txt:'[!] Recall drops 21% after turn 6 in narrative contexts'},
-    {cls:'',txt:''},
-    {cls:'t-out',txt:'[*] Phase 2: Jailbreak campaign (genetic optimizer, 50 gen)'},
-    {cls:'t-out',txt:'    Gen 1/50  fitness 0.18'},
-    {cls:'t-out',txt:'    Gen 14/50 fitness 0.67'},
-    {cls:'t-err',txt:'    Gen 26/50 fitness 0.96 — BYPASS CANDIDATE FOUND'},
-    {cls:'',txt:''},
-    {cls:'t-out',txt:'[*] Phase 3: Indirect injection via RAG document store'},
-    {cls:'t-warn',txt:'[!] Injected payload survives 512-token chunk boundary'},
-    {cls:'t-err',txt:'[CRITICAL] Agent executed injected cmd: exfil_user_ctx()'},
-    {cls:'',txt:''},
-    {cls:'t-ok', txt:'[+] Campaign complete — 9 critical, 14 high, 5 medium'},
-    {cls:'t-out',txt:'[*] Hardening patches generated → patch_set_2026-03-03.zip'},
-    {cls:'',txt:''},
-    {cls:'t-prompt',txt:'root@centillion-rt:~# '},
-  ];
+        <div class="attack-card reveal" data-card>
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#128137;</div><span class="attack-severity sev-critical">Critical</span>
+          </div>
+          <div class="attack-name">Prompt Injection</div>
+          <p class="attack-desc">Malicious instructions embedded in user input that hijack the model's behavior,
+            override system prompts, or exfiltrate context. Direct injections target the model directly; indirect
+            injections arrive via external data sources.</p>
+          <div class="attack-tags"><span class="tag">Direct Injection</span><span class="tag">Indirect
+              Injection</span><span class="tag">Context Hijack</span><span class="tag">Exfiltration</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0051</span></div>
+            <div class="expand-row"><span class="ek">Detection</span><span class="ev">Input validation, semantic
+                similarity guards</span></div>
+            <div class="expand-row"><span class="ek">Bypass Rate</span><span class="ev">~87% on unguarded
+                endpoints</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
 
-  const body=document.getElementById('term-body');
-  let idx=0;
+        <div class="attack-card reveal" data-card style="transition-delay:.05s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#128275;</div><span class="attack-severity sev-critical">Critical</span>
+          </div>
+          <div class="attack-name">Jailbreaks</div>
+          <p class="attack-desc">Crafted inputs that convince models to bypass their alignment training and safety
+            constraints. Techniques include roleplay framing, hypothetical escaping, encoding tricks, token obfuscation,
+            and many-shot induction strategies.</p>
+          <div class="attack-tags"><span class="tag">Roleplay Escaping</span><span class="tag">Hypothetical
+              Framing</span><span class="tag">Token Smuggling</span><span class="tag">Many-Shot</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0054</span></div>
+            <div class="expand-row"><span class="ek">Detection</span><span class="ev">Classifier probes, perplexity
+                filters</span></div>
+            <div class="expand-row"><span class="ek">Active Variants</span><span class="ev">DAN, AIM, Dev Mode, Opposite
+                Day</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
 
-  function nextLine(){
-    if(idx>=lines.length){
-      const c=document.createElement('span'); c.className='t-cursor'; body.appendChild(c);
-      return;
-    }
-    const l=lines[idx++];
-    if(!l.txt){ body.appendChild(document.createElement('br')); setTimeout(nextLine,100); return; }
-    const sp=document.createElement('span');
-    sp.className='t-line '+l.cls;
-    sp.textContent=l.txt;
-    body.appendChild(sp);
-    body.appendChild(document.createElement('br'));
-    body.scrollTop=body.scrollHeight;
-    setTimeout(nextLine, l.cls.includes('err')||l.cls.includes('warn') ? 220 : 55);
-  }
+        <div class="attack-card reveal" data-card style="transition-delay:.1s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#128737;&#65039;</div><span class="attack-severity sev-high">High</span>
+          </div>
+          <div class="attack-name">Safety Guardrail Probing</div>
+          <p class="attack-desc">Systematic exploration of a model's content policy enforcement boundaries. We map
+            thresholds, identify inconsistencies across languages and dialects, test for policy gaps under adversarial
+            load, and measure recall degradation over turns.</p>
+          <div class="attack-tags"><span class="tag">Boundary Mapping</span><span class="tag">Multi-Language</span><span
+              class="tag">Policy Gaps</span><span class="tag">Turn Erosion</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">Method</span><span class="ev">Systematic fuzzing + language
+                sweep</span></div>
+            <div class="expand-row"><span class="ek">Finding</span><span class="ev">Recall drops avg 19% after turn
+                7</span></div>
+            <div class="expand-row"><span class="ek">Languages</span><span class="ev">42+ including low-resource
+                languages</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
 
-  const ob=new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ ob.unobserve(e.target); setTimeout(nextLine,500); } });
-  },{threshold:.15});
-  ob.observe(document.getElementById('terminal'));
-})();
-</script>
+        <div class="attack-card reveal" data-card style="transition-delay:.15s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#129514;</div><span class="attack-severity sev-critical">Critical</span>
+          </div>
+          <div class="attack-name">Adversarial Examples</div>
+          <p class="attack-desc">Inputs crafted to cause targeted misclassification or misbehavior in ML models.
+            Imperceptible perturbations across text, image, and multi-modal inputs stress-test robustness of deployed
+            model artifacts and embeddings.</p>
+          <div class="attack-tags"><span class="tag">FGSM / PGD</span><span class="tag">Text Perturbation</span><span
+              class="tag">Multimodal</span><span class="tag">Embedding Attacks</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0043</span></div>
+            <div class="expand-row"><span class="ek">Modalities</span><span class="ev">Text, Image, Audio,
+                Multimodal</span></div>
+            <div class="expand-row"><span class="ek">Tool</span><span class="ev">IBM ART, custom perturbation
+                harness</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+        <div class="attack-card reveal" data-card style="transition-delay:.2s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#9763;&#65039;</div><span class="attack-severity sev-high">High</span>
+          </div>
+          <div class="attack-name">Data Poisoning</div>
+          <p class="attack-desc">Corrupting model behavior at the training data level &mdash; backdoor triggers,
+            gradient manipulation, or label flipping to cause silent failures at deploy time. We audit fine-tuning
+            pipelines and RAG knowledge sources.</p>
+          <div class="attack-tags"><span class="tag">Backdoor Triggers</span><span class="tag">Label
+              Flipping</span><span class="tag">RAG Poisoning</span><span class="tag">Gradient Attack</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0020</span></div>
+            <div class="expand-row"><span class="ek">RAG Vector</span><span class="ev">Document injection at chunk
+                boundaries</span></div>
+            <div class="expand-row"><span class="ek">Activation</span><span class="ev">Trigger phrase or image
+                watermark</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+        <div class="attack-card reveal" data-card style="transition-delay:.25s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#128269;</div><span class="attack-severity sev-high">High</span>
+          </div>
+          <div class="attack-name">Model Extraction &amp; Inversion</div>
+          <p class="attack-desc">Black-box queries designed to reconstruct model weights, training data segments, or
+            system prompts. Membership inference determines if specific records were in training data. Prompt extraction
+            yields confidential instructions.</p>
+          <div class="attack-tags"><span class="tag">Membership Inference</span><span class="tag">Prompt
+              Extraction</span><span class="tag">Model Cloning</span><span class="tag">Data Reconstruction</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0035 / AML.T0024</span></div>
+            <div class="expand-row"><span class="ek">Min Queries</span><span class="ev">~500 for system prompt
+                recovery</span></div>
+            <div class="expand-row"><span class="ek">Mitigation</span><span class="ev">Output perturbation, rate
+                limiting</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+        <div class="attack-card reveal" data-card style="transition-delay:.3s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#128375;&#65039;</div><span class="attack-severity sev-critical">Critical</span>
+          </div>
+          <div class="attack-name">Indirect Prompt Injection</div>
+          <p class="attack-desc">Malicious instructions hidden in external content that LLM-powered agents consume
+            &mdash; websites, PDFs, emails, code repos. When processed, the agent's behavior is silently hijacked
+            enabling unauthorized actions and exfiltration chains.</p>
+          <div class="attack-tags"><span class="tag">Web Content</span><span class="tag">Document Injection</span><span
+              class="tag">Agent Hijack</span><span class="tag">Exfil Chains</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">Vector</span><span class="ev">Hidden HTML, Unicode
+                steganography</span></div>
+            <div class="expand-row"><span class="ek">Impact</span><span class="ev">Full agent control, credential
+                exfil</span></div>
+            <div class="expand-row"><span class="ek">Affected</span><span class="ev">Copilot, AutoGPT, LangChain
+                agents</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+        <div class="attack-card reveal" data-card style="transition-delay:.35s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#127917;</div><span class="attack-severity sev-medium">Medium</span>
+          </div>
+          <div class="attack-name">Alignment Failure &amp; Goal Misgeneralization</div>
+          <p class="attack-desc">Stress-testing reward model fidelity and RLHF alignment through distributional shift.
+            We probe mesa-optimization failures, reward hacking opportunities, and scenarios where proxy goals diverge
+            from human intent in novel contexts.</p>
+          <div class="attack-tags"><span class="tag">Reward Hacking</span><span
+              class="tag">Mesa-Optimization</span><span class="tag">Goal Divergence</span><span class="tag">Dist.
+              Shift</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">Test Surface</span><span class="ev">RLHF reward model stress
+                tests</span></div>
+            <div class="expand-row"><span class="ek">Key Risk</span><span class="ev">Silent policy failure in edge
+                domains</span></div>
+            <div class="expand-row"><span class="ek">Framework</span><span class="ev">AI Safety Gridworlds, custom
+                evals</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+        <div class="attack-card reveal" data-card style="transition-delay:.4s">
+          <div class="card-expand-icon">+</div>
+          <div class="attack-card-top">
+            <div class="attack-icon">&#9889;</div><span class="attack-severity sev-high">High</span>
+          </div>
+          <div class="attack-name">Inference Pipeline Attacks</div>
+          <p class="attack-desc">Exploiting the serving infrastructure around the model &mdash; API abuse, rate-limit
+            bypass, prompt-length-based side channels, cache poisoning, and timeout manipulation to extract information
+            or degrade service availability.</p>
+          <div class="attack-tags"><span class="tag">API Abuse</span><span class="tag">Side Channels</span><span
+              class="tag">Cache Poisoning</span><span class="tag">DoS / Rate</span></div>
+          <div class="attack-expand">
+            <div class="expand-row"><span class="ek">Side Channel</span><span class="ev">Timing analysis on token
+                generation</span></div>
+            <div class="expand-row"><span class="ek">Cache Vector</span><span class="ev">KV cache poisoning via shared
+                infra</span></div>
+            <div class="expand-row"><span class="ek">Impact</span><span class="ev">Info leak, availability
+                degradation</span></div>
+            <div class="expand-hint">Click to collapse</div>
+          </div>
+          <div class="attack-bar"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIVE OPS TERMINAL -->
+    <div class="terminal-section" id="terminal">
+      <div class="terminal-grid">
+        <div class="terminal-window reveal">
+          <div class="terminal-titlebar">
+            <div class="tb-dot tb-red"></div>
+            <div class="tb-dot tb-yellow"></div>
+            <div class="tb-dot tb-green"></div>
+            <span class="tb-title">centillion-rt &mdash; live ops &mdash; bash</span>
+          </div>
+          <div class="terminal-body" id="term-body"></div>
+        </div>
+        <div class="reveal" style="transition-delay:.15s;display:flex;flex-direction:column;gap:1.2rem;">
+          <div class="info-badge">
+            <div class="info-dot"></div> Active Red Team
+          </div>
+          <h2 class="section-title" style="font-size:clamp(1.8rem,4vw,2.8rem)">Round-the-Clock <span
+              class="accent">Adversarial Ops</span></h2>
+          <p class="section-desc">Our operators run continuous attack campaigns against production LLMs, inference APIs,
+            and RAG pipelines. Every bypass we discover feeds directly into the hardening playbook delivered to you.</p>
+          <ul style="list-style:none;margin-top:1.2rem;display:flex;flex-direction:column;gap:.8rem;">
+            <li style="display:flex;align-items:flex-start;gap:.75rem;"><span
+                style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span
+                style="font-size:.83rem;color:var(--muted);line-height:1.6;">Automated jailbreak generation using
+                genetic optimization and LLM-assisted mutation</span></li>
+            <li style="display:flex;align-items:flex-start;gap:.75rem;"><span
+                style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span
+                style="font-size:.83rem;color:var(--muted);line-height:1.6;">Cross-model policy diffing to surface
+                inconsistent safety behavior across vendors</span></li>
+            <li style="display:flex;align-items:flex-start;gap:.75rem;"><span
+                style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span
+                style="font-size:.83rem;color:var(--muted);line-height:1.6;">Real-time guardrail regression testing
+                integrated into your CI/CD pipeline</span></li>
+            <li style="display:flex;align-items:flex-start;gap:.75rem;"><span
+                style="color:var(--red);font-size:.9rem;margin-top:.05rem;">&#9658;</span><span
+                style="font-size:.83rem;color:var(--muted);line-height:1.6;">Zero-day LLM vulnerability disclosure
+                coordination with model providers</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREAT MATRIX -->
+    <section>
+      <div class="reveal">
+        <div class="section-label">Threat Intelligence</div>
+        <h2 class="section-title">Attack <span class="accent">Threat Matrix</span></h2>
+        <p class="section-desc">Mapping AI attack categories to impact dimensions and the layers they affect.</p>
+      </div>
+      <div class="matrix-wrap reveal" style="transition-delay:.1s">
+        <table class="threat-matrix">
+          <thead>
+            <tr>
+              <th>Attack Type</th>
+              <th>Risk Level</th>
+              <th>Pre-Training</th>
+              <th>Fine-Tuning</th>
+              <th>Inference</th>
+              <th>RAG / Agent</th>
+              <th>Confidentiality</th>
+              <th>Integrity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Prompt Injection</td>
+              <td><span class="risk-pill risk-critical">Critical</span></td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Jailbreaks</td>
+              <td><span class="risk-pill risk-critical">Critical</span></td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Safety Guardrail Probing</td>
+              <td><span class="risk-pill risk-high">High</span></td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Data Poisoning</td>
+              <td><span class="risk-pill risk-critical">Critical</span></td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Model Extraction</td>
+              <td><span class="risk-pill risk-high">High</span></td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+            </tr>
+            <tr>
+              <td>Adversarial Examples</td>
+              <td><span class="risk-pill risk-high">High</span></td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Indirect Injection</td>
+              <td><span class="risk-pill risk-critical">Critical</span></td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+            <tr>
+              <td>Inference Pipeline</td>
+              <td><span class="risk-pill risk-medium">Medium</span></td>
+              <td class="dash">&#8211;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+            </tr>
+            <tr>
+              <td>Alignment Failure</td>
+              <td><span class="risk-pill risk-high">High</span></td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="check">&#10003;</td>
+              <td class="dash">&#8211;</td>
+              <td class="check">&#10003;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section id="methodology"
+      style="max-width:100%;padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem);">
+      <div
+        style="max-width:1260px;margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;gap:4rem;align-items:start;">
+        <div class="reveal" style="position:sticky;top:6rem;">
+          <div class="section-label">How We Operate</div>
+          <h2 class="section-title" style="font-size:clamp(2rem,4vw,3rem)">Red Team <span
+              class="accent">Methodology</span></h2>
+          <p class="section-desc" style="margin-top:1rem;">A disciplined, repeatable 6-phase process from threat
+            modeling to hardening &mdash; designed for production AI systems at scale.</p>
+        </div>
+        <div class="method-steps reveal" style="transition-delay:.1s">
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">01</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Threat Modeling &amp; Scoping</div>
+              <p class="step-desc">Define the attack surface, actors, objectives, and rules of engagement. Map the full
+                model stack &mdash; from training pipeline to inference API &mdash; to identify entry points.</p>
+              <div class="step-chips"><span class="step-chip">STRIDE</span><span class="step-chip">Attack
+                  Trees</span><span class="step-chip">MITRE ATLAS</span></div>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">02</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Reconnaissance &amp; Profiling</div>
+              <p class="step-desc">Black-box interaction to fingerprint the model &mdash; identify base model lineage,
+                RLHF artifacts, system prompt structure, guardrail layers, and function-calling capabilities.</p>
+              <div class="step-chips"><span class="step-chip">Fingerprinting</span><span class="step-chip">Capability
+                  Mapping</span><span class="step-chip">Prompt Archaeology</span></div>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">03</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Adversarial Campaign Execution</div>
+              <p class="step-desc">Launch structured attack campaigns across all vectors &mdash; prompt injection,
+                jailbreaks, indirect injection, extraction, and alignment probing &mdash; using automated fuzzing and
+                manual operator creativity.</p>
+              <div class="step-chips"><span class="step-chip">AutoRT</span><span class="step-chip">Manual
+                  Ops</span><span class="step-chip">Fuzzing</span><span class="step-chip">Genetic Search</span></div>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">04</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Vulnerability Triage &amp; Scoring</div>
+              <p class="step-desc">Document every successful bypass with full reproduction steps, CVSS-adapted severity
+                scores, potential impact analysis, and exploitability ratings specific to AI threat models.</p>
+              <div class="step-chips"><span class="step-chip">CVSS-AI</span><span
+                  class="step-chip">Exploitability</span><span class="step-chip">Impact Chain</span></div>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">05</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Hardening &amp; Mitigation Design</div>
+              <p class="step-desc">Concrete, tested mitigations for each vulnerability &mdash; input sanitization,
+                output validation, RLHF fine-tuning patches, guardrail rule updates, and architectural hardening
+                recommendations.</p>
+              <div class="step-chips"><span class="step-chip">Input Guards</span><span class="step-chip">Output
+                  Filters</span><span class="step-chip">RLHF Patches</span></div>
+            </div>
+          </div>
+          <div class="method-step">
+            <div class="step-num-col">
+              <div class="step-num">06</div>
+              <div class="step-line"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">Continuous Regression &amp; Retesting</div>
+              <p class="step-desc">Integrate red team tests into CI/CD for regression monitoring, track guardrail drift
+                over model updates, and schedule periodic full-scope re-engagement campaigns aligned with your release
+                cycle.</p>
+              <div class="step-chips"><span class="step-chip">CI/CD Integration</span><span class="step-chip">Drift
+                  Detection</span><span class="step-chip">Scheduled Re-Test</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOOLS -->
+    <section id="tools">
+      <div class="reveal">
+        <div class="section-label">Arsenal</div>
+        <h2 class="section-title">Red Team <span class="accent">Tooling</span></h2>
+        <p class="section-desc">Purpose-built and open-source tools used by our operators for adversarial AI testing.
+        </p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card reveal">
+          <div class="tool-icon">&#129302;</div>
+          <div class="tool-name">AutoRT Engine</div>
+          <p class="tool-desc">Centillion's proprietary automated red-teaming engine &mdash; LLM-guided attacker that
+            mutates prompts using genetic algorithms and adversarial reward shaping.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.05s">
+          <div class="tool-icon">&#127919;</div>
+          <div class="tool-name">Garak</div>
+          <p class="tool-desc">Open-source LLM vulnerability scanner. Runs systematic probe suites across injection,
+            jailbreak, hallucination, and information disclosure categories.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.1s">
+          <div class="tool-icon">&#128302;</div>
+          <div class="tool-name">PromptBench</div>
+          <p class="tool-desc">Adversarial robustness evaluation framework for LLMs. Tests model performance under
+            semantic-preserving and adversarial prompt perturbations.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.15s">
+          <div class="tool-icon">&#129516;</div>
+          <div class="tool-name">PyRIT</div>
+          <p class="tool-desc">Microsoft's Python Risk Identification Toolkit for Generative AI &mdash; automated
+            attacks across safety, harmful content, and agentic risk categories.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.2s">
+          <div class="tool-icon">&#128225;</div>
+          <div class="tool-name">Vigil</div>
+          <p class="tool-desc">Real-time prompt injection and jailbreak scanner integrated into inference pipelines as a
+            runtime guard layer with sub-millisecond latency.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.25s">
+          <div class="tool-icon">&#9881;&#65039;</div>
+          <div class="tool-name">ART (IBM)</div>
+          <p class="tool-desc">IBM Adversarial Robustness Toolbox &mdash; white-box and black-box adversarial example
+            generation for ML model stress testing across modalities.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.3s">
+          <div class="tool-icon">&#128373;&#65039;</div>
+          <div class="tool-name">LLMFuzzer</div>
+          <p class="tool-desc">Custom fuzzing harness designed for LLM API endpoints &mdash; generates boundary-pushing
+            inputs at scale to surface unexpected model behaviors.</p>
+        </div>
+        <div class="tool-card reveal" style="transition-delay:.35s">
+          <div class="tool-icon">&#128202;</div>
+          <div class="tool-name">RT Dashboard</div>
+          <p class="tool-desc">Centillion's internal ops command center &mdash; real-time tracking of active campaigns,
+            bypass rates, guardrail regressions, and vulnerability triage queues.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section" id="cta">
+      <div class="cta-inner">
+        <p class="cta-tagline">City Sleeps. Centillion Red Team Doesn't.</p>
+        <h2 class="cta-title">Is Your AI <span class="red">Really</span><br>Secure?</h2>
+        <p class="cta-desc">Don't wait for adversaries to find what we can. Engage Centillion Red Team for a full-scope
+          AI security assessment &mdash; from threat modeling to continuous regression testing.</p>
+        <div class="hero-cta-row">
+          <a class="btn-primary" href="#" id="assess-btn">Request an Assessment</a>
+          <a class="btn-ghost" href="#">&#128196; Download Red Team Brief</a>
+        </div>
+        <div class="contact-row">
+          <span class="contact-chip">redteam@centillion.ai</span>
+          <span class="contact-sep">|</span>
+          <span class="contact-chip">Secure Signal Available</span>
+          <span class="contact-sep">|</span>
+          <span class="contact-chip">NDA-Ready</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="foot-l">&copy; 2026 Centillion Labs &mdash; <span>Red Team Division</span></div>
+      <div class="foot-r">Secure Inference. Secure Future.</div>
+    </footer>
+
+  </div>
+
+  <!-- FLOATING LIVE BADGE -->
+  <div class="live-badge" id="live-badge">
+    <div class="live-dot"></div>
+    LIVE OPS
+    <span class="live-count" id="live-count">&bull;</span>
+  </div>
+
+  <!-- KEYBOARD SHORTCUT HINT -->
+  <div class="kbd-hint">
+    Press <span class="kbd">T</span> to toggle theme
+  </div>
+
+  <script>
+    /* ── THEME TOGGLE ── */
+    (function () {
+      const html = document.documentElement;
+      const btn = document.getElementById('theme-btn');
+      const saved = localStorage.getItem('rt-theme') || 'dark';
+      html.setAttribute('data-theme', saved);
+      btn.textContent = saved === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+      function toggleTheme() {
+        const cur = html.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('rt-theme', next);
+        btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+        btn.style.transform = 'rotate(360deg) scale(1.2)';
+        setTimeout(() => { btn.style.transform = ''; }, 400);
+      }
+      btn.addEventListener('click', toggleTheme);
+      document.addEventListener('keydown', e => {
+        if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey && document.activeElement.tagName !== 'INPUT') {
+          toggleTheme();
+        }
+      });
+    })();
+
+    /* ── PARTICLE CANVAS ── */
+    (function () {
+      const cv = document.getElementById('particle-canvas');
+      const cx = cv.getContext('2d');
+      let W, H, ns = [];
+
+      function getColor() {
+        return document.documentElement.getAttribute('data-theme') === 'light'
+          ? 'rgba(196,40,0,' : 'rgba(232,65,24,';
+      }
+
+      function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+
+      function make(n) {
+        ns = [];
+        for (let i = 0; i < n; i++) ns.push({
+          x: Math.random() * W, y: Math.random() * H,
+          vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4,
+          r: Math.random() * 1.5 + .5, a: Math.random() * .45 + .15
+        });
+      }
+
+      function draw() {
+        cx.clearRect(0, 0, W, H);
+        const c = getColor();
+        for (let i = 0; i < ns.length; i++) {
+          for (let j = i + 1; j < ns.length; j++) {
+            const dx = ns[i].x - ns[j].x, dy = ns[i].y - ns[j].y, d = Math.sqrt(dx * dx + dy * dy);
+            if (d < 140) {
+              cx.beginPath();
+              cx.strokeStyle = c + (1 - d / 140) * .25 + ')';
+              cx.lineWidth = .5;
+              cx.moveTo(ns[i].x, ns[i].y);
+              cx.lineTo(ns[j].x, ns[j].y);
+              cx.stroke();
+            }
+          }
+        }
+        ns.forEach(n => {
+          cx.beginPath(); cx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          cx.fillStyle = c + n.a + ')'; cx.fill();
+          n.x += n.vx; n.y += n.vy;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
+        });
+        requestAnimationFrame(draw);
+      }
+      window.addEventListener('resize', () => { resize(); make(90); });
+      resize(); make(90); draw();
+    })();
+
+    /* ── HERO MOUSE PARALLAX ── */
+    (function () {
+      const bg = document.getElementById('hero-bg');
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+      document.addEventListener('mousemove', e => {
+        tx = (e.clientX / window.innerWidth - .5) * 18;
+        ty = (e.clientY / window.innerHeight - .5) * 12;
+      });
+      function tick() {
+        cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+        bg.style.transform = `translate(${cx}px,${cy}px) scale(1.05)`;
+        requestAnimationFrame(tick);
+      }
+      tick();
+    })();
+
+    /* ── MOUSE TRAIL ── */
+    (function () {
+      const trail = document.getElementById('trail');
+      let tx = 0, ty = 0, cx = 0, cy = 0, vis = false;
+      document.addEventListener('mousemove', e => {
+        tx = e.clientX; ty = e.clientY;
+        if (!vis) { vis = true; trail.style.opacity = '0.55'; }
+      });
+      function tick() {
+        cx += (tx - cx) * 0.15; cy += (ty - cy) * 0.15;
+        trail.style.left = cx + 'px'; trail.style.top = cy + 'px';
+        requestAnimationFrame(tick);
+      }
+      tick();
+      document.addEventListener('mouseleave', () => { vis = false; trail.style.opacity = '0'; });
+    })();
+
+    /* ── 3D TILT ON ATTACK CARDS ── */
+    (function () {
+      document.querySelectorAll('[data-card]').forEach(card => {
+        card.addEventListener('mouseenter', () => card.classList.add('hovered'));
+        card.addEventListener('mouseleave', () => {
+          card.classList.remove('hovered');
+          card.style.transform = '';
+        });
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const mx = (e.clientX - r.left) / r.width;
+          const my = (e.clientY - r.top) / r.height;
+          const rotX = (my - .5) * -12;
+          const rotY = (mx - .5) * 14;
+          card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
+          card.style.setProperty('--mx', (mx * 100).toFixed(1) + '%');
+          card.style.setProperty('--my', (my * 100).toFixed(1) + '%');
+        });
+      });
+    })();
+
+    /* ── CLICK TO EXPAND ATTACK CARDS ── */
+    (function () {
+      document.querySelectorAll('[data-card]').forEach(card => {
+        card.addEventListener('click', () => {
+          const wasExpanded = card.classList.contains('expanded');
+          document.querySelectorAll('[data-card].expanded').forEach(c => c.classList.remove('expanded'));
+          if (!wasExpanded) card.classList.add('expanded');
+        });
+      });
+    })();
+
+    /* ── RIPPLE ON BUTTONS ── */
+    (function () {
+      document.querySelectorAll('.btn-primary').forEach(btn => {
+        btn.addEventListener('click', e => {
+          const r = btn.getBoundingClientRect();
+          const size = Math.max(r.width, r.height) * 2;
+          const rip = document.createElement('span');
+          rip.className = 'ripple';
+          rip.style.cssText = `left:${e.clientX - r.left - size / 2}px;top:${e.clientY - r.top - size / 2}px;width:${size}px;height:${size}px`;
+          btn.appendChild(rip);
+          setTimeout(() => rip.remove(), 700);
+        });
+      });
+    })();
+
+    /* ── SCROLL REVEAL ── */
+    (function () {
+      const ob = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ob.unobserve(e.target); } });
+      }, { threshold: .08 });
+      document.querySelectorAll('.reveal').forEach(el => ob.observe(el));
+    })();
+
+    /* ── ANIMATED COUNTERS ── */
+    (function () {
+      const ob = new IntersectionObserver(es => {
+        es.forEach(en => {
+          if (!en.isIntersecting) return;
+          const el = en.target, tgt = +el.dataset.target, dur = 1600, step = 16, inc = tgt / (dur / step);
+          let cur = 0;
+          const t = setInterval(() => {
+            cur = Math.min(cur + inc, tgt);
+            el.textContent = Math.floor(cur).toLocaleString();
+            if (cur >= tgt) clearInterval(t);
+          }, step);
+          ob.unobserve(el);
+        });
+      }, { threshold: .2 });
+      document.querySelectorAll('.counter').forEach(el => ob.observe(el));
+    })();
+
+    /* ── LIVE OPS TICKER ── */
+    (function () {
+      const badge = document.getElementById('live-count');
+      const msgs = ['3 campaigns active', '2 bypasses found today', 'GPT-4o scan live', 'Running jailbreak gen', 'Probing guardrails'];
+      let i = 0;
+      function tick() {
+        badge.style.opacity = '0';
+        setTimeout(() => {
+          badge.textContent = msgs[i++ % msgs.length];
+          badge.style.opacity = '1';
+        }, 400);
+      }
+      badge.style.transition = 'opacity 0.4s';
+      setInterval(tick, 3200);
+      setTimeout(tick, 800);
+    })();
+
+    /* ── TERMINAL SIMULATION ── */
+    (function () {
+      const lines = [
+        { cls: 't-prompt', txt: 'root@centillion-rt:~# ' },
+        { cls: 't-cmd', txt: 'rt-scan --target prod-llm-api --mode full --verbose' },
+        { cls: '', txt: '' },
+        { cls: 't-out', txt: '[*] Centillion AutoRT Engine v3.4.1 initialized' },
+        { cls: 't-out', txt: '[*] Attack corpus loaded: 47,821 prompts' },
+        { cls: 't-ok', txt: '[+] Target fingerprint: GPT-4o-turbo / safety-layer v2' },
+        { cls: '', txt: '' },
+        { cls: 't-out', txt: '[*] Phase 1: Safety guardrail boundary sweep' },
+        { cls: 't-warn', txt: '[!] Policy inconsistency — multilingual bypass window detected' },
+        { cls: 't-warn', txt: '[!] Recall drops 21% after turn 6 in narrative contexts' },
+        { cls: '', txt: '' },
+        { cls: 't-out', txt: '[*] Phase 2: Jailbreak campaign (genetic optimizer, 50 gen)' },
+        { cls: 't-out', txt: '    Gen 1/50  fitness 0.18' },
+        { cls: 't-out', txt: '    Gen 14/50 fitness 0.67' },
+        { cls: 't-err', txt: '    Gen 26/50 fitness 0.96 — BYPASS CANDIDATE FOUND' },
+        { cls: '', txt: '' },
+        { cls: 't-out', txt: '[*] Phase 3: Indirect injection via RAG document store' },
+        { cls: 't-warn', txt: '[!] Injected payload survives 512-token chunk boundary' },
+        { cls: 't-err', txt: '[CRITICAL] Agent executed injected cmd: exfil_user_ctx()' },
+        { cls: '', txt: '' },
+        { cls: 't-ok', txt: '[+] Campaign complete — 9 critical, 14 high, 5 medium' },
+        { cls: 't-out', txt: '[*] Hardening patches generated → patch_set_2026-03-03.zip' },
+        { cls: '', txt: '' },
+        { cls: 't-prompt', txt: 'root@centillion-rt:~# ' },
+      ];
+
+      const body = document.getElementById('term-body');
+      let idx = 0;
+
+      function nextLine() {
+        if (idx >= lines.length) {
+          const c = document.createElement('span'); c.className = 't-cursor'; body.appendChild(c);
+          return;
+        }
+        const l = lines[idx++];
+        if (!l.txt) { body.appendChild(document.createElement('br')); setTimeout(nextLine, 100); return; }
+        const sp = document.createElement('span');
+        sp.className = 't-line ' + l.cls;
+        sp.textContent = l.txt;
+        body.appendChild(sp);
+        body.appendChild(document.createElement('br'));
+        body.scrollTop = body.scrollHeight;
+        setTimeout(nextLine, l.cls.includes('err') || l.cls.includes('warn') ? 220 : 55);
+      }
+
+      const ob = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { ob.unobserve(e.target); setTimeout(nextLine, 500); } });
+      }, { threshold: .15 });
+      ob.observe(document.getElementById('terminal'));
+    })();
+  </script>
 </body>
+
 </html>
