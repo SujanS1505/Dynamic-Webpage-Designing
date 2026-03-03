@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Bot, Database, Cloud, Server, Cpu, GitBranch, ShieldCheck, BarChart3, ShieldAlert } from 'lucide-react';
-import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag, ProgressBar, Wrap } from './PageLayout';
+import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag, ProgressBar } from './PageLayout';
 
 const CAPS = [
   { icon: ShieldAlert, color: '#e84118', title: 'AI Red Teaming', sub: 'Adversarial AI Security', desc: 'Centillion Red Team works around the clock — adversarially testing LLMs, probing inference pipelines, and hardening AI systems before threats do. Secure Inference. Secure Future.', tags: ['LLM Adversarial Testing', 'Inference Security', 'Prompt Injection', 'Jailbreak Analysis', 'AI Threat Modelling'] },
@@ -26,7 +26,7 @@ const BARS = [
 
 
 const stagger = { visible: { transition: { staggerChildren: 0.06 } } };
-const item = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const item: any = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
 
 export const WhoWeArePage: React.FC = () => (
   <PageLayout>

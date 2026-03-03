@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Code2, Database, Cloud, Server, TrendingUp, DollarSign, ChevronDown, ArrowRight } from 'lucide-react';
-import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag, Wrap } from './PageLayout';
+import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag } from './PageLayout';
 
 const SVCS = [
   {

@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowUp } from 'lucide-react';
 import { Header } from '../components/layout/Header';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface PageLayoutProps { children: React.ReactNode; }
 

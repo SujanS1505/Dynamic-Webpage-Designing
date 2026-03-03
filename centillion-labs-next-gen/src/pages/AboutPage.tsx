@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, Zap, Globe2, ShieldCheck, Eye, Heart } from 'lucide-react';
-import { PageLayout, PageHero, FadeIn, Sec, SectionHead, StatCard, Tag, Wrap } from './PageLayout';
+import { PageLayout, PageHero, FadeIn, Sec, SectionHead, StatCard } from './PageLayout';
 
 const VALUES = [
   { icon: ShieldCheck, title: 'Responsible AI', desc: 'We value and encapsulate ResponsibleAI and EthicalAI. Our mission is to create AI applications that enhance user experiences without displacing them.' },
@@ -29,7 +29,7 @@ const CLIENTS = [
 ];
 
 const stagger = { visible: { transition: { staggerChildren: 0.07 } } };
-const item = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const item: any = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
 
 export const AboutPage: React.FC = () => (
   <PageLayout>

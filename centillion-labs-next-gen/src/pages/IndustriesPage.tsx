@@ -41,7 +41,7 @@ const INDUSTRIES = [
 ];
 
 const container = { visible: { transition: { staggerChildren: 0.09 } } };
-const item = { hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
+const item: any = { hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } } };
 
 export const IndustriesPage: React.FC = () => (
   <PageLayout>

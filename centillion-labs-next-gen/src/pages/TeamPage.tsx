@@ -33,7 +33,7 @@ const STATS = [
 ];
 
 const container = { visible: { transition: { staggerChildren: 0.08 } } };
-const item = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
+const item: any = { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } } };
 
 export const TeamPage: React.FC = () => (
   <PageLayout>
