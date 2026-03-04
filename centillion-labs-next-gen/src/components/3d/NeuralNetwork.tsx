@@ -155,10 +155,9 @@ export const NeuralNetwork: React.FC = () => {
                 const gx = localIdx % gridSize;
                 const gy = Math.floor(localIdx / gridSize);
 
-                // Add organic random jitter to remove rigidity, keeping it feeling like a web
-                const jx = (Math.random() - 0.5) * 1.5;
-                const jy = (Math.random() - 0.5) * 1.5;
-                const depthJitter = (Math.random() - 0.5) * 0.3; // Very slight volumetric depth
+                // Small jitter keeps it looking organic but stays within face bounds
+                const jx = (Math.random() - 0.5) * 0.6;
+                const jy = (Math.random() - 0.5) * 0.6;
 
                 // Map to [-s/2, s/2] and clamp so corners are accurately represented
                 const pxRaw = (gridSize > 1) ? ((gx + jx) / (gridSize - 1)) * s - (s / 2) : 0;
@@ -166,7 +165,7 @@ export const NeuralNetwork: React.FC = () => {
 
                 const px = Math.max(-s / 2, Math.min(s / 2, pxRaw));
                 const py = Math.max(-s / 2, Math.min(s / 2, pyRaw));
-                const pz = (s / 2) + depthJitter;
+                const pz = s / 2; // Exactly on the face plane — no depth offset
 
                 // Position on the corresponding face
                 switch (faceIndex) {
