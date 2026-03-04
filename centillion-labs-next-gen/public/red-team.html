@@ -1683,6 +1683,34 @@
       cursor: crosshair;
       max-width: 100%;
     }
+    /* ── ROAMING NINJA PET ── */
+    #roaming-ninja {
+      position: fixed; z-index: 9999;
+      width: 80px; height: 90px;
+      pointer-events: none; user-select: none;
+      transition-property: top, left, transform;
+      transition-timing-function: linear;
+      filter: drop-shadow(0 4px 10px rgba(230, 0, 0, 0.5));
+    }
+    .ninja-body { position: absolute; width: 32px; height: 40px; background: #e02424; top: 35px; left: 24px; border-radius: 8px; }
+    .ninja-head { position: absolute; width: 44px; height: 44px; background: #111; top: -20px; left: -6px; border-radius: 50%; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.5); }
+    .ninja-band { position: absolute; width: 44px; height: 16px; background: #e02424; top: 12px; left: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+    .ninja-eye-slit { position: absolute; width: 34px; height: 10px; background: #ffe4e1; top: 15px; left: 8px; border-radius: 2px; }
+    .ninja-pupil { position: absolute; width: 5px; height: 5px; background: #000; top: 2px; border-radius: 50%; }
+    .ninja-pupil.left { left: 16px; }
+    .ninja-pupil.right { right: 4px; }
+    .ninja-arm, .ninja-leg { position: absolute; width: 12px; border-radius: 6px; transform-origin: top center; }
+    .ninja-arm.front { height: 35px; top: 5px; left: 12px; z-index: 2; background: #ff4d4d; animation: run-arm-f 0.4s infinite linear; }
+    .ninja-arm.back { height: 35px; top: 5px; left: 10px; z-index: -1; background: #b01010; animation: run-arm-b 0.4s infinite linear; }
+    .ninja-leg.front { height: 40px; top: 35px; left: 12px; z-index: -1; background: #ff4d4d; animation: run-leg-f 0.4s infinite linear; }
+    .ninja-leg.back { height: 40px; top: 35px; left: 8px; z-index: -2; background: #b01010; animation: run-leg-b 0.4s infinite linear; }
+    .ninja-tails { position: absolute; width: 25px; height: 8px; background: #e02424; top: 14px; left: -18px; border-radius: 4px; transform-origin: right center; animation: run-tails 0.4s infinite linear; }
+
+    @keyframes run-arm-f { 0% {transform: rotate(45deg)} 50% {transform: rotate(-45deg)} 100% {transform: rotate(45deg)} }
+    @keyframes run-arm-b { 0% {transform: rotate(-45deg)} 50% {transform: rotate(45deg)} 100% {transform: rotate(-45deg)} }
+    @keyframes run-leg-f { 0% {transform: rotate(-55deg)} 50% {transform: rotate(55deg)} 100% {transform: rotate(-55deg)} }
+    @keyframes run-leg-b { 0% {transform: rotate(55deg)} 50% {transform: rotate(-55deg)} 100% {transform: rotate(55deg)} }
+    @keyframes run-tails { 0% {transform: rotate(10deg)} 50% {transform: rotate(-10deg)} 100% {transform: rotate(10deg)} }
   </style>
 </head>
 
@@ -2650,57 +2678,79 @@
       `;
       document.body.appendChild(ninja);
 
-      let currentX = window.innerWidth / 2;
-      let currentY = window.innerHeight / 2;
-      let facingRight = true; 
+      // Top, Right, Bottom, Left
+      let state = 0; 
 
+      const NW = 80;
+      const NH = 90;
+
+      // Start Top-Left
+      let currentX = 5;
+      let currentY = 0; 
+      
       ninja.style.left = currentX + 'px';
       ninja.style.top = currentY + 'px';
-      ninja.style.transform = 'scaleX(1)';
+      // Upside down, facing right
+      ninja.style.transform = 'rotate(180deg) scaleX(-1)';
 
-      // Ninja moves at roughly 250px per second
-      const speed = 250;
+      const speed = 250; // pixels per sec
 
-      function moveNinja() {
+      function moveNinjaLoop() {
         const w = window.innerWidth;
         const h = window.innerHeight;
         
-        let targetX = 40 + Math.random() * (w - 80);
-        let targetY = 40 + Math.random() * (h - 100);
+        let targetX = currentX;
+        let targetY = currentY;
+        let nextTransform = '';
 
-        // 30% chance to stick to the bottom of the screen to mimic walking on the floor
-        if (Math.random() < 0.3) {
+        if (state === 0) {
+            // Running across the TOP edge (Left to Right)
+            // top=0 puts feet on the top edge when rotated 180
+            targetX = w - 85;
+            targetY = 0;
+            nextTransform = 'rotate(180deg) scaleX(-1)';
+            state = 1;
+        } else if (state === 1) {
+            // Running down the RIGHT edge (Top to Bottom)
+            // left=w-85 puts feet on the right edge when rotated -90
+            targetX = w - 85; 
+            targetY = h - 90;
+            nextTransform = 'rotate(-90deg) scaleX(1)';
+            state = 2;
+        } else if (state === 2) {
+            // Running across the BOTTOM edge (Right to Left)
+            // top=h-90 puts feet on the bottom edge when rotated 0
+            targetX = 5;
             targetY = h - 90; 
+            nextTransform = 'rotate(0deg) scaleX(-1)';
+            state = 3;
+        } else if (state === 3) {
+            // Running up the LEFT edge (Bottom to Top)
+            // left=5 puts feet on the left edge when rotated +90
+            targetX = 5; 
+            targetY = 0;
+            nextTransform = 'rotate(90deg) scaleX(1)';
+            state = 0;
         }
 
         const dist = Math.hypot(targetX - currentX, targetY - currentY);
         let timeToTravel = (dist / speed); 
-        
-        // Give minimum travel time to avoid 0s transition blink
         if (timeToTravel < 0.5) timeToTravel = 0.5;
 
-        // Update transition duration so speed is roughly constant
         ninja.style.transitionDuration = `${timeToTravel}s, ${timeToTravel}s, 0.2s`;
-
-        if (targetX > currentX && !facingRight) {
-          facingRight = true;
-          ninja.style.transform = 'scaleX(1)';
-        } else if (targetX < currentX && facingRight) {
-          facingRight = false;
-          ninja.style.transform = 'scaleX(-1)';
-        }
+        ninja.style.transform = nextTransform;
         
         currentX = targetX;
         currentY = targetY;
-
         ninja.style.left = currentX + 'px';
         ninja.style.top = currentY + 'px';
 
-        // Wait for travel to finish, plus a slight random pause before moving again
-        setTimeout(moveNinja, (timeToTravel * 1000) + (Math.random() * 1500));
+        // Pause for 0.5 second at each corner before continuing the loop
+        setTimeout(moveNinjaLoop, (timeToTravel * 1000) + 500);
       }
 
-      setTimeout(moveNinja, 500);
+      // Initial jump to start the loop
+      setTimeout(moveNinjaLoop, 1000);
     })();
   </script>
 </body>
