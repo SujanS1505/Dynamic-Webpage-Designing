@@ -82,48 +82,6 @@ export const NeuralNetwork: React.FC = () => {
             }, 100);
         };
 
-        const handleClick = (e: MouseEvent) => {
-            const mouse = new THREE.Vector2(
-                (e.clientX / window.innerWidth) * 2 - 1,
-                -(e.clientY / window.innerHeight) * 2 + 1
-            );
-
-            const raycaster = new THREE.Raycaster();
-            raycaster.setFromCamera(mouse, camera);
-
-            // Create a plane at Z=0 to intersect with
-            const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
-            const intersectPoint = new THREE.Vector3();
-            raycaster.ray.intersectPlane(plane, intersectPoint);
-
-            if (intersectPoint && groupRef.current) {
-                // Apply explosive radial velocity from click point
-                const curPos = currentPositions.current;
-                // Convert intersection to local group space
-                groupRef.current.worldToLocal(intersectPoint);
-
-                for (let i = 0; i < particleCount; i++) {
-                    const px = curPos[i * 3];
-                    const py = curPos[i * 3 + 1];
-                    const pz = curPos[i * 3 + 2];
-
-                    const dx = px - intersectPoint.x;
-                    const dy = py - intersectPoint.y;
-                    const dz = pz - intersectPoint.z;
-
-                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-                    const maxDist = 8;
-
-                    if (dist < maxDist) {
-                        const force = (1 - dist / maxDist) * 2.5; // Explosion strength
-                        velocities.current[i * 3] += (dx / dist) * force;
-                        velocities.current[i * 3 + 1] += (dy / dist) * force;
-                        velocities.current[i * 3 + 2] += (dz / dist) * force;
-                    }
-                }
-            }
-        };
-
         const handleScroll = () => {
             const total = document.body.scrollHeight - window.innerHeight;
             const frac = total > 0 ? window.scrollY / total : 0;
@@ -132,11 +90,9 @@ export const NeuralNetwork: React.FC = () => {
         };
 
         window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('click', handleClick);
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('click', handleClick);
             window.removeEventListener('scroll', handleScroll);
         };
     }, [camera]);
