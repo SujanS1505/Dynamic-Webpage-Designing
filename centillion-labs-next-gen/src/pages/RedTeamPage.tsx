@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getLenis } from '../lenisStore';
 
+type NinjaMode = 'patrol' | 'stealth' | 'rage';
+
 interface Props { onClose: () => void }
 
 // ─── Scoped CSS injected into <head> while overlay is mounted ───
@@ -55,7 +57,7 @@ const RT_CSS = `
 #rt-scanlines { position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: repeating-linear-gradient(0deg, transparent, transparent 3px, var(--scanline-color) 3px, var(--scanline-color) 4px); }
 #rt-site { position: relative; z-index: 2; }
-#rt-page nav { position: sticky; top: 0; z-index: 999; height: 54px;
+#rt-page nav { position: sticky; top: 0; z-index: 10002; height: 54px;
   backdrop-filter: blur(20px); background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border);
   display: flex; align-items: center; justify-content: space-between;
@@ -73,6 +75,50 @@ const RT_CSS = `
   letter-spacing: .12em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color .2s; }
 .rt-nav-links a:hover { color: var(--red); }
 .rt-nav-r { display: flex; align-items: center; gap: .6rem; }
+.rt-ninja-widget { position: relative; display: flex; align-items: center; }
+.rt-ninja-btn {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(232,65,24,0.1); border: 1px solid rgba(232,65,24,0.3);
+  color: var(--red); cursor: pointer; font-size: .9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s; flex-shrink: 0;
+}
+.rt-ninja-btn[aria-expanded="true"], .rt-ninja-btn:hover {
+  background: rgba(232,65,24,0.18); box-shadow: 0 0 14px rgba(232,65,24,0.35);
+}
+.rt-ninja-panel {
+  position: absolute; right: 0; top: 42px; width: 260px;
+  background: rgba(0,0,0,0.72); backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(232,65,24,0.45); border-radius: 10px;
+  padding: .75rem .8rem; box-shadow: 0 0 24px rgba(232,65,24,0.18);
+}
+.rt-ninja-panel h4 {
+  margin: 0 0 .55rem; font-family: var(--cond);
+  font-size: .85rem; font-weight: 800; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--sub);
+}
+.rt-ninja-row { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin: .45rem 0; }
+.rt-ninja-row label { font-family: var(--mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.rt-ninja-row input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--red); }
+.rt-ninja-row input[type="range"] { width: 120px; }
+.rt-ninja-row select {
+  width: 130px; background: rgba(232,65,24,.08);
+  border: 1px solid rgba(232,65,24,.35); border-radius: 6px;
+  color: var(--sub); padding: .25rem .35rem;
+  font-family: var(--mono); font-size: .62rem; letter-spacing: .08em;
+  outline: none;
+}
+.rt-ninja-hint {
+  margin-top: .6rem; padding-top: .6rem; border-top: 1px solid rgba(232,65,24,.25);
+  font-family: var(--mono); font-size: .58rem; color: var(--muted);
+  letter-spacing: .08em; line-height: 1.4;
+}
+.rt-ninja-mini {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .05rem .35rem; border-radius: 4px;
+  border: 1px solid rgba(232,65,24,.3); background: rgba(232,65,24,.08);
+  color: var(--red); font-weight: 800;
+}
 .rt-theme-btn { width: 32px; height: 32px; border-radius: 50%;
   background: rgba(232,65,24,0.1); border: 1px solid rgba(232,65,24,0.3);
   color: var(--red); cursor: pointer; font-size: .9rem;
@@ -338,173 +384,204 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
   text-transform: uppercase; display: flex; align-items: center; gap: .4rem;
   opacity: .6; transition: opacity 0.2s; pointer-events: none; }
 .rt-kbd { background: rgba(232,65,24,.1); border: 1px solid rgba(232,65,24,.2); border-radius: 3px; padding: .1rem .4rem; color: var(--red); font-weight: 700; }
-/* ═══════════════════════ ELITE CYBER NINJA ═══════════════════════ */
+/* ═══════════════════════ FLAT CYBER NINJA ════════════════════════════ */
 #rt-roaming-ninja {
-  position: absolute; z-index: 10000; width: 90px; height: 110px;
+  position: absolute; z-index: 10000;
   cursor: grab; user-select: none; -webkit-user-drag: none; touch-action: none;
   transition-property: top, left, transform; transition-timing-function: linear;
+  filter: drop-shadow(0 10px 22px rgba(232,65,24,0.30)) drop-shadow(0 0 20px rgba(232,65,24,0.14));
 }
 #rt-roaming-ninja.dragging { cursor: grabbing; transition: none !important; }
-/* Aura glow */
+#rt-roaming-ninja.off { opacity: 0; pointer-events: none; }
+#rt-roaming-ninja.ui-open { pointer-events: none; }
+
+/* Ground aura glow */
 .rt-n-aura {
-  position: absolute; width: 110px; height: 110px; top: 0; left: -10px;
-  border-radius: 50%; background: radial-gradient(ellipse at center, rgba(232,65,24,.35) 0%, transparent 70%);
-  animation: rt-aura-pulse 2s ease-in-out infinite;
+  position: absolute; left: 10%; right: 10%; bottom: -10px; height: 20px;
+  background: radial-gradient(ellipse at center, rgba(232,65,24,.40) 0%, transparent 70%);
+  filter: blur(5px); opacity: .7;
+  animation: rt-aura-beat 1.8s ease-in-out infinite;
+  pointer-events: none;
 }
-#rt-roaming-ninja.rage .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(255,40,0,.7) 0%, rgba(255,100,0,.3) 40%, transparent 70%);
-  animation: rt-aura-pulse .6s ease-in-out infinite;
-}
+@keyframes rt-aura-beat { 0%,100%{transform:scaleX(1);opacity:.65} 50%{transform:scaleX(1.18);opacity:1} }
+#rt-roaming-ninja.rage .rt-n-aura { background: radial-gradient(ellipse at center, rgba(255,80,0,.65) 0%, transparent 70%); animation-duration: .6s; }
 #rt-roaming-ninja.stealth .rt-n-aura { opacity: 0; }
-@keyframes rt-aura-pulse { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.18);opacity:1} }
-/* Shadow */
-.rt-n-shadow {
-  position: absolute; width: 60px; height: 10px; bottom: 0; left: 15px;
-  background: rgba(0,0,0,.5); border-radius: 50%; filter: blur(4px);
-  animation: rt-shadow-pulse 2s ease-in-out infinite;
+
+/* Floor shadow */
+.rt-n-flrshadow {
+  position: absolute; left: 18%; right: 18%; bottom: 2px; height: 8px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, transparent 70%);
+  filter: blur(3px); opacity: .5;
+  pointer-events: none;
 }
-@keyframes rt-shadow-pulse { 0%,100%{transform:scaleX(1);opacity:.5} 50%{transform:scaleX(.8);opacity:.3} }
-/* Speed trail */
-.rt-n-speed-trail {
-  position: absolute; inset: 0; border-radius: 8px;
-  background: linear-gradient(90deg, rgba(232,65,24,.4), transparent);
-  opacity: 0; transition: opacity .1s;
-}
-/* Torso / armor */
-.rt-n-torso {
-  position: absolute; width: 34px; height: 42px; background: #0f0f14;
-  top: 42px; left: 28px; border-radius: 6px 6px 4px 4px;
-  box-shadow: inset 0 0 0 1.5px rgba(232,65,24,.4), 0 2px 8px rgba(0,0,0,.6);
-}
-.rt-n-torso::before {
-  content: ''; position: absolute; width: 2px; height: 30px; background: rgba(232,65,24,.7);
-  top: 6px; left: 16px; animation: rt-circuit-pulse 1.5s steps(4,end) infinite;
-}
-.rt-n-torso::after {
-  content: ''; position: absolute; width: 20px; height: 1px; background: rgba(232,65,24,.5);
-  top: 14px; left: 7px; box-shadow: 0 8px 0 rgba(232,65,24,.4);
-}
-@keyframes rt-circuit-pulse {
-  0%,100%{opacity:1;box-shadow:0 0 4px rgba(232,65,24,.8)}
-  50%{opacity:.4;box-shadow:0 0 1px rgba(232,65,24,.2)}
-}
-/* Collar */
-.rt-n-collar {
-  position: absolute; width: 40px; height: 10px; background: #1a1a24;
-  top: 38px; left: 25px; border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(232,65,24,.3), 0 2px 6px rgba(0,0,0,.5);
-}
-/* Head */
+
+/* Sprite container */
+.rt-n-sprite { position: absolute; inset: 0; }
+.rt-n-sprite * { box-sizing: border-box; position: absolute; }
+
+/* ── HEAD: large dark circle ── */
 .rt-n-head {
-  position: absolute; width: 46px; height: 46px; background: #0c0c14;
-  top: 4px; left: 22px; border-radius: 50%;
-  box-shadow: 0 0 10px rgba(232,65,24,.3), inset 0 -3px 0 rgba(0,0,0,.6);
+  width: 58%; height: 43%; left: 21%; top: 1%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 28%, #1e1e2e 0%, #08080f 60%);
+  box-shadow: 0 4px 14px rgba(0,0,0,.65), inset 0 -6px 12px rgba(0,0,0,.45);
+  z-index: 1;
 }
-/* Head band */
-.rt-n-headband {
-  position: absolute; width: 46px; height: 14px; background: #c0392b;
-  top: 16px; left: 0; border-radius: 3px;
-  box-shadow: 0 1px 6px rgba(0,0,0,.5);
+
+/* ── HEADBAND: thick flat red rectangle across lower face ── */
+.rt-n-band {
+  width: 62%; height: 15%; left: 19%; top: 20%;
+  background: linear-gradient(180deg, #c0392b 0%, #8b1515 100%);
+  border-radius: 4px 4px 3px 3px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 12px rgba(192,57,43,.35);
+  z-index: 3;
+  overflow: visible;
 }
-.rt-n-headband::after {
-  content: ''; position: absolute; width: 20px; height: 6px;
-  background: #a93226; right: -14px; top: 4px; border-radius: 0 3px 3px 0;
-  animation: rt-headband-flow .6s ease-in-out infinite alternate;
+/* Band tail sticking right */
+.rt-n-band::after {
+  content: ''; position: absolute;
+  width: 26%; height: 55%; right: -21%; top: 22%;
+  background: linear-gradient(90deg, #a93226, #721010);
+  border-radius: 0 4px 4px 0;
   transform-origin: left center;
+  animation: rt-band-tail .5s ease-in-out infinite alternate;
 }
-@keyframes rt-headband-flow { 0%{transform:rotate(-8deg) scaleX(.95)} 100%{transform:rotate(8deg) scaleX(1.05)} }
-/* Visor eyes */
+@keyframes rt-band-tail { 0%{transform:rotate(-11deg) scaleY(.95)} 100%{transform:rotate(11deg) scaleY(1.05)} }
+
+/* Visor slot inside band */
 .rt-n-visor {
-  position: absolute; width: 36px; height: 12px; background: rgba(0,0,0,.8);
-  top: 18px; left: 5px; border-radius: 3px; overflow: hidden;
-  box-shadow: inset 0 0 6px rgba(0,0,0,.9);
+  position: absolute; left: 10%; top: 16%; width: 78%; height: 65%;
+  background: rgba(0,0,0,.78);
+  border-radius: 3px;
+  overflow: hidden;
 }
 .rt-n-eye {
-  position: absolute; width: 12px; height: 4px; background: #ff2200;
-  top: 4px; border-radius: 2px;
-  animation: rt-eye-glow 1.4s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(255,34,0,.9), 0 0 12px rgba(255,34,0,.5);
+  position: absolute; top: 20%; height: 60%; width: 30%;
+  background: #ff2200;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255,34,0,1), 0 0 22px rgba(255,34,0,.6);
+  animation: rt-eye-pulse 1.3s ease-in-out infinite;
 }
-.rt-n-eye.left { left: 4px; }
-.rt-n-eye.right { right: 4px; animation-delay: .3s; }
-@keyframes rt-eye-glow {
-  0%,100%{opacity:1;box-shadow:0 0 6px rgba(255,34,0,.9),0 0 14px rgba(255,34,0,.5)}
-  50%{opacity:.6;box-shadow:0 0 3px rgba(255,34,0,.5)}
+.rt-n-eye.l { left: 8%; }
+.rt-n-eye.r { right: 8%; animation-delay: .22s; }
+@keyframes rt-eye-pulse { 0%,100%{opacity:1;box-shadow:0 0 10px rgba(255,34,0,1),0 0 22px rgba(255,34,0,.6)} 50%{opacity:.6;box-shadow:0 0 4px rgba(255,34,0,.7)} }
+#rt-roaming-ninja.rage .rt-n-eye { background: #ff8800; box-shadow: 0 0 14px rgba(255,160,0,1), 0 0 26px rgba(255,80,0,.7); animation-duration: .35s; }
+#rt-roaming-ninja.stealth .rt-n-eye { background: #00ffcc; box-shadow: 0 0 10px rgba(0,255,200,1), 0 0 20px rgba(0,255,200,.5); }
+
+/* ── COLLAR ── */
+.rt-n-collar {
+  width: 30%; height: 7%; left: 35%; top: 33%;
+  background: linear-gradient(180deg, #1e1e2e, #10101a);
+  border-radius: 3px;
+  border: 1px solid rgba(232,65,24,.22);
+  z-index: 2;
 }
-#rt-roaming-ninja.rage .rt-n-eye { animation-duration: .4s; background: #ff6600; box-shadow: 0 0 10px #ff6600; }
-/* Scarf */
-.rt-n-scarf {
-  position: absolute; width: 18px; height: 10px; background: #c0392b;
-  top: 30px; left: 24px; border-radius: 0 4px 8px 4px;
-  animation: rt-scarf-flow .5s ease-in-out infinite alternate;
-  transform-origin: top left;
+
+/* ── TORSO: flat dark rectangle with cross grid ── */
+.rt-n-torso {
+  width: 44%; height: 32%; left: 28%; top: 39%;
+  background: #0c0c18;
+  border-radius: 5px;
+  border: 1.5px solid rgba(232,65,24,.28);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.45);
+  z-index: 2;
 }
-@keyframes rt-scarf-flow { 0%{transform:skewX(-6deg) scaleY(.95)} 100%{transform:skewX(6deg) scaleY(1.1)} }
-/* Arms */
+/* Vertical line */
+.rt-n-torso::before {
+  content: ''; position: absolute; width: 2px; height: 68%; left: 50%; top: 16%;
+  transform: translateX(-50%);
+  background: rgba(232,65,24,.6);
+  box-shadow: 0 0 8px rgba(232,65,24,.35);
+  animation: rt-circuit-flicker 1.5s steps(3,end) infinite;
+}
+/* Horizontal line */
+.rt-n-torso::after {
+  content: ''; position: absolute; width: 62%; height: 2px; left: 19%; top: 48%;
+  background: rgba(232,65,24,.5);
+  box-shadow: 0 0 8px rgba(232,65,24,.28);
+  animation: rt-circuit-flicker 1.5s steps(3,end) infinite .4s;
+}
+@keyframes rt-circuit-flicker { 0%,100%{opacity:.75} 50%{opacity:.2} }
+#rt-roaming-ninja.rage .rt-n-torso { border-color: rgba(255,80,0,.55); box-shadow: inset 0 0 0 1px rgba(255,60,0,.4), 0 0 16px rgba(255,50,0,.22); }
+
+/* ── ARMS: blocky rectangles ── */
 .rt-n-arm {
-  position: absolute; width: 11px; height: 36px; background: #0f0f14;
-  border-radius: 5px; transform-origin: top center;
-  box-shadow: inset 0 0 0 1px rgba(232,65,24,.25);
+  width: 13%; height: 25%; top: 43%;
+  background: linear-gradient(180deg, #161622, #0a0a12);
+  border-radius: 5px;
+  transform-origin: top center;
+  border: 1px solid rgba(232,65,24,.2);
+  box-shadow: 0 4px 10px rgba(0,0,0,.55);
 }
+/* Elbow cap */
 .rt-n-arm::after {
-  content: ''; position: absolute; width: 11px; height: 10px; background: #1e1e2e;
-  bottom: 2px; border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(232,65,24,.3);
+  content:''; position:absolute; width: 80%; height: 18%; left: 10%; bottom: 4%;
+  background: rgba(232,65,24,.14); border-radius: 3px;
 }
-.rt-n-arm.front { top: 44px; left: 20px; z-index: 3; animation: rt-arm-f .38s ease-in-out infinite; }
-.rt-n-arm.back  { top: 44px; left: 58px; z-index: 0; animation: rt-arm-b .38s ease-in-out infinite; }
-@keyframes rt-arm-f { 0%,100%{transform:rotate(40deg)} 50%{transform:rotate(-40deg)} }
-@keyframes rt-arm-b { 0%,100%{transform:rotate(-40deg)} 50%{transform:rotate(40deg)} }
-#rt-roaming-ninja.dragging .rt-n-arm.front { animation: none; transform: rotate(155deg); }
-#rt-roaming-ninja.dragging .rt-n-arm.back  { animation: none; transform: rotate(-155deg); }
-/* Legs */
+.rt-n-arm.bk { left: 16%; animation: rt-arm-b .4s ease-in-out infinite; opacity: .82; z-index: 1; }
+.rt-n-arm.ft { left: 71%; animation: rt-arm-f .4s ease-in-out infinite; z-index: 3; }
+@keyframes rt-arm-f { 0%,100%{transform:rotate(36deg)} 50%{transform:rotate(-36deg)} }
+@keyframes rt-arm-b { 0%,100%{transform:rotate(-36deg)} 50%{transform:rotate(36deg)} }
+#rt-roaming-ninja.dragging .rt-n-arm.ft { animation: none; transform: rotate(140deg); }
+#rt-roaming-ninja.dragging .rt-n-arm.bk { animation: none; transform: rotate(-140deg); }
+#rt-roaming-ninja.rage .rt-n-arm { animation-duration: .22s; }
+
+/* ── WEAPON: brown stick held at front arm ── */
+.rt-n-weapon {
+  width: 7%; height: 17%; left: 77%; top: 61%;
+  background: linear-gradient(180deg, #7a3e10, #4a200a);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.5), 0 0 4px rgba(180,80,0,.2);
+  transform: rotate(22deg);
+  transform-origin: top center;
+  animation: rt-weapon-sway .4s ease-in-out infinite;
+  z-index: 4;
+}
+@keyframes rt-weapon-sway { 0%,100%{transform:rotate(18deg)} 50%{transform:rotate(-14deg)} }
+#rt-roaming-ninja.dragging .rt-n-weapon { animation: none; transform: rotate(105deg); }
+
+/* ── LEGS: thick blocky ── */
 .rt-n-leg {
-  position: absolute; width: 12px; height: 38px; background: #0f0f14;
-  border-radius: 5px; transform-origin: top center;
-  box-shadow: inset 0 0 0 1px rgba(232,65,24,.2);
+  width: 15%; height: 26%; top: 68%;
+  background: linear-gradient(180deg, #161622, #0a0a12);
+  border-radius: 5px;
+  transform-origin: top center;
+  border: 1px solid rgba(232,65,24,.18);
+  box-shadow: 0 4px 10px rgba(0,0,0,.5);
 }
+/* Foot */
 .rt-n-leg::after {
-  content: ''; position: absolute; width: 16px; height: 12px; background: #1a1a24;
-  bottom: 0; left: -2px; border-radius: 4px;
-  box-shadow: inset 0 0 0 1px rgba(232,65,24,.25);
+  content:''; position:absolute; width: 135%; height: 27%; left: -17%; bottom: 0;
+  background: #0a0a14; border-radius: 4px;
+  border: 1px solid rgba(232,65,24,.18);
 }
-.rt-n-leg.front { top: 82px; left: 32px; z-index: 2; animation: rt-leg-f .38s ease-in-out infinite; }
-.rt-n-leg.back  { top: 82px; left: 46px; z-index: 0; animation: rt-leg-b .38s ease-in-out infinite; }
-@keyframes rt-leg-f { 0%,100%{transform:rotate(-50deg)} 50%{transform:rotate(50deg)} }
-@keyframes rt-leg-b { 0%,100%{transform:rotate(50deg)} 50%{transform:rotate(-50deg)} }
+.rt-n-leg.bk { left: 28%; animation: rt-leg-b .4s ease-in-out infinite; opacity: .82; z-index: 1; }
+.rt-n-leg.ft { left: 54%; animation: rt-leg-f .4s ease-in-out infinite; z-index: 2; }
+@keyframes rt-leg-f { 0%,100%{transform:rotate(-40deg)} 50%{transform:rotate(40deg)} }
+@keyframes rt-leg-b { 0%,100%{transform:rotate(40deg)} 50%{transform:rotate(-40deg)} }
 #rt-roaming-ninja.dragging .rt-n-leg { animation: none; transform: rotate(0deg); }
-/* Katana */
-.rt-n-katana {
-  position: absolute; top: 26px; left: 58px; z-index: -1;
-  transform: rotate(-30deg); transform-origin: 50% 80%;
+#rt-roaming-ninja.rage .rt-n-leg { animation-duration: .22s; }
+
+/* ── Modes ── */
+#rt-roaming-ninja.stealth { opacity: .2; filter: saturate(0) brightness(.65) drop-shadow(0 0 14px rgba(0,255,204,.18)); }
+#rt-roaming-ninja.rage { filter: drop-shadow(0 0 28px rgba(255,100,0,.28)) drop-shadow(0 12px 22px rgba(232,65,24,0.25)); }
+
+/* ── Spin: on sprite to avoid transform conflict ── */
+.rt-n-sprite.spinning { animation: rt-n-spin .5s ease-in-out; }
+@keyframes rt-n-spin {
+  0%{transform:scale(1) rotate(0deg)} 30%{transform:scale(1.28) rotate(360deg)}
+  60%{transform:scale(1.28) rotate(720deg)} 100%{transform:scale(1) rotate(720deg)}
 }
-.rt-n-katana-blade {
-  width: 5px; height: 55px; background: linear-gradient(to bottom, #c0d8f0, #6090c0, #304060);
-  border-radius: 2px 2px 50% 50%;
-  box-shadow: 0 0 6px rgba(96,144,192,.6), inset 1px 0 0 rgba(255,255,255,.3);
+
+/* ── Replica clones (no pointer-events, same visual) ── */
+.rt-roaming-replica {
+  position: absolute; z-index: 9999; pointer-events: none;
+  transition-property: top,left,transform; transition-timing-function: linear;
+  filter: drop-shadow(0 8px 18px rgba(232,65,24,0.25)) drop-shadow(0 0 16px rgba(232,65,24,0.10));
 }
-.rt-n-katana-guard {
-  width: 14px; height: 5px; background: #c0392b; border-radius: 2px;
-  position: absolute; top: 53px; left: -4px;
-  box-shadow: 0 0 4px rgba(192,57,43,.6);
-}
-.rt-n-katana-handle {
-  width: 6px; height: 18px; background: #2c1810; border-radius: 2px;
-  position: absolute; top: 57px; left: -1px;
-  background: repeating-linear-gradient(45deg, #4a2c1c 0px, #4a2c1c 3px, #2c1810 3px, #2c1810 6px);
-}
-/* Stealth mode */
-#rt-roaming-ninja.stealth { opacity: .28; filter: saturate(0) brightness(.7); }
-#rt-roaming-ninja.stealth .rt-n-eye { background: #00ffcc; box-shadow: 0 0 8px #00ffcc; }
-/* Rage mode */
-#rt-roaming-ninja.rage .rt-n-torso { box-shadow: inset 0 0 0 1.5px rgba(255,80,0,.8), 0 0 12px rgba(255,50,0,.5); }
-#rt-roaming-ninja.rage .rt-n-arm, #rt-roaming-ninja.rage .rt-n-leg { animation-duration: .22s; }
-/* Spin */
-#rt-roaming-ninja.spinning { animation: rt-ninja-spin .55s ease-in-out; }
-@keyframes rt-ninja-spin {
-  0%{transform:scale(1) rotate(0deg)} 30%{transform:scale(1.4) rotate(360deg)}
-  60%{transform:scale(1.4) rotate(720deg)} 100%{transform:scale(1) rotate(720deg)}
-}
+.rt-roaming-replica.off { opacity: 0; }
+.rt-roaming-replica.stealth { opacity: .18; filter: saturate(0) brightness(.6); }
+.rt-roaming-replica.rage { filter: drop-shadow(0 0 22px rgba(255,80,0,.28)); }
 /* Smoke cloud */
 .rt-n-smoke {
   position: fixed; z-index: 10001; width: 70px; height: 70px;
@@ -684,10 +761,17 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const [liveMsg, setLiveMsg]           = useState('');
   const [liveVisible, setLiveVisible]   = useState(true);
-  const [ninjaMode, setNinjaMode]       = useState<'patrol'|'stealth'|'rage'>('patrol');
+  const [ninjaMode, setNinjaMode]       = useState<NinjaMode>('patrol');
   const [ninjaQuote, setNinjaQuote]     = useState('');
   const [ninjaQuotePos, setNinjaQuotePos] = useState({ x: 0, y: 0 });
   const [showNinjaQuote, setShowNinjaQuote] = useState(false);
+  const [ninjaEnabled, setNinjaEnabled] = useState(true);
+  const [ninjaSpeed, setNinjaSpeed]     = useState(1);
+  const [ninjaScale, setNinjaScale]     = useState(1);
+  const [ninjaReplicas, setNinjaReplicas] = useState(1);
+  const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
+  const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
+  const [ninjaWidgetOpen, setNinjaWidgetOpen] = useState(false);
 
   const pageRef            = useRef<HTMLDivElement>(null);
   const canvasRef          = useRef<HTMLCanvasElement>(null);
@@ -696,6 +780,30 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const termBodyRef        = useRef<HTMLDivElement>(null);
   const terminalSectionRef = useRef<HTMLDivElement>(null);
   const ninjaRef           = useRef<HTMLDivElement>(null);
+  const ninjaWidgetRef     = useRef<HTMLDivElement>(null);
+  const replicaRefs        = useRef<(HTMLDivElement | null)[]>([]);
+  const ninjaCfgRef        = useRef({ enabled: true, speed: 1, scale: 1, autopilot: true, follow: false });
+  const ninjaBaseModeRef   = useRef<NinjaMode>('patrol');
+
+  useEffect(() => {
+    ninjaCfgRef.current = { enabled: ninjaEnabled, speed: ninjaSpeed, scale: ninjaScale, autopilot: ninjaAutopilot, follow: ninjaFollowCursor };
+  }, [ninjaEnabled, ninjaSpeed, ninjaScale, ninjaAutopilot, ninjaFollowCursor]);
+
+  useEffect(() => {
+    if (ninjaMode !== 'rage') ninjaBaseModeRef.current = ninjaMode;
+  }, [ninjaMode]);
+
+  useEffect(() => {
+    if (!ninjaWidgetOpen) return;
+    const onDown = (e: Event) => {
+      const el = ninjaWidgetRef.current;
+      if (!el) return;
+      if (e.target instanceof Node && el.contains(e.target)) return;
+      setNinjaWidgetOpen(false);
+    };
+    globalThis.addEventListener('pointerdown', onDown);
+    return () => globalThis.removeEventListener('pointerdown', onDown);
+  }, [ninjaWidgetOpen]);
 
   // ── Inject/remove scoped CSS ──────────────────────────────────────────────
   useEffect(() => {
@@ -856,16 +964,61 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     return () => ob.disconnect();
   }, []);
 
-  // ── Elite Roaming Ninja ───────────────────────────────────────────────────
+  // ── Replica Patrol Loops ─────────────────────────────────────────────────
+  useEffect(() => {
+    const fns: (() => void)[] = [];
+    for (let ri = 1; ri < ninjaReplicas; ri++) {
+      const el = replicaRefs.current[ri - 1];
+      if (!el) continue;
+      let state = ri % 4;
+      let cX = [5, globalThis.innerWidth - 100, globalThis.innerWidth - 100, 5][state];
+      let cY = [0, 0, globalThis.innerHeight - 130, globalThis.innerHeight - 130][state];
+      let mt: ReturnType<typeof setTimeout> | null = null;
+      el.style.left = cX + 'px'; el.style.top = cY + 'px';
+      el.style.transform = ['rotate(90deg) scaleX(1)', 'rotate(180deg) scaleX(-1)', 'rotate(-90deg) scaleX(1)', 'rotate(0deg) scaleX(-1)'][state];
+      const patrol = () => {
+        const cfg = ninjaCfgRef.current;
+        if (!cfg.enabled) return;
+        const w = globalThis.innerWidth, h = globalThis.innerHeight;
+        const sc = Math.max(0.6, Math.min(2.2, cfg.scale ?? 1));
+        const NW = 90 * sc, NH = 120 * sc;
+        let tx = cX, ty = cY, tf = '';
+        if (state === 0) { tx = w-NW-5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
+        else if (state === 1) { tx = w-NW-5; ty = h-NH; tf = 'rotate(-90deg) scaleX(1)'; state = 2; }
+        else if (state === 2) { tx = 5; ty = h-NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
+        else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(1)'; state = 0; }
+        const spd = 220 * Math.max(0.5, Math.min(3, cfg.speed)) * 0.8;
+        const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, 0.5);
+        el.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
+        el.style.transform = tf; cX = tx; cY = ty;
+        el.style.left = cX + 'px'; el.style.top = cY + 'px';
+        mt = setTimeout(patrol, dur * 1000 + 500);
+      };
+      const initT = setTimeout(() => patrol(), 600 + ri * 800);
+      fns.push(() => { if (mt) clearTimeout(mt); clearTimeout(initT); });
+    }
+    return () => fns.forEach(fn => fn());
+  }, [ninjaReplicas, ninjaEnabled]);
+
+  // ── Main Roaming Ninja ─────────────────────────────────────────────────
   useEffect(() => {
     const ninja = ninjaRef.current; if (!ninja) return;
-    const NW=90, NH=110, spd=220;
+    const BASE_W = 90;
+    const BASE_H = 120;
+    const baseSpd = 220;
     let state=0, cX=5, cY=0, dragging=false, dsX=0, dsY=0, nsX=0, nsY=0;
     let mt: ReturnType<typeof setTimeout>|null = null;
     let speedBuf: number[] = [];
     let hasRage = false;
     let lastClick = 0;
     let lastDragX=0, lastDragY=0, lastDragT=0;
+
+    const getNinjaSize = () => {
+      const scale = Math.max(0.6, Math.min(2.2, ninjaCfgRef.current.scale ?? 1));
+      return { w: BASE_W * scale, h: BASE_H * scale };
+    };
+
+    const getSpriteEl = () => ninja.querySelector<HTMLElement>('.rt-n-sprite');
 
     const QUOTES = [
       'GHOST-7 ONLINE','// BYPASSING GUARDS','JAILBREAK INITIATED',
@@ -876,9 +1029,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     ];
 
     const showQuote = (q: string) => {
+      if (!ninjaCfgRef.current.enabled) return;
       const r = ninja.getBoundingClientRect();
       setNinjaQuote(q);
-      setNinjaQuotePos({ x: r.left + NW/2, y: r.top - 10 });
+      setNinjaQuotePos({ x: r.left + r.width/2, y: r.top - 10 });
       setShowNinjaQuote(true);
       setTimeout(() => setShowNinjaQuote(false), 2200);
     };
@@ -892,12 +1046,14 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
 
     const throwShuriken = () => {
+      if (!ninjaCfgRef.current.enabled) return;
       const r = ninja.getBoundingClientRect();
-      const sx = r.left+NW/2, sy = r.top+NH/2;
+      const sx = r.left + r.width/2;
+      const sy = r.top + r.height/2;
       const angle = Math.random()*Math.PI*2;
-      const dist = Math.min(window.innerWidth, window.innerHeight)*0.4;
-      const tx = window.innerWidth/2+Math.cos(angle)*dist;
-      const ty = window.innerHeight/2+Math.sin(angle)*dist;
+      const dist = Math.min(globalThis.innerWidth, globalThis.innerHeight)*0.4;
+      const tx = globalThis.innerWidth/2+Math.cos(angle)*dist;
+      const ty = globalThis.innerHeight/2+Math.sin(angle)*dist;
       const sh = document.createElement('div');
       sh.className = 'rt-n-shuriken';
       sh.style.left=sx+'px'; sh.style.top=sy+'px'; sh.style.transform='translate(-50%,-50%)';
@@ -912,13 +1068,16 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
 
     const patrol = () => {
-      if (dragging) return;
-      const w=window.innerWidth, h=window.innerHeight;
+      const cfg = ninjaCfgRef.current;
+      if (!cfg.enabled || dragging || !cfg.autopilot || cfg.follow) return;
+      const w=globalThis.innerWidth, h=globalThis.innerHeight;
+      const { w: NW, h: NH } = getNinjaSize();
       let tx=cX, ty=cY, tf='';
       if(state===0){tx=w-NW-5;ty=0;           tf='rotate(180deg) scaleX(-1)'; state=1;}
       else if(state===1){tx=w-NW-5;ty=h-NH;   tf='rotate(-90deg) scaleX(1)';  state=2;}
       else if(state===2){tx=5;ty=h-NH;         tf='rotate(0deg) scaleX(-1)';   state=3;}
       else              {tx=5;ty=0;             tf='rotate(90deg) scaleX(1)';   state=0;}
+      const spd = baseSpd * Math.max(0.5, Math.min(3, cfg.speed)) * (hasRage ? 1.25 : 1);
       const dist=Math.hypot(tx-cX,ty-cY), dur=Math.max(dist/spd,.5);
       ninja.style.transitionDuration=`${dur}s,${dur}s,0.2s`;
       ninja.style.transform=tf;
@@ -928,7 +1087,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
 
     const onDown = (e: PointerEvent) => {
-      dragging=true; if(mt)clearTimeout(mt); ninja.classList.add('dragging');
+      if (!ninjaCfgRef.current.enabled) return;
+      dragging=true;
+      if(mt) clearTimeout(mt);
+      mt = null;
+      ninja.classList.add('dragging');
       const r=ninja.getBoundingClientRect(); cX=r.left; cY=r.top;
       ninja.style.transitionDuration='0s';
       ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
@@ -939,30 +1102,50 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
 
     const onMove = (e: PointerEvent) => {
-      if(!dragging) return;
-      cX=nsX+e.clientX-dsX; cY=nsY+e.clientY-dsY;
-      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      const now=Date.now(), dt=now-lastDragT;
-      if(dt>0){
-        speedBuf.push(Math.hypot(e.clientX-lastDragX,e.clientY-lastDragY)/dt);
-        if(speedBuf.length>10) speedBuf.shift();
+      const cfg = ninjaCfgRef.current;
+      if (!cfg.enabled) return;
+
+      if (dragging) {
+        cX=nsX+e.clientX-dsX; cY=nsY+e.clientY-dsY;
+        ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+        const now=Date.now(), dt=now-lastDragT;
+        if(dt>0){
+          speedBuf.push(Math.hypot(e.clientX-lastDragX,e.clientY-lastDragY)/dt);
+          if(speedBuf.length>10) speedBuf.shift();
+        }
+        lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=now;
+        return;
       }
-      lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=now;
+
+      if (cfg.follow) {
+        const { w: NW, h: NH } = getNinjaSize();
+        cX=Math.max(0,Math.min(e.clientX-NW/2, globalThis.innerWidth-NW));
+        cY=Math.max(0,Math.min(e.clientY-NH/2, globalThis.innerHeight-NH));
+        ninja.style.transitionDuration='0.08s';
+        ninja.style.transform='rotate(0deg) scaleX(1)';
+        ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      }
     };
 
     const onUp = (e: PointerEvent) => {
-      if(!dragging) return; dragging=false; ninja.classList.remove('dragging');
-      const w=window.innerWidth, h=window.innerHeight;
+      if(!dragging) return;
+      dragging=false;
+      ninja.classList.remove('dragging');
+      const cfg = ninjaCfgRef.current;
+      const w=globalThis.innerWidth, h=globalThis.innerHeight;
+      const { w: NW, h: NH } = getNinjaSize();
       const moved=Math.hypot(e.clientX-dsX,e.clientY-dsY);
-      const avgSpeed=speedBuf.length ? speedBuf.reduce((a,b)=>a+b)/speedBuf.length : 0;
+      const avgSpeed=speedBuf.length ? speedBuf.reduce((a,b)=>a+b, 0)/speedBuf.length : 0;
       if(avgSpeed>2.2 && !hasRage){
+        const returnMode = ninjaBaseModeRef.current;
         hasRage=true; ninja.classList.add('rage'); setNinjaMode('rage');
         showQuote('RAGE_MODE_UNLOCKED!');
-        setTimeout(()=>{ ninja.classList.remove('rage'); setNinjaMode('patrol'); hasRage=false; },5000);
+        setTimeout(()=>{ ninja.classList.remove('rage'); setNinjaMode(returnMode); hasRage=false; },5000);
       }
       if(moved<5){
-        ninja.classList.add('spinning');
-        setTimeout(()=>ninja.classList.remove('spinning'),600);
+        const sprite = getSpriteEl();
+        sprite?.classList.add('spinning');
+        setTimeout(()=>sprite?.classList.remove('spinning'),600);
         showQuote(QUOTES[Math.floor(Math.random()*QUOTES.length)]);
       }
       const dT=cY, dB=h-(cY+NH), dL=cX, dR=w-(cX+NW), mD=Math.min(dT,dB,dL,dR);
@@ -972,7 +1155,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       else if(mD===dL){cX=5;      state=3; ninja.style.transform='rotate(90deg) scaleX(1)';}
       else            {cX=w-NW-5; state=1; ninja.style.transform='rotate(-90deg) scaleX(1)';}
       ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      mt=setTimeout(patrol,400);
+      if (cfg.autopilot && !cfg.follow) mt=setTimeout(patrol,400);
     };
 
     const onClick = () => {
@@ -983,20 +1166,23 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
 
     const onContextMenu = (e: MouseEvent) => {
       e.preventDefault();
+      if (!ninjaCfgRef.current.enabled) return;
       if(mt) clearTimeout(mt);
       const r=ninja.getBoundingClientRect();
-      spawnSmoke(r.left+NW/2, r.top+NH/2);
-      cX=Math.max(0,Math.min(e.clientX-NW/2, window.innerWidth-NW));
-      cY=Math.max(0,Math.min(e.clientY-NH/2, window.innerHeight-NH));
+      const { w: NW, h: NH } = getNinjaSize();
+      spawnSmoke(r.left + r.width/2, r.top + r.height/2);
+      cX=Math.max(0,Math.min(e.clientX-NW/2, globalThis.innerWidth-NW));
+      cY=Math.max(0,Math.min(e.clientY-NH/2, globalThis.innerHeight-NH));
       ninja.style.transitionDuration='0s';
       ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
       spawnSmoke(e.clientX, e.clientY);
       showQuote('// TELEPORT_COMPLETE');
-      mt=setTimeout(patrol,800);
+      if (ninjaCfgRef.current.autopilot && !ninjaCfgRef.current.follow) mt=setTimeout(patrol,800);
     };
 
     const onKey = (e: KeyboardEvent) => {
       if(e.key==='n'||e.key==='N'){
+        if (!ninjaCfgRef.current.enabled) return;
         if(ninja.classList.contains('stealth')){
           ninja.classList.remove('stealth'); setNinjaMode('patrol'); showQuote('STEALTH_OFF');
         } else {
@@ -1015,21 +1201,64 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     ninja.addEventListener('pointerdown', onDown as EventListener);
     ninja.addEventListener('click', onClick);
     ninja.addEventListener('contextmenu', onContextMenu);
-    window.addEventListener('pointermove', onMove as EventListener);
-    window.addEventListener('pointerup', onUp as EventListener);
-    window.addEventListener('keydown', onKey);
+    globalThis.addEventListener('pointermove', onMove as EventListener);
+    globalThis.addEventListener('pointerup', onUp as EventListener);
+    globalThis.addEventListener('keydown', onKey);
     const sid = setTimeout(patrol, 1000);
+    const heartbeat = setInterval(() => {
+      const cfg = ninjaCfgRef.current;
+      if (!cfg.enabled || dragging) return;
+      if (!cfg.autopilot || cfg.follow) return;
+      if (mt) return;
+      patrol();
+    }, 1200);
 
     return () => {
-      if(mt) clearTimeout(mt); clearTimeout(sid); clearInterval(quoteInterval);
+      if(mt) clearTimeout(mt);
+      clearTimeout(sid);
+      clearInterval(quoteInterval);
+      clearInterval(heartbeat);
       ninja.removeEventListener('pointerdown', onDown as EventListener);
       ninja.removeEventListener('click', onClick);
       ninja.removeEventListener('contextmenu', onContextMenu);
-      window.removeEventListener('pointermove', onMove as EventListener);
-      window.removeEventListener('pointerup', onUp as EventListener);
-      window.removeEventListener('keydown', onKey);
+      globalThis.removeEventListener('pointermove', onMove as EventListener);
+      globalThis.removeEventListener('pointerup', onUp as EventListener);
+      globalThis.removeEventListener('keydown', onKey);
     };
   }, []);
+
+  // ─── Flat ninja body (shared between primary + replicas) ─────────────────
+  const NinjaBody = () => (
+    <>
+      <div className="rt-n-aura" />
+      <div className="rt-n-flrshadow" />
+      <div className="rt-n-sprite" aria-hidden="true">
+        {/* Back arm (behind torso) */}
+        <div className="rt-n-arm bk" />
+        {/* Back leg */}
+        <div className="rt-n-leg bk" />
+        {/* Torso with cross grid */}
+        <div className="rt-n-torso" />
+        {/* Collar */}
+        <div className="rt-n-collar" />
+        {/* Head circle */}
+        <div className="rt-n-head" />
+        {/* Red headband with visor & eyes (in front of head) */}
+        <div className="rt-n-band">
+          <div className="rt-n-visor">
+            <div className="rt-n-eye l" />
+            <div className="rt-n-eye r" />
+          </div>
+        </div>
+        {/* Front arm */}
+        <div className="rt-n-arm ft" />
+        {/* Weapon held at front arm */}
+        <div className="rt-n-weapon" />
+        {/* Front leg */}
+        <div className="rt-n-leg ft" />
+      </div>
+    </>
+  );
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
@@ -1037,38 +1266,37 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       <motion.div key="redteam-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.35}}
         style={{ position:'fixed', inset:0, zIndex:9999 }}>
         {/* Back button */}
-        <div style={{position:'absolute',top:'1rem',left:'1rem',zIndex:10001,display:'flex',alignItems:'center',gap:'.75rem'}}>
+        <div style={{position:'absolute',top:'1rem',left:'1rem',zIndex:10003,display:'flex',alignItems:'center',gap:'.75rem'}}>
           <motion.button whileHover={{scale:1.05,x:-2}} whileTap={{scale:.95}} onClick={onClose}
             style={{background:'rgba(0,0,0,0.75)',backdropFilter:'blur(12px)',border:'1.5px solid rgba(232,65,24,0.5)',color:'#ff6655',padding:'.5rem 1.1rem',borderRadius:'6px',cursor:'pointer',fontSize:'.78rem',fontFamily:'Barlow Condensed,sans-serif',fontWeight:700,letterSpacing:'.12em',display:'flex',alignItems:'center',gap:'.5rem',boxShadow:'0 0 20px rgba(232,65,24,0.2)'}}>
             ← BACK TO SITE
           </motion.button>
         </div>
 
-        {/* ── Elite Cyber Ninja (fixed to overlay viewport) ── */}
-        <div ref={ninjaRef} id="rt-roaming-ninja" className={ninjaMode}>
-          <div className="rt-n-aura" />
-          <div className="rt-n-shadow" />
-          <div className="rt-n-speed-trail" />
-          <div className="rt-n-katana">
-            <div className="rt-n-katana-blade" />
-            <div className="rt-n-katana-guard" />
-            <div className="rt-n-katana-handle" />
-          </div>
-          <div className="rt-n-arm back" />
-          <div className="rt-n-torso" />
-          <div className="rt-n-collar" />
-          <div className="rt-n-head">
-            <div className="rt-n-headband" />
-            <div className="rt-n-visor">
-              <div className="rt-n-eye left" />
-              <div className="rt-n-eye right" />
-            </div>
-            <div className="rt-n-scarf" />
-          </div>
-          <div className="rt-n-arm front" />
-          <div className="rt-n-leg back" />
-          <div className="rt-n-leg front" />
+        {/* ── Flat Cyber Ninja (primary) ── */}
+        <div
+          ref={ninjaRef}
+          id="rt-roaming-ninja"
+          className={`${ninjaMode}${ninjaEnabled ? '' : ' off'}${ninjaWidgetOpen ? ' ui-open' : ''}`}
+          aria-hidden={!ninjaEnabled}
+          style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
+        >
+          {NinjaBody()}
         </div>
+
+        {/* ── Replica ninjas ── */}
+        {Array.from({ length: ninjaReplicas - 1 }, (_, i) => (
+          <div
+            key={`replica-${i}`}
+            ref={(el) => { replicaRefs.current[i] = el; }}
+            className={`rt-roaming-replica ${ninjaMode}${ninjaEnabled ? '' : ' off'}`}
+            aria-hidden
+            style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
+          >
+            {NinjaBody()}
+          </div>
+        ))}
+
         {showNinjaQuote && (
           <div className="rt-n-speech"
             style={{ left: ninjaQuotePos.x, top: ninjaQuotePos.y - 30, transform: 'translateX(-50%)' }}>
@@ -1096,6 +1324,105 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-tools">Tools</a></li>
               </ul>
               <div className="rt-nav-r">
+                <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
+                  <button
+                    className="rt-ninja-btn"
+                    onClick={() => setNinjaWidgetOpen(v => !v)}
+                    aria-expanded={ninjaWidgetOpen}
+                    title="Ninja controls"
+                  >
+                    🥷
+                  </button>
+                  {ninjaWidgetOpen && (
+                    <div className="rt-ninja-panel" role="dialog" aria-label="Ninja controls">
+                      <h4>Ninja Controls</h4>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-enabled">Enabled</label>
+                        <input
+                          id="rt-ninja-enabled"
+                          type="checkbox"
+                          checked={ninjaEnabled}
+                          onChange={(e) => setNinjaEnabled(e.target.checked)}
+                        />
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-speed">Speed</label>
+                        <input
+                          id="rt-ninja-speed"
+                          type="range"
+                          min={0.5}
+                          max={3}
+                          step={0.05}
+                          value={ninjaSpeed}
+                          onChange={(e) => setNinjaSpeed(Number.parseFloat(e.target.value))}
+                        />
+                        <span className="rt-ninja-mini">x{ninjaSpeed.toFixed(2)}</span>
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-size">Size</label>
+                        <input
+                          id="rt-ninja-size"
+                          type="range"
+                          min={0.6}
+                          max={2.2}
+                          step={0.05}
+                          value={ninjaScale}
+                          onChange={(e) => setNinjaScale(Number.parseFloat(e.target.value))}
+                        />
+                        <span className="rt-ninja-mini">x{ninjaScale.toFixed(2)}</span>
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-replicas">Replicas</label>
+                        <input
+                          id="rt-ninja-replicas"
+                          type="range"
+                          min={1}
+                          max={5}
+                          step={1}
+                          value={ninjaReplicas}
+                          onChange={(e) => setNinjaReplicas(Number.parseInt(e.target.value))}
+                        />
+                        <span className="rt-ninja-mini">{ninjaReplicas}×</span>
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-autop">Autopilot</label>
+                        <input
+                          id="rt-ninja-autop"
+                          type="checkbox"
+                          checked={ninjaAutopilot}
+                          onChange={(e) => setNinjaAutopilot(e.target.checked)}
+                        />
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-follow">Follow Cursor</label>
+                        <input
+                          id="rt-ninja-follow"
+                          type="checkbox"
+                          checked={ninjaFollowCursor}
+                          onChange={(e) => setNinjaFollowCursor(e.target.checked)}
+                        />
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-mode">Mode</label>
+                        <select
+                          id="rt-ninja-mode"
+                          value={ninjaMode}
+                          onChange={(e) => setNinjaMode(e.target.value as NinjaMode)}
+                        >
+                          <option value="patrol">Patrol</option>
+                          <option value="stealth">Stealth</option>
+                          <option value="rage">Rage</option>
+                        </select>
+                      </div>
+                      <div className="rt-ninja-hint">
+                        <div><span className="rt-ninja-mini">Click</span> spin + quote</div>
+                        <div><span className="rt-ninja-mini">Double</span> shuriken</div>
+                        <div><span className="rt-ninja-mini">Right</span> teleport</div>
+                        <div><span className="rt-ninja-mini">N</span> stealth toggle</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
                 <button className="rt-theme-btn" onClick={toggleTheme} title="Toggle theme (T)">
                   {theme === 'dark' ? '☀️' : '🌙'}
                 </button>
