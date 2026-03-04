@@ -143,18 +143,40 @@ export const NeuralNetwork: React.FC = () => {
 
     const [positions, linesData, sourceTargets] = useMemo<[Float32Array, Uint16Array, Float32Array[]]>(() => {
         const shapeConfigs = [
-            // 0: Cube
-            () => {
+            // 0: Smoothed Cube (Organic but evenly distributed)
+            (i: number) => {
                 const s = 7;
-                const d = Math.floor(Math.random() * 3);
-                const v = Math.random() > 0.5 ? s / 2 : -s / 2;
-                const r1 = (Math.random() - 0.5) * s;
-                const r2 = (Math.random() - 0.5) * s;
-                return [
-                    d === 0 ? v : d === 1 ? r1 : r2,
-                    d === 1 ? v : d === 2 ? r1 : r2,
-                    d === 2 ? v : d === 0 ? r1 : r2,
-                ];
+                const pointsPerFace = Math.ceil(particleCount / 6);
+                const faceIndex = Math.floor(i / pointsPerFace);
+                const localIdx = i % pointsPerFace;
+
+                // Distribute evenly to avoid clumps & empty corners (the "crushed" look)
+                const gridSize = Math.ceil(Math.sqrt(pointsPerFace));
+                const gx = localIdx % gridSize;
+                const gy = Math.floor(localIdx / gridSize);
+
+                // Add organic random jitter to remove rigidity, keeping it feeling like a web
+                const jx = (Math.random() - 0.5) * 1.5;
+                const jy = (Math.random() - 0.5) * 1.5;
+                const depthJitter = (Math.random() - 0.5) * 0.3; // Very slight volumetric depth
+
+                // Map to [-s/2, s/2] and clamp so corners are accurately represented
+                const pxRaw = (gridSize > 1) ? ((gx + jx) / (gridSize - 1)) * s - (s / 2) : 0;
+                const pyRaw = (gridSize > 1) ? ((gy + jy) / (gridSize - 1)) * s - (s / 2) : 0;
+
+                const px = Math.max(-s / 2, Math.min(s / 2, pxRaw));
+                const py = Math.max(-s / 2, Math.min(s / 2, pyRaw));
+                const pz = (s / 2) + depthJitter;
+
+                // Position on the corresponding face
+                switch (faceIndex) {
+                    case 0: return [px, py, pz]; // Front
+                    case 1: return [px, py, -pz]; // Back
+                    case 2: return [px, pz, py]; // Top
+                    case 3: return [px, -pz, py]; // Bottom
+                    case 4: return [pz, px, py]; // Right
+                    case 5: default: return [-pz, px, py]; // Left
+                }
             },
             // 1: Sphere
             () => {

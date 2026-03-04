@@ -46,7 +46,8 @@ const NAV_LINKS: { label: string; href: string; path: string; num: string; desc:
         ]
     },
     { label: 'Life', href: '#life', path: '/life', num: '08', desc: 'Culture & people', icon: Smile },
-    { label: 'Settings', href: '#settings', path: '/settings', num: '09', desc: 'Manage preferences', icon: Settings },
+    { label: 'Red Team', href: '#redteam', path: '/red-team', num: '09', desc: 'Adversarial testing', icon: Zap },
+    { label: 'Settings', href: '#settings', path: '/settings', num: '10', desc: 'Manage preferences', icon: Settings },
 ];
 
 

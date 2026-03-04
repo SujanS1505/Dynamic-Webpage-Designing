@@ -13,6 +13,7 @@ import { CaseStudies } from './components/sections/CaseStudies';
 import { Blog } from './components/sections/Blog';
 import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
 import { RedTeamFlash } from './components/RedTeamFlash';
+import { RedTeamPage } from './pages/RedTeamPage';
 
 import { AboutPage } from './pages/AboutPage';
 import { WhoWeArePage } from './pages/WhoWeArePage';
@@ -59,6 +60,7 @@ function App() {
       <Route path="/industries" element={<IndustriesPage />} />
       <Route path="/life" element={<LifePage />} />
       <Route path="/settings" element={<SettingsPage />} />
+      <Route path="/red-team" element={<RedTeamPage onClose={() => window.history.back()} />} />
     </Routes>
   );
 }
