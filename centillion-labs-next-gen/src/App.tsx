@@ -22,6 +22,7 @@ import { PortfolioPage } from './pages/PortfolioPage';
 import { TeamPage } from './pages/TeamPage';
 import { IndustriesPage } from './pages/IndustriesPage';
 import { LifePage } from './pages/LifePage';
+import { BlogPage } from './pages/BlogPage';
 import { SettingsPage } from './pages/SettingsPage';
 
 function HomePage() {
@@ -59,6 +60,7 @@ function App() {
       <Route path="/team" element={<TeamPage />} />
       <Route path="/industries" element={<IndustriesPage />} />
       <Route path="/life" element={<LifePage />} />
+      <Route path="/blog" element={<BlogPage />} />
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/red-team" element={<RedTeamPage onClose={() => window.history.back()} />} />
     </Routes>

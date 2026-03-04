@@ -4,9 +4,9 @@ import { ArrowLeft, ArrowUp } from 'lucide-react';
 import { Header } from '../components/layout/Header';
 import React, { useEffect, useState } from 'react';
 
-interface PageLayoutProps { children: React.ReactNode; }
+interface PageLayoutProps { children: React.ReactNode; backLabel?: string; }
 
-export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
+export const PageLayout: React.FC<PageLayoutProps> = ({ children, backLabel = 'Home' }) => {
   const navigate = useNavigate();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
@@ -58,7 +58,7 @@ export const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
         whileTap={{ scale: 0.96 }}
       >
         <ArrowLeft size={14} />
-        Home
+        {backLabel}
       </motion.button>
 
       {/* Back-to-top */}
@@ -112,9 +112,9 @@ export const FadeIn: React.FC<{
   style?: React.CSSProperties;
 }> = ({ children, delay = 0, direction = 'up', className, style }) => {
   const from = direction === 'left' ? { x: -30, y: 0 }
-             : direction === 'right' ? { x: 30, y: 0 }
-             : direction === 'none' ? { x: 0, y: 0 }
-             : { x: 0, y: 28 };
+    : direction === 'right' ? { x: 30, y: 0 }
+      : direction === 'none' ? { x: 0, y: 0 }
+        : { x: 0, y: 28 };
   return (
     <motion.div
       initial={{ opacity: 0, ...from }}
@@ -217,7 +217,7 @@ export const PageHero: React.FC<{ tag: string; headline: string; sub: string; ac
               style={{
                 fontSize: 'clamp(3rem,7vw,8rem)',
                 fontWeight: 200,
-                lineHeight: 1.0,
+                lineHeight: 1.15,
                 color: 'var(--text-primary)',
                 letterSpacing: '-0.03em',
                 display: 'block',
@@ -238,7 +238,7 @@ export const PageHero: React.FC<{ tag: string; headline: string; sub: string; ac
             maxWidth: '580px',
             lineHeight: 1.9,
             fontWeight: 300,
-            marginTop: '2rem',
+            marginTop: '2.5rem',
           }}
         >
           {sub}
