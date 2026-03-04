@@ -1683,16 +1683,34 @@
       cursor: crosshair;
       max-width: 100%;
     }
+
     /* ── ROAMING NINJA PET ── */
     #roaming-ninja {
-      position: fixed; z-index: 9999;
-      width: 80px; height: 90px;
-      pointer-events: none; user-select: none;
+      position: fixed;
+      z-index: 9999;
+      width: 80px;
+      height: 90px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-drag: none;
       transition-property: top, left, transform;
       transition-timing-function: linear;
       filter: drop-shadow(0 4px 10px rgba(230, 0, 0, 0.5));
+      touch-action: none;
     }
+    
+    #roaming-ninja.dragging {
+      cursor: grabbing;
+      transition: none; /* remove transition so it sticks to mouse instantly */
+    }
+
     .ninja-body { position: absolute; width: 32px; height: 40px; background: #e02424; top: 35px; left: 24px; border-radius: 8px; }
+    
+    /* Jump Animation Class */
+    .ninja-body.jump {
+      animation: ninja-jump 0.5s ease-out;
+    }
+
     .ninja-head { position: absolute; width: 44px; height: 44px; background: #111; top: -20px; left: -6px; border-radius: 50%; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.5); }
     .ninja-band { position: absolute; width: 44px; height: 16px; background: #e02424; top: 12px; left: 0; box-shadow: 0 2px 5px rgba(0,0,0,0.5); }
     .ninja-eye-slit { position: absolute; width: 34px; height: 10px; background: #ffe4e1; top: 15px; left: 8px; border-radius: 2px; }
@@ -1706,11 +1724,22 @@
     .ninja-leg.back { height: 40px; top: 35px; left: 8px; z-index: -2; background: #b01010; animation: run-leg-b 0.4s infinite linear; }
     .ninja-tails { position: absolute; width: 25px; height: 8px; background: #e02424; top: 14px; left: -18px; border-radius: 4px; transform-origin: right center; animation: run-tails 0.4s infinite linear; }
 
+    /* When dragging or jumping, stop the running animation */
+    #roaming-ninja.dragging .ninja-arm, #roaming-ninja.dragging .ninja-leg,
+    .ninja-body.jump .ninja-arm, .ninja-body.jump .ninja-leg {
+       animation: none;
+       transform: rotate(0deg);
+    }
+    
+    #roaming-ninja.dragging .ninja-arm.front, .ninja-body.jump .ninja-arm.front { transform: rotate(160deg); }
+    #roaming-ninja.dragging .ninja-arm.back, .ninja-body.jump .ninja-arm.back { transform: rotate(-160deg); }
+
     @keyframes run-arm-f { 0% {transform: rotate(45deg)} 50% {transform: rotate(-45deg)} 100% {transform: rotate(45deg)} }
     @keyframes run-arm-b { 0% {transform: rotate(-45deg)} 50% {transform: rotate(45deg)} 100% {transform: rotate(-45deg)} }
     @keyframes run-leg-f { 0% {transform: rotate(-55deg)} 50% {transform: rotate(55deg)} 100% {transform: rotate(-55deg)} }
     @keyframes run-leg-b { 0% {transform: rotate(55deg)} 50% {transform: rotate(-55deg)} 100% {transform: rotate(55deg)} }
     @keyframes run-tails { 0% {transform: rotate(10deg)} 50% {transform: rotate(-10deg)} 100% {transform: rotate(10deg)} }
+    @keyframes ninja-jump { 0% { transform: translateY(0) rotate(0deg); } 40% { transform: translateY(-80px) rotate(180deg); } 60% { transform: translateY(-80px) rotate(180deg); } 100% { transform: translateY(0) rotate(360deg); } }
   </style>
 </head>
 
@@ -1922,97 +1951,6 @@
           <div class="attack-bar"></div>
         </div>
 
-        <div class="attack-card reveal" data-card style="transition-delay:.25s">
-          <div class="card-expand-icon">+</div>
-          <div class="attack-card-top">
-            <div class="attack-icon">&#128269;</div><span class="attack-severity sev-high">High</span>
-          </div>
-          <div class="attack-name">Model Extraction &amp; Inversion</div>
-          <p class="attack-desc">Black-box queries designed to reconstruct model weights, training data segments, or
-            system prompts. Membership inference determines if specific records were in training data. Prompt extraction
-            yields confidential instructions.</p>
-          <div class="attack-tags"><span class="tag">Membership Inference</span><span class="tag">Prompt
-              Extraction</span><span class="tag">Model Cloning</span><span class="tag">Data Reconstruction</span></div>
-          <div class="attack-expand">
-            <div class="expand-row"><span class="ek">MITRE ID</span><span class="ev">AML.T0035 / AML.T0024</span></div>
-            <div class="expand-row"><span class="ek">Min Queries</span><span class="ev">~500 for system prompt
-                recovery</span></div>
-            <div class="expand-row"><span class="ek">Mitigation</span><span class="ev">Output perturbation, rate
-                limiting</span></div>
-            <div class="expand-hint">Click to collapse</div>
-          </div>
-          <div class="attack-bar"></div>
-        </div>
-
-        <div class="attack-card reveal" data-card style="transition-delay:.3s">
-          <div class="card-expand-icon">+</div>
-          <div class="attack-card-top">
-            <div class="attack-icon">&#128375;&#65039;</div><span class="attack-severity sev-critical">Critical</span>
-          </div>
-          <div class="attack-name">Indirect Prompt Injection</div>
-          <p class="attack-desc">Malicious instructions hidden in external content that LLM-powered agents consume
-            &mdash; websites, PDFs, emails, code repos. When processed, the agent's behavior is silently hijacked
-            enabling unauthorized actions and exfiltration chains.</p>
-          <div class="attack-tags"><span class="tag">Web Content</span><span class="tag">Document Injection</span><span
-              class="tag">Agent Hijack</span><span class="tag">Exfil Chains</span></div>
-          <div class="attack-expand">
-            <div class="expand-row"><span class="ek">Vector</span><span class="ev">Hidden HTML, Unicode
-                steganography</span></div>
-            <div class="expand-row"><span class="ek">Impact</span><span class="ev">Full agent control, credential
-                exfil</span></div>
-            <div class="expand-row"><span class="ek">Affected</span><span class="ev">Copilot, AutoGPT, LangChain
-                agents</span></div>
-            <div class="expand-hint">Click to collapse</div>
-          </div>
-          <div class="attack-bar"></div>
-        </div>
-
-        <div class="attack-card reveal" data-card style="transition-delay:.35s">
-          <div class="card-expand-icon">+</div>
-          <div class="attack-card-top">
-            <div class="attack-icon">&#127917;</div><span class="attack-severity sev-medium">Medium</span>
-          </div>
-          <div class="attack-name">Alignment Failure &amp; Goal Misgeneralization</div>
-          <p class="attack-desc">Stress-testing reward model fidelity and RLHF alignment through distributional shift.
-            We probe mesa-optimization failures, reward hacking opportunities, and scenarios where proxy goals diverge
-            from human intent in novel contexts.</p>
-          <div class="attack-tags"><span class="tag">Reward Hacking</span><span
-              class="tag">Mesa-Optimization</span><span class="tag">Goal Divergence</span><span class="tag">Dist.
-              Shift</span></div>
-          <div class="attack-expand">
-            <div class="expand-row"><span class="ek">Test Surface</span><span class="ev">RLHF reward model stress
-                tests</span></div>
-            <div class="expand-row"><span class="ek">Key Risk</span><span class="ev">Silent policy failure in edge
-                domains</span></div>
-            <div class="expand-row"><span class="ek">Framework</span><span class="ev">AI Safety Gridworlds, custom
-                evals</span></div>
-            <div class="expand-hint">Click to collapse</div>
-          </div>
-          <div class="attack-bar"></div>
-        </div>
-
-        <div class="attack-card reveal" data-card style="transition-delay:.4s">
-          <div class="card-expand-icon">+</div>
-          <div class="attack-card-top">
-            <div class="attack-icon">&#9889;</div><span class="attack-severity sev-high">High</span>
-          </div>
-          <div class="attack-name">Inference Pipeline Attacks</div>
-          <p class="attack-desc">Exploiting the serving infrastructure around the model &mdash; API abuse, rate-limit
-            bypass, prompt-length-based side channels, cache poisoning, and timeout manipulation to extract information
-            or degrade service availability.</p>
-          <div class="attack-tags"><span class="tag">API Abuse</span><span class="tag">Side Channels</span><span
-              class="tag">Cache Poisoning</span><span class="tag">DoS / Rate</span></div>
-          <div class="attack-expand">
-            <div class="expand-row"><span class="ek">Side Channel</span><span class="ev">Timing analysis on token
-                generation</span></div>
-            <div class="expand-row"><span class="ek">Cache Vector</span><span class="ev">KV cache poisoning via shared
-                infra</span></div>
-            <div class="expand-row"><span class="ek">Impact</span><span class="ev">Info leak, availability
-                degradation</span></div>
-            <div class="expand-hint">Click to collapse</div>
-          </div>
-          <div class="attack-bar"></div>
-        </div>
 
       </div>
     </section>
@@ -2371,7 +2309,7 @@
           AI security assessment &mdash; from threat modeling to continuous regression testing.</p>
 
         <div class="contact-row">
-          <span class="contact-chip">redteam@centillion.ai</span>
+          <span class="contact-chip">connect@centillionlabs.com</span>
           <span class="contact-sep">|</span>
           <span class="contact-chip">Secure Signal Available</span>
           <span class="contact-sep">|</span>
@@ -2657,7 +2595,7 @@
 
   <script>
     /* ── ROAMING RED NINJA VIRTUAL PET ── */
-    (function() {
+    (function () {
       const ninja = document.createElement('div');
       ninja.id = 'roaming-ninja';
       ninja.innerHTML = `
@@ -2679,75 +2617,153 @@
       document.body.appendChild(ninja);
 
       // Top, Right, Bottom, Left
-      let state = 0; 
+      let state = 0;
 
       const NW = 80;
       const NH = 90;
 
       // Start Top-Left
       let currentX = 5;
-      let currentY = 0; 
-      
+      let currentY = 0;
+
       ninja.style.left = currentX + 'px';
       ninja.style.top = currentY + 'px';
       // Upside down, facing right
       ninja.style.transform = 'rotate(180deg) scaleX(-1)';
 
       const speed = 250; // pixels per sec
+      
+      let moveTimeout = null;
+      let isDragging = false;
+      let dragStartX, dragStartY;
+      let ninjaStartX, ninjaStartY;
 
       function moveNinjaLoop() {
+        if (isDragging) return; // Halt loop if user is dragging
+        
         const w = window.innerWidth;
         const h = window.innerHeight;
-        
+
         let targetX = currentX;
         let targetY = currentY;
         let nextTransform = '';
 
         if (state === 0) {
-            // Running across the TOP edge (Left to Right)
-            // top=0 puts feet on the top edge when rotated 180
-            targetX = w - 85;
-            targetY = 0;
-            nextTransform = 'rotate(180deg) scaleX(-1)';
-            state = 1;
+          // Running across the TOP edge (Left to Right)
+          targetX = w - 85;
+          targetY = 0;
+          nextTransform = 'rotate(180deg) scaleX(-1)';
+          state = 1;
         } else if (state === 1) {
-            // Running down the RIGHT edge (Top to Bottom)
-            // left=w-85 puts feet on the right edge when rotated -90
-            targetX = w - 85; 
-            targetY = h - 90;
-            nextTransform = 'rotate(-90deg) scaleX(1)';
-            state = 2;
+          // Running down the RIGHT edge (Top to Bottom)
+          targetX = w - 85;
+          targetY = h - 90;
+          nextTransform = 'rotate(-90deg) scaleX(1)';
+          state = 2;
         } else if (state === 2) {
-            // Running across the BOTTOM edge (Right to Left)
-            // top=h-90 puts feet on the bottom edge when rotated 0
-            targetX = 5;
-            targetY = h - 90; 
-            nextTransform = 'rotate(0deg) scaleX(-1)';
-            state = 3;
+          // Running across the BOTTOM edge (Right to Left)
+          targetX = 5;
+          targetY = h - 90;
+          nextTransform = 'rotate(0deg) scaleX(-1)';
+          state = 3;
         } else if (state === 3) {
-            // Running up the LEFT edge (Bottom to Top)
-            // left=5 puts feet on the left edge when rotated +90
-            targetX = 5; 
-            targetY = 0;
-            nextTransform = 'rotate(90deg) scaleX(1)';
-            state = 0;
+          // Running up the LEFT edge (Bottom to Top)
+          targetX = 5;
+          targetY = 0;
+          nextTransform = 'rotate(90deg) scaleX(1)';
+          state = 0;
         }
 
         const dist = Math.hypot(targetX - currentX, targetY - currentY);
-        let timeToTravel = (dist / speed); 
+        let timeToTravel = (dist / speed);
         if (timeToTravel < 0.5) timeToTravel = 0.5;
 
         ninja.style.transitionDuration = `${timeToTravel}s, ${timeToTravel}s, 0.2s`;
         ninja.style.transform = nextTransform;
-        
+
         currentX = targetX;
         currentY = targetY;
         ninja.style.left = currentX + 'px';
         ninja.style.top = currentY + 'px';
 
         // Pause for 0.5 second at each corner before continuing the loop
-        setTimeout(moveNinjaLoop, (timeToTravel * 1000) + 500);
+        moveTimeout = setTimeout(moveNinjaLoop, (timeToTravel * 1000) + 500);
       }
+      
+      // Interaction Handlers
+      ninja.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        clearTimeout(moveTimeout);
+        ninja.classList.add('dragging');
+        
+        // Stop current transition instantly so we can drag it
+        const rect = ninja.getBoundingClientRect();
+        currentX = rect.left;
+        currentY = rect.top;
+        ninja.style.transitionDuration = '0s';
+        ninja.style.left = currentX + 'px';
+        ninja.style.top = currentY + 'px';
+        ninja.style.transform = 'rotate(0deg) scaleX(1)'; // Upright while dragging
+        
+        dragStartX = e.clientX;
+        dragStartY = e.clientY;
+        ninjaStartX = currentX;
+        ninjaStartY = currentY;
+        
+        e.preventDefault(); // Prevents touch scrolling
+      });
+      
+      window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - dragStartX;
+        const dy = e.clientY - dragStartY;
+        currentX = ninjaStartX + dx;
+        currentY = ninjaStartY + dy;
+        ninja.style.left = currentX + 'px';
+        ninja.style.top = currentY + 'px';
+      });
+      
+      window.addEventListener('pointerup', (e) => {
+         if (!isDragging) return;
+         isDragging = false;
+         ninja.classList.remove('dragging');
+         
+         const w = window.innerWidth;
+         const h = window.innerHeight;
+         
+         // Check if it was just a tap (movement < 5px)
+         const distMoved = Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY);
+         if (distMoved < 5) {
+             const body = ninja.querySelector('.ninja-body');
+             body.classList.add('jump');
+             setTimeout(() => body.classList.remove('jump'), 500);
+         }
+         
+         // Snap to closest wall
+         const distToTop = currentY;
+         const distToBottom = h - (currentY + NH);
+         const distToLeft = currentX;
+         const distToRight = w - (currentX + NW);
+         const minDist = Math.min(distToTop, distToBottom, distToLeft, distToRight);
+         
+         ninja.style.transitionDuration = '0.3s'; // Snapping animation
+         
+         if (minDist === distToTop) {
+            currentY = 0; state = 0; ninja.style.transform = 'rotate(180deg) scaleX(-1)';
+         } else if (minDist === distToBottom) {
+            currentY = h - 90; state = 2; ninja.style.transform = 'rotate(0deg) scaleX(-1)';
+         } else if (minDist === distToLeft) {
+            currentX = 5; state = 3; ninja.style.transform = 'rotate(90deg) scaleX(1)';
+         } else {
+            currentX = w - 85; state = 1; ninja.style.transform = 'rotate(-90deg) scaleX(1)';
+         }
+         
+         ninja.style.left = currentX + 'px';
+         ninja.style.top = currentY + 'px';
+         
+         // Resume roaming lap after snap
+         moveTimeout = setTimeout(moveNinjaLoop, 300);
+      });
 
       // Initial jump to start the loop
       setTimeout(moveNinjaLoop, 1000);
