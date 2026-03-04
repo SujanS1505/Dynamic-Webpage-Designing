@@ -338,35 +338,210 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
   text-transform: uppercase; display: flex; align-items: center; gap: .4rem;
   opacity: .6; transition: opacity 0.2s; pointer-events: none; }
 .rt-kbd { background: rgba(232,65,24,.1); border: 1px solid rgba(232,65,24,.2); border-radius: 3px; padding: .1rem .4rem; color: var(--red); font-weight: 700; }
-#rt-roaming-ninja { position: absolute; z-index: 9999; width: 80px; height: 90px; cursor: grab;
-  user-select: none; -webkit-user-drag: none;
+/* ═══════════════════════ ELITE CYBER NINJA ═══════════════════════ */
+#rt-roaming-ninja {
+  position: absolute; z-index: 10000; width: 90px; height: 110px;
+  cursor: grab; user-select: none; -webkit-user-drag: none; touch-action: none;
   transition-property: top, left, transform; transition-timing-function: linear;
-  filter: drop-shadow(0 4px 10px rgba(230,0,0,0.5)); touch-action: none; }
-#rt-roaming-ninja.dragging { cursor: grabbing; transition: none; }
-.rt-ninja-body { position: absolute; width: 32px; height: 40px; background: #e02424; top: 35px; left: 24px; border-radius: 8px; }
-.rt-ninja-body.jump { animation: rt-ninja-jump 0.5s ease-out; }
-.rt-ninja-head { position: absolute; width: 44px; height: 44px; background: #111; top: -20px; left: -6px; border-radius: 50%; box-shadow: inset 0 -4px 0 rgba(0,0,0,.5); }
-.rt-ninja-band { position: absolute; width: 44px; height: 16px; background: #e02424; top: 12px; left: 0; box-shadow: 0 2px 5px rgba(0,0,0,.5); }
-.rt-ninja-eye-slit { position: absolute; width: 34px; height: 10px; background: #ffe4e1; top: 15px; left: 8px; border-radius: 2px; }
-.rt-ninja-pupil { position: absolute; width: 5px; height: 5px; background: #000; top: 2px; border-radius: 50%; }
-.rt-ninja-pupil.left { left: 16px; }
-.rt-ninja-pupil.right { right: 4px; }
-.rt-ninja-arm, .rt-ninja-leg { position: absolute; width: 12px; border-radius: 6px; transform-origin: top center; }
-.rt-ninja-arm.front { height: 35px; top: 5px; left: 12px; z-index: 2; background: #ff4d4d; animation: run-arm-f .4s infinite linear; }
-.rt-ninja-arm.back { height: 35px; top: 5px; left: 10px; z-index: -1; background: #b01010; animation: run-arm-b .4s infinite linear; }
-.rt-ninja-leg.front { height: 40px; top: 35px; left: 12px; z-index: -1; background: #ff4d4d; animation: run-leg-f .4s infinite linear; }
-.rt-ninja-leg.back { height: 40px; top: 35px; left: 8px; z-index: -2; background: #b01010; animation: run-leg-b .4s infinite linear; }
-.rt-ninja-tails { position: absolute; width: 25px; height: 8px; background: #e02424; top: 14px; left: -18px; border-radius: 4px; transform-origin: right center; animation: run-tails .4s infinite linear; }
-#rt-roaming-ninja.dragging .rt-ninja-arm, #rt-roaming-ninja.dragging .rt-ninja-leg,
-.rt-ninja-body.jump .rt-ninja-arm, .rt-ninja-body.jump .rt-ninja-leg { animation: none; transform: rotate(0deg); }
-#rt-roaming-ninja.dragging .rt-ninja-arm.front, .rt-ninja-body.jump .rt-ninja-arm.front { transform: rotate(160deg); }
-#rt-roaming-ninja.dragging .rt-ninja-arm.back, .rt-ninja-body.jump .rt-ninja-arm.back { transform: rotate(-160deg); }
-@keyframes run-arm-f { 0%{transform:rotate(45deg)} 50%{transform:rotate(-45deg)} 100%{transform:rotate(45deg)} }
-@keyframes run-arm-b { 0%{transform:rotate(-45deg)} 50%{transform:rotate(45deg)} 100%{transform:rotate(-45deg)} }
-@keyframes run-leg-f { 0%{transform:rotate(-55deg)} 50%{transform:rotate(55deg)} 100%{transform:rotate(-55deg)} }
-@keyframes run-leg-b { 0%{transform:rotate(55deg)} 50%{transform:rotate(-55deg)} 100%{transform:rotate(55deg)} }
-@keyframes run-tails { 0%{transform:rotate(10deg)} 50%{transform:rotate(-10deg)} 100%{transform:rotate(10deg)} }
-@keyframes rt-ninja-jump { 0%{transform:translateY(0) rotate(0deg)} 40%{transform:translateY(-80px) rotate(180deg)} 60%{transform:translateY(-80px) rotate(180deg)} 100%{transform:translateY(0) rotate(360deg)} }
+}
+#rt-roaming-ninja.dragging { cursor: grabbing; transition: none !important; }
+/* Aura glow */
+.rt-n-aura {
+  position: absolute; width: 110px; height: 110px; top: 0; left: -10px;
+  border-radius: 50%; background: radial-gradient(ellipse at center, rgba(232,65,24,.35) 0%, transparent 70%);
+  animation: rt-aura-pulse 2s ease-in-out infinite;
+}
+#rt-roaming-ninja.rage .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(255,40,0,.7) 0%, rgba(255,100,0,.3) 40%, transparent 70%);
+  animation: rt-aura-pulse .6s ease-in-out infinite;
+}
+#rt-roaming-ninja.stealth .rt-n-aura { opacity: 0; }
+@keyframes rt-aura-pulse { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.18);opacity:1} }
+/* Shadow */
+.rt-n-shadow {
+  position: absolute; width: 60px; height: 10px; bottom: 0; left: 15px;
+  background: rgba(0,0,0,.5); border-radius: 50%; filter: blur(4px);
+  animation: rt-shadow-pulse 2s ease-in-out infinite;
+}
+@keyframes rt-shadow-pulse { 0%,100%{transform:scaleX(1);opacity:.5} 50%{transform:scaleX(.8);opacity:.3} }
+/* Speed trail */
+.rt-n-speed-trail {
+  position: absolute; inset: 0; border-radius: 8px;
+  background: linear-gradient(90deg, rgba(232,65,24,.4), transparent);
+  opacity: 0; transition: opacity .1s;
+}
+/* Torso / armor */
+.rt-n-torso {
+  position: absolute; width: 34px; height: 42px; background: #0f0f14;
+  top: 42px; left: 28px; border-radius: 6px 6px 4px 4px;
+  box-shadow: inset 0 0 0 1.5px rgba(232,65,24,.4), 0 2px 8px rgba(0,0,0,.6);
+}
+.rt-n-torso::before {
+  content: ''; position: absolute; width: 2px; height: 30px; background: rgba(232,65,24,.7);
+  top: 6px; left: 16px; animation: rt-circuit-pulse 1.5s steps(4,end) infinite;
+}
+.rt-n-torso::after {
+  content: ''; position: absolute; width: 20px; height: 1px; background: rgba(232,65,24,.5);
+  top: 14px; left: 7px; box-shadow: 0 8px 0 rgba(232,65,24,.4);
+}
+@keyframes rt-circuit-pulse {
+  0%,100%{opacity:1;box-shadow:0 0 4px rgba(232,65,24,.8)}
+  50%{opacity:.4;box-shadow:0 0 1px rgba(232,65,24,.2)}
+}
+/* Collar */
+.rt-n-collar {
+  position: absolute; width: 40px; height: 10px; background: #1a1a24;
+  top: 38px; left: 25px; border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(232,65,24,.3), 0 2px 6px rgba(0,0,0,.5);
+}
+/* Head */
+.rt-n-head {
+  position: absolute; width: 46px; height: 46px; background: #0c0c14;
+  top: 4px; left: 22px; border-radius: 50%;
+  box-shadow: 0 0 10px rgba(232,65,24,.3), inset 0 -3px 0 rgba(0,0,0,.6);
+}
+/* Head band */
+.rt-n-headband {
+  position: absolute; width: 46px; height: 14px; background: #c0392b;
+  top: 16px; left: 0; border-radius: 3px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.5);
+}
+.rt-n-headband::after {
+  content: ''; position: absolute; width: 20px; height: 6px;
+  background: #a93226; right: -14px; top: 4px; border-radius: 0 3px 3px 0;
+  animation: rt-headband-flow .6s ease-in-out infinite alternate;
+  transform-origin: left center;
+}
+@keyframes rt-headband-flow { 0%{transform:rotate(-8deg) scaleX(.95)} 100%{transform:rotate(8deg) scaleX(1.05)} }
+/* Visor eyes */
+.rt-n-visor {
+  position: absolute; width: 36px; height: 12px; background: rgba(0,0,0,.8);
+  top: 18px; left: 5px; border-radius: 3px; overflow: hidden;
+  box-shadow: inset 0 0 6px rgba(0,0,0,.9);
+}
+.rt-n-eye {
+  position: absolute; width: 12px; height: 4px; background: #ff2200;
+  top: 4px; border-radius: 2px;
+  animation: rt-eye-glow 1.4s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(255,34,0,.9), 0 0 12px rgba(255,34,0,.5);
+}
+.rt-n-eye.left { left: 4px; }
+.rt-n-eye.right { right: 4px; animation-delay: .3s; }
+@keyframes rt-eye-glow {
+  0%,100%{opacity:1;box-shadow:0 0 6px rgba(255,34,0,.9),0 0 14px rgba(255,34,0,.5)}
+  50%{opacity:.6;box-shadow:0 0 3px rgba(255,34,0,.5)}
+}
+#rt-roaming-ninja.rage .rt-n-eye { animation-duration: .4s; background: #ff6600; box-shadow: 0 0 10px #ff6600; }
+/* Scarf */
+.rt-n-scarf {
+  position: absolute; width: 18px; height: 10px; background: #c0392b;
+  top: 30px; left: 24px; border-radius: 0 4px 8px 4px;
+  animation: rt-scarf-flow .5s ease-in-out infinite alternate;
+  transform-origin: top left;
+}
+@keyframes rt-scarf-flow { 0%{transform:skewX(-6deg) scaleY(.95)} 100%{transform:skewX(6deg) scaleY(1.1)} }
+/* Arms */
+.rt-n-arm {
+  position: absolute; width: 11px; height: 36px; background: #0f0f14;
+  border-radius: 5px; transform-origin: top center;
+  box-shadow: inset 0 0 0 1px rgba(232,65,24,.25);
+}
+.rt-n-arm::after {
+  content: ''; position: absolute; width: 11px; height: 10px; background: #1e1e2e;
+  bottom: 2px; border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(232,65,24,.3);
+}
+.rt-n-arm.front { top: 44px; left: 20px; z-index: 3; animation: rt-arm-f .38s ease-in-out infinite; }
+.rt-n-arm.back  { top: 44px; left: 58px; z-index: 0; animation: rt-arm-b .38s ease-in-out infinite; }
+@keyframes rt-arm-f { 0%,100%{transform:rotate(40deg)} 50%{transform:rotate(-40deg)} }
+@keyframes rt-arm-b { 0%,100%{transform:rotate(-40deg)} 50%{transform:rotate(40deg)} }
+#rt-roaming-ninja.dragging .rt-n-arm.front { animation: none; transform: rotate(155deg); }
+#rt-roaming-ninja.dragging .rt-n-arm.back  { animation: none; transform: rotate(-155deg); }
+/* Legs */
+.rt-n-leg {
+  position: absolute; width: 12px; height: 38px; background: #0f0f14;
+  border-radius: 5px; transform-origin: top center;
+  box-shadow: inset 0 0 0 1px rgba(232,65,24,.2);
+}
+.rt-n-leg::after {
+  content: ''; position: absolute; width: 16px; height: 12px; background: #1a1a24;
+  bottom: 0; left: -2px; border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(232,65,24,.25);
+}
+.rt-n-leg.front { top: 82px; left: 32px; z-index: 2; animation: rt-leg-f .38s ease-in-out infinite; }
+.rt-n-leg.back  { top: 82px; left: 46px; z-index: 0; animation: rt-leg-b .38s ease-in-out infinite; }
+@keyframes rt-leg-f { 0%,100%{transform:rotate(-50deg)} 50%{transform:rotate(50deg)} }
+@keyframes rt-leg-b { 0%,100%{transform:rotate(50deg)} 50%{transform:rotate(-50deg)} }
+#rt-roaming-ninja.dragging .rt-n-leg { animation: none; transform: rotate(0deg); }
+/* Katana */
+.rt-n-katana {
+  position: absolute; top: 26px; left: 58px; z-index: -1;
+  transform: rotate(-30deg); transform-origin: 50% 80%;
+}
+.rt-n-katana-blade {
+  width: 5px; height: 55px; background: linear-gradient(to bottom, #c0d8f0, #6090c0, #304060);
+  border-radius: 2px 2px 50% 50%;
+  box-shadow: 0 0 6px rgba(96,144,192,.6), inset 1px 0 0 rgba(255,255,255,.3);
+}
+.rt-n-katana-guard {
+  width: 14px; height: 5px; background: #c0392b; border-radius: 2px;
+  position: absolute; top: 53px; left: -4px;
+  box-shadow: 0 0 4px rgba(192,57,43,.6);
+}
+.rt-n-katana-handle {
+  width: 6px; height: 18px; background: #2c1810; border-radius: 2px;
+  position: absolute; top: 57px; left: -1px;
+  background: repeating-linear-gradient(45deg, #4a2c1c 0px, #4a2c1c 3px, #2c1810 3px, #2c1810 6px);
+}
+/* Stealth mode */
+#rt-roaming-ninja.stealth { opacity: .28; filter: saturate(0) brightness(.7); }
+#rt-roaming-ninja.stealth .rt-n-eye { background: #00ffcc; box-shadow: 0 0 8px #00ffcc; }
+/* Rage mode */
+#rt-roaming-ninja.rage .rt-n-torso { box-shadow: inset 0 0 0 1.5px rgba(255,80,0,.8), 0 0 12px rgba(255,50,0,.5); }
+#rt-roaming-ninja.rage .rt-n-arm, #rt-roaming-ninja.rage .rt-n-leg { animation-duration: .22s; }
+/* Spin */
+#rt-roaming-ninja.spinning { animation: rt-ninja-spin .55s ease-in-out; }
+@keyframes rt-ninja-spin {
+  0%{transform:scale(1) rotate(0deg)} 30%{transform:scale(1.4) rotate(360deg)}
+  60%{transform:scale(1.4) rotate(720deg)} 100%{transform:scale(1) rotate(720deg)}
+}
+/* Smoke cloud */
+.rt-n-smoke {
+  position: fixed; z-index: 10001; width: 70px; height: 70px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(100,100,120,.85) 0%, transparent 70%);
+  animation: rt-smoke-burst .65s ease-out forwards;
+  transform: translate(-50%,-50%);
+}
+@keyframes rt-smoke-burst {
+  0%{opacity:1;transform:translate(-50%,-50%) scale(0.3)}
+  60%{opacity:.7;transform:translate(-50%,-50%) scale(1.4)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(2)}
+}
+/* Shuriken projectile */
+.rt-n-shuriken {
+  position: fixed; z-index: 10001; width: 18px; height: 18px; pointer-events: none;
+  background: #c0392b; clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+  box-shadow: 0 0 8px rgba(192,57,43,.8), 0 0 16px rgba(255,34,0,.4);
+}
+/* Speech bubble */
+.rt-n-speech {
+  position: fixed; z-index: 10002; pointer-events: none;
+  background: rgba(8,8,14,.92); border: 1.5px solid rgba(232,65,24,.7);
+  color: #ff6655; font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+  font-weight: 700; letter-spacing: .06em; padding: .35rem .7rem; border-radius: 6px;
+  white-space: nowrap; text-shadow: 0 0 8px rgba(232,65,24,.8);
+  box-shadow: 0 0 12px rgba(232,65,24,.25), inset 0 0 8px rgba(232,65,24,.06);
+  animation: rt-speech-pop .2s ease-out;
+}
+.rt-n-speech::after {
+  content: ''; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: rgba(232,65,24,.7); border-bottom: none;
+}
+@keyframes rt-speech-pop {
+  0%{transform:translateX(-50%) scale(.7);opacity:0}
+  100%{transform:translateX(-50%) scale(1);opacity:1}
+}
 @media (max-width:768px) {
   .rt-nav-links { display: none; }
   .rt-terminal-grid { grid-template-columns: 1fr; }
@@ -509,6 +684,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const [liveMsg, setLiveMsg]           = useState('');
   const [liveVisible, setLiveVisible]   = useState(true);
+  const [ninjaMode, setNinjaMode]       = useState<'patrol'|'stealth'|'rage'>('patrol');
+  const [ninjaQuote, setNinjaQuote]     = useState('');
+  const [ninjaQuotePos, setNinjaQuotePos] = useState({ x: 0, y: 0 });
+  const [showNinjaQuote, setShowNinjaQuote] = useState(false);
 
   const pageRef            = useRef<HTMLDivElement>(null);
   const canvasRef          = useRef<HTMLCanvasElement>(null);
@@ -677,52 +856,179 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     return () => ob.disconnect();
   }, []);
 
-  // ── Roaming ninja ─────────────────────────────────────────────────────────
+  // ── Elite Roaming Ninja ───────────────────────────────────────────────────
   useEffect(() => {
     const ninja = ninjaRef.current; if (!ninja) return;
-    const NW=80, NH=90, spd=250;
+    const NW=90, NH=110, spd=220;
     let state=0, cX=5, cY=0, dragging=false, dsX=0, dsY=0, nsX=0, nsY=0;
     let mt: ReturnType<typeof setTimeout>|null = null;
-    ninja.style.left=cX+'px'; ninja.style.top=cY+'px'; ninja.style.transform='rotate(180deg) scaleX(-1)';
-    const loop = () => {
+    let speedBuf: number[] = [];
+    let hasRage = false;
+    let lastClick = 0;
+    let lastDragX=0, lastDragY=0, lastDragT=0;
+
+    const QUOTES = [
+      'GHOST-7 ONLINE','// BYPASSING GUARDS','JAILBREAK INITIATED',
+      'NULL_POINTER_FOUND','BUFFER_OVERFLOW','SYSTEM_COMPROMISED',
+      '>>> ROOT_ACQUIRED','STEALTH_PROTOCOL_ON','INJECTION_SUCCESS',
+      'ZERO-DAY_DEPLOYED','EXFIL_COMPLETE','ACCESS_GRANTED',
+      'CVE-2024-9999','FIREWALL_DISABLED','SHADOW_MODE_ACTIVE'
+    ];
+
+    const showQuote = (q: string) => {
+      const r = ninja.getBoundingClientRect();
+      setNinjaQuote(q);
+      setNinjaQuotePos({ x: r.left + NW/2, y: r.top - 10 });
+      setShowNinjaQuote(true);
+      setTimeout(() => setShowNinjaQuote(false), 2200);
+    };
+
+    const spawnSmoke = (x: number, y: number) => {
+      const s = document.createElement('div');
+      s.className = 'rt-n-smoke';
+      s.style.left = x+'px'; s.style.top = y+'px';
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 700);
+    };
+
+    const throwShuriken = () => {
+      const r = ninja.getBoundingClientRect();
+      const sx = r.left+NW/2, sy = r.top+NH/2;
+      const angle = Math.random()*Math.PI*2;
+      const dist = Math.min(window.innerWidth, window.innerHeight)*0.4;
+      const tx = window.innerWidth/2+Math.cos(angle)*dist;
+      const ty = window.innerHeight/2+Math.sin(angle)*dist;
+      const sh = document.createElement('div');
+      sh.className = 'rt-n-shuriken';
+      sh.style.left=sx+'px'; sh.style.top=sy+'px'; sh.style.transform='translate(-50%,-50%)';
+      document.body.appendChild(sh);
+      let p=0;
+      const spin = setInterval(()=>{
+        p+=0.04; if(p>=1){clearInterval(spin);sh.remove();return;}
+        sh.style.left=(sx+(tx-sx)*p)+'px'; sh.style.top=(sy+(ty-sy)*p)+'px';
+        sh.style.transform=`translate(-50%,-50%) rotate(${p*1080}deg) scale(${1-p*0.5})`;
+        sh.style.opacity=String(1-p);
+      },16);
+    };
+
+    const patrol = () => {
       if (dragging) return;
       const w=window.innerWidth, h=window.innerHeight;
-      let tx=cX,ty=cY,tf='';
-      if(state===0){tx=w-85;ty=0;tf='rotate(180deg) scaleX(-1)';state=1;}
-      else if(state===1){tx=w-85;ty=h-90;tf='rotate(-90deg) scaleX(1)';state=2;}
-      else if(state===2){tx=5;ty=h-90;tf='rotate(0deg) scaleX(-1)';state=3;}
-      else{tx=5;ty=0;tf='rotate(90deg) scaleX(1)';state=0;}
-      const dist=Math.hypot(tx-cX,ty-cY), t=Math.max(dist/spd,.5);
-      ninja.style.transitionDuration=`${t}s,${t}s,0.2s`; ninja.style.transform=tf;
-      cX=tx; cY=ty; ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      mt = setTimeout(loop, t*1000+500);
+      let tx=cX, ty=cY, tf='';
+      if(state===0){tx=w-NW-5;ty=0;           tf='rotate(180deg) scaleX(-1)'; state=1;}
+      else if(state===1){tx=w-NW-5;ty=h-NH;   tf='rotate(-90deg) scaleX(1)';  state=2;}
+      else if(state===2){tx=5;ty=h-NH;         tf='rotate(0deg) scaleX(-1)';   state=3;}
+      else              {tx=5;ty=0;             tf='rotate(90deg) scaleX(1)';   state=0;}
+      const dist=Math.hypot(tx-cX,ty-cY), dur=Math.max(dist/spd,.5);
+      ninja.style.transitionDuration=`${dur}s,${dur}s,0.2s`;
+      ninja.style.transform=tf;
+      cX=tx; cY=ty;
+      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      mt = setTimeout(patrol, dur*1000+500);
     };
+
     const onDown = (e: PointerEvent) => {
       dragging=true; if(mt)clearTimeout(mt); ninja.classList.add('dragging');
       const r=ninja.getBoundingClientRect(); cX=r.left; cY=r.top;
-      ninja.style.transitionDuration='0s'; ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      ninja.style.transform='rotate(0deg) scaleX(1)';
-      dsX=e.clientX; dsY=e.clientY; nsX=cX; nsY=cY; e.preventDefault();
-    };
-    const onMove = (e: PointerEvent) => { if(!dragging)return; cX=nsX+e.clientX-dsX; cY=nsY+e.clientY-dsY; ninja.style.left=cX+'px'; ninja.style.top=cY+'px'; };
-    const onUp = (e: PointerEvent) => {
-      if(!dragging)return; dragging=false; ninja.classList.remove('dragging');
-      const w=window.innerWidth, h=window.innerHeight;
-      if(Math.hypot(e.clientX-dsX,e.clientY-dsY)<5){ const b=ninja.querySelector('.rt-ninja-body'); if(b){b.classList.add('jump');setTimeout(()=>b.classList.remove('jump'),500);} }
-      const dT=cY, dB=h-(cY+NH), dL=cX, dR=w-(cX+NW), mD=Math.min(dT,dB,dL,dR);
-      ninja.style.transitionDuration='0.3s';
-      if(mD===dT){cY=0;state=0;ninja.style.transform='rotate(180deg) scaleX(-1)';}
-      else if(mD===dB){cY=h-90;state=2;ninja.style.transform='rotate(0deg) scaleX(-1)';}
-      else if(mD===dL){cX=5;state=3;ninja.style.transform='rotate(90deg) scaleX(1)';}
-      else{cX=w-85;state=1;ninja.style.transform='rotate(-90deg) scaleX(1)';}
+      ninja.style.transitionDuration='0s';
       ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      mt=setTimeout(loop,300);
+      ninja.style.transform='rotate(0deg) scaleX(1)';
+      dsX=e.clientX; dsY=e.clientY; nsX=cX; nsY=cY;
+      speedBuf=[]; lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=Date.now();
+      e.preventDefault();
     };
+
+    const onMove = (e: PointerEvent) => {
+      if(!dragging) return;
+      cX=nsX+e.clientX-dsX; cY=nsY+e.clientY-dsY;
+      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      const now=Date.now(), dt=now-lastDragT;
+      if(dt>0){
+        speedBuf.push(Math.hypot(e.clientX-lastDragX,e.clientY-lastDragY)/dt);
+        if(speedBuf.length>10) speedBuf.shift();
+      }
+      lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=now;
+    };
+
+    const onUp = (e: PointerEvent) => {
+      if(!dragging) return; dragging=false; ninja.classList.remove('dragging');
+      const w=window.innerWidth, h=window.innerHeight;
+      const moved=Math.hypot(e.clientX-dsX,e.clientY-dsY);
+      const avgSpeed=speedBuf.length ? speedBuf.reduce((a,b)=>a+b)/speedBuf.length : 0;
+      if(avgSpeed>2.2 && !hasRage){
+        hasRage=true; ninja.classList.add('rage'); setNinjaMode('rage');
+        showQuote('RAGE_MODE_UNLOCKED!');
+        setTimeout(()=>{ ninja.classList.remove('rage'); setNinjaMode('patrol'); hasRage=false; },5000);
+      }
+      if(moved<5){
+        ninja.classList.add('spinning');
+        setTimeout(()=>ninja.classList.remove('spinning'),600);
+        showQuote(QUOTES[Math.floor(Math.random()*QUOTES.length)]);
+      }
+      const dT=cY, dB=h-(cY+NH), dL=cX, dR=w-(cX+NW), mD=Math.min(dT,dB,dL,dR);
+      ninja.style.transitionDuration='0.35s';
+      if(mD===dT)     {cY=0;      state=0; ninja.style.transform='rotate(180deg) scaleX(-1)';}
+      else if(mD===dB){cY=h-NH;   state=2; ninja.style.transform='rotate(0deg) scaleX(-1)';}
+      else if(mD===dL){cX=5;      state=3; ninja.style.transform='rotate(90deg) scaleX(1)';}
+      else            {cX=w-NW-5; state=1; ninja.style.transform='rotate(-90deg) scaleX(1)';}
+      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      mt=setTimeout(patrol,400);
+    };
+
+    const onClick = () => {
+      const now=Date.now();
+      if(now-lastClick<350){ throwShuriken(); showQuote('SHURIKEN_LAUNCHED!'); }
+      lastClick=now;
+    };
+
+    const onContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      if(mt) clearTimeout(mt);
+      const r=ninja.getBoundingClientRect();
+      spawnSmoke(r.left+NW/2, r.top+NH/2);
+      cX=Math.max(0,Math.min(e.clientX-NW/2, window.innerWidth-NW));
+      cY=Math.max(0,Math.min(e.clientY-NH/2, window.innerHeight-NH));
+      ninja.style.transitionDuration='0s';
+      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      spawnSmoke(e.clientX, e.clientY);
+      showQuote('// TELEPORT_COMPLETE');
+      mt=setTimeout(patrol,800);
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if(e.key==='n'||e.key==='N'){
+        if(ninja.classList.contains('stealth')){
+          ninja.classList.remove('stealth'); setNinjaMode('patrol'); showQuote('STEALTH_OFF');
+        } else {
+          ninja.classList.add('stealth'); setNinjaMode('stealth'); showQuote('GHOST_PROTOCOL_ON');
+        }
+      }
+    };
+
+    const quoteInterval = setInterval(()=>{
+      if(Math.random()>0.65 && !dragging)
+        showQuote(QUOTES[Math.floor(Math.random()*QUOTES.length)]);
+    }, 8000);
+
+    ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+    ninja.style.transform='rotate(180deg) scaleX(-1)';
     ninja.addEventListener('pointerdown', onDown as EventListener);
+    ninja.addEventListener('click', onClick);
+    ninja.addEventListener('contextmenu', onContextMenu);
     window.addEventListener('pointermove', onMove as EventListener);
     window.addEventListener('pointerup', onUp as EventListener);
-    const sid = setTimeout(loop, 1000);
-    return () => { if(mt)clearTimeout(mt); clearTimeout(sid); ninja.removeEventListener('pointerdown',onDown as EventListener); window.removeEventListener('pointermove',onMove as EventListener); window.removeEventListener('pointerup',onUp as EventListener); };
+    window.addEventListener('keydown', onKey);
+    const sid = setTimeout(patrol, 1000);
+
+    return () => {
+      if(mt) clearTimeout(mt); clearTimeout(sid); clearInterval(quoteInterval);
+      ninja.removeEventListener('pointerdown', onDown as EventListener);
+      ninja.removeEventListener('click', onClick);
+      ninja.removeEventListener('contextmenu', onContextMenu);
+      window.removeEventListener('pointermove', onMove as EventListener);
+      window.removeEventListener('pointerup', onUp as EventListener);
+      window.removeEventListener('keydown', onKey);
+    };
   }, []);
 
   // ─── Render ───────────────────────────────────────────────────────────────
@@ -738,26 +1044,43 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           </motion.button>
         </div>
 
+        {/* ── Elite Cyber Ninja (fixed to overlay viewport) ── */}
+        <div ref={ninjaRef} id="rt-roaming-ninja" className={ninjaMode}>
+          <div className="rt-n-aura" />
+          <div className="rt-n-shadow" />
+          <div className="rt-n-speed-trail" />
+          <div className="rt-n-katana">
+            <div className="rt-n-katana-blade" />
+            <div className="rt-n-katana-guard" />
+            <div className="rt-n-katana-handle" />
+          </div>
+          <div className="rt-n-arm back" />
+          <div className="rt-n-torso" />
+          <div className="rt-n-collar" />
+          <div className="rt-n-head">
+            <div className="rt-n-headband" />
+            <div className="rt-n-visor">
+              <div className="rt-n-eye left" />
+              <div className="rt-n-eye right" />
+            </div>
+            <div className="rt-n-scarf" />
+          </div>
+          <div className="rt-n-arm front" />
+          <div className="rt-n-leg back" />
+          <div className="rt-n-leg front" />
+        </div>
+        {showNinjaQuote && (
+          <div className="rt-n-speech"
+            style={{ left: ninjaQuotePos.x, top: ninjaQuotePos.y - 30, transform: 'translateX(-50%)' }}>
+            {ninjaQuote}
+          </div>
+        )}
+
         {/* Full page container */}
         <div id="rt-page" data-theme={theme} ref={pageRef} style={{position:'absolute',inset:0,overflowY:'auto'}}>
           <canvas ref={canvasRef} style={{position:'fixed',inset:0,zIndex:0,pointerEvents:'none'}} />
           <div id="rt-scanlines" />
           <div ref={trailRef} style={{position:'fixed',pointerEvents:'none',zIndex:9998,width:6,height:6,borderRadius:'50%',background:'var(--red)',opacity:0,transition:'opacity 0.1s',transform:'translate(-50%,-50%)'}} />
-          {/* Roaming ninja */}
-          <div ref={ninjaRef} id="rt-roaming-ninja">
-            <div className="rt-ninja-body">
-              <div className="rt-ninja-head">
-                <div className="rt-ninja-band" />
-                <div className="rt-ninja-eye-slit">
-                  <div className="rt-ninja-pupil left" />
-                  <div className="rt-ninja-pupil right" />
-                </div>
-                <div className="rt-ninja-tails" />
-              </div>
-              <div className="rt-ninja-arm back" /><div className="rt-ninja-arm front" />
-              <div className="rt-ninja-leg back" /><div className="rt-ninja-leg front" />
-            </div>
-          </div>
 
           <div id="rt-site">
             {/* NAV */}
