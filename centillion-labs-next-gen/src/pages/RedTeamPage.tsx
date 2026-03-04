@@ -23,7 +23,7 @@ const RT_CSS = `
   --stat-hover: rgba(139,0,0,0.15); --tilt-shadow: rgba(0,0,0,0.5);
   --matrix-head: rgba(232,65,24,0.07); --matrix-hover: rgba(232,65,24,0.04);
   --mono: 'JetBrains Mono', monospace;
-  --sans: 'Barlow', sans-serif; --cond: 'Barlow Condensed', sans-serif;
+  --sans: 'Barlow Condensed', sans-serif; --cond: 'Barlow Condensed', sans-serif;
 }
 #rt-page[data-theme="light"] {
   --red: #c42800; --red2: #a82200;
@@ -45,7 +45,8 @@ const RT_CSS = `
 }
 #rt-page { font-family: var(--sans); background: var(--bg); color: var(--sub);
   overflow-x: hidden; overflow-y: auto; height: 100%;
-  transition: background 0.4s ease, color 0.4s ease; }
+  transition: background 0.4s ease, color 0.4s ease;
+  font-stretch: condensed; }
 #rt-page ::selection { background: rgba(232,65,24,0.4); color: #fff; }
 #rt-page ::-webkit-scrollbar { width: 4px; }
 #rt-page ::-webkit-scrollbar-track { background: var(--bg); }
@@ -114,7 +115,7 @@ const RT_CSS = `
 @keyframes rt-glitch-2 {
   0%,90%,100%{transform:translate(0,0);opacity:0} 92%{transform:translate(4px,-2px);opacity:.7}
   94%{transform:translate(-3px,1px);opacity:.7} 96%{transform:translate(2px,-1px);opacity:.5} 98%{transform:translate(0,0);opacity:0} }
-.rt-hero-sub { max-width: 640px; color: var(--muted); font-size: clamp(.85rem,2vw,1rem);
+.rt-hero-sub { max-width: 640px; color: var(--muted); font-family: var(--cond); font-weight: 400; font-size: clamp(.9rem,2vw,1.05rem);
   line-height: 1.8; margin: 0 auto 2.5rem;
   opacity: 0; animation: rt-fadeUp .8s ease .7s forwards; transition: color 0.4s; }
 .rt-hero-sub em { color: var(--red); font-style: normal; }
@@ -160,7 +161,7 @@ const RT_CSS = `
   margin-bottom: 1rem; letter-spacing: -.01em; transition: color 0.4s; }
 #rt-page[data-theme="dark"] .rt-section-title { color: #fff; }
 .rt-section-title .accent { color: var(--red); }
-.rt-section-desc { max-width: 580px; color: var(--muted); font-size: .9rem; line-height: 1.75; transition: color 0.4s; }
+.rt-section-desc { max-width: 580px; color: var(--muted); font-family: var(--cond); font-weight: 400; font-size: .95rem; line-height: 1.7; transition: color 0.4s; }
 .rt-stats-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
   gap: 1px; background: rgba(232,65,24,.1);
   border: 1px solid rgba(232,65,24,.1); border-radius: 12px; overflow: hidden; margin-top: 4rem; }
@@ -201,7 +202,7 @@ const RT_CSS = `
   color: var(--sub); letter-spacing: .02em; margin-bottom: .5rem; transition: color 0.4s; }
 #rt-page[data-theme="dark"] .rt-attack-name { color: #fff; }
 #rt-page[data-theme="light"] .rt-attack-name { color: #1a0300; }
-.rt-attack-desc { font-size: .82rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; transition: color 0.4s; }
+.rt-attack-desc { font-family: var(--cond); font-weight: 400; font-size: .87rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.2rem; transition: color 0.4s; }
 .rt-attack-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
 .rt-tag { font-family: var(--mono); font-size: .55rem; font-weight: 500; letter-spacing: .1em;
   color: rgba(232,65,24,.75); border: 1px solid rgba(232,65,24,.18); background: rgba(232,65,24,.06);
@@ -284,7 +285,7 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
 .rt-step-title { font-family: var(--cond); font-weight: 700; font-size: 1.1rem; color: var(--sub); letter-spacing: .02em; margin-bottom: .45rem; transition: color 0.4s; }
 #rt-page[data-theme="dark"] .rt-step-title { color: #fff; }
 #rt-page[data-theme="light"] .rt-step-title { color: #1a0300; }
-.rt-step-desc { font-size: .83rem; color: var(--muted); line-height: 1.7; margin-bottom: .7rem; transition: color 0.4s; }
+.rt-step-desc { font-family: var(--cond); font-weight: 400; font-size: .9rem; color: var(--muted); line-height: 1.65; margin-bottom: .7rem; transition: color 0.4s; }
 .rt-step-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
 .rt-step-chip { font-family: var(--mono); font-size: .55rem; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; padding: .18rem .6rem; border-radius: 3px;
@@ -300,7 +301,7 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
 .rt-tool-name { font-family: var(--mono); font-size: .75rem; font-weight: 700; color: var(--sub); letter-spacing: .05em; margin-bottom: .35rem; transition: color 0.4s; }
 #rt-page[data-theme="dark"] .rt-tool-name { color: #fff; }
 #rt-page[data-theme="light"] .rt-tool-name { color: #1a0300; }
-.rt-tool-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; transition: color 0.4s; }
+.rt-tool-desc { font-family: var(--cond); font-weight: 400; font-size: .78rem; color: var(--muted); line-height: 1.5; transition: color 0.4s; }
 .rt-cta-section { position: relative; overflow: hidden; background: var(--bg2); border-top: 1px solid rgba(232,65,24,.1); transition: background 0.4s; }
 .rt-cta-section::before { content: ''; position: absolute; inset: 0;
   background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(139,0,0,.2), transparent 70%); pointer-events: none; }
@@ -309,7 +310,7 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
 .rt-cta-title { font-family: var(--cond); font-weight: 800; font-size: clamp(2.5rem,6vw,5rem); line-height: .95; color: var(--heading); margin-bottom: 1.5rem; transition: color 0.4s; }
 #rt-page[data-theme="dark"] .rt-cta-title { color: #fff; }
 .rt-cta-title .red { color: var(--red); }
-.rt-cta-desc { color: var(--muted); font-size: .9rem; line-height: 1.75; margin-bottom: 2.5rem; max-width: 540px; margin-left: auto; margin-right: auto; transition: color 0.4s; }
+.rt-cta-desc { color: var(--muted); font-family: var(--cond); font-weight: 400; font-size: .95rem; line-height: 1.7; margin-bottom: 2.5rem; max-width: 540px; margin-left: auto; margin-right: auto; transition: color 0.4s; }
 .rt-contact-row { display: flex; align-items: center; justify-content: center; gap: .6rem; margin-top: 2rem; flex-wrap: wrap; }
 .rt-contact-chip { font-family: var(--mono); font-size: .62rem; font-weight: 500; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
 .rt-contact-sep { color: var(--dim); }
@@ -518,11 +519,16 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
 
   // ── Inject/remove scoped CSS ──────────────────────────────────────────────
   useEffect(() => {
+    const link = document.createElement('link');
+    link.id = 'rt-google-fonts';
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap';
+    document.head.appendChild(link);
     const style = document.createElement('style');
     style.id = 'rt-page-styles';
     style.textContent = RT_CSS;
     document.head.appendChild(style);
-    return () => { style.remove(); };
+    return () => { link.remove(); style.remove(); };
   }, []);
 
   // ── Lock body scroll while overlay is open ────────────────────────────────
