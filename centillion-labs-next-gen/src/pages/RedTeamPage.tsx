@@ -584,287 +584,352 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
 .rt-roaming-replica.stealth { opacity: .18; filter: saturate(0) brightness(.6); }
 .rt-roaming-replica.rage { filter: drop-shadow(0 0 22px rgba(255,80,0,.28)); }
 
-/* ═══════════ NINJA VARIANT: GHOST ═══════════
-   Translucent white/cyan — haunted specter  */
-#rt-roaming-ninja.v-ghost,
-.rt-roaming-replica.v-ghost {
-  filter: drop-shadow(0 0 18px rgba(0,255,220,.35)) drop-shadow(0 0 8px rgba(0,255,220,.18));
-}
-#rt-roaming-ninja.v-ghost .rt-n-head {
-  background: radial-gradient(circle at 38% 28%, #e0f8f8 0%, #b0eae8 40%, #80d4d0 80%);
-  box-shadow: 0 4px 20px rgba(0,255,220,.35), inset 0 -4px 10px rgba(0,180,180,.25);
-}
-#rt-roaming-ninja.v-ghost .rt-n-band {
-  background: linear-gradient(180deg, #00d4c8 0%, #007a74 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.45), 0 0 14px rgba(0,212,200,.45);
-}
-#rt-roaming-ninja.v-ghost .rt-n-band::after {
-  background: linear-gradient(90deg, #00c4b8, #005550);
-}
-#rt-roaming-ninja.v-ghost .rt-n-eye {
-  background: #ffffff;
-  box-shadow: 0 0 12px rgba(255,255,255,1), 0 0 26px rgba(0,255,220,.8);
-}
-#rt-roaming-ninja.v-ghost .rt-n-torso {
-  background: #c8f2f0;
-  border-color: rgba(0,212,200,.4);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.2), 0 4px 14px rgba(0,0,0,.3);
-}
-#rt-roaming-ninja.v-ghost .rt-n-torso::before,
-#rt-roaming-ninja.v-ghost .rt-n-torso::after {
-  background: rgba(0,212,200,.7);
-  box-shadow: 0 0 8px rgba(0,212,200,.5);
-}
-#rt-roaming-ninja.v-ghost .rt-n-arm,
-#rt-roaming-ninja.v-ghost .rt-n-leg {
-  background: linear-gradient(180deg, #b0e8e6, #80cac8);
-  border-color: rgba(0,212,200,.3);
-}
-#rt-roaming-ninja.v-ghost .rt-n-arm::after {
-  background: rgba(0,212,200,.22);
-}
-#rt-roaming-ninja.v-ghost .rt-n-leg::after {
-  background: #a0dcda;
-  border-color: rgba(0,212,200,.25);
-}
-#rt-roaming-ninja.v-ghost .rt-n-collar {
-  background: linear-gradient(180deg, #b0e8e6, #80cac8);
-  border-color: rgba(0,212,200,.3);
-}
-#rt-roaming-ninja.v-ghost .rt-n-weapon {
-  background: linear-gradient(180deg, #a0dcda, #60b0ae);
-}
-#rt-roaming-ninja.v-ghost .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(0,255,220,.5) 0%, transparent 70%);
-}
+/* ═══════════════════════════════════════════════════════════════
+   VARIANT STRUCTURAL CSS — each variant has unique shapes/bodies
+   ═══════════════════════════════════════════════════════════════ */
 
-/* ═══════════ NINJA VARIANT: ONI ═══════════
-   Electric blue/indigo – demon samurai   */
-#rt-roaming-ninja.v-oni,
-.rt-roaming-replica.v-oni {
-  filter: drop-shadow(0 0 22px rgba(80,80,255,.35)) drop-shadow(0 12px 22px rgba(30,30,180,.22));
+/* ─── v-ghost: Wispy Specter ─── */
+#rt-roaming-ninja.v-ghost, .rt-roaming-replica.v-ghost {
+  filter: drop-shadow(0 0 22px rgba(0,220,255,.50)) drop-shadow(0 0 40px rgba(0,180,220,.18));
 }
-#rt-roaming-ninja.v-oni .rt-n-head {
-  background: radial-gradient(circle at 38% 28%, #1a1a4e 0%, #08082a 60%);
-  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(40,40,160,.22);
+.v-ghost .rt-n-aura { background: radial-gradient(ellipse at center, rgba(0,210,240,.48) 0%, transparent 70%); }
+.rt-nv-g-head {
+  position: absolute; left: 18%; top: 1%; width: 64%; height: 38%;
+  border-radius: 50% 50% 44% 44%;
+  background: radial-gradient(circle at 40% 32%, #eaf8ff 0%, #a8eaf8 46%, #68ccec 88%);
+  box-shadow: 0 0 20px rgba(0,200,240,.6), inset 0 -8px 14px rgba(0,148,178,.22);
+  z-index: 2; animation: rt-g-hd 2s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-oni .rt-n-band {
-  background: linear-gradient(180deg, #3a3af0 0%, #1a1aac 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 16px rgba(60,60,240,.5);
+@keyframes rt-g-hd { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.rt-nv-g-visor {
+  position: absolute; left: 10%; top: 42%; width: 80%; height: 28%;
+  background: rgba(0,12,22,.78); border-radius: 2px; overflow: hidden;
 }
-#rt-roaming-ninja.v-oni .rt-n-band::after {
-  background: linear-gradient(90deg, #2a2ad8, #0e0e78);
+.rt-nv-g-eye {
+  position: absolute; top: 10%; width: 30%; height: 80%;
+  border-radius: 50%; background: #ffffff;
+  box-shadow: 0 0 10px #fff, 0 0 22px rgba(0,220,255,.9);
+  animation: rt-g-eye 1.5s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-oni .rt-n-eye {
-  background: #00a8ff;
-  box-shadow: 0 0 12px rgba(0,168,255,1), 0 0 26px rgba(0,100,255,.7);
+.rt-nv-g-eye.l { left: 7%; } .rt-nv-g-eye.r { right: 7%; animation-delay: .4s; }
+@keyframes rt-g-eye { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.38;transform:scale(.72)} }
+.rt-nv-g-body {
+  position: absolute; left: 12%; top: 31%; width: 76%; height: 52%;
+  border-radius: 14% 14% 50% 50%;
+  background: linear-gradient(180deg, #b4ecf8 0%, #74d4ec 36%, rgba(72,184,210,.22) 100%);
+  box-shadow: inset 0 -10px 18px rgba(0,155,195,.18), 0 0 14px rgba(0,195,235,.18);
+  animation: rt-g-body 2s ease-in-out infinite; z-index: 1;
 }
-#rt-roaming-ninja.v-oni .rt-n-torso {
-  background: #08082a;
-  border-color: rgba(60,60,240,.4);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+@keyframes rt-g-body { 0%,100%{transform:translateY(0) scaleX(1)} 50%{transform:translateY(-4px) scaleX(1.05)} }
+.rt-nv-g-arm {
+  position: absolute; width: 9%; height: 30%; top: 34%;
+  border-radius: 50%; transform-origin: top center;
+  background: linear-gradient(180deg, rgba(155,228,248,.9), rgba(60,180,212,.22));
 }
-#rt-roaming-ninja.v-oni .rt-n-torso::before,
-#rt-roaming-ninja.v-oni .rt-n-torso::after {
-  background: rgba(60,60,240,.65);
-  box-shadow: 0 0 8px rgba(60,60,240,.4);
+.rt-nv-g-arm.l { left: 4%; animation: rt-g-al 2s ease-in-out infinite; }
+.rt-nv-g-arm.r { right: 4%; animation: rt-g-ar 2s ease-in-out infinite; }
+@keyframes rt-g-al { 0%,100%{transform:rotate(-30deg) skewY(6deg)} 50%{transform:rotate(-56deg) skewY(-8deg)} }
+@keyframes rt-g-ar { 0%,100%{transform:rotate(30deg) skewY(-6deg)} 50%{transform:rotate(56deg) skewY(8deg)} }
+.rt-nv-g-tendril {
+  position: absolute; border-radius: 0 0 40% 40%; transform-origin: top center;
+  background: linear-gradient(180deg, rgba(80,205,228,.62), rgba(22,122,148,.06));
 }
-#rt-roaming-ninja.v-oni .rt-n-arm,
-#rt-roaming-ninja.v-oni .rt-n-leg {
-  background: linear-gradient(180deg, #1a1a44, #0a0a22);
-  border-color: rgba(60,60,240,.3);
-}
-#rt-roaming-ninja.v-oni .rt-n-arm::after {
-  background: rgba(60,60,240,.18);
-}
-#rt-roaming-ninja.v-oni .rt-n-leg::after {
-  background: #10102a;
-  border-color: rgba(60,60,240,.22);
-}
-#rt-roaming-ninja.v-oni .rt-n-collar {
-  background: linear-gradient(180deg, #1a1a44, #0a0a22);
-  border-color: rgba(60,60,240,.3);
-}
-#rt-roaming-ninja.v-oni .rt-n-weapon {
-  background: linear-gradient(180deg, #2244aa, #0a1866);
-  box-shadow: 0 0 8px rgba(40,80,200,.4);
-}
-#rt-roaming-ninja.v-oni .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(60,60,240,.45) 0%, transparent 70%);
-}
+.rt-nv-g-tendril.t1 { left: 18%; top: 73%; width: 16%; height: 23%; animation: rt-g-td1 1.5s ease-in-out infinite alternate; }
+.rt-nv-g-tendril.t2 { left: 40%; top: 77%; width: 20%; height: 27%; animation: rt-g-td2 1.8s ease-in-out infinite alternate; }
+.rt-nv-g-tendril.t3 { left: 64%; top: 73%; width: 16%; height: 23%; animation: rt-g-td3 1.3s ease-in-out infinite alternate; }
+@keyframes rt-g-td1 { 0%{transform:skewX(-10deg) scaleX(.9)} 100%{transform:skewX(13deg) scaleX(1.1)} }
+@keyframes rt-g-td2 { 0%{transform:skewX(8deg) scaleY(.88)} 100%{transform:skewX(-13deg) scaleY(1.12)} }
+@keyframes rt-g-td3 { 0%{transform:skewX(12deg) scaleX(.88)} 100%{transform:skewX(-8deg) scaleX(1.12)} }
 
-/* ═══════════ NINJA VARIANT: NEON ═══════════
-   Matrix green – full cyberpunk hacker   */
-#rt-roaming-ninja.v-neon,
-.rt-roaming-replica.v-neon {
-  filter: drop-shadow(0 0 22px rgba(0,255,80,.32)) drop-shadow(0 12px 22px rgba(0,180,60,.18));
+/* ─── v-oni: Demon Samurai ─── */
+#rt-roaming-ninja.v-oni, .rt-roaming-replica.v-oni {
+  filter: drop-shadow(0 0 22px rgba(60,80,255,.40)) drop-shadow(0 12px 22px rgba(20,0,60,.25));
 }
-#rt-roaming-ninja.v-neon .rt-n-head {
-  background: radial-gradient(circle at 38% 28%, #0a1a0a 0%, #020802 60%);
-  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(0,255,80,.10);
+.v-oni .rt-n-aura { background: radial-gradient(ellipse at center, rgba(90,50,255,.48) 0%, transparent 70%); }
+.rt-nv-o-head {
+  position: absolute; left: 10%; top: 5%; width: 80%; height: 30%;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #1c1c52 0%, #0c0c30 100%);
+  box-shadow: 0 4px 16px rgba(0,0,0,.72), inset 0 0 0 1.5px rgba(60,80,255,.28);
+  z-index: 3;
 }
-#rt-roaming-ninja.v-neon .rt-n-band {
-  background: linear-gradient(180deg, #00cc44 0%, #006622 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 16px rgba(0,204,68,.55);
+.rt-nv-o-horn {
+  position: absolute; width: 10%; height: 22%; top: -18%;
+  background: linear-gradient(180deg, #3a3aee 0%, #1a1a80 80%);
+  border-radius: 40% 40% 0 0;
+  box-shadow: 0 0 8px rgba(60,80,255,.55);
 }
-#rt-roaming-ninja.v-neon .rt-n-band::after {
-  background: linear-gradient(90deg, #00aa38, #004418);
+.rt-nv-o-horn.l { left: 18%; transform: rotate(-12deg); transform-origin: bottom center; }
+.rt-nv-o-horn.r { right: 18%; transform: rotate(12deg); transform-origin: bottom center; }
+.rt-nv-o-stripe {
+  position: absolute; left: 46%; top: 8%; width: 10%; height: 50%;
+  background: linear-gradient(180deg, rgba(255,38,38,.8), rgba(190,8,8,.55));
+  border-radius: 2px; box-shadow: -1px 0 5px rgba(255,38,38,.4);
 }
-#rt-roaming-ninja.v-neon .rt-n-eye {
-  background: #00ff55;
-  box-shadow: 0 0 12px rgba(0,255,85,1), 0 0 28px rgba(0,200,60,.75);
-  animation-name: rt-neon-eye-pulse;
+.rt-nv-o-eye {
+  position: absolute; left: 10%; top: 38%; width: 80%; height: 24%;
+  background: linear-gradient(90deg, #1660ff, #003eee, #1660ff);
+  border-radius: 3px;
+  box-shadow: 0 0 14px rgba(0,90,255,1), 0 0 26px rgba(0,55,255,.72);
+  animation: rt-o-eye .9s ease-in-out infinite;
 }
-@keyframes rt-neon-eye-pulse {
-  0%,100%{opacity:1;box-shadow:0 0 12px rgba(0,255,85,1),0 0 28px rgba(0,200,60,.75)}
-  50%{opacity:.5;box-shadow:0 0 5px rgba(0,255,85,.7)}
+@keyframes rt-o-eye { 0%,100%{opacity:1} 50%{opacity:.55} }
+.rt-nv-o-chest {
+  position: absolute; left: 3%; top: 33%; width: 94%; height: 34%;
+  background: linear-gradient(180deg, #10103e 0%, #080820 100%);
+  border-radius: 5px 5px 3px 3px;
+  border: 1.5px solid rgba(60,80,255,.35);
+  box-shadow: 0 4px 14px rgba(0,0,0,.62), inset 0 0 0 1px rgba(0,0,0,.45);
+  z-index: 2;
 }
-#rt-roaming-ninja.v-neon .rt-n-visor {
-  background: rgba(0,20,0,.85);
+.rt-nv-o-chest::before {
+  content:''; position:absolute; width:2px; height:62%; left:50%; top:16%; transform:translateX(-50%);
+  background:rgba(60,80,255,.62); box-shadow:0 0 8px rgba(60,80,255,.4);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite;
 }
-#rt-roaming-ninja.v-neon .rt-n-torso {
+.rt-nv-o-chest::after {
+  content:''; position:absolute; width:58%; height:2px; left:21%; top:50%;
+  background:rgba(60,80,255,.52); box-shadow:0 0 8px rgba(60,80,255,.35);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite .5s;
+}
+.rt-nv-o-pauldron {
+  position: absolute; width: 20%; height: 20%; top: 29%;
+  border-radius: 45% 45% 38% 38%;
+  background: linear-gradient(180deg, #2222a8 0%, #0e0e58 100%);
+  border: 1px solid rgba(60,80,255,.38);
+  box-shadow: 0 0 10px rgba(40,55,220,.32); z-index: 3;
+}
+.rt-nv-o-pauldron.l { left: -2%; } .rt-nv-o-pauldron.r { right: -2%; }
+.rt-nv-o-arm {
+  position: absolute; width: 18%; height: 20%; top: 50%;
+  background: linear-gradient(180deg, #14144c, #0a0a28);
+  border-radius: 5px; border: 1px solid rgba(60,80,255,.24);
+  transform-origin: top center; z-index: 1;
+}
+.rt-nv-o-arm.l { left: 0%; animation: rt-o-al .42s ease-in-out infinite; }
+.rt-nv-o-arm.r { right: 0%; animation: rt-o-ar .42s ease-in-out infinite; }
+@keyframes rt-o-al { 0%,100%{transform:rotate(-28deg)} 50%{transform:rotate(18deg)} }
+@keyframes rt-o-ar { 0%,100%{transform:rotate(28deg)} 50%{transform:rotate(-18deg)} }
+.rt-nv-o-fist {
+  position: absolute; width: 17%; height: 10%; top: 70%;
+  background: #16164e; border-radius: 4px;
+  border: 1px solid rgba(60,80,255,.32); box-shadow: 0 0 6px rgba(40,55,200,.28);
+}
+.rt-nv-o-fist.l { left: 0%; } .rt-nv-o-fist.r { right: 0%; }
+.rt-nv-o-leg {
+  position: absolute; width: 24%; height: 24%; top: 70%;
+  background: linear-gradient(180deg, #10103e, #060618);
+  border-radius: 5px; border: 1px solid rgba(60,80,255,.22);
+  transform-origin: top center;
+}
+.rt-nv-o-leg.l { left: 14%; animation: rt-o-ll .42s ease-in-out infinite; }
+.rt-nv-o-leg.r { right: 14%; animation: rt-o-lr .42s ease-in-out infinite; }
+@keyframes rt-o-ll { 0%,100%{transform:rotate(-20deg)} 50%{transform:rotate(20deg)} }
+@keyframes rt-o-lr { 0%,100%{transform:rotate(20deg)} 50%{transform:rotate(-20deg)} }
+
+/* ─── v-neon: Geometric Cyberpunk ─── */
+#rt-roaming-ninja.v-neon, .rt-roaming-replica.v-neon {
+  filter: drop-shadow(0 0 22px rgba(0,255,80,.40)) drop-shadow(0 0 42px rgba(0,198,58,.16));
+}
+.v-neon .rt-n-aura { background: radial-gradient(ellipse at center, rgba(0,215,68,.52) 0%, transparent 70%); }
+.rt-nv-n-head {
+  position: absolute; left: 24%; top: 1%; width: 52%; height: 28%;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   background: #020e02;
-  border-color: rgba(0,204,68,.45);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+  box-shadow: 0 0 18px rgba(0,215,68,.42);
+  z-index: 2;
 }
-#rt-roaming-ninja.v-neon .rt-n-torso::before,
-#rt-roaming-ninja.v-neon .rt-n-torso::after {
-  background: rgba(0,204,68,.7);
-  box-shadow: 0 0 10px rgba(0,255,80,.4);
+.rt-nv-n-visor {
+  position: absolute; left: 23%; top: 43%; width: 54%; height: 14%;
+  background: #00ff50;
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(0,255,80,1), 0 0 26px rgba(0,198,60,.72);
+  animation: rt-n-visor 1.2s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-neon .rt-n-arm,
-#rt-roaming-ninja.v-neon .rt-n-leg {
-  background: linear-gradient(180deg, #0a1e0a, #030803);
-  border-color: rgba(0,204,68,.28);
+@keyframes rt-n-visor { 0%,100%{opacity:1;box-shadow:0 0 12px rgba(0,255,80,1),0 0 26px rgba(0,198,60,.72)} 50%{opacity:.5;box-shadow:0 0 5px rgba(0,255,80,.7)} }
+.rt-nv-n-torso {
+  position: absolute; left: 16%; top: 30%; width: 68%; height: 36%;
+  clip-path: polygon(8% 0%, 92% 0%, 82% 100%, 18% 100%);
+  background: #020c02;
+  border: 1px solid rgba(0,215,68,.38);
+  box-shadow: inset 0 0 0 1px rgba(0,215,68,.14), 0 4px 14px rgba(0,0,0,.5);
+  z-index: 1;
 }
-#rt-roaming-ninja.v-neon .rt-n-arm::after {
-  background: rgba(0,204,68,.18);
+.rt-nv-n-torso::before {
+  content:''; position:absolute; width:2px; height:66%; left:50%; top:12%; transform:translateX(-50%);
+  background:rgba(0,215,68,.68); box-shadow:0 0 8px rgba(0,215,68,.42);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite;
 }
-#rt-roaming-ninja.v-neon .rt-n-leg::after {
-  background: #040e04;
-  border-color: rgba(0,204,68,.22);
+.rt-nv-n-torso::after {
+  content:''; position:absolute; width:54%; height:2px; left:23%; top:50%;
+  background:rgba(0,215,68,.56); box-shadow:0 0 8px rgba(0,215,68,.35);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite .4s;
 }
-#rt-roaming-ninja.v-neon .rt-n-collar {
-  background: linear-gradient(180deg, #0a1e0a, #030803);
-  border-color: rgba(0,204,68,.28);
+.rt-nv-n-arm {
+  position: absolute; width: 9%; height: 28%; top: 34%;
+  background: linear-gradient(180deg, #031203, #010801);
+  border: 1px solid rgba(0,215,68,.32); border-radius: 3px; transform-origin: top center;
 }
-#rt-roaming-ninja.v-neon .rt-n-weapon {
-  background: linear-gradient(180deg, #006622, #003310);
-  box-shadow: 0 0 8px rgba(0,204,68,.4);
+.rt-nv-n-arm.l { left: 7%; animation: rt-n-al .42s ease-in-out infinite; }
+.rt-nv-n-arm.r { right: 7%; animation: rt-n-ar .42s ease-in-out infinite; }
+@keyframes rt-n-al { 0%,100%{transform:rotate(38deg)} 50%{transform:rotate(-38deg)} }
+@keyframes rt-n-ar { 0%,100%{transform:rotate(-38deg)} 50%{transform:rotate(38deg)} }
+.rt-nv-n-joint {
+  position: absolute; width: 9%; height: 5%; border-radius: 50%;
+  background: #00ff50; box-shadow: 0 0 8px rgba(0,255,80,1), 0 0 16px rgba(0,198,60,.72);
+  z-index: 4;
 }
-#rt-roaming-ninja.v-neon .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(0,204,68,.48) 0%, transparent 70%);
+.rt-nv-n-joint.el { left: 6%; top: 55%; animation: rt-n-ejl .42s ease-in-out infinite; }
+.rt-nv-n-joint.er { right: 6%; top: 55%; animation: rt-n-ejr .42s ease-in-out infinite; }
+.rt-nv-n-joint.kl { left: 22%; top: 80%; }
+.rt-nv-n-joint.kr { right: 22%; top: 80%; }
+@keyframes rt-n-ejl { 0%,100%{top:55%} 50%{top:46%} }
+@keyframes rt-n-ejr { 0%,100%{top:55%} 50%{top:46%} }
+.rt-nv-n-leg {
+  position: absolute; width: 12%; height: 28%; top: 66%;
+  background: linear-gradient(180deg, #031203, #010801);
+  border: 1px solid rgba(0,215,68,.28); border-radius: 3px; transform-origin: top center;
 }
+.rt-nv-n-leg.l { left: 24%; animation: rt-n-ll .42s ease-in-out infinite; }
+.rt-nv-n-leg.r { right: 24%; animation: rt-n-lr .42s ease-in-out infinite; }
+@keyframes rt-n-ll { 0%,100%{transform:rotate(-38deg)} 50%{transform:rotate(38deg)} }
+@keyframes rt-n-lr { 0%,100%{transform:rotate(38deg)} 50%{transform:rotate(-38deg)} }
 
-/* ═══════════ NINJA VARIANT: PHANTOM ═══════════
-   Gold/amber – royal assassin             */
-#rt-roaming-ninja.v-phantom,
-.rt-roaming-replica.v-phantom {
-  filter: drop-shadow(0 0 22px rgba(255,200,0,.32)) drop-shadow(0 12px 22px rgba(200,140,0,.22));
+/* ─── v-phantom: Royal Assassin ─── */
+#rt-roaming-ninja.v-phantom, .rt-roaming-replica.v-phantom {
+  filter: drop-shadow(0 0 22px rgba(255,198,0,.40)) drop-shadow(0 12px 20px rgba(175,118,0,.24));
 }
-#rt-roaming-ninja.v-phantom .rt-n-head {
-  background: radial-gradient(circle at 38% 28%, #2a1e04 0%, #120c00 60%);
-  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(0,0,0,.35);
+.v-phantom .rt-n-aura { background: radial-gradient(ellipse at center, rgba(218,165,0,.52) 0%, transparent 70%); }
+.rt-nv-p-cape {
+  position: absolute; left: -5%; top: 28%; width: 52%; height: 60%;
+  border-radius: 6px 0 28px 28px;
+  background: linear-gradient(170deg, #8a6000 0%, #3a2400 55%, rgba(38,18,0,.28) 100%);
+  transform-origin: 100% 0%; animation: rt-p-cape 1.1s ease-in-out infinite alternate; z-index: 0;
 }
-#rt-roaming-ninja.v-phantom .rt-n-band {
-  background: linear-gradient(180deg, #e8a800 0%, #a06800 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 18px rgba(232,168,0,.55);
+@keyframes rt-p-cape { 0%{transform:skewX(-9deg) rotate(-3deg)} 100%{transform:skewX(9deg) rotate(3deg)} }
+.rt-nv-p-torso {
+  position: absolute; left: 28%; top: 34%; width: 44%; height: 34%;
+  background: linear-gradient(180deg, #1c1000, #0c0800);
+  border-radius: 5px; border: 1.5px solid rgba(218,165,0,.44);
+  box-shadow: 0 4px 14px rgba(0,0,0,.62), inset 0 0 0 1px rgba(0,0,0,.45); z-index: 2;
 }
-#rt-roaming-ninja.v-phantom .rt-n-band::after {
-  background: linear-gradient(90deg, #c88800, #7a4800);
+.rt-nv-p-torso::before {
+  content:''; position:absolute; width:2px; height:64%; left:50%; top:12%; transform:translateX(-50%);
+  background:rgba(218,165,0,.68); box-shadow:0 0 8px rgba(218,165,0,.42);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite;
 }
-#rt-roaming-ninja.v-phantom .rt-n-eye {
-  background: #ffe040;
-  box-shadow: 0 0 12px rgba(255,224,64,1), 0 0 28px rgba(255,180,0,.75);
+.rt-nv-p-torso::after {
+  content:''; position:absolute; width:60%; height:2px; left:20%; top:48%;
+  background:rgba(218,165,0,.52); box-shadow:0 0 8px rgba(218,165,0,.3);
+  animation:rt-circuit-flicker 1.5s steps(3,end) infinite .4s;
 }
-#rt-roaming-ninja.v-phantom .rt-n-torso {
-  background: #120c00;
-  border-color: rgba(232,168,0,.42);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+.rt-nv-p-head {
+  position: absolute; left: 26%; top: 0%; width: 48%; height: 40%; z-index: 3;
 }
-#rt-roaming-ninja.v-phantom .rt-n-torso::before,
-#rt-roaming-ninja.v-phantom .rt-n-torso::after {
-  background: rgba(232,168,0,.65);
-  box-shadow: 0 0 10px rgba(255,200,0,.4);
+.rt-nv-p-cowl {
+  position: absolute; left: 0%; top: 0%; width: 100%; height: 100%;
+  clip-path: polygon(50% 0%, 100% 52%, 82% 100%, 18% 100%, 0% 52%);
+  background: radial-gradient(circle at 40% 38%, #1e1200 0%, #0c0800 62%);
+  box-shadow: 0 4px 16px rgba(0,0,0,.75), inset 0 -6px 12px rgba(0,0,0,.45);
 }
-#rt-roaming-ninja.v-phantom .rt-n-arm,
-#rt-roaming-ninja.v-phantom .rt-n-leg {
-  background: linear-gradient(180deg, #1e1400, #0c0800);
-  border-color: rgba(232,168,0,.3);
+.rt-nv-p-eye {
+  position: absolute; left: 22%; top: 46%; width: 56%; height: 12%;
+  background: linear-gradient(90deg, rgba(255,208,0,.92), rgba(218,155,0,.72), rgba(255,208,0,.92));
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(255,196,0,.92), 0 0 22px rgba(218,148,0,.62);
+  animation: rt-p-eye 1.4s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-phantom .rt-n-arm::after {
-  background: rgba(232,168,0,.18);
+@keyframes rt-p-eye { 0%,100%{opacity:1} 50%{opacity:.52} }
+.rt-nv-p-arm {
+  position: absolute; width: 11%; height: 26%; top: 38%;
+  background: linear-gradient(180deg, #1c0e00, #0a0600);
+  border-radius: 5px; border: 1px solid rgba(218,165,0,.30);
+  transform-origin: top center; z-index: 2;
 }
-#rt-roaming-ninja.v-phantom .rt-n-leg::after {
-  background: #100a00;
-  border-color: rgba(232,168,0,.24);
+.rt-nv-p-arm.l { left: 17%; animation: rt-p-al .44s ease-in-out infinite; }
+.rt-nv-p-arm.r { right: 17%; animation: rt-p-ar .44s ease-in-out infinite; }
+@keyframes rt-p-al { 0%,100%{transform:rotate(34deg)} 50%{transform:rotate(-34deg)} }
+@keyframes rt-p-ar { 0%,100%{transform:rotate(-128deg)} 50%{transform:rotate(-152deg)} }
+.rt-nv-p-sword {
+  position: absolute; left: 66%; top: 10%; width: 7%; height: 52%;
+  background: linear-gradient(180deg, #fff0a0 0%, #d4a800 40%, #7a5200 100%);
+  border-radius: 2px 2px 50% 50%;
+  box-shadow: 0 0 10px rgba(255,218,78,.52), 0 0 20px rgba(198,148,0,.32);
+  animation: rt-p-sw 3s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-phantom .rt-n-collar {
-  background: linear-gradient(180deg, #1e1400, #0c0800);
-  border-color: rgba(232,168,0,.3);
+@keyframes rt-p-sw { 0%,100%{transform:rotate(-8deg)} 50%{transform:rotate(8deg)} }
+.rt-nv-p-sword::before {
+  content:''; position:absolute; left:-160%; top:56%; width:420%; height:8%;
+  background: linear-gradient(90deg, rgba(218,158,0,.72), rgba(175,98,0,.52)); border-radius:2px;
 }
-#rt-roaming-ninja.v-phantom .rt-n-weapon {
-  background: linear-gradient(180deg, #c88800, #7a4000);
-  box-shadow: 0 0 8px rgba(232,168,0,.45);
+.rt-nv-p-leg {
+  position: absolute; width: 14%; height: 26%; top: 66%;
+  background: linear-gradient(180deg, #1a0e00, #0a0600);
+  border-radius: 5px; border: 1px solid rgba(218,165,0,.24); transform-origin: top center;
 }
-#rt-roaming-ninja.v-phantom .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(232,168,0,.48) 0%, transparent 70%);
-}
+.rt-nv-p-leg.l { left: 28%; animation: rt-p-ll .44s ease-in-out infinite; }
+.rt-nv-p-leg.r { right: 28%; animation: rt-p-lr .44s ease-in-out infinite; }
+@keyframes rt-p-ll { 0%,100%{transform:rotate(-40deg)} 50%{transform:rotate(40deg)} }
+@keyframes rt-p-lr { 0%,100%{transform:rotate(40deg)} 50%{transform:rotate(-40deg)} }
 
-/* ═══════════ NINJA VARIANT: VOID ═══════════
-   Deep purple/violet – shadow realm       */
-#rt-roaming-ninja.v-void,
-.rt-roaming-replica.v-void {
-  filter: drop-shadow(0 0 22px rgba(160,0,255,.32)) drop-shadow(0 12px 22px rgba(100,0,180,.20));
+/* ─── v-void: Shadow Entity ─── */
+#rt-roaming-ninja.v-void, .rt-roaming-replica.v-void {
+  filter: drop-shadow(0 0 26px rgba(148,0,255,.44)) drop-shadow(0 0 50px rgba(76,0,178,.18));
 }
-#rt-roaming-ninja.v-void .rt-n-head {
-  background: radial-gradient(circle at 38% 28%, #180820 0%, #060008 60%);
-  box-shadow: 0 4px 18px rgba(0,0,0,.75), inset 0 -4px 8px rgba(80,0,120,.18);
+.v-void .rt-n-aura { background: radial-gradient(ellipse at center, rgba(138,0,235,.52) 0%, transparent 70%); }
+.rt-nv-v-body {
+  position: absolute; left: 14%; top: 26%; width: 72%; height: 54%;
+  background: radial-gradient(ellipse at 45% 34%, #200032 0%, #0c001c 50%, #050010 100%);
+  box-shadow: 0 0 20px rgba(138,0,218,.32), inset 0 -10px 20px rgba(0,0,0,.58), inset 0 0 0 1.5px rgba(138,0,218,.24);
+  animation: rt-v-body 2.2s ease-in-out infinite; z-index: 1;
 }
-#rt-roaming-ninja.v-void .rt-n-band {
-  background: linear-gradient(180deg, #9b10cc 0%, #580070 100%);
-  box-shadow: 0 3px 10px rgba(0,0,0,.6), 0 0 18px rgba(155,16,204,.55);
+@keyframes rt-v-body { 0%,100%{border-radius:42% 42% 52% 52%;transform:scaleX(1)} 50%{border-radius:46% 36% 48% 56%;transform:scaleX(1.04)} }
+.rt-nv-v-body::before {
+  content:''; position:absolute; left:18%; top:12%; width:64%; height:60%;
+  background: repeating-linear-gradient(55deg, rgba(158,0,238,.0) 0px, rgba(158,0,238,.0) 8px, rgba(158,0,238,.18) 8px, rgba(158,0,238,.18) 9px);
+  animation: rt-circuit-flicker 2s steps(2,end) infinite;
 }
-#rt-roaming-ninja.v-void .rt-n-band::after {
-  background: linear-gradient(90deg, #7e0ca8, #440058);
+.rt-nv-v-head {
+  position: absolute; left: 18%; top: 1%; width: 64%; height: 34%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 38%, #2a0044 0%, #100018 55%, #060010 100%);
+  box-shadow: 0 0 18px rgba(138,0,218,.38), inset 0 -8px 14px rgba(0,0,0,.68);
+  z-index: 2; animation: rt-v-hd 2.4s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-void .rt-n-eye {
-  background: #cc44ff;
-  box-shadow: 0 0 12px rgba(204,68,255,1), 0 0 28px rgba(160,0,255,.75);
+@keyframes rt-v-hd { 0%,100%{border-radius:50%;transform:scale(1)} 50%{border-radius:48% 52% 50% 50%;transform:scale(1.03)} }
+.rt-nv-v-crack {
+  position: absolute; left: 28%; top: 15%; width: 44%; height: 55%;
+  background:
+    linear-gradient(135deg, transparent 38%, rgba(178,0,255,.52) 50%, transparent 62%),
+    linear-gradient(45deg, transparent 38%, rgba(178,0,255,.48) 50%, transparent 62%);
+  animation: rt-v-crack 1.8s steps(2,end) infinite;
 }
-#rt-roaming-ninja.v-void .rt-n-torso {
-  background: #0c0014;
-  border-color: rgba(155,16,204,.42);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.55);
+@keyframes rt-v-crack { 0%,100%{opacity:.65} 50%{opacity:.18} }
+.rt-nv-v-eye {
+  position: absolute; left: 24%; top: 40%; width: 52%; height: 22%;
+  background: radial-gradient(ellipse at center, #cc44ff 0%, #8800cc 58%, rgba(78,0,138,.5) 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 14px rgba(198,58,255,1), 0 0 30px rgba(138,0,218,.72);
+  animation: rt-v-eye 1s ease-in-out infinite;
 }
-#rt-roaming-ninja.v-void .rt-n-torso::before,
-#rt-roaming-ninja.v-void .rt-n-torso::after {
-  background: rgba(155,16,204,.65);
-  box-shadow: 0 0 10px rgba(180,20,255,.4);
+@keyframes rt-v-eye { 0%,100%{transform:scaleX(1);opacity:1} 50%{transform:scaleX(.78);opacity:.48} }
+.rt-nv-v-tentacle {
+  position: absolute; width: 10%; height: 36%; top: 38%;
+  border-radius: 50%; transform-origin: top center;
+  background: linear-gradient(180deg, rgba(118,0,198,.78), rgba(55,0,98,.28));
 }
-#rt-roaming-ninja.v-void .rt-n-arm,
-#rt-roaming-ninja.v-void .rt-n-leg {
-  background: linear-gradient(180deg, #180828, #060010);
-  border-color: rgba(155,16,204,.32);
+.rt-nv-v-tentacle.l { left: 5%; animation: rt-v-tl 1.8s ease-in-out infinite; }
+.rt-nv-v-tentacle.r { right: 5%; animation: rt-v-tr 1.8s ease-in-out infinite; }
+@keyframes rt-v-tl { 0%,100%{transform:rotate(-42deg) skewY(10deg)} 50%{transform:rotate(-72deg) skewY(-10deg)} }
+@keyframes rt-v-tr { 0%,100%{transform:rotate(42deg) skewY(-10deg)} 50%{transform:rotate(72deg) skewY(10deg)} }
+.rt-nv-v-drip {
+  position: absolute; border-radius: 0 0 38% 38%; transform-origin: top center;
+  background: linear-gradient(180deg, rgba(98,0,178,.72), rgba(38,0,78,.08));
 }
-#rt-roaming-ninja.v-void .rt-n-arm::after {
-  background: rgba(155,16,204,.18);
-}
-#rt-roaming-ninja.v-void .rt-n-leg::after {
-  background: #080010;
-  border-color: rgba(155,16,204,.24);
-}
-#rt-roaming-ninja.v-void .rt-n-collar {
-  background: linear-gradient(180deg, #180828, #060010);
-  border-color: rgba(155,16,204,.32);
-}
-#rt-roaming-ninja.v-void .rt-n-weapon {
-  background: linear-gradient(180deg, #6600aa, #380060);
-  box-shadow: 0 0 8px rgba(155,16,204,.45);
-}
-#rt-roaming-ninja.v-void .rt-n-aura {
-  background: radial-gradient(ellipse at center, rgba(155,16,204,.48) 0%, transparent 70%);
-}
+.rt-nv-v-drip.d1 { left: 18%; top: 68%; width: 16%; height: 28%; animation: rt-v-d1 1.6s ease-in-out infinite alternate; }
+.rt-nv-v-drip.d2 { left: 64%; top: 68%; width: 16%; height: 28%; animation: rt-v-d2 1.4s ease-in-out infinite alternate; }
+@keyframes rt-v-d1 { 0%{transform:skewX(-12deg) scaleY(.88)} 100%{transform:skewX(15deg) scaleY(1.18)} }
+@keyframes rt-v-d2 { 0%{transform:skewX(15deg) scaleY(.88)} 100%{transform:skewX(-10deg) scaleY(1.18)} }
 /* Smoke cloud */
 .rt-n-smoke {
   position: fixed; z-index: 10001; width: 70px; height: 70px;
@@ -1511,38 +1576,131 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
   }, []);
 
-  // ─── Flat ninja body (shared between primary + replicas) ─────────────────
-  const NinjaBody = () => (
-    <>
-      <div className="rt-n-aura" />
-      <div className="rt-n-flrshadow" />
-      <div className="rt-n-sprite" aria-hidden="true">
-        {/* Back arm (behind torso) */}
-        <div className="rt-n-arm bk" />
-        {/* Back leg */}
-        <div className="rt-n-leg bk" />
-        {/* Torso with cross grid */}
-        <div className="rt-n-torso" />
-        {/* Collar */}
-        <div className="rt-n-collar" />
-        {/* Head circle */}
-        <div className="rt-n-head" />
-        {/* Red headband with visor & eyes (in front of head) */}
-        <div className="rt-n-band">
-          <div className="rt-n-visor">
-            <div className="rt-n-eye l" />
-            <div className="rt-n-eye r" />
+  // ─── Ninja body — shape switches per variant ─────────────────────────────
+  const NinjaBody = () => {
+    const base = <><div className="rt-n-aura" /><div className="rt-n-flrshadow" /></>;
+
+    // ── GHOST: wispy specter ──
+    if (ninjaVariant === 'ghost') return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-nv-g-arm l" />
+          <div className="rt-nv-g-arm r" />
+          <div className="rt-nv-g-body" />
+          <div className="rt-nv-g-head">
+            <div className="rt-nv-g-visor">
+              <div className="rt-nv-g-eye l" />
+              <div className="rt-nv-g-eye r" />
+            </div>
+          </div>
+          <div className="rt-nv-g-tendril t1" />
+          <div className="rt-nv-g-tendril t2" />
+          <div className="rt-nv-g-tendril t3" />
+        </div>
+      </>
+    );
+
+    // ── ONI: demon samurai — wide horned warrior ──
+    if (ninjaVariant === 'oni') return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-nv-o-leg l" />
+          <div className="rt-nv-o-leg r" />
+          <div className="rt-nv-o-chest" />
+          <div className="rt-nv-o-pauldron l" />
+          <div className="rt-nv-o-pauldron r" />
+          <div className="rt-nv-o-arm l" />
+          <div className="rt-nv-o-arm r" />
+          <div className="rt-nv-o-fist l" />
+          <div className="rt-nv-o-fist r" />
+          <div className="rt-nv-o-head">
+            <div className="rt-nv-o-horn l" />
+            <div className="rt-nv-o-horn r" />
+            <div className="rt-nv-o-stripe" />
+            <div className="rt-nv-o-eye" />
           </div>
         </div>
-        {/* Front arm */}
-        <div className="rt-n-arm ft" />
-        {/* Weapon held at front arm */}
-        <div className="rt-n-weapon" />
-        {/* Front leg */}
-        <div className="rt-n-leg ft" />
-      </div>
-    </>
-  );
+      </>
+    );
+
+    // ── NEON: geometric cyberpunk ──
+    if (ninjaVariant === 'neon') return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-nv-n-leg l" />
+          <div className="rt-nv-n-leg r" />
+          <div className="rt-nv-n-joint kl" />
+          <div className="rt-nv-n-joint kr" />
+          <div className="rt-nv-n-torso" />
+          <div className="rt-nv-n-arm l" />
+          <div className="rt-nv-n-arm r" />
+          <div className="rt-nv-n-joint el" />
+          <div className="rt-nv-n-joint er" />
+          <div className="rt-nv-n-head">
+            <div className="rt-nv-n-visor" />
+          </div>
+        </div>
+      </>
+    );
+
+    // ── PHANTOM: royal cloaked assassin ──
+    if (ninjaVariant === 'phantom') return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-nv-p-cape" />
+          <div className="rt-nv-p-leg l" />
+          <div className="rt-nv-p-leg r" />
+          <div className="rt-nv-p-torso" />
+          <div className="rt-nv-p-arm l" />
+          <div className="rt-nv-p-arm r" />
+          <div className="rt-nv-p-sword" />
+          <div className="rt-nv-p-head">
+            <div className="rt-nv-p-cowl" />
+            <div className="rt-nv-p-eye" />
+          </div>
+        </div>
+      </>
+    );
+
+    // ── VOID: eldritch shadow entity ──
+    if (ninjaVariant === 'void') return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-nv-v-drip d1" />
+          <div className="rt-nv-v-drip d2" />
+          <div className="rt-nv-v-tentacle l" />
+          <div className="rt-nv-v-tentacle r" />
+          <div className="rt-nv-v-body" />
+          <div className="rt-nv-v-head">
+            <div className="rt-nv-v-crack" />
+            <div className="rt-nv-v-eye" />
+          </div>
+        </div>
+      </>
+    );
+
+    // ── SHADOW (default): flat blocky cyber ninja ──
+    return (
+      <>{base}
+        <div className="rt-n-sprite" aria-hidden="true">
+          <div className="rt-n-arm bk" />
+          <div className="rt-n-leg bk" />
+          <div className="rt-n-torso" />
+          <div className="rt-n-collar" />
+          <div className="rt-n-head" />
+          <div className="rt-n-band">
+            <div className="rt-n-visor">
+              <div className="rt-n-eye l" />
+              <div className="rt-n-eye r" />
+            </div>
+          </div>
+          <div className="rt-n-arm ft" />
+          <div className="rt-n-weapon" />
+          <div className="rt-n-leg ft" />
+        </div>
+      </>
+    );
+  };
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
