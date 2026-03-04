@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { getLenis } from '../lenisStore';
 
 type NinjaMode = 'patrol' | 'stealth' | 'rage';
+type NinjaVariant = 'shadow' | 'ghost' | 'oni' | 'neon' | 'phantom' | 'void';
 
 interface Props { onClose: () => void }
 
@@ -582,6 +583,288 @@ table.rt-threat-matrix { width: 100%; border-collapse: collapse; font-family: va
 .rt-roaming-replica.off { opacity: 0; }
 .rt-roaming-replica.stealth { opacity: .18; filter: saturate(0) brightness(.6); }
 .rt-roaming-replica.rage { filter: drop-shadow(0 0 22px rgba(255,80,0,.28)); }
+
+/* ═══════════ NINJA VARIANT: GHOST ═══════════
+   Translucent white/cyan — haunted specter  */
+#rt-roaming-ninja.v-ghost,
+.rt-roaming-replica.v-ghost {
+  filter: drop-shadow(0 0 18px rgba(0,255,220,.35)) drop-shadow(0 0 8px rgba(0,255,220,.18));
+}
+#rt-roaming-ninja.v-ghost .rt-n-head {
+  background: radial-gradient(circle at 38% 28%, #e0f8f8 0%, #b0eae8 40%, #80d4d0 80%);
+  box-shadow: 0 4px 20px rgba(0,255,220,.35), inset 0 -4px 10px rgba(0,180,180,.25);
+}
+#rt-roaming-ninja.v-ghost .rt-n-band {
+  background: linear-gradient(180deg, #00d4c8 0%, #007a74 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,.45), 0 0 14px rgba(0,212,200,.45);
+}
+#rt-roaming-ninja.v-ghost .rt-n-band::after {
+  background: linear-gradient(90deg, #00c4b8, #005550);
+}
+#rt-roaming-ninja.v-ghost .rt-n-eye {
+  background: #ffffff;
+  box-shadow: 0 0 12px rgba(255,255,255,1), 0 0 26px rgba(0,255,220,.8);
+}
+#rt-roaming-ninja.v-ghost .rt-n-torso {
+  background: #c8f2f0;
+  border-color: rgba(0,212,200,.4);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.2), 0 4px 14px rgba(0,0,0,.3);
+}
+#rt-roaming-ninja.v-ghost .rt-n-torso::before,
+#rt-roaming-ninja.v-ghost .rt-n-torso::after {
+  background: rgba(0,212,200,.7);
+  box-shadow: 0 0 8px rgba(0,212,200,.5);
+}
+#rt-roaming-ninja.v-ghost .rt-n-arm,
+#rt-roaming-ninja.v-ghost .rt-n-leg {
+  background: linear-gradient(180deg, #b0e8e6, #80cac8);
+  border-color: rgba(0,212,200,.3);
+}
+#rt-roaming-ninja.v-ghost .rt-n-arm::after {
+  background: rgba(0,212,200,.22);
+}
+#rt-roaming-ninja.v-ghost .rt-n-leg::after {
+  background: #a0dcda;
+  border-color: rgba(0,212,200,.25);
+}
+#rt-roaming-ninja.v-ghost .rt-n-collar {
+  background: linear-gradient(180deg, #b0e8e6, #80cac8);
+  border-color: rgba(0,212,200,.3);
+}
+#rt-roaming-ninja.v-ghost .rt-n-weapon {
+  background: linear-gradient(180deg, #a0dcda, #60b0ae);
+}
+#rt-roaming-ninja.v-ghost .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(0,255,220,.5) 0%, transparent 70%);
+}
+
+/* ═══════════ NINJA VARIANT: ONI ═══════════
+   Electric blue/indigo – demon samurai   */
+#rt-roaming-ninja.v-oni,
+.rt-roaming-replica.v-oni {
+  filter: drop-shadow(0 0 22px rgba(80,80,255,.35)) drop-shadow(0 12px 22px rgba(30,30,180,.22));
+}
+#rt-roaming-ninja.v-oni .rt-n-head {
+  background: radial-gradient(circle at 38% 28%, #1a1a4e 0%, #08082a 60%);
+  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(40,40,160,.22);
+}
+#rt-roaming-ninja.v-oni .rt-n-band {
+  background: linear-gradient(180deg, #3a3af0 0%, #1a1aac 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 16px rgba(60,60,240,.5);
+}
+#rt-roaming-ninja.v-oni .rt-n-band::after {
+  background: linear-gradient(90deg, #2a2ad8, #0e0e78);
+}
+#rt-roaming-ninja.v-oni .rt-n-eye {
+  background: #00a8ff;
+  box-shadow: 0 0 12px rgba(0,168,255,1), 0 0 26px rgba(0,100,255,.7);
+}
+#rt-roaming-ninja.v-oni .rt-n-torso {
+  background: #08082a;
+  border-color: rgba(60,60,240,.4);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+}
+#rt-roaming-ninja.v-oni .rt-n-torso::before,
+#rt-roaming-ninja.v-oni .rt-n-torso::after {
+  background: rgba(60,60,240,.65);
+  box-shadow: 0 0 8px rgba(60,60,240,.4);
+}
+#rt-roaming-ninja.v-oni .rt-n-arm,
+#rt-roaming-ninja.v-oni .rt-n-leg {
+  background: linear-gradient(180deg, #1a1a44, #0a0a22);
+  border-color: rgba(60,60,240,.3);
+}
+#rt-roaming-ninja.v-oni .rt-n-arm::after {
+  background: rgba(60,60,240,.18);
+}
+#rt-roaming-ninja.v-oni .rt-n-leg::after {
+  background: #10102a;
+  border-color: rgba(60,60,240,.22);
+}
+#rt-roaming-ninja.v-oni .rt-n-collar {
+  background: linear-gradient(180deg, #1a1a44, #0a0a22);
+  border-color: rgba(60,60,240,.3);
+}
+#rt-roaming-ninja.v-oni .rt-n-weapon {
+  background: linear-gradient(180deg, #2244aa, #0a1866);
+  box-shadow: 0 0 8px rgba(40,80,200,.4);
+}
+#rt-roaming-ninja.v-oni .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(60,60,240,.45) 0%, transparent 70%);
+}
+
+/* ═══════════ NINJA VARIANT: NEON ═══════════
+   Matrix green – full cyberpunk hacker   */
+#rt-roaming-ninja.v-neon,
+.rt-roaming-replica.v-neon {
+  filter: drop-shadow(0 0 22px rgba(0,255,80,.32)) drop-shadow(0 12px 22px rgba(0,180,60,.18));
+}
+#rt-roaming-ninja.v-neon .rt-n-head {
+  background: radial-gradient(circle at 38% 28%, #0a1a0a 0%, #020802 60%);
+  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(0,255,80,.10);
+}
+#rt-roaming-ninja.v-neon .rt-n-band {
+  background: linear-gradient(180deg, #00cc44 0%, #006622 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 16px rgba(0,204,68,.55);
+}
+#rt-roaming-ninja.v-neon .rt-n-band::after {
+  background: linear-gradient(90deg, #00aa38, #004418);
+}
+#rt-roaming-ninja.v-neon .rt-n-eye {
+  background: #00ff55;
+  box-shadow: 0 0 12px rgba(0,255,85,1), 0 0 28px rgba(0,200,60,.75);
+  animation-name: rt-neon-eye-pulse;
+}
+@keyframes rt-neon-eye-pulse {
+  0%,100%{opacity:1;box-shadow:0 0 12px rgba(0,255,85,1),0 0 28px rgba(0,200,60,.75)}
+  50%{opacity:.5;box-shadow:0 0 5px rgba(0,255,85,.7)}
+}
+#rt-roaming-ninja.v-neon .rt-n-visor {
+  background: rgba(0,20,0,.85);
+}
+#rt-roaming-ninja.v-neon .rt-n-torso {
+  background: #020e02;
+  border-color: rgba(0,204,68,.45);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+}
+#rt-roaming-ninja.v-neon .rt-n-torso::before,
+#rt-roaming-ninja.v-neon .rt-n-torso::after {
+  background: rgba(0,204,68,.7);
+  box-shadow: 0 0 10px rgba(0,255,80,.4);
+}
+#rt-roaming-ninja.v-neon .rt-n-arm,
+#rt-roaming-ninja.v-neon .rt-n-leg {
+  background: linear-gradient(180deg, #0a1e0a, #030803);
+  border-color: rgba(0,204,68,.28);
+}
+#rt-roaming-ninja.v-neon .rt-n-arm::after {
+  background: rgba(0,204,68,.18);
+}
+#rt-roaming-ninja.v-neon .rt-n-leg::after {
+  background: #040e04;
+  border-color: rgba(0,204,68,.22);
+}
+#rt-roaming-ninja.v-neon .rt-n-collar {
+  background: linear-gradient(180deg, #0a1e0a, #030803);
+  border-color: rgba(0,204,68,.28);
+}
+#rt-roaming-ninja.v-neon .rt-n-weapon {
+  background: linear-gradient(180deg, #006622, #003310);
+  box-shadow: 0 0 8px rgba(0,204,68,.4);
+}
+#rt-roaming-ninja.v-neon .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(0,204,68,.48) 0%, transparent 70%);
+}
+
+/* ═══════════ NINJA VARIANT: PHANTOM ═══════════
+   Gold/amber – royal assassin             */
+#rt-roaming-ninja.v-phantom,
+.rt-roaming-replica.v-phantom {
+  filter: drop-shadow(0 0 22px rgba(255,200,0,.32)) drop-shadow(0 12px 22px rgba(200,140,0,.22));
+}
+#rt-roaming-ninja.v-phantom .rt-n-head {
+  background: radial-gradient(circle at 38% 28%, #2a1e04 0%, #120c00 60%);
+  box-shadow: 0 4px 18px rgba(0,0,0,.7), inset 0 -4px 8px rgba(0,0,0,.35);
+}
+#rt-roaming-ninja.v-phantom .rt-n-band {
+  background: linear-gradient(180deg, #e8a800 0%, #a06800 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,.55), 0 0 18px rgba(232,168,0,.55);
+}
+#rt-roaming-ninja.v-phantom .rt-n-band::after {
+  background: linear-gradient(90deg, #c88800, #7a4800);
+}
+#rt-roaming-ninja.v-phantom .rt-n-eye {
+  background: #ffe040;
+  box-shadow: 0 0 12px rgba(255,224,64,1), 0 0 28px rgba(255,180,0,.75);
+}
+#rt-roaming-ninja.v-phantom .rt-n-torso {
+  background: #120c00;
+  border-color: rgba(232,168,0,.42);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.5);
+}
+#rt-roaming-ninja.v-phantom .rt-n-torso::before,
+#rt-roaming-ninja.v-phantom .rt-n-torso::after {
+  background: rgba(232,168,0,.65);
+  box-shadow: 0 0 10px rgba(255,200,0,.4);
+}
+#rt-roaming-ninja.v-phantom .rt-n-arm,
+#rt-roaming-ninja.v-phantom .rt-n-leg {
+  background: linear-gradient(180deg, #1e1400, #0c0800);
+  border-color: rgba(232,168,0,.3);
+}
+#rt-roaming-ninja.v-phantom .rt-n-arm::after {
+  background: rgba(232,168,0,.18);
+}
+#rt-roaming-ninja.v-phantom .rt-n-leg::after {
+  background: #100a00;
+  border-color: rgba(232,168,0,.24);
+}
+#rt-roaming-ninja.v-phantom .rt-n-collar {
+  background: linear-gradient(180deg, #1e1400, #0c0800);
+  border-color: rgba(232,168,0,.3);
+}
+#rt-roaming-ninja.v-phantom .rt-n-weapon {
+  background: linear-gradient(180deg, #c88800, #7a4000);
+  box-shadow: 0 0 8px rgba(232,168,0,.45);
+}
+#rt-roaming-ninja.v-phantom .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(232,168,0,.48) 0%, transparent 70%);
+}
+
+/* ═══════════ NINJA VARIANT: VOID ═══════════
+   Deep purple/violet – shadow realm       */
+#rt-roaming-ninja.v-void,
+.rt-roaming-replica.v-void {
+  filter: drop-shadow(0 0 22px rgba(160,0,255,.32)) drop-shadow(0 12px 22px rgba(100,0,180,.20));
+}
+#rt-roaming-ninja.v-void .rt-n-head {
+  background: radial-gradient(circle at 38% 28%, #180820 0%, #060008 60%);
+  box-shadow: 0 4px 18px rgba(0,0,0,.75), inset 0 -4px 8px rgba(80,0,120,.18);
+}
+#rt-roaming-ninja.v-void .rt-n-band {
+  background: linear-gradient(180deg, #9b10cc 0%, #580070 100%);
+  box-shadow: 0 3px 10px rgba(0,0,0,.6), 0 0 18px rgba(155,16,204,.55);
+}
+#rt-roaming-ninja.v-void .rt-n-band::after {
+  background: linear-gradient(90deg, #7e0ca8, #440058);
+}
+#rt-roaming-ninja.v-void .rt-n-eye {
+  background: #cc44ff;
+  box-shadow: 0 0 12px rgba(204,68,255,1), 0 0 28px rgba(160,0,255,.75);
+}
+#rt-roaming-ninja.v-void .rt-n-torso {
+  background: #0c0014;
+  border-color: rgba(155,16,204,.42);
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.5), 0 4px 14px rgba(0,0,0,.55);
+}
+#rt-roaming-ninja.v-void .rt-n-torso::before,
+#rt-roaming-ninja.v-void .rt-n-torso::after {
+  background: rgba(155,16,204,.65);
+  box-shadow: 0 0 10px rgba(180,20,255,.4);
+}
+#rt-roaming-ninja.v-void .rt-n-arm,
+#rt-roaming-ninja.v-void .rt-n-leg {
+  background: linear-gradient(180deg, #180828, #060010);
+  border-color: rgba(155,16,204,.32);
+}
+#rt-roaming-ninja.v-void .rt-n-arm::after {
+  background: rgba(155,16,204,.18);
+}
+#rt-roaming-ninja.v-void .rt-n-leg::after {
+  background: #080010;
+  border-color: rgba(155,16,204,.24);
+}
+#rt-roaming-ninja.v-void .rt-n-collar {
+  background: linear-gradient(180deg, #180828, #060010);
+  border-color: rgba(155,16,204,.32);
+}
+#rt-roaming-ninja.v-void .rt-n-weapon {
+  background: linear-gradient(180deg, #6600aa, #380060);
+  box-shadow: 0 0 8px rgba(155,16,204,.45);
+}
+#rt-roaming-ninja.v-void .rt-n-aura {
+  background: radial-gradient(ellipse at center, rgba(155,16,204,.48) 0%, transparent 70%);
+}
 /* Smoke cloud */
 .rt-n-smoke {
   position: fixed; z-index: 10001; width: 70px; height: 70px;
@@ -769,6 +1052,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [ninjaSpeed, setNinjaSpeed]     = useState(1);
   const [ninjaScale, setNinjaScale]     = useState(1);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
+  const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
   const [ninjaWidgetOpen, setNinjaWidgetOpen] = useState(false);
@@ -1277,7 +1561,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         <div
           ref={ninjaRef}
           id="rt-roaming-ninja"
-          className={`${ninjaMode}${ninjaEnabled ? '' : ' off'}${ninjaWidgetOpen ? ' ui-open' : ''}`}
+          className={`${ninjaMode} v-${ninjaVariant}${ninjaEnabled ? '' : ' off'}${ninjaWidgetOpen ? ' ui-open' : ''}`}
           aria-hidden={!ninjaEnabled}
           style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
         >
@@ -1289,7 +1573,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           <div
             key={`replica-${i}`}
             ref={(el) => { replicaRefs.current[i] = el; }}
-            className={`rt-roaming-replica ${ninjaMode}${ninjaEnabled ? '' : ' off'}`}
+            className={`rt-roaming-replica ${ninjaMode} v-${ninjaVariant}${ninjaEnabled ? '' : ' off'}`}
             aria-hidden
             style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
           >
@@ -1412,6 +1696,21 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           <option value="patrol">Patrol</option>
                           <option value="stealth">Stealth</option>
                           <option value="rage">Rage</option>
+                        </select>
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-variant">Variant</label>
+                        <select
+                          id="rt-ninja-variant"
+                          value={ninjaVariant}
+                          onChange={(e) => setNinjaVariant(e.target.value as NinjaVariant)}
+                        >
+                          <option value="shadow">⬛ Shadow</option>
+                          <option value="ghost">👻 Ghost</option>
+                          <option value="oni">🔵 Oni</option>
+                          <option value="neon">🟢 Neon</option>
+                          <option value="phantom">✨ Phantom</option>
+                          <option value="void">🟣 Void</option>
                         </select>
                       </div>
                       <div className="rt-ninja-hint">
