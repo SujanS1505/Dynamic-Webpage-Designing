@@ -3,6 +3,7 @@ import { NeuralScene } from '../3d/NeuralScene';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { useEffect } from 'react';
 import Lenis from 'lenis';
+import { setLenis } from '../../lenisStore';
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -26,6 +27,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             infinite: false,
         });
 
+        setLenis(lenis);
+
         function raf(time: number) {
             lenis.raf(time);
             requestAnimationFrame(raf);
@@ -35,6 +38,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
         return () => {
             lenis.destroy();
+            setLenis(null);
         };
     }, []);
 

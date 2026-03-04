@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getLenis } from '../lenisStore';
 
 interface Props { onClose: () => void }
 
@@ -531,11 +532,29 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     return () => { link.remove(); style.remove(); };
   }, []);
 
-  // ── Lock body scroll while overlay is open ────────────────────────────────
+  // ── Lock body scroll + stop Lenis intercepting events ───────────────────
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => { document.body.style.overflow = prev; };
+
+    // lenis.stop() only pauses animation but Lenis still swallows wheel/touch
+    // events at window level. We stopPropagation on the overlay container so
+    // those events never bubble up to Lenis's window listener.
+    const el = pageRef.current;
+    const block = (e: Event) => e.stopPropagation();
+    el?.addEventListener('wheel', block, { passive: true });
+    el?.addEventListener('touchmove', block, { passive: true });
+
+    // Also call lenis.stop() as a belt-and-suspenders measure
+    const lenis = getLenis();
+    lenis?.stop();
+
+    return () => {
+      document.body.style.overflow = prev;
+      el?.removeEventListener('wheel', block);
+      el?.removeEventListener('touchmove', block);
+      lenis?.start();
+    };
   }, []);
 
   // ── Theme toggle ──────────────────────────────────────────────────────────
