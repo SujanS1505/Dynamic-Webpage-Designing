@@ -6,15 +6,15 @@ const TECHNOLOGIES = [
     { name: 'GCP', img: 'https://upload.wikimedia.org/wikipedia/commons/5/51/Google_Cloud_logo.svg' },
     { name: 'Azure', img: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg' },
     { name: 'Databricks', img: 'https://upload.wikimedia.org/wikipedia/commons/6/63/Databricks_Logo.png' },
-    { name: 'LangChain', img: 'https://raw.githubusercontent.com/langchain-ai/langchain/master/docs/static/img/langchain_bg.png' },
+    { name: 'LangChain', img: 'https://avatars.githubusercontent.com/u/126733545?s=96&v=4' },
     { name: 'Terraform', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/terraform/terraform-original.svg' },
     { name: 'Vertex AI', img: 'https://www.gstatic.com/images/branding/product/2x/vertex_ai_48dp.png' },
     { name: 'Scala', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scala/scala-original.svg' },
     { name: 'Go', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg' },
     { name: 'Bedrock AI', img: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg' },
-    { name: 'Palantir', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Palantir_Technologies_logo.svg/1024px-Palantir_Technologies_logo.svg.png' },
+    { name: 'Palantir', img: 'https://logo.clearbit.com/palantir.com' },
     { name: 'Spark', img: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg' },
-    { name: 'Kafka', img: 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Apache_kafka-icon.svg' },
+    { name: 'Kafka', img: 'https://cdn.simpleicons.org/apachekafka/white' },
     { name: 'MLflow', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' }, // generic ML fallback
     { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
     { name: 'PyTorch', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pytorch/pytorch-original.svg' }
@@ -73,6 +73,14 @@ export const Tech: React.FC = () => {
                                         height: '24px',
                                         objectFit: 'contain',
                                         filter: 'drop-shadow(0px 0px 2px rgba(255,255,255,0.2))'
+                                    }}
+                                    onError={(e) => {
+                                        const el = e.currentTarget;
+                                        el.style.display = 'none';
+                                        const placeholder = document.createElement('span');
+                                        placeholder.textContent = tech.name.charAt(0);
+                                        placeholder.style.cssText = 'display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(0,229,255,0.12);border:1px solid rgba(0,229,255,0.25);color:var(--accent-primary);font-size:0.75rem;font-weight:600;flex-shrink:0;';
+                                        el.parentNode?.insertBefore(placeholder, el);
                                     }}
                                 />
                                 {tech.name}
