@@ -1667,6 +1667,133 @@
         display: none;
       }
     }
+
+    /* ── CYBER NINJA ANIMATION ── */
+    .cyber-ninja-anim {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: ninja-float 4s ease-in-out infinite, stealth-glitch 6s infinite;
+    }
+
+    .cn-mask {
+      width: 60px;
+      height: 70px;
+      background: var(--bg3);
+      border: 1px solid var(--red-dim);
+      border-radius: 40% 40% 50% 50% / 30% 30% 60% 60%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px var(--red-dim);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cn-mask::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 40%;
+      background: var(--bg2);
+      border-bottom: 2px solid var(--red-dim);
+    }
+
+    .cn-visor {
+      width: 44px;
+      height: 12px;
+      background: #030000;
+      border-radius: 3px;
+      position: relative;
+      top: -4px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      box-shadow: inset 0 0 5px #000, 0 0 10px var(--red-glow);
+      z-index: 2;
+    }
+
+    .cn-eye {
+      width: 14px;
+      height: 3px;
+      background: var(--red);
+      border-radius: 2px;
+      box-shadow: 0 0 8px var(--red2), 0 0 15px var(--red);
+      animation: scan-pulse 3s infinite alternate;
+    }
+
+    @keyframes ninja-float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes scan-pulse {
+
+      0%,
+      100% {
+        opacity: 0.8;
+        height: 3px;
+        filter: hue-rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        height: 5px;
+        box-shadow: 0 0 20px var(--red2), 0 0 30px var(--red);
+      }
+
+      90% {
+        opacity: 0.8;
+        height: 1px;
+      }
+
+      92% {
+        opacity: 1;
+        height: 5px;
+      }
+
+      94% {
+        opacity: 0.8;
+        height: 1px;
+      }
+    }
+
+    @keyframes stealth-glitch {
+
+      0%,
+      48%,
+      51%,
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: drop-shadow(0 0 10px var(--red-dim));
+      }
+
+      49% {
+        opacity: 0.3;
+        transform: translateX(8px) skewX(20deg);
+        filter: drop-shadow(0 0 20px var(--red));
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: translateX(-8px);
+      }
+    }
   </style>
 </head>
 
@@ -2296,6 +2423,42 @@
           <div class="tool-name">RT Dashboard</div>
           <p class="tool-desc">Centillion's internal ops command center &mdash; real-time tracking of active campaigns,
             bypass rates, guardrail regressions, and vulnerability triage queues.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NINJAS INFO -->
+    <section id="ninjas"
+      style="max-width:100%;padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem); text-align: center; padding-top: 4rem; padding-bottom: 4rem; border-top: 1px solid var(--grid-line); border-bottom: 1px solid var(--grid-line); position: relative; overflow: hidden;">
+      <div class="hero-bg-grad" style="opacity: 0.3;"></div>
+      <div class="reveal">
+        <div class="cyber-ninja-anim">
+          <div class="cn-mask">
+            <div class="cn-visor">
+              <div class="cn-eye"></div>
+              <div class="cn-eye"></div>
+            </div>
+          </div>
+        </div>
+        <div class="section-label" style="justify-content:center; margin-bottom: 1rem;">The Squad</div>
+        <h2 class="section-title">Centillion <span class="accent">Red Team Ninjas</span></h2>
+        <p class="section-desc" style="margin: 1rem auto; max-width: 700px; font-size: 1.1rem;">
+          We are elite, AI-Native Red Team Experts. Our operators blend deep knowledge of machine learning internals,
+          generative architectures, and offensive security mindsets to break AI systems before adversaries do.
+        </p>
+        <div
+          style="margin-top: 3rem; background: var(--card-b); padding: 2rem; border-radius: 12px; border: 1px solid var(--nav-border); display: inline-block; max-width: 500px; backdrop-filter: blur(10px);">
+          <h3
+            style="color:var(--text); font-size: 1.3rem; font-weight: 700; font-family:var(--cond); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem;">
+            <span style="color:var(--red);">//</span> WE ARE HIRING
+          </h3>
+          <p style="color:var(--sub); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.6; font-weight: 300;">
+            Obsessed with jailbreaks, model inversion, and adversarial ML? Want to stress-test the world's most advanced
+            AI models? Join our specialized division.
+          </p>
+          <a class="nav-cta" href="mailto:redteam-careers@centillion.ai"
+            style="text-decoration: none; display: inline-block; font-family: var(--mono); padding: 0.6rem 1.2rem; border: 1px solid var(--red); color: var(--red); border-radius: 4px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">View
+            Open Positions</a>
         </div>
       </div>
     </section>
