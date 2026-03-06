@@ -95,6 +95,39 @@ export const WhoWeArePage: React.FC = () => (
       </FadeIn>
     </Sec>
 
+    {/* ── AI Strike Force spotlight ───────────────────────────── */}
+    <Sec>
+      {/* AI Strike Force statement banner */}
+      <FadeIn delay={0.1}>
+        <div style={{
+          padding: 'clamp(1.5rem, 3vw, 2.5rem)',
+          borderRadius: '18px',
+          background: 'linear-gradient(135deg, rgba(0,229,255,0.07) 0%, rgba(0,188,212,0.04) 100%)',
+          border: '1px solid rgba(0,229,255,0.22)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.5rem',
+          flexWrap: 'wrap',
+          marginBottom: '1rem'
+        }}>
+          <motion.div
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.4, repeat: Infinity, delay: 0.5 }}
+            style={{ width: 10, height: 10, borderRadius: '50%', background: '#00e5ff', boxShadow: '0 0 12px #00e5ff', flexShrink: 0 }}
+          />
+          <div style={{ flex: 1, minWidth: '220px' }}>
+            <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '0.68rem', letterSpacing: '0.2em', color: '#00e5ff', textTransform: 'uppercase', marginBottom: '0.4rem' }}>Centillion AI Formidable Strike Force</p>
+            <p style={{ fontSize: 'clamp(0.95rem, 1.8vw, 1.15rem)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.55, margin: 0, marginBottom: '0.5rem' }}>
+              <span style={{ color: '#00e5ff', fontWeight: 500 }}>Disrupting Industries with Artificial Intelligence.</span> In an era where artificial intelligence (AI) is reshaping industries, establishing an AI strike force has become a strategic imperative for companies aiming to stay ahead of the curve.
+            </p>
+            <p style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.05rem)', fontWeight: 300, color: 'var(--text-secondary)', lineHeight: 1.55, margin: 0 }}>
+              When partnered with Centillion we build AI teams and help companies with innovation.
+            </p>
+          </div>
+        </div>
+      </FadeIn>
+    </Sec>
+
     {/* Responsible AI + bars */}
     <Sec>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px,100%), 1fr))', gap: 'clamp(3rem,6vw,7rem)', alignItems: 'center' }}>
