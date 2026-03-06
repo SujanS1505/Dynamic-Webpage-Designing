@@ -105,7 +105,7 @@ export const Header: React.FC = () => {
 
                     {/* Desktop CTA */}
                     <a
-                        href="https://www.centillionlabs.com/"
+                        href="mailto:contact@centillionlabs.com"
                         style={{
                             background: 'var(--accent-primary)',
                             color: 'var(--bg-dark)',

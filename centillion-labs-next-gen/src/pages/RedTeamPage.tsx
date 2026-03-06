@@ -1764,7 +1764,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-terminal">Live Ops</a></li>
                 <li><a href="#rt-methodology">Methodology</a></li>
                 <li><a href="#rt-tools">Tools</a></li>
-                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Secure AI Playground</a></li>
+                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Centillion Red Team Playground</a></li>
               </ul>
               <div className="rt-nav-r">
                 <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
