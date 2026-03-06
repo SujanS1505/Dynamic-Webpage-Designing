@@ -684,7 +684,7 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
             <img src={logoImage} alt="Centillion Logo" className={styles.logoImg} />
           </div>
           <div>
-            <h1 className={styles.brandName}>Centillion Red Team Playground</h1>
+            <h1 className={styles.brandName}>Centillion <span>Red Team Playground</span></h1>
           </div>
         </div>
 
