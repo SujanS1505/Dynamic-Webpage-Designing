@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Code2, Database, Cloud, Server, TrendingUp, DollarSign, ChevronDown, ArrowRight } from 'lucide-react';
+import { Code2, Database, Cloud, Server, TrendingUp, DollarSign, ChevronDown, ArrowRight, Zap } from 'lucide-react';
 import { PageLayout, PageHero, FadeIn, Sec, SectionHead, Tag } from './PageLayout';
 
 const SVCS = [
@@ -45,6 +45,13 @@ const SVCS = [
     desc: 'FinOps ensures financial accountability in cloud computing by bridging gaps between engineering and finance. Accelerate Data Mesh with Databricks accelerators.',
     features: ['Databricks cost monitoring & optimization', 'FinOps cloud financial governance', 'Data Mesh with Databricks accelerators', 'Decentralized data ownership', 'High data quality enforcement', 'Engineering & finance alignment'],
     kpis: ['Cloud cost reduction', 'Databricks FinOps', 'Data Mesh ready'],
+  },
+  {
+    id: 'ai-strike-force', icon: Zap, color: '#00e5ff', tag: 'ARTIFICIAL INTELLIGENCE',
+    title: 'AI Strike Force', headline: 'Disrupting Industries with Artificial Intelligence.',
+    desc: 'In an era where AI is reshaping industries, establishing an AI strike force is a strategic imperative. We partner with clients to build dedicated AI teams and drive rapid innovation.',
+    features: ['Strategic AI Transformation & Advisory', 'Rapid Prototype & Innovation Labs', 'Dedicated AI-Native Teams', 'Enterprise LLM Integration', 'Custom Generative AI Architecture', 'Adversarial Threat Testing'],
+    kpis: ['Innovation Velocity', 'AI ROI', 'Market Disruption'],
   },
 ];
 

@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import {
     X, ArrowUpRight, Zap, Linkedin, ChevronDown,
-    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Settings, Eye, BookOpen,
+    Home, Info, Layers, FolderOpen, Users, Building2, Smile, Settings, Eye, BookOpen, Shield,
     type LucideIcon,
 } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
@@ -48,7 +48,8 @@ const NAV_LINKS: { label: string; href: string; path: string; num: string; desc:
     { label: 'Life', href: '#life', path: '/life', num: '08', desc: 'Culture & people', icon: Smile },
     { label: 'Blog', href: '#blog', path: '/blog', num: '09', desc: 'Insights & articles', icon: BookOpen },
     { label: 'Red Team', href: '#redteam', path: '/red-team', num: '10', desc: 'Adversarial testing', icon: Zap },
-    { label: 'Settings', href: '#settings', path: '/settings', num: '11', desc: 'Manage preferences', icon: Settings },
+    { label: 'Secure AI', href: '#secure-ai', path: '/secure-ai-playground', num: '11', desc: 'AI security workbench', icon: Shield },
+    { label: 'Settings', href: '#settings', path: '/settings', num: '12', desc: 'Manage preferences', icon: Settings },
 ];
 
 
