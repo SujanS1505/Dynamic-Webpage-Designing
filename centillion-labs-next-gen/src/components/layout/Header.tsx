@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { Sidebar } from './Sidebar';
 import { useLocation } from 'react-router-dom';
-import { Logo3D } from './Logo3D';
+import logoImg from '../../assets/centillion_logo.png';
 
 const PAGE_TITLES: Record<string, string> = {
     '/': 'Home',
@@ -55,7 +55,11 @@ export const Header: React.FC = () => {
                         href="#home"
                         style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', textDecoration: 'none', color: 'inherit' }}
                     >
-                        <Logo3D size={38} />
+                        <img
+                            src={logoImg}
+                            alt="Centillion Labs"
+                            style={{ width: 64, height: 'auto', objectFit: 'contain' }}
+                        />
                         <motion.span
                             className="mono-text header-wordmark"
                             initial={{ opacity: 0, x: -8 }}
@@ -74,7 +78,7 @@ export const Header: React.FC = () => {
                                 animation: 'logoGradientShift 4s linear infinite',
                             }}
                         >
-                            CENTILLION
+                            CENTILLION LABS
                         </motion.span>
                     </a>
                 </div>

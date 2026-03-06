@@ -5,7 +5,7 @@ import {
   ChevronRight, RotateCcw, AlertTriangle, Send, Copy, Check, X,
   BarChart3, Lock, Eye, FlaskConical, Stethoscope, Landmark, Factory, Beaker
 } from 'lucide-react';
-import logoImage from '../assets/logo image11.png';
+import logoImage from '../assets/centillion_logo.png';
 import styles from './SecureAIPlayground.module.css';
 
 /* ─── types ─────────────────────────────────────────────────── */

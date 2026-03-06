@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, useSpring, useTransform } from 'framer-motion';
+import centillionLogo from '../../assets/centillion_logo.png';
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Logo3D — Holographic 3D interactive logo
@@ -148,24 +149,25 @@ export const Logo3D: React.FC<Logo3DProps> = ({ size = 38 }) => {
                     >
                         {/* ── Front face — main logo img ── */}
                         <CubeFace
-                            transform={`translateZ(${half * 0.55}px)`}
+                            transform={`translateZ(${half * 0.9}px)`}
                             opacity={1}
                             size={size}
                             glowColor={glowColor}
                             hovered={hovered}
                         >
                             <img
-                                src="/logo.png"
+                                src={centillionLogo}
                                 alt="Centillion"
                                 draggable={false}
                                 style={{
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'contain',
+                                    transform: 'scale(1.3)',
                                     filter: hovered
                                         ? `drop-shadow(0 0 10px ${glowColor}) drop-shadow(0 0 22px #a855f7aa) saturate(1.6) brightness(1.15)`
                                         : `drop-shadow(0 0 7px ${glowColor}99) saturate(1.2)`,
-                                    transition: 'filter 0.4s ease',
+                                    transition: 'filter 0.4s ease, transform 0.4s ease',
                                     userSelect: 'none',
                                 }}
                             />
@@ -266,12 +268,12 @@ function CubeFace({
                 height: size,
                 transform,
                 backfaceVisibility: isSide ? 'hidden' : 'visible',
-                border: `1px solid ${glowColor}${hovered ? '66' : '33'}`,
-                borderRadius: 8,
-                overflow: 'hidden',
-                boxShadow: hovered
-                    ? `inset 0 0 14px ${glowColor}33`
-                    : `inset 0 0 6px ${glowColor}18`,
+                border: isSide ? `1px solid ${glowColor}${hovered ? '66' : '33'}` : 'none',
+                borderRadius: isSide ? 8 : 0,
+                overflow: isSide ? 'hidden' : 'visible',
+                boxShadow: isSide
+                    ? (hovered ? `inset 0 0 14px ${glowColor}33` : `inset 0 0 6px ${glowColor}18`)
+                    : 'none',
                 transition: 'border-color 0.4s, box-shadow 0.4s',
             }}
         >
