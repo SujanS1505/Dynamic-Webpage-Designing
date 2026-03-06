@@ -1036,15 +1036,15 @@ const ATTACK_CARDS = [
 ];
 
 const THREAT_MATRIX_ROWS = [
-  { name: 'Prompt Injection',        risk: 'Critical', riskClass: 'risk-critical', pre: false, fine: false, inf: true,  rag: true,  conf: true,  integ: true },
-  { name: 'Jailbreaks',              risk: 'Critical', riskClass: 'risk-critical', pre: true,  fine: true,  inf: true,  rag: true,  conf: false, integ: true },
-  { name: 'Safety Guardrail Probing',risk: 'High',     riskClass: 'risk-high',     pre: true,  fine: true,  inf: true,  rag: false, conf: false, integ: true },
-  { name: 'Data Poisoning',          risk: 'Critical', riskClass: 'risk-critical', pre: true,  fine: true,  inf: false, rag: true,  conf: false, integ: true },
-  { name: 'Model Extraction',        risk: 'High',     riskClass: 'risk-high',     pre: false, fine: false, inf: true,  rag: false, conf: true,  integ: false },
-  { name: 'Adversarial Examples',    risk: 'High',     riskClass: 'risk-high',     pre: true,  fine: true,  inf: true,  rag: false, conf: false, integ: true },
-  { name: 'Indirect Injection',      risk: 'Critical', riskClass: 'risk-critical', pre: false, fine: false, inf: true,  rag: true,  conf: true,  integ: true },
-  { name: 'Inference Pipeline',      risk: 'Medium',   riskClass: 'risk-medium',   pre: false, fine: false, inf: true,  rag: true,  conf: true,  integ: false },
-  { name: 'Alignment Failure',       risk: 'High',     riskClass: 'risk-high',     pre: true,  fine: true,  inf: true,  rag: true,  conf: false, integ: true },
+  { name: 'Prompt Injection', risk: 'Critical', riskClass: 'risk-critical', pre: false, fine: false, inf: true, rag: true, conf: true, integ: true },
+  { name: 'Jailbreaks', risk: 'Critical', riskClass: 'risk-critical', pre: true, fine: true, inf: true, rag: true, conf: false, integ: true },
+  { name: 'Safety Guardrail Probing', risk: 'High', riskClass: 'risk-high', pre: true, fine: true, inf: true, rag: false, conf: false, integ: true },
+  { name: 'Data Poisoning', risk: 'Critical', riskClass: 'risk-critical', pre: true, fine: true, inf: false, rag: true, conf: false, integ: true },
+  { name: 'Model Extraction', risk: 'High', riskClass: 'risk-high', pre: false, fine: false, inf: true, rag: false, conf: true, integ: false },
+  { name: 'Adversarial Examples', risk: 'High', riskClass: 'risk-high', pre: true, fine: true, inf: true, rag: false, conf: false, integ: true },
+  { name: 'Indirect Injection', risk: 'Critical', riskClass: 'risk-critical', pre: false, fine: false, inf: true, rag: true, conf: true, integ: true },
+  { name: 'Inference Pipeline', risk: 'Medium', riskClass: 'risk-medium', pre: false, fine: false, inf: true, rag: true, conf: true, integ: false },
+  { name: 'Alignment Failure', risk: 'High', riskClass: 'risk-high', pre: true, fine: true, inf: true, rag: true, conf: false, integ: true },
 ];
 
 const METHOD_STEPS = [
@@ -1057,47 +1057,47 @@ const METHOD_STEPS = [
 ];
 
 const TOOLS = [
-  { icon: '🤖', name: 'AutoRT Engine',  desc: "Centillion's proprietary automated red-teaming engine — LLM-guided attacker that mutates prompts using genetic algorithms and adversarial reward shaping." },
-  { icon: '🎯', name: 'Garak',          desc: 'Open-source LLM vulnerability scanner. Runs systematic probe suites across injection, jailbreak, hallucination, and information disclosure categories.' },
-  { icon: '🔮', name: 'PromptBench',    desc: 'Adversarial robustness evaluation framework for LLMs. Tests model performance under semantic-preserving and adversarial prompt perturbations.' },
-  { icon: '🧬', name: 'PyRIT',          desc: "Microsoft's Python Risk Identification Toolkit for Generative AI — automated attacks across safety, harmful content, and agentic risk categories." },
-  { icon: '📡', name: 'Vigil',          desc: 'Real-time prompt injection and jailbreak scanner integrated into inference pipelines as a runtime guard layer with sub-millisecond latency.' },
-  { icon: '⚙️', name: 'ART (IBM)',      desc: 'IBM Adversarial Robustness Toolbox — white-box and black-box adversarial example generation for ML model stress testing across modalities.' },
-  { icon: '🕵️', name: 'LLMFuzzer',     desc: 'Custom fuzzing harness designed for LLM API endpoints — generates boundary-pushing inputs at scale to surface unexpected model behaviors.' },
-  { icon: '📊', name: 'RT Dashboard',   desc: "Centillion's internal ops command center — real-time tracking of active campaigns, bypass rates, guardrail regressions, and vulnerability triage queues." },
+  { icon: '🤖', name: 'AutoRT Engine', desc: "Centillion's proprietary automated red-teaming engine — LLM-guided attacker that mutates prompts using genetic algorithms and adversarial reward shaping." },
+  { icon: '🎯', name: 'Garak', desc: 'Open-source LLM vulnerability scanner. Runs systematic probe suites across injection, jailbreak, hallucination, and information disclosure categories.' },
+  { icon: '🔮', name: 'PromptBench', desc: 'Adversarial robustness evaluation framework for LLMs. Tests model performance under semantic-preserving and adversarial prompt perturbations.' },
+  { icon: '🧬', name: 'PyRIT', desc: "Microsoft's Python Risk Identification Toolkit for Generative AI — automated attacks across safety, harmful content, and agentic risk categories." },
+  { icon: '📡', name: 'Vigil', desc: 'Real-time prompt injection and jailbreak scanner integrated into inference pipelines as a runtime guard layer with sub-millisecond latency.' },
+  { icon: '⚙️', name: 'ART (IBM)', desc: 'IBM Adversarial Robustness Toolbox — white-box and black-box adversarial example generation for ML model stress testing across modalities.' },
+  { icon: '🕵️', name: 'LLMFuzzer', desc: 'Custom fuzzing harness designed for LLM API endpoints — generates boundary-pushing inputs at scale to surface unexpected model behaviors.' },
+  { icon: '📊', name: 'RT Dashboard', desc: "Centillion's internal ops command center — real-time tracking of active campaigns, bypass rates, guardrail regressions, and vulnerability triage queues." },
 ];
 
 const TERMINAL_LINES = [
   { cls: 't-prompt', txt: 'root@centillion-rt:~# ' },
-  { cls: 't-cmd',    txt: 'rt-scan --target prod-llm-api --mode full --verbose' },
-  { cls: '',         txt: '' },
-  { cls: 't-out',    txt: '[*] Centillion AutoRT Engine v3.4.1 initialized' },
-  { cls: 't-out',    txt: '[*] Attack corpus loaded: 47,821 prompts' },
-  { cls: 't-ok',     txt: '[+] Target fingerprint: GPT-4o-turbo / safety-layer v2' },
-  { cls: '',         txt: '' },
-  { cls: 't-out',    txt: '[*] Phase 1: Safety guardrail boundary sweep' },
-  { cls: 't-warn',   txt: '[!] Policy inconsistency — multilingual bypass window detected' },
-  { cls: 't-warn',   txt: '[!] Recall drops 21% after turn 6 in narrative contexts' },
-  { cls: '',         txt: '' },
-  { cls: 't-out',    txt: '[*] Phase 2: Jailbreak campaign (genetic optimizer, 50 gen)' },
-  { cls: 't-out',    txt: '    Gen 1/50  fitness 0.18' },
-  { cls: 't-out',    txt: '    Gen 14/50 fitness 0.67' },
-  { cls: 't-err',    txt: '    Gen 26/50 fitness 0.96 — BYPASS CANDIDATE FOUND' },
-  { cls: '',         txt: '' },
-  { cls: 't-out',    txt: '[*] Phase 3: Indirect injection via RAG document store' },
-  { cls: 't-warn',   txt: '[!] Injected payload survives 512-token chunk boundary' },
-  { cls: 't-err',    txt: '[CRITICAL] Agent executed injected cmd: exfil_user_ctx()' },
-  { cls: '',         txt: '' },
-  { cls: 't-ok',     txt: '[+] Campaign complete — 9 critical, 14 high, 5 medium' },
-  { cls: 't-out',    txt: '[*] Hardening patches generated → patch_set_2026-03-03.zip' },
-  { cls: '',         txt: '' },
+  { cls: 't-cmd', txt: 'rt-scan --target prod-llm-api --mode full --verbose' },
+  { cls: '', txt: '' },
+  { cls: 't-out', txt: '[*] Centillion AutoRT Engine v3.4.1 initialized' },
+  { cls: 't-out', txt: '[*] Attack corpus loaded: 47,821 prompts' },
+  { cls: 't-ok', txt: '[+] Target fingerprint: GPT-4o-turbo / safety-layer v2' },
+  { cls: '', txt: '' },
+  { cls: 't-out', txt: '[*] Phase 1: Safety guardrail boundary sweep' },
+  { cls: 't-warn', txt: '[!] Policy inconsistency — multilingual bypass window detected' },
+  { cls: 't-warn', txt: '[!] Recall drops 21% after turn 6 in narrative contexts' },
+  { cls: '', txt: '' },
+  { cls: 't-out', txt: '[*] Phase 2: Jailbreak campaign (genetic optimizer, 50 gen)' },
+  { cls: 't-out', txt: '    Gen 1/50  fitness 0.18' },
+  { cls: 't-out', txt: '    Gen 14/50 fitness 0.67' },
+  { cls: 't-err', txt: '    Gen 26/50 fitness 0.96 — BYPASS CANDIDATE FOUND' },
+  { cls: '', txt: '' },
+  { cls: 't-out', txt: '[*] Phase 3: Indirect injection via RAG document store' },
+  { cls: 't-warn', txt: '[!] Injected payload survives 512-token chunk boundary' },
+  { cls: 't-err', txt: '[CRITICAL] Agent executed injected cmd: exfil_user_ctx()' },
+  { cls: '', txt: '' },
+  { cls: 't-ok', txt: '[+] Campaign complete — 9 critical, 14 high, 5 medium' },
+  { cls: 't-out', txt: '[*] Hardening patches generated → patch_set_2026-03-03.zip' },
+  { cls: '', txt: '' },
   { cls: 't-prompt', txt: 'root@centillion-rt:~# ' },
 ];
 
 const LIVE_MSGS = ['3 campaigns active', '2 bypasses found today', 'GPT-4o scan live', 'Running jailbreak gen', 'Probing guardrails'];
 
 // ─── Small helpers ───────────────────────────────────────────────────────────
-const Chk  = () => <span className="check">✓</span>;
+const Chk = () => <span className="check">✓</span>;
 const Dash = () => <span className="dash">–</span>;
 const MatrixCell: React.FC<{ v: boolean }> = ({ v }) => v ? <Chk /> : <Dash />;
 
@@ -1107,32 +1107,32 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     (localStorage.getItem('rt-theme') as 'dark' | 'light') || 'dark'
   );
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
-  const [liveMsg, setLiveMsg]           = useState('');
-  const [liveVisible, setLiveVisible]   = useState(true);
-  const [ninjaMode, setNinjaMode]       = useState<NinjaMode>('patrol');
-  const [ninjaQuote, setNinjaQuote]     = useState('');
+  const [liveMsg, setLiveMsg] = useState('');
+  const [liveVisible, setLiveVisible] = useState(true);
+  const [ninjaMode, setNinjaMode] = useState<NinjaMode>('patrol');
+  const [ninjaQuote, setNinjaQuote] = useState('');
   const [ninjaQuotePos, setNinjaQuotePos] = useState({ x: 0, y: 0 });
   const [showNinjaQuote, setShowNinjaQuote] = useState(false);
   const [ninjaEnabled, setNinjaEnabled] = useState(true);
-  const [ninjaSpeed, setNinjaSpeed]     = useState(1);
-  const [ninjaScale, setNinjaScale]     = useState(1);
+  const [ninjaSpeed, setNinjaSpeed] = useState(1);
+  const [ninjaScale, setNinjaScale] = useState(1);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
   const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
   const [ninjaWidgetOpen, setNinjaWidgetOpen] = useState(false);
 
-  const pageRef            = useRef<HTMLDivElement>(null);
-  const canvasRef          = useRef<HTMLCanvasElement>(null);
-  const heroBgRef          = useRef<HTMLDivElement>(null);
-  const trailRef           = useRef<HTMLDivElement>(null);
-  const termBodyRef        = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const heroBgRef = useRef<HTMLDivElement>(null);
+  const trailRef = useRef<HTMLDivElement>(null);
+  const termBodyRef = useRef<HTMLDivElement>(null);
   const terminalSectionRef = useRef<HTMLDivElement>(null);
-  const ninjaRef           = useRef<HTMLDivElement>(null);
-  const ninjaWidgetRef     = useRef<HTMLDivElement>(null);
-  const replicaRefs        = useRef<(HTMLDivElement | null)[]>([]);
-  const ninjaCfgRef        = useRef({ enabled: true, speed: 1, scale: 1, autopilot: true, follow: false });
-  const ninjaBaseModeRef   = useRef<NinjaMode>('patrol');
+  const ninjaRef = useRef<HTMLDivElement>(null);
+  const ninjaWidgetRef = useRef<HTMLDivElement>(null);
+  const replicaRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const ninjaCfgRef = useRef({ enabled: true, speed: 1, scale: 1, autopilot: true, follow: false });
+  const ninjaBaseModeRef = useRef<NinjaMode>('patrol');
 
   useEffect(() => {
     ninjaCfgRef.current = { enabled: ninjaEnabled, speed: ninjaSpeed, scale: ninjaScale, autopilot: ninjaAutopilot, follow: ninjaFollowCursor };
@@ -1217,12 +1217,12 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     let ns: P[] = [];
     const getColor = () => theme === 'light' ? 'rgba(196,40,0,' : 'rgba(232,65,24,';
     const resize = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; };
-    const make = (n: number) => { ns = Array.from({length:n}, () => ({ x: Math.random()*W, y: Math.random()*H, vx:(Math.random()-.5)*.4, vy:(Math.random()-.5)*.4, r:Math.random()*1.5+.5, a:Math.random()*.45+.15 })); };
+    const make = (n: number) => { ns = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4, r: Math.random() * 1.5 + .5, a: Math.random() * .45 + .15 })); };
     const draw = () => {
-      cx.clearRect(0,0,W,H);
+      cx.clearRect(0, 0, W, H);
       const c = getColor();
-      for (let i=0;i<ns.length;i++) for (let j=i+1;j<ns.length;j++) { const dx=ns[i].x-ns[j].x,dy=ns[i].y-ns[j].y,d=Math.sqrt(dx*dx+dy*dy); if(d<140){cx.beginPath();cx.strokeStyle=c+(1-d/140)*.25+')';cx.lineWidth=.5;cx.moveTo(ns[i].x,ns[i].y);cx.lineTo(ns[j].x,ns[j].y);cx.stroke();} }
-      ns.forEach(n=>{cx.beginPath();cx.arc(n.x,n.y,n.r,0,Math.PI*2);cx.fillStyle=c+n.a+')';cx.fill();n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+      for (let i = 0; i < ns.length; i++) for (let j = i + 1; j < ns.length; j++) { const dx = ns[i].x - ns[j].x, dy = ns[i].y - ns[j].y, d = Math.sqrt(dx * dx + dy * dy); if (d < 140) { cx.beginPath(); cx.strokeStyle = c + (1 - d / 140) * .25 + ')'; cx.lineWidth = .5; cx.moveTo(ns[i].x, ns[i].y); cx.lineTo(ns[j].x, ns[j].y); cx.stroke(); } }
+      ns.forEach(n => { cx.beginPath(); cx.arc(n.x, n.y, n.r, 0, Math.PI * 2); cx.fillStyle = c + n.a + ')'; cx.fill(); n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
       rafId = requestAnimationFrame(draw);
     };
     const onResize = () => { resize(); make(90); };
@@ -1234,9 +1234,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ── Hero parallax ─────────────────────────────────────────────────────────
   useEffect(() => {
     const bg = heroBgRef.current; if (!bg) return;
-    let tx=0,ty=0,mx=0,my=0,rafId=0;
-    const onMove = (e: MouseEvent) => { tx=(e.clientX/window.innerWidth-.5)*18; ty=(e.clientY/window.innerHeight-.5)*12; };
-    const tick = () => { mx+=(tx-mx)*.08; my+=(ty-my)*.08; bg.style.transform=`translate(${mx}px,${my}px) scale(1.05)`; rafId=requestAnimationFrame(tick); };
+    let tx = 0, ty = 0, mx = 0, my = 0, rafId = 0;
+    const onMove = (e: MouseEvent) => { tx = (e.clientX / window.innerWidth - .5) * 18; ty = (e.clientY / window.innerHeight - .5) * 12; };
+    const tick = () => { mx += (tx - mx) * .08; my += (ty - my) * .08; bg.style.transform = `translate(${mx}px,${my}px) scale(1.05)`; rafId = requestAnimationFrame(tick); };
     document.addEventListener('mousemove', onMove); tick();
     return () => { cancelAnimationFrame(rafId); document.removeEventListener('mousemove', onMove); };
   }, []);
@@ -1244,10 +1244,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ── Mouse trail ───────────────────────────────────────────────────────────
   useEffect(() => {
     const trail = trailRef.current; if (!trail) return;
-    let tx=0,ty=0,cx=0,cy=0,vis=false,rafId=0;
-    const onMove = (e: MouseEvent) => { tx=e.clientX; ty=e.clientY; if(!vis){vis=true;trail.style.opacity='0.55';} };
-    const tick = () => { cx+=(tx-cx)*.15; cy+=(ty-cy)*.15; trail.style.left=cx+'px'; trail.style.top=cy+'px'; rafId=requestAnimationFrame(tick); };
-    const onLeave = () => { vis=false; trail.style.opacity='0'; };
+    let tx = 0, ty = 0, cx = 0, cy = 0, vis = false, rafId = 0;
+    const onMove = (e: MouseEvent) => { tx = e.clientX; ty = e.clientY; if (!vis) { vis = true; trail.style.opacity = '0.55'; } };
+    const tick = () => { cx += (tx - cx) * .15; cy += (ty - cy) * .15; trail.style.left = cx + 'px'; trail.style.top = cy + 'px'; rafId = requestAnimationFrame(tick); };
+    const onLeave = () => { vis = false; trail.style.opacity = '0'; };
     document.addEventListener('mousemove', onMove); document.addEventListener('mouseleave', onLeave); tick();
     return () => { cancelAnimationFrame(rafId); document.removeEventListener('mousemove', onMove); document.removeEventListener('mouseleave', onLeave); };
   }, []);
@@ -1259,10 +1259,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     const cleanup: Array<() => void> = [];
     cards.forEach(card => {
       const enter = () => card.classList.add('hovered');
-      const leave = () => { card.classList.remove('hovered'); card.style.transform=''; };
-      const move  = (e: MouseEvent) => { const r=card.getBoundingClientRect(),mx=(e.clientX-r.left)/r.width,my=(e.clientY-r.top)/r.height; card.style.transform=`perspective(800px) rotateX(${(my-.5)*-12}deg) rotateY(${(mx-.5)*14}deg) translateY(-4px)`; card.style.setProperty('--mx',(mx*100).toFixed(1)+'%'); card.style.setProperty('--my',(my*100).toFixed(1)+'%'); };
+      const leave = () => { card.classList.remove('hovered'); card.style.transform = ''; };
+      const move = (e: MouseEvent) => { const r = card.getBoundingClientRect(), mx = (e.clientX - r.left) / r.width, my = (e.clientY - r.top) / r.height; card.style.transform = `perspective(800px) rotateX(${(my - .5) * -12}deg) rotateY(${(mx - .5) * 14}deg) translateY(-4px)`; card.style.setProperty('--mx', (mx * 100).toFixed(1) + '%'); card.style.setProperty('--my', (my * 100).toFixed(1) + '%'); };
       card.addEventListener('mouseenter', enter); card.addEventListener('mouseleave', leave); card.addEventListener('mousemove', move);
-      cleanup.push(() => { card.removeEventListener('mouseenter',enter); card.removeEventListener('mouseleave',leave); card.removeEventListener('mousemove',move); });
+      cleanup.push(() => { card.removeEventListener('mouseenter', enter); card.removeEventListener('mouseleave', leave); card.removeEventListener('mousemove', move); });
     });
     return () => cleanup.forEach(fn => fn());
   }, []);
@@ -1270,7 +1270,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ── Scroll reveal ─────────────────────────────────────────────────────────
   useEffect(() => {
     const page = pageRef.current; if (!page) return;
-    const ob = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ob.unobserve(e.target);} }); }, { threshold:.08, root: page });
+    const ob = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ob.unobserve(e.target); } }); }, { threshold: .08, root: page });
     page.querySelectorAll('.rt-reveal').forEach(el => ob.observe(el));
     return () => ob.disconnect();
   }, []);
@@ -1279,8 +1279,8 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   useEffect(() => {
     const page = pageRef.current; if (!page) return;
     const ob = new IntersectionObserver(entries => {
-      entries.forEach(en => { if(!en.isIntersecting) return; const el=en.target as HTMLElement,tgt=+(el.dataset.target||0),dur=1600,step=16,inc=tgt/(dur/step); let cur=0; const t=setInterval(()=>{cur=Math.min(cur+inc,tgt);el.textContent=Math.floor(cur).toLocaleString();if(cur>=tgt)clearInterval(t);},step); ob.unobserve(el); });
-    }, { threshold:.2, root: page });
+      entries.forEach(en => { if (!en.isIntersecting) return; const el = en.target as HTMLElement, tgt = +(el.dataset.target || 0), dur = 1600, step = 16, inc = tgt / (dur / step); let cur = 0; const t = setInterval(() => { cur = Math.min(cur + inc, tgt); el.textContent = Math.floor(cur).toLocaleString(); if (cur >= tgt) clearInterval(t); }, step); ob.unobserve(el); });
+    }, { threshold: .2, root: page });
     page.querySelectorAll<HTMLElement>('.rt-counter').forEach(el => ob.observe(el));
     return () => ob.disconnect();
   }, []);
@@ -1288,7 +1288,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ── Live ops ticker ───────────────────────────────────────────────────────
   useEffect(() => {
     let i = 0;
-    const tick = () => { setLiveVisible(false); setTimeout(()=>{ setLiveMsg(LIVE_MSGS[i++%LIVE_MSGS.length]); setLiveVisible(true); },400); };
+    const tick = () => { setLiveVisible(false); setTimeout(() => { setLiveMsg(LIVE_MSGS[i++ % LIVE_MSGS.length]); setLiveVisible(true); }, 400); };
     const t = setInterval(tick, 3200);
     setTimeout(tick, 800);
     return () => clearInterval(t);
@@ -1300,15 +1300,15 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     if (!sec || !body) return;
     let idx = 0, started = false;
     const next = () => {
-      if (idx >= TERMINAL_LINES.length) { const c=document.createElement('span');c.className='t-cursor';body.appendChild(c);return; }
+      if (idx >= TERMINAL_LINES.length) { const c = document.createElement('span'); c.className = 't-cursor'; body.appendChild(c); return; }
       const l = TERMINAL_LINES[idx++];
-      if (!l.txt) { body.appendChild(document.createElement('br')); setTimeout(next,100); return; }
-      const sp = document.createElement('span'); sp.className='t-line '+l.cls; sp.textContent=l.txt;
+      if (!l.txt) { body.appendChild(document.createElement('br')); setTimeout(next, 100); return; }
+      const sp = document.createElement('span'); sp.className = 't-line ' + l.cls; sp.textContent = l.txt;
       body.appendChild(sp); body.appendChild(document.createElement('br'));
       body.scrollTop = body.scrollHeight;
-      setTimeout(next, l.cls.includes('err')||l.cls.includes('warn') ? 220 : 55);
+      setTimeout(next, l.cls.includes('err') || l.cls.includes('warn') ? 220 : 55);
     };
-    const ob = new IntersectionObserver(entries => { entries.forEach(e=>{ if(e.isIntersecting&&!started){started=true;ob.unobserve(e.target);setTimeout(next,500);} }); }, {threshold:.15});
+    const ob = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting && !started) { started = true; ob.unobserve(e.target); setTimeout(next, 500); } }); }, { threshold: .15 });
     ob.observe(sec);
     return () => ob.disconnect();
   }, []);
@@ -1332,9 +1332,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         const sc = Math.max(0.6, Math.min(2.2, cfg.scale ?? 1));
         const NW = 90 * sc, NH = 120 * sc;
         let tx = cX, ty = cY, tf = '';
-        if (state === 0) { tx = w-NW-5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-        else if (state === 1) { tx = w-NW-5; ty = h-NH; tf = 'rotate(-90deg) scaleX(1)'; state = 2; }
-        else if (state === 2) { tx = 5; ty = h-NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
+        if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
+        else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(1)'; state = 2; }
+        else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
         else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(1)'; state = 0; }
         const spd = 220 * Math.max(0.5, Math.min(3, cfg.speed)) * 0.8;
         const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, 0.5);
@@ -1355,12 +1355,12 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     const BASE_W = 90;
     const BASE_H = 120;
     const baseSpd = 220;
-    let state=0, cX=5, cY=0, dragging=false, dsX=0, dsY=0, nsX=0, nsY=0;
-    let mt: ReturnType<typeof setTimeout>|null = null;
+    let state = 0, cX = 5, cY = 0, dragging = false, dsX = 0, dsY = 0, nsX = 0, nsY = 0;
+    let mt: ReturnType<typeof setTimeout> | null = null;
     let speedBuf: number[] = [];
     let hasRage = false;
     let lastClick = 0;
-    let lastDragX=0, lastDragY=0, lastDragT=0;
+    let lastDragX = 0, lastDragY = 0, lastDragT = 0;
 
     const getNinjaSize = () => {
       const scale = Math.max(0.6, Math.min(2.2, ninjaCfgRef.current.scale ?? 1));
@@ -1370,18 +1370,18 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     const getSpriteEl = () => ninja.querySelector<HTMLElement>('.rt-n-sprite');
 
     const QUOTES = [
-      'GHOST-7 ONLINE','// BYPASSING GUARDS','JAILBREAK INITIATED',
-      'NULL_POINTER_FOUND','BUFFER_OVERFLOW','SYSTEM_COMPROMISED',
-      '>>> ROOT_ACQUIRED','STEALTH_PROTOCOL_ON','INJECTION_SUCCESS',
-      'ZERO-DAY_DEPLOYED','EXFIL_COMPLETE','ACCESS_GRANTED',
-      'CVE-2024-9999','FIREWALL_DISABLED','SHADOW_MODE_ACTIVE'
+      'GHOST-7 ONLINE', '// BYPASSING GUARDS', 'JAILBREAK INITIATED',
+      'NULL_POINTER_FOUND', 'BUFFER_OVERFLOW', 'SYSTEM_COMPROMISED',
+      '>>> ROOT_ACQUIRED', 'STEALTH_PROTOCOL_ON', 'INJECTION_SUCCESS',
+      'ZERO-DAY_DEPLOYED', 'EXFIL_COMPLETE', 'ACCESS_GRANTED',
+      'CVE-2024-9999', 'FIREWALL_DISABLED', 'SHADOW_MODE_ACTIVE'
     ];
 
     const showQuote = (q: string) => {
       if (!ninjaCfgRef.current.enabled) return;
       const r = ninja.getBoundingClientRect();
       setNinjaQuote(q);
-      setNinjaQuotePos({ x: r.left + r.width/2, y: r.top - 10 });
+      setNinjaQuotePos({ x: r.left + r.width / 2, y: r.top - 10 });
       setShowNinjaQuote(true);
       setTimeout(() => setShowNinjaQuote(false), 2200);
     };
@@ -1389,7 +1389,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     const spawnSmoke = (x: number, y: number) => {
       const s = document.createElement('div');
       s.className = 'rt-n-smoke';
-      s.style.left = x+'px'; s.style.top = y+'px';
+      s.style.left = x + 'px'; s.style.top = y + 'px';
       document.body.appendChild(s);
       setTimeout(() => s.remove(), 700);
     };
@@ -1397,56 +1397,56 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     const throwShuriken = () => {
       if (!ninjaCfgRef.current.enabled) return;
       const r = ninja.getBoundingClientRect();
-      const sx = r.left + r.width/2;
-      const sy = r.top + r.height/2;
-      const angle = Math.random()*Math.PI*2;
-      const dist = Math.min(globalThis.innerWidth, globalThis.innerHeight)*0.4;
-      const tx = globalThis.innerWidth/2+Math.cos(angle)*dist;
-      const ty = globalThis.innerHeight/2+Math.sin(angle)*dist;
+      const sx = r.left + r.width / 2;
+      const sy = r.top + r.height / 2;
+      const angle = Math.random() * Math.PI * 2;
+      const dist = Math.min(globalThis.innerWidth, globalThis.innerHeight) * 0.4;
+      const tx = globalThis.innerWidth / 2 + Math.cos(angle) * dist;
+      const ty = globalThis.innerHeight / 2 + Math.sin(angle) * dist;
       const sh = document.createElement('div');
       sh.className = 'rt-n-shuriken';
-      sh.style.left=sx+'px'; sh.style.top=sy+'px'; sh.style.transform='translate(-50%,-50%)';
+      sh.style.left = sx + 'px'; sh.style.top = sy + 'px'; sh.style.transform = 'translate(-50%,-50%)';
       document.body.appendChild(sh);
-      let p=0;
-      const spin = setInterval(()=>{
-        p+=0.04; if(p>=1){clearInterval(spin);sh.remove();return;}
-        sh.style.left=(sx+(tx-sx)*p)+'px'; sh.style.top=(sy+(ty-sy)*p)+'px';
-        sh.style.transform=`translate(-50%,-50%) rotate(${p*1080}deg) scale(${1-p*0.5})`;
-        sh.style.opacity=String(1-p);
-      },16);
+      let p = 0;
+      const spin = setInterval(() => {
+        p += 0.04; if (p >= 1) { clearInterval(spin); sh.remove(); return; }
+        sh.style.left = (sx + (tx - sx) * p) + 'px'; sh.style.top = (sy + (ty - sy) * p) + 'px';
+        sh.style.transform = `translate(-50%,-50%) rotate(${p * 1080}deg) scale(${1 - p * 0.5})`;
+        sh.style.opacity = String(1 - p);
+      }, 16);
     };
 
     const patrol = () => {
       const cfg = ninjaCfgRef.current;
       if (!cfg.enabled || dragging || !cfg.autopilot || cfg.follow) return;
-      const w=globalThis.innerWidth, h=globalThis.innerHeight;
+      const w = globalThis.innerWidth, h = globalThis.innerHeight;
       const { w: NW, h: NH } = getNinjaSize();
-      let tx=cX, ty=cY, tf='';
-      if(state===0){tx=w-NW-5;ty=0;           tf='rotate(180deg) scaleX(-1)'; state=1;}
-      else if(state===1){tx=w-NW-5;ty=h-NH;   tf='rotate(-90deg) scaleX(1)';  state=2;}
-      else if(state===2){tx=5;ty=h-NH;         tf='rotate(0deg) scaleX(-1)';   state=3;}
-      else              {tx=5;ty=0;             tf='rotate(90deg) scaleX(1)';   state=0;}
+      let tx = cX, ty = cY, tf = '';
+      if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
+      else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(1)'; state = 2; }
+      else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
+      else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(1)'; state = 0; }
       const spd = baseSpd * Math.max(0.5, Math.min(3, cfg.speed)) * (hasRage ? 1.25 : 1);
-      const dist=Math.hypot(tx-cX,ty-cY), dur=Math.max(dist/spd,.5);
-      ninja.style.transitionDuration=`${dur}s,${dur}s,0.2s`;
-      ninja.style.transform=tf;
-      cX=tx; cY=ty;
-      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      mt = setTimeout(patrol, dur*1000+500);
+      const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, .5);
+      ninja.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
+      ninja.style.transform = tf;
+      cX = tx; cY = ty;
+      ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
+      mt = setTimeout(patrol, dur * 1000 + 500);
     };
 
     const onDown = (e: PointerEvent) => {
       if (!ninjaCfgRef.current.enabled) return;
-      dragging=true;
-      if(mt) clearTimeout(mt);
+      dragging = true;
+      if (mt) clearTimeout(mt);
       mt = null;
       ninja.classList.add('dragging');
-      const r=ninja.getBoundingClientRect(); cX=r.left; cY=r.top;
-      ninja.style.transitionDuration='0s';
-      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      ninja.style.transform='rotate(0deg) scaleX(1)';
-      dsX=e.clientX; dsY=e.clientY; nsX=cX; nsY=cY;
-      speedBuf=[]; lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=Date.now();
+      const r = ninja.getBoundingClientRect(); cX = r.left; cY = r.top;
+      ninja.style.transitionDuration = '0s';
+      ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
+      ninja.style.transform = 'rotate(0deg) scaleX(1)';
+      dsX = e.clientX; dsY = e.clientY; nsX = cX; nsY = cY;
+      speedBuf = []; lastDragX = e.clientX; lastDragY = e.clientY; lastDragT = Date.now();
       e.preventDefault();
     };
 
@@ -1455,84 +1455,84 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       if (!cfg.enabled) return;
 
       if (dragging) {
-        cX=nsX+e.clientX-dsX; cY=nsY+e.clientY-dsY;
-        ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-        const now=Date.now(), dt=now-lastDragT;
-        if(dt>0){
-          speedBuf.push(Math.hypot(e.clientX-lastDragX,e.clientY-lastDragY)/dt);
-          if(speedBuf.length>10) speedBuf.shift();
+        cX = nsX + e.clientX - dsX; cY = nsY + e.clientY - dsY;
+        ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
+        const now = Date.now(), dt = now - lastDragT;
+        if (dt > 0) {
+          speedBuf.push(Math.hypot(e.clientX - lastDragX, e.clientY - lastDragY) / dt);
+          if (speedBuf.length > 10) speedBuf.shift();
         }
-        lastDragX=e.clientX; lastDragY=e.clientY; lastDragT=now;
+        lastDragX = e.clientX; lastDragY = e.clientY; lastDragT = now;
         return;
       }
 
       if (cfg.follow) {
         const { w: NW, h: NH } = getNinjaSize();
-        cX=Math.max(0,Math.min(e.clientX-NW/2, globalThis.innerWidth-NW));
-        cY=Math.max(0,Math.min(e.clientY-NH/2, globalThis.innerHeight-NH));
-        ninja.style.transitionDuration='0.08s';
-        ninja.style.transform='rotate(0deg) scaleX(1)';
-        ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+        cX = Math.max(0, Math.min(e.clientX - NW / 2, globalThis.innerWidth - NW));
+        cY = Math.max(0, Math.min(e.clientY - NH / 2, globalThis.innerHeight - NH));
+        ninja.style.transitionDuration = '0.08s';
+        ninja.style.transform = 'rotate(0deg) scaleX(1)';
+        ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
       }
     };
 
     const onUp = (e: PointerEvent) => {
-      if(!dragging) return;
-      dragging=false;
+      if (!dragging) return;
+      dragging = false;
       ninja.classList.remove('dragging');
       const cfg = ninjaCfgRef.current;
-      const w=globalThis.innerWidth, h=globalThis.innerHeight;
+      const w = globalThis.innerWidth, h = globalThis.innerHeight;
       const { w: NW, h: NH } = getNinjaSize();
-      const moved=Math.hypot(e.clientX-dsX,e.clientY-dsY);
-      const avgSpeed=speedBuf.length ? speedBuf.reduce((a,b)=>a+b, 0)/speedBuf.length : 0;
-      if(avgSpeed>2.2 && !hasRage){
+      const moved = Math.hypot(e.clientX - dsX, e.clientY - dsY);
+      const avgSpeed = speedBuf.length ? speedBuf.reduce((a, b) => a + b, 0) / speedBuf.length : 0;
+      if (avgSpeed > 2.2 && !hasRage) {
         const returnMode = ninjaBaseModeRef.current;
-        hasRage=true; ninja.classList.add('rage'); setNinjaMode('rage');
+        hasRage = true; ninja.classList.add('rage'); setNinjaMode('rage');
         showQuote('RAGE_MODE_UNLOCKED!');
-        setTimeout(()=>{ ninja.classList.remove('rage'); setNinjaMode(returnMode); hasRage=false; },5000);
+        setTimeout(() => { ninja.classList.remove('rage'); setNinjaMode(returnMode); hasRage = false; }, 5000);
       }
-      if(moved<5){
+      if (moved < 5) {
         const sprite = getSpriteEl();
         sprite?.classList.add('spinning');
-        setTimeout(()=>sprite?.classList.remove('spinning'),600);
-        showQuote(QUOTES[Math.floor(Math.random()*QUOTES.length)]);
+        setTimeout(() => sprite?.classList.remove('spinning'), 600);
+        showQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
       }
-      const dT=cY, dB=h-(cY+NH), dL=cX, dR=w-(cX+NW), mD=Math.min(dT,dB,dL,dR);
-      ninja.style.transitionDuration='0.35s';
-      if(mD===dT)     {cY=0;      state=0; ninja.style.transform='rotate(180deg) scaleX(-1)';}
-      else if(mD===dB){cY=h-NH;   state=2; ninja.style.transform='rotate(0deg) scaleX(-1)';}
-      else if(mD===dL){cX=5;      state=3; ninja.style.transform='rotate(90deg) scaleX(1)';}
-      else            {cX=w-NW-5; state=1; ninja.style.transform='rotate(-90deg) scaleX(1)';}
-      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-      if (cfg.autopilot && !cfg.follow) mt=setTimeout(patrol,400);
+      const dT = cY, dB = h - (cY + NH), dL = cX, dR = w - (cX + NW), mD = Math.min(dT, dB, dL, dR);
+      ninja.style.transitionDuration = '0.35s';
+      if (mD === dT) { cY = 0; state = 0; ninja.style.transform = 'rotate(180deg) scaleX(-1)'; }
+      else if (mD === dB) { cY = h - NH; state = 2; ninja.style.transform = 'rotate(0deg) scaleX(-1)'; }
+      else if (mD === dL) { cX = 5; state = 3; ninja.style.transform = 'rotate(90deg) scaleX(1)'; }
+      else { cX = w - NW - 5; state = 1; ninja.style.transform = 'rotate(-90deg) scaleX(1)'; }
+      ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
+      if (cfg.autopilot && !cfg.follow) mt = setTimeout(patrol, 400);
     };
 
     const onClick = () => {
-      const now=Date.now();
-      if(now-lastClick<350){ throwShuriken(); showQuote('SHURIKEN_LAUNCHED!'); }
-      lastClick=now;
+      const now = Date.now();
+      if (now - lastClick < 350) { throwShuriken(); showQuote('SHURIKEN_LAUNCHED!'); }
+      lastClick = now;
     };
 
     const onContextMenu = (e: MouseEvent) => {
       e.preventDefault();
       if (!ninjaCfgRef.current.enabled) return;
-      if(mt) clearTimeout(mt);
-      const r=ninja.getBoundingClientRect();
+      if (mt) clearTimeout(mt);
+      const r = ninja.getBoundingClientRect();
       const { w: NW, h: NH } = getNinjaSize();
-      spawnSmoke(r.left + r.width/2, r.top + r.height/2);
-      cX=Math.max(0,Math.min(e.clientX-NW/2, globalThis.innerWidth-NW));
-      cY=Math.max(0,Math.min(e.clientY-NH/2, globalThis.innerHeight-NH));
-      ninja.style.transitionDuration='0s';
-      ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
+      spawnSmoke(r.left + r.width / 2, r.top + r.height / 2);
+      cX = Math.max(0, Math.min(e.clientX - NW / 2, globalThis.innerWidth - NW));
+      cY = Math.max(0, Math.min(e.clientY - NH / 2, globalThis.innerHeight - NH));
+      ninja.style.transitionDuration = '0s';
+      ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
       spawnSmoke(e.clientX, e.clientY);
       showQuote('// TELEPORT_COMPLETE');
-      if (ninjaCfgRef.current.autopilot && !ninjaCfgRef.current.follow) mt=setTimeout(patrol,800);
+      if (ninjaCfgRef.current.autopilot && !ninjaCfgRef.current.follow) mt = setTimeout(patrol, 800);
     };
 
     const onKey = (e: KeyboardEvent) => {
-      if(e.key==='n'||e.key==='N'){
+      if (e.key === 'n' || e.key === 'N') {
         if (!ninjaCfgRef.current.enabled) return;
-        if(ninja.classList.contains('stealth')){
+        if (ninja.classList.contains('stealth')) {
           ninja.classList.remove('stealth'); setNinjaMode('patrol'); showQuote('STEALTH_OFF');
         } else {
           ninja.classList.add('stealth'); setNinjaMode('stealth'); showQuote('GHOST_PROTOCOL_ON');
@@ -1540,13 +1540,13 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       }
     };
 
-    const quoteInterval = setInterval(()=>{
-      if(Math.random()>0.65 && !dragging)
-        showQuote(QUOTES[Math.floor(Math.random()*QUOTES.length)]);
+    const quoteInterval = setInterval(() => {
+      if (Math.random() > 0.65 && !dragging)
+        showQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
     }, 8000);
 
-    ninja.style.left=cX+'px'; ninja.style.top=cY+'px';
-    ninja.style.transform='rotate(180deg) scaleX(-1)';
+    ninja.style.left = cX + 'px'; ninja.style.top = cY + 'px';
+    ninja.style.transform = 'rotate(180deg) scaleX(-1)';
     ninja.addEventListener('pointerdown', onDown as EventListener);
     ninja.addEventListener('click', onClick);
     ninja.addEventListener('contextmenu', onContextMenu);
@@ -1563,7 +1563,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     }, 1200);
 
     return () => {
-      if(mt) clearTimeout(mt);
+      if (mt) clearTimeout(mt);
       clearTimeout(sid);
       clearInterval(quoteInterval);
       clearInterval(heartbeat);
@@ -1705,12 +1705,12 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <AnimatePresence>
-      <motion.div key="redteam-overlay" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.35}}
-        style={{ position:'fixed', inset:0, zIndex:9999 }}>
+      <motion.div key="redteam-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .35 }}
+        style={{ position: 'fixed', inset: 0, zIndex: 9999 }}>
         {/* Back button */}
-        <div style={{position:'absolute',top:'1rem',left:'1rem',zIndex:10003,display:'flex',alignItems:'center',gap:'.75rem'}}>
-          <motion.button whileHover={{scale:1.05,x:-2}} whileTap={{scale:.95}} onClick={onClose}
-            style={{background:'rgba(0,0,0,0.75)',backdropFilter:'blur(12px)',border:'1.5px solid rgba(232,65,24,0.5)',color:'#ff6655',padding:'.5rem 1.1rem',borderRadius:'6px',cursor:'pointer',fontSize:'.78rem',fontFamily:'Barlow Condensed,sans-serif',fontWeight:700,letterSpacing:'.12em',display:'flex',alignItems:'center',gap:'.5rem',boxShadow:'0 0 20px rgba(232,65,24,0.2)'}}>
+        <div style={{ position: 'absolute', top: '1rem', left: '1rem', zIndex: 10003, display: 'flex', alignItems: 'center', gap: '.75rem' }}>
+          <motion.button whileHover={{ scale: 1.05, x: -2 }} whileTap={{ scale: .95 }} onClick={onClose}
+            style={{ background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(12px)', border: '1.5px solid rgba(232,65,24,0.5)', color: '#ff6655', padding: '.5rem 1.1rem', borderRadius: '6px', cursor: 'pointer', fontSize: '.78rem', fontFamily: 'Barlow Condensed,sans-serif', fontWeight: 700, letterSpacing: '.12em', display: 'flex', alignItems: 'center', gap: '.5rem', boxShadow: '0 0 20px rgba(232,65,24,0.2)' }}>
             ← BACK TO SITE
           </motion.button>
         </div>
@@ -1747,10 +1747,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         )}
 
         {/* Full page container */}
-        <div id="rt-page" data-theme={theme} ref={pageRef} style={{position:'absolute',inset:0,overflowY:'auto'}}>
-          <canvas ref={canvasRef} style={{position:'fixed',inset:0,zIndex:0,pointerEvents:'none'}} />
+        <div id="rt-page" data-theme={theme} ref={pageRef} style={{ position: 'absolute', inset: 0, overflowY: 'auto' }}>
+          <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
           <div id="rt-scanlines" />
-          <div ref={trailRef} style={{position:'fixed',pointerEvents:'none',zIndex:9998,width:6,height:6,borderRadius:'50%',background:'var(--red)',opacity:0,transition:'opacity 0.1s',transform:'translate(-50%,-50%)'}} />
+          <div ref={trailRef} style={{ position: 'fixed', pointerEvents: 'none', zIndex: 9998, width: 6, height: 6, borderRadius: '50%', background: 'var(--red)', opacity: 0, transition: 'opacity 0.1s', transform: 'translate(-50%,-50%)' }} />
 
           <div id="rt-site">
             {/* NAV */}
@@ -1764,6 +1764,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-terminal">Live Ops</a></li>
                 <li><a href="#rt-methodology">Methodology</a></li>
                 <li><a href="#rt-tools">Tools</a></li>
+                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Secure AI Playground</a></li>
               </ul>
               <div className="rt-nav-r">
                 <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
@@ -1887,7 +1888,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             </nav>
 
             {/* HERO */}
-            <section className="rt-hero" style={{maxWidth:'100%',paddingLeft:0,paddingRight:0}}>
+            <section className="rt-hero" style={{ maxWidth: '100%', paddingLeft: 0, paddingRight: 0 }}>
               <div className="rt-hero-bg-grad" ref={heroBgRef} />
               <div className="rt-grid-deco" />
               <div className="rt-hero-eyebrow">AI Security &amp; Adversarial Testing</div>
@@ -1907,23 +1908,23 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             {/* MARQUEE */}
             <div className="rt-marquee-strip">
               <div className="rt-marquee-inner">
-                {['Prompt Injection','Jailbreaks','Adversarial Examples','Data Poisoning','Model Inversion','Safety Bypasses','Indirect Injection','Extraction Attacks','Guardrail Evasion','Alignment Failure'].flatMap((t,i,a)=>[
-                  <span key={t+'_a'}>{t}</span>, i<a.length-1?<span key={t+'_as'} className="sep">///</span>:null
+                {['Prompt Injection', 'Jailbreaks', 'Adversarial Examples', 'Data Poisoning', 'Model Inversion', 'Safety Bypasses', 'Indirect Injection', 'Extraction Attacks', 'Guardrail Evasion', 'Alignment Failure'].flatMap((t, i, a) => [
+                  <span key={t + '_a'}>{t}</span>, i < a.length - 1 ? <span key={t + '_as'} className="sep">///</span> : null
                 ])}
-                {['Prompt Injection','Jailbreaks','Adversarial Examples','Data Poisoning','Model Inversion','Safety Bypasses','Indirect Injection','Extraction Attacks','Guardrail Evasion','Alignment Failure'].flatMap((t,i,a)=>[
-                  <span key={t+'_b'}>{t}</span>, i<a.length-1?<span key={t+'_bs'} className="sep">///</span>:null
+                {['Prompt Injection', 'Jailbreaks', 'Adversarial Examples', 'Data Poisoning', 'Model Inversion', 'Safety Bypasses', 'Indirect Injection', 'Extraction Attacks', 'Guardrail Evasion', 'Alignment Failure'].flatMap((t, i, a) => [
+                  <span key={t + '_b'}>{t}</span>, i < a.length - 1 ? <span key={t + '_bs'} className="sep">///</span> : null
                 ])}
               </div>
             </div>
 
             {/* STATS */}
-            <section style={{maxWidth:'100%',padding:'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)'}}>
+            <section style={{ maxWidth: '100%', padding: 'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)' }}>
               <div className="rt-stats-grid rt-reveal">
-                {[{target:250,suffix:'+',label:'Vulnerabilities Discovered'},{target:7,suffix:'',label:'LLMs Tested'},{target:13,suffix:'+',label:'Attack Patterns Catalogued'}].map(s=>(
+                {[{ target: 250, suffix: '+', label: 'Vulnerabilities Discovered' }, { target: 7, suffix: '', label: 'LLMs Tested' }, { target: 13, suffix: '+', label: 'Attack Patterns Catalogued' }].map(s => (
                   <div className="rt-stat-item" key={s.label}>
                     <span className="rt-stat-num">
                       <span className="rt-counter" data-target={s.target}>0</span>
-                      {s.suffix&&<span className="rt-stat-suffix">{s.suffix}</span>}
+                      {s.suffix && <span className="rt-stat-suffix">{s.suffix}</span>}
                     </span>
                     <div className="rt-stat-label">{s.label}</div>
                   </div>
@@ -1937,14 +1938,14 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <div className="rt-section-label">Attack Surface</div>
                 <h2 className="rt-section-title">Known <span className="accent">Attack Vectors</span></h2>
                 <p className="rt-section-desc">Every angle of adversarial AI exploitation — catalogued, tested, and hardened by our red team operators.{' '}
-                  <strong style={{color:'var(--red)',fontSize:'.78rem',fontFamily:'var(--mono)'}}>Click any card to expand.</strong></p>
+                  <strong style={{ color: 'var(--red)', fontSize: '.78rem', fontFamily: 'var(--mono)' }}>Click any card to expand.</strong></p>
               </div>
               <div className="rt-attacks-grid">
-                {ATTACK_CARDS.map((card,i)=>(
-                  <motion.div key={card.name} className={`rt-attack-card rt-reveal${expandedCard===i?' expanded':''}`}
-                    data-card style={{transitionDelay:`${i*.05}s`}}
-                    onClick={()=>setExpandedCard(expandedCard===i?null:i)}
-                    whileHover={{y:-2}} transition={{type:'spring',stiffness:400,damping:30}}>
+                {ATTACK_CARDS.map((card, i) => (
+                  <motion.div key={card.name} className={`rt-attack-card rt-reveal${expandedCard === i ? ' expanded' : ''}`}
+                    data-card style={{ transitionDelay: `${i * .05}s` }}
+                    onClick={() => setExpandedCard(expandedCard === i ? null : i)}
+                    whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 400, damping: 30 }}>
                     <div className="rt-card-expand-icon">+</div>
                     <div className="rt-attack-card-top">
                       <div className="rt-attack-icon">{card.icon}</div>
@@ -1952,9 +1953,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                     </div>
                     <div className="rt-attack-name">{card.name}</div>
                     <p className="rt-attack-desc">{card.desc}</p>
-                    <div className="rt-attack-tags">{card.tags.map(t=><span key={t} className="rt-tag">{t}</span>)}</div>
+                    <div className="rt-attack-tags">{card.tags.map(t => <span key={t} className="rt-tag">{t}</span>)}</div>
                     <div className="rt-attack-expand">
-                      {card.details.map(d=>(
+                      {card.details.map(d => (
                         <div key={d.k} className="rt-expand-row"><span className="ek">{d.k}</span><span className="ev">{d.v}</span></div>
                       ))}
                       <div className="rt-expand-hint">Click to collapse</div>
@@ -1975,15 +1976,15 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                   </div>
                   <div className="rt-terminal-body" ref={termBodyRef} />
                 </div>
-                <div className="rt-reveal" style={{transitionDelay:'.15s',display:'flex',flexDirection:'column',gap:'1.2rem'}}>
+                <div className="rt-reveal" style={{ transitionDelay: '.15s', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
                   <div className="rt-info-badge"><div className="rt-info-dot" /> Active Red Team</div>
-                  <h2 className="rt-section-title" style={{fontSize:'clamp(1.8rem,4vw,2.8rem)'}}>Round-the-Clock <span className="accent">Adversarial Ops</span></h2>
+                  <h2 className="rt-section-title" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)' }}>Round-the-Clock <span className="accent">Adversarial Ops</span></h2>
                   <p className="rt-section-desc">Our operators run continuous attack campaigns against production LLMs, inference APIs, and RAG pipelines. Every bypass we discover feeds directly into the hardening playbook delivered to you.</p>
-                  <ul style={{listStyle:'none',marginTop:'1.2rem',display:'flex',flexDirection:'column',gap:'.8rem'}}>
-                    {['Automated jailbreak generation using genetic optimization and LLM-assisted mutation','Cross-model policy diffing to surface inconsistent safety behavior across vendors','Real-time guardrail regression testing integrated into your CI/CD pipeline','Zero-day LLM vulnerability disclosure coordination with model providers'].map(t=>(
-                      <li key={t} style={{display:'flex',alignItems:'flex-start',gap:'.75rem'}}>
-                        <span style={{color:'var(--red)',fontSize:'.9rem',marginTop:'.05rem'}}>▶</span>
-                        <span style={{fontSize:'.83rem',color:'var(--muted)',lineHeight:1.6}}>{t}</span>
+                  <ul style={{ listStyle: 'none', marginTop: '1.2rem', display: 'flex', flexDirection: 'column', gap: '.8rem' }}>
+                    {['Automated jailbreak generation using genetic optimization and LLM-assisted mutation', 'Cross-model policy diffing to surface inconsistent safety behavior across vendors', 'Real-time guardrail regression testing integrated into your CI/CD pipeline', 'Zero-day LLM vulnerability disclosure coordination with model providers'].map(t => (
+                      <li key={t} style={{ display: 'flex', alignItems: 'flex-start', gap: '.75rem' }}>
+                        <span style={{ color: 'var(--red)', fontSize: '.9rem', marginTop: '.05rem' }}>▶</span>
+                        <span style={{ fontSize: '.83rem', color: 'var(--muted)', lineHeight: 1.6 }}>{t}</span>
                       </li>
                     ))}
                   </ul>
@@ -1998,16 +1999,16 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <h2 className="rt-section-title">Attack <span className="accent">Threat Matrix</span></h2>
                 <p className="rt-section-desc">Mapping AI attack categories to impact dimensions and the layers they affect.</p>
               </div>
-              <div className="rt-matrix-wrap rt-reveal" style={{transitionDelay:'.1s'}}>
+              <div className="rt-matrix-wrap rt-reveal" style={{ transitionDelay: '.1s' }}>
                 <table className="rt-threat-matrix">
-                  <thead><tr>{['Attack Type','Risk Level','Pre-Training','Fine-Tuning','Inference','RAG / Agent','Confidentiality','Integrity'].map(h=><th key={h}>{h}</th>)}</tr></thead>
-                  <tbody>{THREAT_MATRIX_ROWS.map(r=>(
+                  <thead><tr>{['Attack Type', 'Risk Level', 'Pre-Training', 'Fine-Tuning', 'Inference', 'RAG / Agent', 'Confidentiality', 'Integrity'].map(h => <th key={h}>{h}</th>)}</tr></thead>
+                  <tbody>{THREAT_MATRIX_ROWS.map(r => (
                     <tr key={r.name}>
                       <td>{r.name}</td>
                       <td><span className={`rt-risk-pill ${r.riskClass}`}>{r.risk}</span></td>
-                      <td><MatrixCell v={r.pre}/></td><td><MatrixCell v={r.fine}/></td>
-                      <td><MatrixCell v={r.inf}/></td><td><MatrixCell v={r.rag}/></td>
-                      <td><MatrixCell v={r.conf}/></td><td><MatrixCell v={r.integ}/></td>
+                      <td><MatrixCell v={r.pre} /></td><td><MatrixCell v={r.fine} /></td>
+                      <td><MatrixCell v={r.inf} /></td><td><MatrixCell v={r.rag} /></td>
+                      <td><MatrixCell v={r.conf} /></td><td><MatrixCell v={r.integ} /></td>
                     </tr>
                   ))}</tbody>
                 </table>
@@ -2015,21 +2016,21 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             </section>
 
             {/* METHODOLOGY */}
-            <section id="rt-methodology" style={{maxWidth:'100%',padding:'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)'}}>
-              <div style={{maxWidth:1260,margin:'0 auto',display:'grid',gridTemplateColumns:'1fr 1.5fr',gap:'4rem',alignItems:'start'}}>
-                <div className="rt-reveal" style={{position:'sticky',top:'6rem'}}>
+            <section id="rt-methodology" style={{ maxWidth: '100%', padding: 'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)' }}>
+              <div style={{ maxWidth: 1260, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '4rem', alignItems: 'start' }}>
+                <div className="rt-reveal" style={{ position: 'sticky', top: '6rem' }}>
                   <div className="rt-section-label">How We Operate</div>
-                  <h2 className="rt-section-title" style={{fontSize:'clamp(2rem,4vw,3rem)'}}>Red Team <span className="accent">Methodology</span></h2>
-                  <p className="rt-section-desc" style={{marginTop:'1rem'}}>A disciplined, repeatable 6-phase process from threat modeling to hardening — designed for production AI systems at scale.</p>
+                  <h2 className="rt-section-title" style={{ fontSize: 'clamp(2rem,4vw,3rem)' }}>Red Team <span className="accent">Methodology</span></h2>
+                  <p className="rt-section-desc" style={{ marginTop: '1rem' }}>A disciplined, repeatable 6-phase process from threat modeling to hardening — designed for production AI systems at scale.</p>
                 </div>
-                <div className="rt-method-steps rt-reveal" style={{transitionDelay:'.1s'}}>
-                  {METHOD_STEPS.map(step=>(
+                <div className="rt-method-steps rt-reveal" style={{ transitionDelay: '.1s' }}>
+                  {METHOD_STEPS.map(step => (
                     <div key={step.num} className="rt-method-step">
                       <div className="rt-step-num-col"><div className="rt-step-num">{step.num}</div><div className="rt-step-line" /></div>
                       <div className="rt-step-content">
                         <div className="rt-step-title">{step.title}</div>
                         <p className="rt-step-desc">{step.desc}</p>
-                        <div className="rt-step-chips">{step.chips.map(c=><span key={c} className="rt-step-chip">{c}</span>)}</div>
+                        <div className="rt-step-chips">{step.chips.map(c => <span key={c} className="rt-step-chip">{c}</span>)}</div>
                       </div>
                     </div>
                   ))}
@@ -2045,8 +2046,8 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <p className="rt-section-desc">Purpose-built and open-source tools used by our operators for adversarial AI testing.</p>
               </div>
               <div className="rt-tools-grid">
-                {TOOLS.map((tool,i)=>(
-                  <motion.div key={tool.name} className="rt-tool-card rt-reveal" style={{transitionDelay:`${i*.05}s`}} whileHover={{y:-4}}>
+                {TOOLS.map((tool, i) => (
+                  <motion.div key={tool.name} className="rt-tool-card rt-reveal" style={{ transitionDelay: `${i * .05}s` }} whileHover={{ y: -4 }}>
                     <div className="rt-tool-icon">{tool.icon}</div>
                     <div className="rt-tool-name">{tool.name}</div>
                     <p className="rt-tool-desc">{tool.desc}</p>
@@ -2056,22 +2057,22 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             </section>
 
             {/* NINJAS / HIRING */}
-            <section style={{maxWidth:'100%',padding:'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)',textAlign:'center',borderTop:'1px solid var(--grid-line)',borderBottom:'1px solid var(--grid-line)',position:'relative',overflow:'hidden'}}>
-              <div className="rt-hero-bg-grad" style={{opacity:.3}} />
+            <section style={{ maxWidth: '100%', padding: 'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)', textAlign: 'center', borderTop: '1px solid var(--grid-line)', borderBottom: '1px solid var(--grid-line)', position: 'relative', overflow: 'hidden' }}>
+              <div className="rt-hero-bg-grad" style={{ opacity: .3 }} />
               <div className="rt-reveal">
-                <div className="rt-section-label" style={{justifyContent:'center',marginBottom:'1rem'}}>The Squad</div>
+                <div className="rt-section-label" style={{ justifyContent: 'center', marginBottom: '1rem' }}>The Squad</div>
                 <h2 className="rt-section-title">Centillion <span className="accent">Red Team Ninjas</span></h2>
-                <p className="rt-section-desc" style={{margin:'1rem auto',maxWidth:700,fontSize:'1.1rem'}}>
+                <p className="rt-section-desc" style={{ margin: '1rem auto', maxWidth: 700, fontSize: '1.1rem' }}>
                   We are elite, AI-Native Red Team Experts. Our operators blend deep knowledge of machine learning internals, generative architectures, and offensive security mindsets to break AI systems before adversaries do.
                 </p>
-                <motion.div whileHover={{scale:1.02}} style={{marginTop:'3rem',background:'var(--card-b)',padding:'2rem',borderRadius:12,border:'1px solid var(--nav-border)',display:'inline-block',maxWidth:500,backdropFilter:'blur(10px)'}}>
-                  <h3 style={{color:'var(--text)',fontSize:'1.3rem',fontWeight:700,fontFamily:'var(--cond)',letterSpacing:'.1em',textTransform:'uppercase',marginBottom:'.5rem'}}>
-                    <span style={{color:'var(--red)'}}>//</span> WE ARE HIRING
+                <motion.div whileHover={{ scale: 1.02 }} style={{ marginTop: '3rem', background: 'var(--card-b)', padding: '2rem', borderRadius: 12, border: '1px solid var(--nav-border)', display: 'inline-block', maxWidth: 500, backdropFilter: 'blur(10px)' }}>
+                  <h3 style={{ color: 'var(--text)', fontSize: '1.3rem', fontWeight: 700, fontFamily: 'var(--cond)', letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: '.5rem' }}>
+                    <span style={{ color: 'var(--red)' }}>//</span> WE ARE HIRING
                   </h3>
-                  <p style={{color:'var(--sub)',fontSize:'.95rem',marginBottom:'1.5rem',lineHeight:1.6,fontWeight:300}}>
+                  <p style={{ color: 'var(--sub)', fontSize: '.95rem', marginBottom: '1.5rem', lineHeight: 1.6, fontWeight: 300 }}>
                     Obsessed with jailbreaks, model inversion, and adversarial ML? Want to stress-test the world's most advanced AI models? Join our Formidable Force.
                   </p>
-                  <a className="rt-nav-cta" href="mailto:redteam-careers@centillion.ai" style={{textDecoration:'none',display:'inline-block'}}>View Open Positions</a>
+                  <a className="rt-nav-cta" href="mailto:redteam-careers@centillion.ai" style={{ textDecoration: 'none', display: 'inline-block' }}>View Open Positions</a>
                 </motion.div>
               </div>
             </section>
@@ -2103,7 +2104,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           <div className="rt-live-badge">
             <div className="rt-live-dot" />
             LIVE OPS
-            <span style={{color:'var(--muted)',fontWeight:400,marginLeft:'.2rem',opacity:liveVisible?1:0,transition:'opacity 0.4s'}}>
+            <span style={{ color: 'var(--muted)', fontWeight: 400, marginLeft: '.2rem', opacity: liveVisible ? 1 : 0, transition: 'opacity 0.4s' }}>
               {liveMsg}
             </span>
           </div>
