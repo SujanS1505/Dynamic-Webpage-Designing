@@ -1327,7 +1327,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       let cY = [0, 0, globalThis.innerHeight - 130, globalThis.innerHeight - 130][state];
       let mt: ReturnType<typeof setTimeout> | null = null;
       el.style.left = cX + 'px'; el.style.top = cY + 'px';
-      el.style.transform = ['rotate(180deg) scaleX(-1)', 'rotate(90deg) scaleX(1)', 'rotate(0deg) scaleX(-1)', 'rotate(-90deg) scaleX(1)'][state];
+      el.style.transform = ['rotate(180deg) scaleX(-1)', 'rotate(-90deg) scaleX(-1)', 'rotate(0deg) scaleX(-1)', 'rotate(90deg) scaleX(-1)'][state];
       const patrol = () => {
         const cfg = ninjaCfgRef.current;
         if (!cfg.enabled) return;
@@ -1336,9 +1336,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         const NW = 90 * sc, NH = 120 * sc;
         let tx = cX, ty = cY, tf = '';
         if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-        else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(90deg) scaleX(1)'; state = 2; }
+        else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
         else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-        else { tx = 5; ty = 0; tf = 'rotate(-90deg) scaleX(1)'; state = 0; }
+        else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
         const spd = 220 * Math.max(0.5, Math.min(3, cfg.speed)) * 0.8;
         const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, 0.5);
         el.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
@@ -1426,9 +1426,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       const { w: NW, h: NH } = getNinjaSize();
       let tx = cX, ty = cY, tf = '';
       if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-      else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(90deg) scaleX(1)'; state = 2; }
+      else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
       else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-      else { tx = 5; ty = 0; tf = 'rotate(-90deg) scaleX(1)'; state = 0; }
+      else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
       const spd = baseSpd * Math.max(0.5, Math.min(3, cfg.speed)) * (hasRage ? 1.25 : 1);
       const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, .5);
       ninja.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
