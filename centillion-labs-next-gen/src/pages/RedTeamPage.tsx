@@ -1899,6 +1899,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 We break AI before adversaries do. From <em>prompt injection</em> and <em>jailbreaks</em> to{' '}
                 <em>safety guardrail probing</em> — Centillion Red Team runs continuous adversarial campaigns against LLMs, inference pipelines, and AI-powered products.
               </p>
+              <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', opacity: 0, animation: 'rt-fadeUp .8s ease .9s forwards' }}>
+                <a href="/secure-ai-playground" className="rt-btn-primary">
+                  Centillion Red Team Playground
+                </a>
+              </div>
               <div className="rt-hero-scroll-hint">
                 <div className="rt-scroll-line" />
                 <span className="rt-scroll-label">Scroll</span>
