@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getLenis } from '../lenisStore';
+import { NinjaGLBViewer } from '../components/NinjaGLBViewer';
 
 type NinjaMode = 'patrol' | 'stealth' | 'rage';
 type NinjaVariant = 'shadow' | 'ghost' | 'oni' | 'neon' | 'phantom' | 'void';
@@ -1576,131 +1577,13 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
   }, []);
 
-  // ─── Ninja body — shape switches per variant ─────────────────────────────
-  const NinjaBody = () => {
-    const base = <><div className="rt-n-aura" /><div className="rt-n-flrshadow" /></>;
-
-    // ── GHOST: wispy specter ──
-    if (ninjaVariant === 'ghost') return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-nv-g-arm l" />
-          <div className="rt-nv-g-arm r" />
-          <div className="rt-nv-g-body" />
-          <div className="rt-nv-g-head">
-            <div className="rt-nv-g-visor">
-              <div className="rt-nv-g-eye l" />
-              <div className="rt-nv-g-eye r" />
-            </div>
-          </div>
-          <div className="rt-nv-g-tendril t1" />
-          <div className="rt-nv-g-tendril t2" />
-          <div className="rt-nv-g-tendril t3" />
-        </div>
-      </>
-    );
-
-    // ── ONI: demon samurai — wide horned warrior ──
-    if (ninjaVariant === 'oni') return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-nv-o-leg l" />
-          <div className="rt-nv-o-leg r" />
-          <div className="rt-nv-o-chest" />
-          <div className="rt-nv-o-pauldron l" />
-          <div className="rt-nv-o-pauldron r" />
-          <div className="rt-nv-o-arm l" />
-          <div className="rt-nv-o-arm r" />
-          <div className="rt-nv-o-fist l" />
-          <div className="rt-nv-o-fist r" />
-          <div className="rt-nv-o-head">
-            <div className="rt-nv-o-horn l" />
-            <div className="rt-nv-o-horn r" />
-            <div className="rt-nv-o-stripe" />
-            <div className="rt-nv-o-eye" />
-          </div>
-        </div>
-      </>
-    );
-
-    // ── NEON: geometric cyberpunk ──
-    if (ninjaVariant === 'neon') return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-nv-n-leg l" />
-          <div className="rt-nv-n-leg r" />
-          <div className="rt-nv-n-joint kl" />
-          <div className="rt-nv-n-joint kr" />
-          <div className="rt-nv-n-torso" />
-          <div className="rt-nv-n-arm l" />
-          <div className="rt-nv-n-arm r" />
-          <div className="rt-nv-n-joint el" />
-          <div className="rt-nv-n-joint er" />
-          <div className="rt-nv-n-head">
-            <div className="rt-nv-n-visor" />
-          </div>
-        </div>
-      </>
-    );
-
-    // ── PHANTOM: royal cloaked assassin ──
-    if (ninjaVariant === 'phantom') return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-nv-p-cape" />
-          <div className="rt-nv-p-leg l" />
-          <div className="rt-nv-p-leg r" />
-          <div className="rt-nv-p-torso" />
-          <div className="rt-nv-p-arm l" />
-          <div className="rt-nv-p-arm r" />
-          <div className="rt-nv-p-sword" />
-          <div className="rt-nv-p-head">
-            <div className="rt-nv-p-cowl" />
-            <div className="rt-nv-p-eye" />
-          </div>
-        </div>
-      </>
-    );
-
-    // ── VOID: eldritch shadow entity ──
-    if (ninjaVariant === 'void') return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-nv-v-drip d1" />
-          <div className="rt-nv-v-drip d2" />
-          <div className="rt-nv-v-tentacle l" />
-          <div className="rt-nv-v-tentacle r" />
-          <div className="rt-nv-v-body" />
-          <div className="rt-nv-v-head">
-            <div className="rt-nv-v-crack" />
-            <div className="rt-nv-v-eye" />
-          </div>
-        </div>
-      </>
-    );
-
-    // ── SHADOW (default): flat blocky cyber ninja ──
-    return (
-      <>{base}
-        <div className="rt-n-sprite" aria-hidden="true">
-          <div className="rt-n-arm bk" />
-          <div className="rt-n-leg bk" />
-          <div className="rt-n-torso" />
-          <div className="rt-n-collar" />
-          <div className="rt-n-head" />
-          <div className="rt-n-band">
-            <div className="rt-n-visor">
-              <div className="rt-n-eye l" />
-              <div className="rt-n-eye r" />
-            </div>
-          </div>
-          <div className="rt-n-arm ft" />
-          <div className="rt-n-weapon" />
-          <div className="rt-n-leg ft" />
-        </div>
-      </>
-    );
-  };
+  // ─── Ninja body — 3D GLB model ───────────────────────────────────────────
+  const NinjaBody = () => (
+    <>
+      <div className="rt-n-aura" />
+      <NinjaGLBViewer mode={ninjaMode} speed={ninjaSpeed} />
+    </>
+  );
 
   // ─── Render ───────────────────────────────────────────────────────────────
   return (
