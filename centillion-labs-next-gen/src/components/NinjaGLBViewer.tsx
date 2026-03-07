@@ -145,8 +145,8 @@ function NinjaModel({
     // We disable manual X-translation so it never gets cropped by its frame.
     group.position.x = 0;
 
-    // Always face forward exactly perpendicular to the camera (-90 degrees / -pi/2)
-    group.rotation.y = -Math.PI / 2;
+    // Always face forward exactly perpendicular to the camera (90 degrees / pi/2)
+    group.rotation.y = Math.PI / 2;
     // Add a slight bobbing to mimic weight shifting
     group.position.y = baseYRef.current + Math.sin(t * (action === 'run' ? 8.0 : 3.0) * speed) * (action === 'run' ? 0.04 : 0.02);
   });

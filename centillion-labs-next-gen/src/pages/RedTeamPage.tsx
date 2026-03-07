@@ -1120,6 +1120,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
   const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
   const [ninjaAction, setNinjaAction] = useState<'run' | 'idle'>('run');
+  const [ninjaType, setNinjaType] = useState<'2d' | '3d'>('3d');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
   const [ninjaWidgetOpen, setNinjaWidgetOpen] = useState(false);
@@ -1578,11 +1579,30 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     };
   }, []);
 
-  // ─── Ninja body — 3D GLB model ───────────────────────────────────────────
+  // ─── Ninja body — 3D GLB or 2D CSS ──────────────────────────────────────
   const NinjaBody = () => (
     <>
       <div className="rt-n-aura" />
-      <NinjaGLBViewer mode={ninjaMode} action={ninjaAction} speed={ninjaSpeed} />
+      {ninjaType === '3d' ? (
+        <NinjaGLBViewer mode={ninjaMode} action={ninjaAction} speed={ninjaSpeed} />
+      ) : (
+        <div className="rt-n-sprite">
+          <div className="rt-n-arm bk" />
+          <div className="rt-n-leg bk" />
+          <div className="rt-n-torso" />
+          <div className="rt-n-collar" />
+          <div className="rt-n-head" />
+          <div className="rt-n-band">
+            <div className="rt-n-visor">
+              <div className="rt-n-eye l" />
+              <div className="rt-n-eye r" />
+            </div>
+          </div>
+          <div className="rt-n-arm ft" />
+          <div className="rt-n-weapon" />
+          <div className="rt-n-leg ft" />
+        </div>
+      )}
     </>
   );
 
@@ -1648,7 +1668,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-terminal">Live Ops</a></li>
                 <li><a href="#rt-methodology">Methodology</a></li>
                 <li><a href="#rt-tools">Tools</a></li>
-                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Centillion Red Team Playground</a></li>
+                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Centillion Shield Playground</a></li>
               </ul>
               <div className="rt-nav-r">
                 <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
@@ -1753,18 +1773,14 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                         </select>
                       </div>
                       <div className="rt-ninja-row">
-                        <label htmlFor="rt-ninja-variant">Variant</label>
+                        <label htmlFor="rt-ninja-type">Visuals</label>
                         <select
-                          id="rt-ninja-variant"
-                          value={ninjaVariant}
-                          onChange={(e) => setNinjaVariant(e.target.value as NinjaVariant)}
+                          id="rt-ninja-type"
+                          value={ninjaType}
+                          onChange={(e) => setNinjaType(e.target.value as '2d' | '3d')}
                         >
-                          <option value="shadow">⬛ Shadow</option>
-                          <option value="ghost">👻 Ghost</option>
-                          <option value="oni">🔵 Oni</option>
-                          <option value="neon">🟢 Neon</option>
-                          <option value="phantom">✨ Phantom</option>
-                          <option value="void">🟣 Void</option>
+                          <option value="3d">3D (New)</option>
+                          <option value="2d">2D (Legacy)</option>
                         </select>
                       </div>
                       <div className="rt-ninja-hint">
@@ -1796,7 +1812,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
               </p>
               <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', opacity: 0, animation: 'rt-fadeUp .8s ease .9s forwards' }}>
                 <a href="/secure-ai-playground" className="rt-btn-primary">
-                  Centillion Red Team Playground
+                  Centillion Shield Playground
                 </a>
               </div>
               <div className="rt-hero-scroll-hint">
