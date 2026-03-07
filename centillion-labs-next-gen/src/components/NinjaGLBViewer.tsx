@@ -125,18 +125,31 @@ function NinjaModel({
     const group = groupRef.current;
     if (!group) return;
 
-    // One-time static normalization: fit model into camera frustum directly
-    // Ninja-3D.glb is ~186 units natively, so a scale of ~0.009 ensures it fits well.
     if (!normalizedRef.current) {
       group.scale.setScalar(0.009);
-      group.position.set(0, -0.85, 0);
+      // start perfectly off-screen left
+      group.position.set(-2.5, -0.85, 0);
       baseYRef.current = -0.85;
       normalizedRef.current = true;
     }
 
     const t = clock.getElapsedTime();
-    group.position.y = baseYRef.current + Math.sin(t * 2.1) * 0.03;
-    group.rotation.y = mode === 'rage' ? t * 1.8 : Math.sin(t * 0.55) * 0.08;
+
+    // Constant running to the right (X+ direction)
+    const runSpeed = 0.8 * speed; // pixels per second-ish
+    group.position.x += runSpeed * delta;
+
+    // Wrap around viewport edges (-2.5 to 2.5 is safely off-camera for the FOV)
+    if (group.position.x > 2.5) {
+      group.position.x = -2.5;
+    }
+
+    // The forward axis of the ninja model might differ.
+    // Usually, to face +X (right), rotation.y is Math.PI / 2 or -Math.PI / 2
+    // If Math.PI / 2 faced the wrong way (e.g. left or camera), we try -Math.PI / 2
+    group.rotation.y = -Math.PI / 2;
+    // Add a slight bobbing to mimic weight shifting during run
+    group.position.y = baseYRef.current + Math.sin(t * 8.0 * speed) * 0.04;
   });
 
   return (
