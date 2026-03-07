@@ -735,7 +735,7 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
   const [wmApproach, setWmApproach] = useState('KGW');
   const [wmSecret, setWmSecret] = useState('centillion-secure-key');
   const [wmTokenLength, setWmTokenLength] = useState(150);
-  const [wmZScore, setWmZScore] = useState(0.0);
+  const [wmZScore] = useState(0.0);
   const [wmView, setWmView] = useState<'LAB' | 'FORENSICS'>('LAB');
 
   const handleModelChange = (model: string) => {
