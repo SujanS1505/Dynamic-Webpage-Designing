@@ -58,6 +58,7 @@ export const Header: React.FC = () => {
                         <img
                             src={logoImg}
                             alt="Centillion Labs"
+                            className="header-logo-img"
                             style={{ width: 64, height: 'auto', objectFit: 'contain' }}
                         />
                         <motion.span

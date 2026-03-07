@@ -56,7 +56,8 @@
 }
 
 html {
-  scroll-behavior: auto !important; /* Let Lenis handle scroll */
+  scroll-behavior: auto !important;
+  /* Let Lenis handle scroll */
 }
 
 body {
@@ -141,22 +142,47 @@ h6 {
 
 /* Animated gradient border */
 @keyframes borderPulse {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 1;   }
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
+
 .border-pulse {
   animation: borderPulse 3s ease-in-out infinite;
 }
 
 /* Shimmer sweep */
 @keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
+
 .shimmer {
   background: linear-gradient(90deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
   background-size: 200% auto;
   animation: shimmer 2.5s linear infinite;
+}
+
+/* ── Logo Background Removal Hack ───────────────────────────── */
+.header-logo-img {
+  mix-blend-mode: multiply;
+  filter: contrast(1.1) brightness(1.05);
+}
+
+[data-theme="dark"] .header-logo-img {
+  filter: invert(1) hue-rotate(180deg) contrast(1.1) brightness(1.2);
+  mix-blend-mode: screen;
 }
 
 section {
@@ -176,55 +202,67 @@ section {
 
 /* ── Sidebar – light mode ────────────────────────────────────── */
 :root {
-  --sb-bg:           rgba(245, 248, 251, 0.98);
-  --sb-border:       rgba(0, 150, 136, 0.18);
-  --sb-divider:      rgba(0, 150, 136, 0.1);
-  --sb-text-h:       #0f1923;
+  --sb-bg: rgba(245, 248, 251, 0.98);
+  --sb-border: rgba(0, 150, 136, 0.18);
+  --sb-divider: rgba(0, 150, 136, 0.1);
+  --sb-text-h: #0f1923;
   --sb-text-primary: rgba(15, 25, 35, 0.72);
-  --sb-text-num:     rgba(15, 25, 35, 0.22);
-  --sb-text-desc:    rgba(15, 25, 35, 0.42);
-  --sb-item-hover:   rgba(0, 150, 136, 0.07);
-  --sb-close-bg:     rgba(0, 150, 136, 0.09);
+  --sb-text-num: rgba(15, 25, 35, 0.22);
+  --sb-text-desc: rgba(15, 25, 35, 0.42);
+  --sb-item-hover: rgba(0, 150, 136, 0.07);
+  --sb-close-bg: rgba(0, 150, 136, 0.09);
   --sb-close-border: rgba(0, 150, 136, 0.22);
-  --sb-close-color:  rgba(15, 25, 35, 0.65);
-  --sb-node-r: 0; --sb-node-g: 150; --sb-node-b: 136;
-  --sb-glow:         rgba(0, 150, 136, 0.07);
-  --sb-badge-bg:     rgba(0, 150, 136, 0.1);
-  --sb-badge-color:  #009688;
-  --sb-cta-text:     #ffffff;
-  --sb-label-muted:  rgba(15, 25, 35, 0.35);
-  --sb-accent-bar:   linear-gradient(180deg, transparent 0%, #009688 40%, #00796b 75%, transparent 100%);
-  --sb-backdrop:     rgba(15, 25, 35, 0.35);
+  --sb-close-color: rgba(15, 25, 35, 0.65);
+  --sb-node-r: 0;
+  --sb-node-g: 150;
+  --sb-node-b: 136;
+  --sb-glow: rgba(0, 150, 136, 0.07);
+  --sb-badge-bg: rgba(0, 150, 136, 0.1);
+  --sb-badge-color: #009688;
+  --sb-cta-text: #ffffff;
+  --sb-label-muted: rgba(15, 25, 35, 0.35);
+  --sb-accent-bar: linear-gradient(180deg, transparent 0%, #009688 40%, #00796b 75%, transparent 100%);
+  --sb-backdrop: rgba(15, 25, 35, 0.35);
 }
 
 /* ── Sidebar – dark mode ─────────────────────────────────────── */
 [data-theme="dark"] {
-  --sb-bg:           rgba(10, 20, 28, 0.97);
-  --sb-border:       rgba(0, 229, 255, 0.15);
-  --sb-divider:      rgba(0, 229, 255, 0.08);
-  --sb-text-h:       #ffffff;
+  --sb-bg: rgba(10, 20, 28, 0.97);
+  --sb-border: rgba(0, 229, 255, 0.15);
+  --sb-divider: rgba(0, 229, 255, 0.08);
+  --sb-text-h: #ffffff;
   --sb-text-primary: rgba(255, 255, 255, 0.68);
-  --sb-text-num:     rgba(255, 255, 255, 0.2);
-  --sb-text-desc:    rgba(255, 255, 255, 0.38);
-  --sb-item-hover:   rgba(0, 229, 255, 0.06);
-  --sb-close-bg:     rgba(0, 229, 255, 0.08);
+  --sb-text-num: rgba(255, 255, 255, 0.2);
+  --sb-text-desc: rgba(255, 255, 255, 0.38);
+  --sb-item-hover: rgba(0, 229, 255, 0.06);
+  --sb-close-bg: rgba(0, 229, 255, 0.08);
   --sb-close-border: rgba(0, 229, 255, 0.2);
-  --sb-close-color:  rgba(255, 255, 255, 0.72);
-  --sb-node-r: 0; --sb-node-g: 229; --sb-node-b: 255;
-  --sb-glow:         rgba(0, 229, 255, 0.07);
-  --sb-badge-bg:     rgba(0, 229, 255, 0.1);
-  --sb-badge-color:  #00e5ff;
-  --sb-cta-text:     #0a141c;
-  --sb-label-muted:  rgba(255, 255, 255, 0.28);
-  --sb-accent-bar:   linear-gradient(180deg, transparent 0%, #00e5ff 40%, #00bfa5 75%, transparent 100%);
-  --sb-backdrop:     rgba(0, 0, 0, 0.55);
+  --sb-close-color: rgba(255, 255, 255, 0.72);
+  --sb-node-r: 0;
+  --sb-node-g: 229;
+  --sb-node-b: 255;
+  --sb-glow: rgba(0, 229, 255, 0.07);
+  --sb-badge-bg: rgba(0, 229, 255, 0.1);
+  --sb-badge-color: #00e5ff;
+  --sb-cta-text: #0a141c;
+  --sb-label-muted: rgba(255, 255, 255, 0.28);
+  --sb-accent-bar: linear-gradient(180deg, transparent 0%, #00e5ff 40%, #00bfa5 75%, transparent 100%);
+  --sb-backdrop: rgba(0, 0, 0, 0.55);
 }
 
 /* Sidebar CTA animated border */
 @keyframes sbCtaBorder {
-  0%   { background-position: 0% 50%;   }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%;   }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* CTA hover */
@@ -245,30 +283,44 @@ section {
    ══════════════════════════════════════════════════════════════ */
 
 :root {
-  --px:    clamp(1rem,   5vw,  2rem);
-  --py:    clamp(5rem,  10vw, 10rem);
-  --py-sm: clamp(3rem,   7vw,  8rem);
-  --gap-l: clamp(2rem,   5vw,  4rem);
-  --gap-m: clamp(1.5rem, 3vw,  2.5rem);
+  --px: clamp(1rem, 5vw, 2rem);
+  --py: clamp(5rem, 10vw, 10rem);
+  --py-sm: clamp(3rem, 7vw, 8rem);
+  --gap-l: clamp(2rem, 5vw, 4rem);
+  --gap-m: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* Section containers */
-.sec     { padding: var(--py)    var(--px); max-width: 1200px; margin: 0 auto; }
-.sec-sm  { padding: var(--py-sm) var(--px); max-width: 1200px; margin: 0 auto; }
+.sec {
+  padding: var(--py) var(--px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sec-sm {
+  padding: var(--py-sm) var(--px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 /* ── 2-col grids → collapse to 1-col on mobile ── */
-.split-grid {           /* 1 : 1.5  (About vision)  */
+.split-grid {
+  /* 1 : 1.5  (About vision)  */
   display: grid;
   grid-template-columns: 1fr 1.5fr;
   gap: var(--gap-l);
   align-items: center;
 }
-.row-grid {             /* 1 : 2  (Service cards)   */
+
+.row-grid {
+  /* 1 : 2  (Service cards)   */
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: var(--gap-m);
 }
-.row-grid-wide {        /* 1.2 : 2  (Industry rows) */
+
+.row-grid-wide {
+  /* 1.2 : 2  (Industry rows) */
   display: grid;
   grid-template-columns: 1.2fr 2fr;
   gap: var(--gap-m);
@@ -277,6 +329,7 @@ section {
 
 /* ── Mobile overrides (≤ 767 px) ── */
 @media (max-width: 767px) {
+
   .split-grid,
   .row-grid,
   .row-grid-wide {
@@ -285,16 +338,21 @@ section {
   }
 
   /* Tighten vertical section rhythm on small screens */
-  .sec, .sec-sm {
-    padding-top:    clamp(3.5rem, 10vw, 5rem);
+  .sec,
+  .sec-sm {
+    padding-top: clamp(3.5rem, 10vw, 5rem);
     padding-bottom: clamp(3.5rem, 10vw, 5rem);
   }
 
   /* Glass cards: less inner padding */
-  .card-pad { padding: 1.5rem !important; }
+  .card-pad {
+    padding: 1.5rem !important;
+  }
 
   /* Service cards: stack label above title */
-  .service-meta { margin-bottom: 0.5rem; }
+  .service-meta {
+    margin-bottom: 0.5rem;
+  }
 }
 
 /* ── Tablet (768–1023 px) ── */
@@ -303,6 +361,7 @@ section {
     grid-template-columns: 1fr 1.2fr;
     gap: 2.5rem;
   }
+
   .row-grid-wide {
     grid-template-columns: 1fr 1.8fr;
   }
@@ -311,7 +370,7 @@ section {
 /* ── Safe-area insets for notched phones ── */
 @supports (padding: env(safe-area-inset-left)) {
   .safe-x {
-    padding-left:  max(var(--px), env(safe-area-inset-left));
+    padding-left: max(var(--px), env(safe-area-inset-left));
     padding-right: max(var(--px), env(safe-area-inset-right));
   }
 }
@@ -323,6 +382,7 @@ section {
     align-items: center !important;
     gap: 1rem !important;
   }
+
   .hero-partner-row {
     gap: 1.5rem !important;
     flex-wrap: wrap !important;
@@ -332,7 +392,9 @@ section {
 
 /* ── Header: hide wordmark on very small screens ── */
 @media (max-width: 360px) {
-  .header-wordmark { display: none !important; }
+  .header-wordmark {
+    display: none !important;
+  }
 }
 
 /* ── Footer responsive ── */
@@ -342,6 +404,7 @@ section {
     gap: 2rem !important;
   }
 }
+
 @media (max-width: 480px) {
   .footer-grid {
     grid-template-columns: 1fr !important;
@@ -350,6 +413,11 @@ section {
 
 /* ── Logo 3D gradient animation ── */
 @keyframes logoGradientShift {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
