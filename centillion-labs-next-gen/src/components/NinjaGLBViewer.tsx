@@ -7,9 +7,11 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const MODEL_RUN = '/models/Ninja_in_place_run.glb';
 const MODEL_IDLE = '/models/Ninja_idle.glb';
+const MODEL_DANCE = '/models/Gangnam_Style.glb';
+const MODEL_BREAKDANCE = '/models/Breakdance_Freezes.glb';
 
 export type NinjaMode = 'patrol' | 'stealth' | 'rage';
-export type NinjaAction = 'run' | 'idle';
+export type NinjaAction = 'run' | 'idle' | 'dance' | 'breakdance';
 
 // ─── CSS shadow ninja shown while the GLB is downloading ────────────────────
 function NinjaCSSFallback() {
@@ -45,7 +47,7 @@ function NinjaModel({
   speed: number;
   onReady: () => void;
 }) {
-  const modelPath = action === 'idle' ? MODEL_IDLE : MODEL_RUN;
+  const modelPath = action === 'breakdance' ? MODEL_BREAKDANCE : action === 'dance' ? MODEL_DANCE : action === 'idle' ? MODEL_IDLE : MODEL_RUN;
   const { scene, animations } = useGLTF(modelPath);
   const groupRef = useRef<THREE.Group>(null);
   const mixerRef = useRef<THREE.AnimationMixer | null>(null);
@@ -131,10 +133,11 @@ function NinjaModel({
     if (!group) return;
 
     if (!normalizedRef.current) {
-      group.scale.setScalar(0.009);
+      group.scale.setScalar(0.012);
       // start perfectly off-screen left
-      group.position.set(-2.5, -0.85, 0);
-      baseYRef.current = -0.85;
+      // lowering Y from -0.85 to -1.35 to bring feet closer to container bottom
+      group.position.set(0, -1.35, 0);
+      baseYRef.current = -1.35;
       normalizedRef.current = true;
     }
 
@@ -146,7 +149,9 @@ function NinjaModel({
     group.position.x = 0;
 
     // Always face forward exactly perpendicular to the camera (90 degrees / pi/2)
-    group.rotation.y = Math.PI / 2;
+    // EXCEPT when dancing/breakdancing, then face the camera fully (0 rotation)
+    const isDancing = action === 'dance' || action === 'breakdance';
+    group.rotation.y = isDancing ? 0 : Math.PI / 2;
     // Add a slight bobbing to mimic weight shifting
     group.position.y = baseYRef.current + Math.sin(t * (action === 'run' ? 8.0 : 3.0) * speed) * (action === 'run' ? 0.04 : 0.02);
   });
@@ -232,3 +237,5 @@ export function NinjaGLBViewer({ mode, action = 'run', speed }: Props) {
 
 useGLTF.preload(MODEL_RUN);
 useGLTF.preload(MODEL_IDLE);
+useGLTF.preload(MODEL_DANCE);
+useGLTF.preload(MODEL_BREAKDANCE);

@@ -1119,7 +1119,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [ninjaScale, setNinjaScale] = useState(2);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
   const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
-  const [ninjaAction, setNinjaAction] = useState<'run' | 'idle'>('run');
+  const [ninjaAction, setNinjaAction] = useState<NinjaAction>('run');
   const [ninjaType, setNinjaType] = useState<'2d' | '3d'>('3d');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
@@ -1332,13 +1332,14 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         const cfg = ninjaCfgRef.current;
         if (!cfg.enabled) return;
         const w = globalThis.innerWidth, h = globalThis.innerHeight;
-        const sc = Math.max(0.6, Math.min(4.0, cfg.scale ?? 2));
-        const NW = 90 * sc, NH = 120 * sc;
+        const sc = Math.max(0.6, Math.min(6.0, cfg.scale ?? 2));
+        const NW = 110 * sc, NH = 145 * sc;
+        const oX_L = 16 * sc, oX_R = 25 * sc, oY_T = 16 * sc, oY_B = 14 * sc;
         let tx = cX, ty = cY, tf = '';
-        if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-        else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
-        else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-        else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
+        if (state === 0) { tx = w - NW + oX_R; ty = -oY_T; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
+        else if (state === 1) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
+        else if (state === 2) { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
+        else { tx = -oX_L; ty = -oY_T; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
         const spd = 220 * Math.max(0.5, Math.min(3, cfg.speed)) * 0.8;
         const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, 0.5);
         el.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
@@ -1355,8 +1356,8 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   // ── Main Roaming Ninja ─────────────────────────────────────────────────
   useEffect(() => {
     const ninja = ninjaRef.current; if (!ninja) return;
-    const BASE_W = 90;
-    const BASE_H = 120;
+    const BASE_W = 110;
+    const BASE_H = 145;
     const baseSpd = 220;
     let state = 0, cX = 5, cY = 0, dragging = false, dsX = 0, dsY = 0, nsX = 0, nsY = 0;
     let mt: ReturnType<typeof setTimeout> | null = null;
@@ -1366,7 +1367,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     let lastDragX = 0, lastDragY = 0, lastDragT = 0;
 
     const getNinjaSize = () => {
-      const scale = Math.max(0.6, Math.min(4.0, ninjaCfgRef.current.scale ?? 2));
+      const scale = Math.max(0.6, Math.min(6.0, ninjaCfgRef.current.scale ?? 2));
       return { w: BASE_W * scale, h: BASE_H * scale };
     };
 
@@ -1424,11 +1425,13 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
       if (!cfg.enabled || dragging || !cfg.autopilot || cfg.follow) return;
       const w = globalThis.innerWidth, h = globalThis.innerHeight;
       const { w: NW, h: NH } = getNinjaSize();
+      const sc = cfg.scale ?? 2;
+      const oX_L = 16 * sc, oX_R = 25 * sc, oY_T = 16 * sc, oY_B = 14 * sc;
       let tx = cX, ty = cY, tf = '';
-      if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-      else if (state === 1) { tx = w - NW - 5; ty = h - NH; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
-      else if (state === 2) { tx = 5; ty = h - NH; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-      else { tx = 5; ty = 0; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
+      if (state === 0) { tx = w - NW + oX_R; ty = -oY_T; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
+      else if (state === 1) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
+      else if (state === 2) { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
+      else { tx = -oX_L; ty = -oY_T; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
       const spd = baseSpd * Math.max(0.5, Math.min(3, cfg.speed)) * (hasRage ? 1.25 : 1);
       const dist = Math.hypot(tx - cX, ty - cY), dur = Math.max(dist / spd, .5);
       ninja.style.transitionDuration = `${dur}s,${dur}s,0.2s`;
@@ -1625,7 +1628,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           id="rt-roaming-ninja"
           className={`${ninjaMode} v-${ninjaVariant}${ninjaEnabled ? '' : ' off'}${ninjaWidgetOpen ? ' ui-open' : ''}`}
           aria-hidden={!ninjaEnabled}
-          style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
+          style={{
+            width: 90 * ninjaScale,
+            height: 120 * ninjaScale,
+            transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance') ? 'rotate(0deg)' : undefined
+          }}
         >
           {NinjaBody()}
         </div>
@@ -1637,7 +1644,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             ref={(el) => { replicaRefs.current[i] = el; }}
             className={`rt-roaming-replica ${ninjaMode} v-${ninjaVariant}${ninjaEnabled ? '' : ' off'}`}
             aria-hidden
-            style={{ width: 90 * ninjaScale, height: 120 * ninjaScale }}
+            style={{
+              width: 90 * ninjaScale,
+              height: 120 * ninjaScale,
+              transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance') ? 'rotate(0deg)' : undefined
+            }}
           >
             {NinjaBody()}
           </div>
@@ -1668,7 +1679,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-terminal">Live Ops</a></li>
                 <li><a href="#rt-methodology">Methodology</a></li>
                 <li><a href="#rt-tools">Tools</a></li>
-                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Centillion Shield Playground</a></li>
+
               </ul>
               <div className="rt-nav-r">
                 <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
@@ -1711,12 +1722,12 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           id="rt-ninja-size"
                           type="range"
                           min={0.6}
-                          max={4.0}
-                          step={0.05}
+                          max={6.0}
+                          step={0.1}
                           value={ninjaScale}
                           onChange={(e) => setNinjaScale(Number.parseFloat(e.target.value))}
                         />
-                        <span className="rt-ninja-mini">x{ninjaScale.toFixed(2)}</span>
+                        <span className="rt-ninja-mini">x{ninjaScale.toFixed(1)}</span>
                       </div>
                       <div className="rt-ninja-row">
                         <label htmlFor="rt-ninja-replicas">Replicas</label>
@@ -1754,10 +1765,17 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                         <select
                           id="rt-ninja-action"
                           value={ninjaAction}
-                          onChange={(e) => setNinjaAction(e.target.value as 'run' | 'idle')}
+                          onChange={e => {
+                            const val = e.target.value as NinjaAction;
+                            setNinjaAction(val);
+                            if (val === 'dance' || val === 'breakdance') setNinjaAutopilot(false);
+                          }}
+                          style={{ background: '#111', border: '1px solid #333', color: '#eee', fontSize: '.7rem', padding: '2px 5px', borderRadius: '4px', outline: 'none' }}
                         >
                           <option value="run">Walk</option>
                           <option value="idle">Stand Still</option>
+                          <option value="dance">Gangnam Style</option>
+                          <option value="breakdance">Breakdance</option>
                         </select>
                       </div>
                       <div className="rt-ninja-row">
