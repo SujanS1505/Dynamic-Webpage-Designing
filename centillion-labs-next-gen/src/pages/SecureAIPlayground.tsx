@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, type KeyboardEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Terminal, Zap, Shield, Activity, Settings,
@@ -417,6 +418,7 @@ function AdaptiveDefenseModule() {
 }
 
 function SecurityIntelligenceModule() {
+  const navigate = useNavigate();
   const [showDemo, setShowDemo] = useState(false);
   const [scans, setScans] = useState({ giskard: true, lakera: true });
   const toggle = (key: keyof typeof scans) => setScans(prev => ({ ...prev, [key]: !prev[key] }));
@@ -457,7 +459,7 @@ function SecurityIntelligenceModule() {
             <button
               className={styles.btnAction}
               style={{ background: 'var(--pg-blue)', flex: 1, fontSize: '11px', height: '36px', margin: 0 }}
-              onClick={() => window.open('https://www.centillionlabs.com/', '_blank')}
+              onClick={() => navigate('/red-team')}
             >
               Book a Demo
             </button>
@@ -544,16 +546,17 @@ interface WatermarkApproach {
   name: string;
   type: 'LOGIT' | 'TEXT';
   desc: string;
+  premium?: boolean;
 }
 
 const WATERMARK_APPROACHES: WatermarkApproach[] = [
-  { id: 'KGW', name: 'KGW', type: 'LOGIT', desc: 'Kirchenbauer et al. SHA-256 keyed green-list. Deterministic 50% vocab partition conditioned on previous token + secret.' },
-  { id: 'EXPONENTIAL', name: 'EXPONENTIAL', type: 'LOGIT', desc: 'Aaronson-style Gumbel-Max trick. Distortion-free statistical watermark.' },
-  { id: 'SEMANTIC', name: 'SEMANTIC', type: 'LOGIT', desc: 'Key-less, fast multiplicative-hash green-list based on previous token ID.' },
-  { id: 'CRYPTO', name: 'CRYPTO', type: 'LOGIT', desc: 'HMAC-SHA256 keyed green-list. Indistinguishable without secret key.' },
-  { id: 'ADAPTIVE_KGW', name: 'ADAPTIVE KGW', type: 'LOGIT', desc: 'Entropy-aware KGW. Scales bias based on model confidence.' },
-  { id: 'ENSEMBLE', name: 'ENSEMBLE', type: 'LOGIT', desc: 'KGW + CRYPTO stacked biases for multi-layer attribution.' },
   { id: 'STYLOMETRIC', name: 'STYLOMETRIC', type: 'TEXT', desc: 'Post-generation sentence structure rewriting. No logit modification.' },
+  { id: 'KGW', name: 'KGW', type: 'LOGIT', desc: 'Kirchenbauer et al. SHA-256 keyed green-list. Deterministic 50% vocab partition conditioned on previous token + secret.', premium: true },
+  { id: 'EXPONENTIAL', name: 'EXPONENTIAL', type: 'LOGIT', desc: 'Aaronson-style Gumbel-Max trick. Distortion-free statistical watermark.', premium: true },
+  { id: 'SEMANTIC', name: 'SEMANTIC', type: 'LOGIT', desc: 'Key-less, fast multiplicative-hash green-list based on previous token ID.', premium: true },
+  { id: 'CRYPTO', name: 'CRYPTO', type: 'LOGIT', desc: 'HMAC-SHA256 keyed green-list. Indistinguishable without secret key.', premium: true },
+  { id: 'ADAPTIVE_KGW', name: 'ADAPTIVE KGW', type: 'LOGIT', desc: 'Entropy-aware KGW. Scales bias based on model confidence.', premium: true },
+  { id: 'ENSEMBLE', name: 'ENSEMBLE', type: 'LOGIT', desc: 'KGW + CRYPTO stacked biases for multi-layer attribution.', premium: true },
 ];
 
 function WatermarkLogicModule({
@@ -585,7 +588,7 @@ function WatermarkLogicModule({
         <div className={styles.logicInfo}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span className={styles.brandName} style={{ fontSize: '14px' }}>{approach.name}</span>
-            <div className={styles.badge} style={{ fontSize: '9px', background: 'var(--pg-blue-dim)' }}>LOGIT</div>
+            <div className={styles.badge} style={{ fontSize: '9px', background: 'var(--pg-blue-dim)' }}>{approach.type}</div>
           </div>
           <p className={styles.logicDesc}>{approach.desc}</p>
         </div>
@@ -618,8 +621,12 @@ function WatermarkLogicModule({
               key={a.id}
               className={`${styles.approachCard} ${selectedApproach === a.id ? styles.approachCardActive : ''}`}
               onClick={() => onApproachChange(a.id)}
+              style={{ position: 'relative' }}
             >
-              <span className={styles.approachType}>{a.type}</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <span className={styles.approachType}>{a.type}</span>
+                {a.premium && <Lock size={8} style={{ color: 'var(--pg-rose)', marginTop: '2px' }} />}
+              </div>
               <span className={styles.approachName}>{a.name}</span>
             </div>
           ))}
@@ -720,6 +727,7 @@ function AttackControls({ activeModule, detectedThreats, payload, onLoadPayload,
 
 /* ─── SecureAIPlayground (main export) ─────────────────────── */
 export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }>) {
+  const navigate = useNavigate();
   const models = ['TINYLLAMA', 'LLAMA2', 'MISTRAL'];
   const [selectedModel, setSelectedModel] = useState('TINYLLAMA');
   const [versions, setVersions] = useState<string[]>([]);
@@ -732,11 +740,12 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
   const [activeModule, setActiveModule] = useState('attack');
 
   // Watermarking State
-  const [wmApproach, setWmApproach] = useState('KGW');
+  const [wmApproach, setWmApproach] = useState('STYLOMETRIC');
   const [wmSecret, setWmSecret] = useState('centillion-secure-key');
   const [wmTokenLength, setWmTokenLength] = useState(150);
-  const [wmZScore, setWmZScore] = useState(0.0);
+  const [wmZScore] = useState(0.0);
   const [wmView, setWmView] = useState<'LAB' | 'FORENSICS'>('LAB');
+  const [showPremium, setShowPremium] = useState(false);
 
   const handleModelChange = (model: string) => {
     setSelectedModel(model);
@@ -868,7 +877,14 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
         {activeModule === 'watermark' ? (
           <WatermarkLogicModule
             selectedApproach={wmApproach}
-            onApproachChange={setWmApproach}
+            onApproachChange={(id) => {
+              const app = WATERMARK_APPROACHES.find(a => a.id === id);
+              if (app?.premium) {
+                setShowPremium(true);
+              } else {
+                setWmApproach(id);
+              }
+            }}
             secretKey={wmSecret}
             onSecretChange={setWmSecret}
             tokenLength={wmTokenLength}
@@ -942,6 +958,51 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
           />
         )}
       </div>
+
+      <AnimatePresence>
+        {showPremium && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.modalOverlay}
+            onClick={() => setShowPremium(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className={styles.modalContent}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className={styles.modalIconBox}>
+                <Lock size={24} />
+              </div>
+              <h3 className={styles.modalTitle}>Professional Feature</h3>
+              <p className={styles.modalText}>
+                The selected watermarking approach is available in the <strong>Enterprise Edition</strong>.
+                Experience advanced forensic attribution and multi-layer source tracking.
+              </p>
+              <div className={styles.modalActions}>
+                <button
+                  className={styles.btnAction}
+                  style={{ background: 'var(--pg-blue)', flex: 1, margin: 0 }}
+                  onClick={() => navigate('/red-team')}
+                >
+                  Book a Demo
+                </button>
+                <button
+                  className={styles.btnClear}
+                  style={{ flex: 1, margin: 0 }}
+                  onClick={() => setShowPremium(false)}
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

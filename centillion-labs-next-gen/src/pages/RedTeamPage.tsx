@@ -1764,9 +1764,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 <li><a href="#rt-terminal">Live Ops</a></li>
                 <li><a href="#rt-methodology">Methodology</a></li>
                 <li><a href="#rt-tools">Tools</a></li>
-                <li><a href="/secure-ai-playground" style={{ color: 'var(--red)', fontWeight: 'bold', border: '1px solid var(--red)', padding: '2px 8px', borderRadius: '4px' }}>Centillion Red Team Playground</a></li>
               </ul>
               <div className="rt-nav-r">
+                <a href="/secure-ai-playground" className="rt-nav-cta" style={{ marginRight: '1rem' }}>
+                  Playground
+                </a>
                 <div className="rt-ninja-widget" ref={ninjaWidgetRef}>
                   <button
                     className="rt-ninja-btn"
@@ -1899,6 +1901,11 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                 We break AI before adversaries do. From <em>prompt injection</em> and <em>jailbreaks</em> to{' '}
                 <em>safety guardrail probing</em> — Centillion Red Team runs continuous adversarial campaigns against LLMs, inference pipelines, and AI-powered products.
               </p>
+              <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', opacity: 0, animation: 'rt-fadeUp .8s ease .9s forwards' }}>
+                <a href="/secure-ai-playground" className="rt-btn-primary">
+                  Centillion Red Team Playground
+                </a>
+              </div>
               <div className="rt-hero-scroll-hint">
                 <div className="rt-scroll-line" />
                 <span className="rt-scroll-label">Scroll</span>
