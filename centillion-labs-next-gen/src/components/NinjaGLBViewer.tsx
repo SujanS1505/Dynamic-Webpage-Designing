@@ -5,9 +5,11 @@ import { Bloom, EffectComposer, Noise } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
-const MODEL_PATH = '/models/Ninja-3D.glb';
+const MODEL_RUN = '/models/Ninja_in_place_run.glb';
+const MODEL_IDLE = '/models/Ninja_idle.glb';
 
 export type NinjaMode = 'patrol' | 'stealth' | 'rage';
+export type NinjaAction = 'run' | 'idle';
 
 // ─── CSS shadow ninja shown while the GLB is downloading ────────────────────
 function NinjaCSSFallback() {
@@ -34,14 +36,17 @@ function NinjaCSSFallback() {
 // ─── 3D Model (only mounts after Suspense resolves = model is loaded) ────────
 function NinjaModel({
   mode,
+  action,
   speed,
   onReady,
 }: {
   mode: NinjaMode;
+  action: NinjaAction;
   speed: number;
   onReady: () => void;
 }) {
-  const { scene, animations } = useGLTF(MODEL_PATH);
+  const modelPath = action === 'idle' ? MODEL_IDLE : MODEL_RUN;
+  const { scene, animations } = useGLTF(modelPath);
   const groupRef = useRef<THREE.Group>(null);
   const mixerRef = useRef<THREE.AnimationMixer | null>(null);
   const normalizedRef = useRef(false);
@@ -135,21 +140,15 @@ function NinjaModel({
 
     const t = clock.getElapsedTime();
 
-    // Constant running to the right (X+ direction)
-    const runSpeed = 0.8 * speed; // pixels per second-ish
-    group.position.x += runSpeed * delta;
+    // The ninja container automatically traverses the screen using CSS.
+    // The 3D model just needs to stay perfectly centered in its canvas.
+    // We disable manual X-translation so it never gets cropped by its frame.
+    group.position.x = 0;
 
-    // Wrap around viewport edges (-2.5 to 2.5 is safely off-camera for the FOV)
-    if (group.position.x > 2.5) {
-      group.position.x = -2.5;
-    }
-
-    // The forward axis of the ninja model might differ.
-    // Usually, to face +X (right), rotation.y is Math.PI / 2 or -Math.PI / 2
-    // If Math.PI / 2 faced the wrong way (e.g. left or camera), we try -Math.PI / 2
+    // Always face forward exactly perpendicular to the camera (-90 degrees / -pi/2)
     group.rotation.y = -Math.PI / 2;
-    // Add a slight bobbing to mimic weight shifting during run
-    group.position.y = baseYRef.current + Math.sin(t * 8.0 * speed) * 0.04;
+    // Add a slight bobbing to mimic weight shifting
+    group.position.y = baseYRef.current + Math.sin(t * (action === 'run' ? 8.0 : 3.0) * speed) * (action === 'run' ? 0.04 : 0.02);
   });
 
   return (
@@ -174,10 +173,11 @@ function NinjaModel({
 
 interface Props {
   mode: NinjaMode;
+  action?: NinjaAction;
   speed: number;
 }
 
-export function NinjaGLBViewer({ mode, speed }: Props) {
+export function NinjaGLBViewer({ mode, action = 'run', speed }: Props) {
   const [modelReady, setModelReady] = useState(false);
   const handleReady = useCallback(() => setModelReady(true), []);
 
@@ -215,7 +215,7 @@ export function NinjaGLBViewer({ mode, speed }: Props) {
           color={mode === 'stealth' ? '#00ffcc' : '#ff2d00'}
         />
         <Suspense fallback={null}>
-          <NinjaModel mode={mode} speed={speed} onReady={handleReady} />
+          <NinjaModel mode={mode} action={action} speed={speed} onReady={handleReady} />
         </Suspense>
         <EffectComposer multisampling={0}>
           <Bloom
@@ -230,4 +230,5 @@ export function NinjaGLBViewer({ mode, speed }: Props) {
   );
 }
 
-useGLTF.preload(MODEL_PATH);
+useGLTF.preload(MODEL_RUN);
+useGLTF.preload(MODEL_IDLE);

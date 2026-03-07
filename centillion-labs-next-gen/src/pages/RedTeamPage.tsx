@@ -1116,9 +1116,10 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [showNinjaQuote, setShowNinjaQuote] = useState(false);
   const [ninjaEnabled, setNinjaEnabled] = useState(true);
   const [ninjaSpeed, setNinjaSpeed] = useState(1);
-  const [ninjaScale, setNinjaScale] = useState(1);
+  const [ninjaScale, setNinjaScale] = useState(2);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
   const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
+  const [ninjaAction, setNinjaAction] = useState<'run' | 'idle'>('run');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
   const [ninjaWidgetOpen, setNinjaWidgetOpen] = useState(false);
@@ -1330,7 +1331,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
         const cfg = ninjaCfgRef.current;
         if (!cfg.enabled) return;
         const w = globalThis.innerWidth, h = globalThis.innerHeight;
-        const sc = Math.max(0.6, Math.min(2.2, cfg.scale ?? 1));
+        const sc = Math.max(0.6, Math.min(4.0, cfg.scale ?? 2));
         const NW = 90 * sc, NH = 120 * sc;
         let tx = cX, ty = cY, tf = '';
         if (state === 0) { tx = w - NW - 5; ty = 0; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
@@ -1364,7 +1365,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
     let lastDragX = 0, lastDragY = 0, lastDragT = 0;
 
     const getNinjaSize = () => {
-      const scale = Math.max(0.6, Math.min(2.2, ninjaCfgRef.current.scale ?? 1));
+      const scale = Math.max(0.6, Math.min(4.0, ninjaCfgRef.current.scale ?? 2));
       return { w: BASE_W * scale, h: BASE_H * scale };
     };
 
@@ -1581,7 +1582,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const NinjaBody = () => (
     <>
       <div className="rt-n-aura" />
-      <NinjaGLBViewer mode={ninjaMode} speed={ninjaSpeed} />
+      <NinjaGLBViewer mode={ninjaMode} action={ninjaAction} speed={ninjaSpeed} />
     </>
   );
 
@@ -1690,7 +1691,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           id="rt-ninja-size"
                           type="range"
                           min={0.6}
-                          max={2.2}
+                          max={4.0}
                           step={0.05}
                           value={ninjaScale}
                           onChange={(e) => setNinjaScale(Number.parseFloat(e.target.value))}
@@ -1727,6 +1728,17 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           checked={ninjaFollowCursor}
                           onChange={(e) => setNinjaFollowCursor(e.target.checked)}
                         />
+                      </div>
+                      <div className="rt-ninja-row">
+                        <label htmlFor="rt-ninja-action">Action</label>
+                        <select
+                          id="rt-ninja-action"
+                          value={ninjaAction}
+                          onChange={(e) => setNinjaAction(e.target.value as 'run' | 'idle')}
+                        >
+                          <option value="run">Walk</option>
+                          <option value="idle">Stand Still</option>
+                        </select>
                       </div>
                       <div className="rt-ninja-row">
                         <label htmlFor="rt-ninja-mode">Mode</label>
