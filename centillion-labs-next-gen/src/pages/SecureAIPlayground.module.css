@@ -1103,3 +1103,164 @@
 .snippetList::-webkit-scrollbar-thumb:hover {
   background: rgba(37, 99, 235, 0.4);
 }
+
+/* ─── WATERMARK LAB ────────────────────────────────────────── */
+.watermarkGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.approachCard {
+  background: var(--pg-bg-card);
+  border: 1px solid var(--pg-border);
+  border-radius: var(--pg-r-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: all var(--pg-t);
+  position: relative;
+  overflow: hidden;
+}
+
+.approachCardActive {
+  border-color: var(--pg-blue);
+  background: var(--pg-blue-dim);
+  box-shadow: 0 0 0 2px var(--pg-blue-glow);
+}
+
+.approachType {
+  font-size: 8px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--pg-rose);
+  letter-spacing: 0.1em;
+  background: rgba(244, 63, 94, 0.08);
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.approachName {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pg-text);
+  display: block;
+}
+
+.logicInfo {
+  background: var(--pg-bg-card);
+  border-radius: var(--pg-r-md);
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.logicDesc {
+  font-size: 11px;
+  color: var(--pg-text-dim);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.gaugeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  position: relative;
+}
+
+.gauge {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 10px solid var(--pg-bg-card);
+  border-top-color: var(--pg-blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease-out;
+}
+
+.gaugeValue {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--pg-text);
+  line-height: 1;
+}
+
+.gaugeLabel {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--pg-text-dim);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.sliderContainer {
+  margin-top: 20px;
+}
+
+.slider {
+  width: 100%;
+  height: 4px;
+  background: var(--pg-border);
+  border-radius: 2px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--pg-blue);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 4px var(--pg-blue-glow);
+}
+
+.subTabs {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  height: 100%;
+}
+
+.subTab {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pg-text-muted);
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all var(--pg-t);
+}
+
+.subTab:hover {
+  color: var(--pg-text-dim);
+}
+
+.subTabActive {
+  color: var(--pg-blue);
+}
+
+.subTabActive::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  /* Align with border-bottom of panelHeader */
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--pg-blue);
+  border-radius: 4px 4px 0 0;
+}

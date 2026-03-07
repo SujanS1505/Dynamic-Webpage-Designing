@@ -45,6 +45,7 @@ from themis_watermarker import (
 )
 
 # ── Environment ───────────────────────────────────────────────────────────────
+load_dotenv() # Load from current directory .env first
 load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 app = Flask(__name__)
@@ -81,6 +82,11 @@ class StopOnSignal(StoppingCriteria):
 # =============================================================================
 def load_model():
     global model, tokenizer
+    
+    if os.environ.get("DISABLE_LOCAL_MODEL", "false").lower() == "true":
+        print("[!] Local model loading is DISABLED as per system instructions.")
+        return
+
     print("[*] Loading model into RAM from local disk (Hugging Face cache)…")
     try:
         token = HF_TOKEN if HF_TOKEN not in ("", "your_hf_token_here") else None

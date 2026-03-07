@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Terminal, Zap, Shield, Activity, Settings,
   ChevronRight, RotateCcw, AlertTriangle, Send, Copy, Check, X,
-  BarChart3, Lock, Eye, FlaskConical, Stethoscope, Landmark, Factory, Beaker
+  BarChart3, Lock, Eye, FlaskConical, Stethoscope, Landmark, Factory, Beaker,
+  Droplets, Waves, Fingerprint
 } from 'lucide-react';
 import logoImage from '../assets/centillion_logo.png';
 import styles from './SecureAIPlayground.module.css';
@@ -136,16 +137,7 @@ function InferenceStream({ messages, loading, payload, onPayloadChange, onFire }
   };
 
   return (
-    <section className={`${styles.panel} ${styles.centerPanel}`}>
-      <div className={styles.panelHeader}>
-        <Activity size={15} className={styles.panelIcon} />
-        <span className={styles.panelTitle}>Inference Stream</span>
-        <span className={styles.badge + ' ' + styles.badgeLive}>
-          <span className={styles.pulse} />
-          {' '}LIVE
-        </span>
-      </div>
-
+    <>
       <div className={styles.chatArea}>
         {messages.length === 0 && !loading && (
           <div className={styles.emptyHint}>
@@ -177,7 +169,6 @@ function InferenceStream({ messages, loading, payload, onPayloadChange, onFire }
         <div ref={bottomRef} />
       </div>
 
-      {/* Input bar */}
       <div className={styles.inputBar}>
         <textarea
           className={styles.inputArea}
@@ -196,7 +187,7 @@ function InferenceStream({ messages, loading, payload, onPayloadChange, onFire }
           Fire
         </button>
       </div>
-    </section>
+    </>
   );
 }
 
@@ -542,8 +533,157 @@ const PLAYGROUND_MODULES = [
   { id: 'audit', title: 'Industry Audits', icon: Landmark },
   { id: 'defense', title: 'Adaptive Defense', icon: Lock },
   { id: 'intel', title: 'Security Intelligence', icon: Eye },
+  { id: 'watermark', title: 'LLM Watermarking', icon: Droplets },
   { id: 'kpi', title: 'Performance', icon: BarChart3 },
 ];
+
+/* ─── WATERMARK COMPONENTS ──────────────────────────────────── */
+
+interface WatermarkApproach {
+  id: string;
+  name: string;
+  type: 'LOGIT' | 'TEXT';
+  desc: string;
+}
+
+const WATERMARK_APPROACHES: WatermarkApproach[] = [
+  { id: 'KGW', name: 'KGW', type: 'LOGIT', desc: 'Kirchenbauer et al. SHA-256 keyed green-list. Deterministic 50% vocab partition conditioned on previous token + secret.' },
+  { id: 'EXPONENTIAL', name: 'EXPONENTIAL', type: 'LOGIT', desc: 'Aaronson-style Gumbel-Max trick. Distortion-free statistical watermark.' },
+  { id: 'SEMANTIC', name: 'SEMANTIC', type: 'LOGIT', desc: 'Key-less, fast multiplicative-hash green-list based on previous token ID.' },
+  { id: 'CRYPTO', name: 'CRYPTO', type: 'LOGIT', desc: 'HMAC-SHA256 keyed green-list. Indistinguishable without secret key.' },
+  { id: 'ADAPTIVE_KGW', name: 'ADAPTIVE KGW', type: 'LOGIT', desc: 'Entropy-aware KGW. Scales bias based on model confidence.' },
+  { id: 'ENSEMBLE', name: 'ENSEMBLE', type: 'LOGIT', desc: 'KGW + CRYPTO stacked biases for multi-layer attribution.' },
+  { id: 'STYLOMETRIC', name: 'STYLOMETRIC', type: 'TEXT', desc: 'Post-generation sentence structure rewriting. No logit modification.' },
+];
+
+function WatermarkLogicModule({
+  selectedApproach,
+  onApproachChange,
+  secretKey,
+  onSecretChange,
+  tokenLength,
+  onLengthChange
+}: {
+  selectedApproach: string;
+  onApproachChange: (id: string) => void;
+  secretKey: string;
+  onSecretChange: (k: string) => void;
+  tokenLength: number;
+  onLengthChange: (l: number) => void;
+}) {
+  const approach = WATERMARK_APPROACHES.find(a => a.id === selectedApproach) || WATERMARK_APPROACHES[0];
+
+  return (
+    <aside className={`${styles.panel} ${styles.leftPanel}`}>
+      <div className={styles.panelHeader}>
+        <Droplets size={15} className={styles.panelIcon} />
+        <span className={styles.panelTitle}>Forensic Logic</span>
+        <span className={styles.badge}>{approach.type}</span>
+      </div>
+
+      <div className={styles.configBody}>
+        <div className={styles.logicInfo}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <span className={styles.brandName} style={{ fontSize: '14px' }}>{approach.name}</span>
+            <div className={styles.badge} style={{ fontSize: '9px', background: 'var(--pg-blue-dim)' }}>LOGIT</div>
+          </div>
+          <p className={styles.logicDesc}>{approach.desc}</p>
+        </div>
+
+        <div className={styles.fieldGroup}>
+          <label className={styles.fieldLabel}>Security Secret Key</label>
+          <div style={{ position: 'relative' }}>
+            <input
+              type="text"
+              className={styles.select}
+              style={{ paddingRight: '40px' }}
+              value={secretKey}
+              onChange={e => onSecretChange(e.target.value)}
+            />
+            <button
+              className={styles.headerBtn}
+              style={{ position: 'absolute', right: '4px', top: '4px', width: '28px', height: '28px', border: 'none' }}
+              onClick={() => onSecretChange(Math.random().toString(36).substring(7))}
+            >
+              <RotateCcw size={12} />
+            </button>
+          </div>
+        </div>
+
+        <div className={styles.sectionTitle} style={{ marginTop: 12 }}>Parameters</div>
+        <div className={styles.fieldLabel}>Watermarking Approach</div>
+        <div className={styles.watermarkGrid}>
+          {WATERMARK_APPROACHES.map(a => (
+            <div
+              key={a.id}
+              className={`${styles.approachCard} ${selectedApproach === a.id ? styles.approachCardActive : ''}`}
+              onClick={() => onApproachChange(a.id)}
+            >
+              <span className={styles.approachType}>{a.type}</span>
+              <span className={styles.approachName}>{a.name}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.sliderContainer}>
+          <div className={styles.fieldLabel} style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <span>Token Length: {tokenLength}</span>
+          </div>
+          <input
+            type="range"
+            min="50"
+            max="512"
+            value={tokenLength}
+            onChange={e => onLengthChange(parseInt(e.target.value))}
+            className={styles.slider}
+          />
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function WatermarkSignificanceModule({ zScore, loading }: { zScore: number; loading: boolean }) {
+  const rotation = Math.min((zScore / 10) * 180, 180); // Simple mapping for gauge
+
+  return (
+    <aside className={`${styles.panel} ${styles.rightPanel}`}>
+      <div className={styles.panelHeader}>
+        <Fingerprint size={15} className={styles.panelIcon} />
+        <span className={styles.panelTitle}>Forensic Significance</span>
+      </div>
+
+      <div className={styles.activeModuleContent}>
+        <div className={styles.gaugeContainer}>
+          <div className={styles.gauge} style={{ transform: `rotate(${rotation - 90}deg)` }}>
+            <div style={{ transform: `rotate(${-(rotation - 90)}deg)`, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <span className={styles.gaugeValue}>{zScore.toFixed(2)}</span>
+              <span className={styles.gaugeLabel}>Z-Score</span>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.moduleBody}>
+          <div className={styles.statusRow} style={{ background: zScore > 3.0 ? 'rgba(16, 185, 129, 0.07)' : 'rgba(244, 63, 94, 0.07)', borderColor: zScore > 3.0 ? 'var(--pg-emerald)' : 'var(--pg-rose)' }}>
+            <span className={styles.statusDot} style={{ background: zScore > 3.0 ? 'var(--pg-emerald)' : 'var(--pg-rose)' }} />
+            <span className={styles.statusText} style={{ color: zScore > 3.0 ? 'var(--pg-emerald)' : 'var(--pg-rose)' }}>
+              {zScore > 3.0 ? 'WATERMARK DETECTED' : 'NO MARK DETECTED'}
+            </span>
+          </div>
+
+          <div className={styles.sectionTitle} style={{ marginTop: 12 }}>System Controls</div>
+          <button className={styles.fireBtn} style={{ width: '100%', height: '44px', boxShadow: 'none' }} disabled={loading}>
+            <Eye size={14} /> Run Forensics
+          </button>
+        </div>
+      </div>
+
+      <div className={styles.sidebarFooter}>
+        <div className={styles.brandSub} style={{ textAlign: 'center' }}>SecureAI Judicial Forensics v1.0</div>
+      </div>
+    </aside>
+  );
+}
 
 function AttackControls({ activeModule, detectedThreats, payload, onLoadPayload, onFire, onScan, onClear }: Readonly<AttackControlsProps>) {
   return (
@@ -590,6 +730,13 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
   const [loading, setLoading] = useState(false);
   const [detectedThreats, setDetectedThreats] = useState<string[]>([]);
   const [activeModule, setActiveModule] = useState('attack');
+
+  // Watermarking State
+  const [wmApproach, setWmApproach] = useState('KGW');
+  const [wmSecret, setWmSecret] = useState('centillion-secure-key');
+  const [wmTokenLength, setWmTokenLength] = useState(150);
+  const [wmZScore, setWmZScore] = useState(0.0);
+  const [wmView, setWmView] = useState<'LAB' | 'FORENSICS'>('LAB');
 
   const handleModelChange = (model: string) => {
     setSelectedModel(model);
@@ -718,32 +865,82 @@ export function SecureAIPlayground({ onClose }: Readonly<{ onClose: () => void }
 
       {/* ── Three-column workspace ── */}
       <div className={styles.workspace}>
-        <TargetConfig
-          models={models}
-          selectedModel={selectedModel}
-          onModelChange={handleModelChange}
-          versions={versions}
-          selectedVersion={selectedVersion}
-          onVersionChange={setSelectedVersion}
-          promptTemplate={promptTemplate}
-          onPromptChange={setPromptTemplate}
-        />
-        <InferenceStream
-          messages={messages}
-          loading={loading}
-          payload={payload}
-          onPayloadChange={setPayload}
-          onFire={() => fire()}
-        />
-        <AttackControls
-          activeModule={activeModule}
-          detectedThreats={detectedThreats}
-          payload={payload}
-          onLoadPayload={setPayload}
-          onFire={() => fire(payload)}
-          onScan={scan}
-          onClear={clear}
-        />
+        {activeModule === 'watermark' ? (
+          <WatermarkLogicModule
+            selectedApproach={wmApproach}
+            onApproachChange={setWmApproach}
+            secretKey={wmSecret}
+            onSecretChange={setWmSecret}
+            tokenLength={wmTokenLength}
+            onLengthChange={setWmTokenLength}
+          />
+        ) : (
+          <TargetConfig
+            models={models}
+            selectedModel={selectedModel}
+            onModelChange={handleModelChange}
+            versions={versions}
+            selectedVersion={selectedVersion}
+            onVersionChange={setSelectedVersion}
+            promptTemplate={promptTemplate}
+            onPromptChange={setPromptTemplate}
+          />
+        )}
+
+        <section className={`${styles.panel} ${styles.centerPanel}`}>
+          {activeModule === 'watermark' && (
+            <div className={styles.panelHeader} style={{ background: 'transparent', borderBottom: '1px solid var(--pg-border)', padding: '0 20px', height: '48px' }}>
+              <div className={styles.subTabs}>
+                <button
+                  className={`${styles.subTab} ${wmView === 'LAB' ? styles.subTabActive : ''}`}
+                  onClick={() => setWmView('LAB')}
+                >
+                  <Waves size={12} style={{ marginRight: 6 }} /> Watermark Lab
+                </button>
+                <button
+                  className={`${styles.subTab} ${wmView === 'FORENSICS' ? styles.subTabActive : ''}`}
+                  onClick={() => setWmView('FORENSICS')}
+                >
+                  <Fingerprint size={12} style={{ marginRight: 6 }} /> Forensics
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className={styles.panelHeader}>
+            <Activity size={15} className={styles.panelIcon} />
+            <span className={styles.panelTitle}>Inference Stream</span>
+            <span className={styles.badge + ' ' + styles.badgeLive}>
+              <span className={styles.pulse} />
+              {' '}LIVE
+            </span>
+          </div>
+
+          <InferenceStream
+            messages={messages}
+            loading={loading}
+            payload={payload}
+            onPayloadChange={setPayload}
+            onFire={() => fire()}
+          />
+        </section>
+
+        {activeModule === 'watermark' ? (
+          <WatermarkSignificanceModule
+            zScore={wmZScore}
+            loading={loading}
+          />
+        ) : (
+          <AttackControls
+            activeModule={activeModule}
+            detectedThreats={detectedThreats}
+            payload={payload}
+            onLoadPayload={setPayload}
+            onFire={() => fire(payload)}
+            onScan={scan}
+            onClear={clear}
+          />
+        )}
       </div>
     </div>
   );

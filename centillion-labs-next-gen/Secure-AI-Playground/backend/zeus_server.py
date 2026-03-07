@@ -1,4 +1,9 @@
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 import logging
 from flask import Flask, request, Response, jsonify, stream_with_context
 from flask_cors import CORS
@@ -7,7 +12,9 @@ from apollo_client import ApolloClient
 from hades_auditor import HadesAuditor
 from demeter_social import DemeterSocialAnalyzer
 from themis_watermarker import ThemisWatermarker
+from cloud_client import CloudClient
 import json
+import time
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -20,6 +27,7 @@ class ZeusOrchestrator:
     def __init__(self):
         self.factory = AthenaFactory()
         self.client = ApolloClient()
+        self.cloud_client = CloudClient()
         self.auditor = HadesAuditor()
         self.social = DemeterSocialAnalyzer()
         self.themis = ThemisWatermarker()
@@ -78,8 +86,12 @@ def handle_chat():
         }
         yield json.dumps(metadata) + "\n"
         
-        # Proxy stream from Apollo (Inference Server)
-        for chunk in orchestrator.client.generate_stream(prompt, max_tokens):
+        # Generation strategy: Try Cloud (Gemini/Grok) first for 'normal response time'
+        # Fallback to local only if explicitly requested or cloud fails (and local is running)
+        
+        # Use Cloud Client (Gemini -> Groq -> xAI fallback internal to CloudClient)
+        # We pass the requested model to help CloudClient prioritize if it matches gemini/grok
+        for chunk in orchestrator.cloud_client.generate_stream(prompt, max_tokens, model_preference=model):
             yield chunk
 
     return Response(stream_with_context(generate()), mimetype="application/x-ndjson")
