@@ -1631,7 +1631,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           style={{
             width: 90 * ninjaScale,
             height: 120 * ninjaScale,
-            transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance') ? 'rotate(0deg)' : undefined
+            transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance' || ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
           }}
         >
           {NinjaBody()}
@@ -1647,7 +1647,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             style={{
               width: 90 * ninjaScale,
               height: 120 * ninjaScale,
-              transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance') ? 'rotate(0deg)' : undefined
+              transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance' || ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
             }}
           >
             {NinjaBody()}
@@ -1768,7 +1768,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           onChange={e => {
                             const val = e.target.value as NinjaAction;
                             setNinjaAction(val);
-                            if (val === 'dance' || val === 'breakdance') setNinjaAutopilot(false);
+                            if (val === 'dance' || val === 'breakdance' || val === 'fight' || val === 'martelo' || val === 'idle') setNinjaAutopilot(false);
                           }}
                           style={{ background: '#111', border: '1px solid #333', color: '#eee', fontSize: '.7rem', padding: '2px 5px', borderRadius: '4px', outline: 'none' }}
                         >
@@ -1776,6 +1776,9 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           <option value="idle">Stand Still</option>
                           <option value="dance">Gangnam Style</option>
                           <option value="breakdance">Breakdance</option>
+                          <option value="fight">Fight Idle</option>
+                          <option value="jump">Jumping</option>
+                          <option value="martelo">Martelo 2</option>
                         </select>
                       </div>
                       <div className="rt-ninja-row">
