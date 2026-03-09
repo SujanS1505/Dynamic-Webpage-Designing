@@ -7,14 +7,12 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils.js';
 
 const MODEL_RUN = '/models/Ninja_in_place_run.glb';
 const MODEL_IDLE = '/models/Ninja_idle.glb';
-const MODEL_DANCE = '/models/Gangnam_Style.glb';
-const MODEL_BREAKDANCE = '/models/Breakdance_Freezes.glb';
 const MODEL_FIGHT = '/models/Fight_Idle.glb';
 const MODEL_JUMP = '/models/Jumping.glb';
 const MODEL_MARTELO = '/models/Martelo_2.glb';
 
 export type NinjaMode = 'patrol' | 'stealth' | 'rage';
-export type NinjaAction = 'run' | 'idle' | 'dance' | 'breakdance' | 'fight' | 'jump' | 'martelo';
+export type NinjaAction = 'run' | 'idle' | 'fight' | 'jump' | 'martelo';
 
 // ─── CSS shadow ninja shown while the GLB is downloading ────────────────────
 function NinjaCSSFallback() {
@@ -51,13 +49,11 @@ function NinjaModel({
   onReady: () => void;
 }) {
   const modelPath =
-    action === 'breakdance' ? MODEL_BREAKDANCE :
-      action === 'dance' ? MODEL_DANCE :
-        action === 'fight' ? MODEL_FIGHT :
-          action === 'jump' ? MODEL_JUMP :
-            action === 'martelo' ? MODEL_MARTELO :
-              action === 'idle' ? MODEL_IDLE :
-                MODEL_RUN;
+    action === 'fight' ? MODEL_FIGHT :
+      action === 'jump' ? MODEL_JUMP :
+        action === 'martelo' ? MODEL_MARTELO :
+          action === 'idle' ? MODEL_IDLE :
+            MODEL_RUN;
   const { scene, animations } = useGLTF(modelPath);
   const groupRef = useRef<THREE.Group>(null);
   const mixerRef = useRef<THREE.AnimationMixer | null>(null);
@@ -159,8 +155,8 @@ function NinjaModel({
     group.position.x = 0;
 
     // Always face forward exactly perpendicular to the camera (90 degrees / pi/2)
-    // EXCEPT when dancing/breakdancing/fighting/martelo, then face the camera fully (0 rotation)
-    const isStationaryEmote = action === 'dance' || action === 'breakdance' || action === 'fight' || action === 'martelo' || action === 'idle';
+    // EXCEPT when fighting/martelo/idle, then face the camera fully (0 rotation)
+    const isStationaryEmote = action === 'fight' || action === 'martelo' || action === 'idle';
     group.rotation.y = isStationaryEmote ? 0 : Math.PI / 2;
     // Add a slight bobbing to mimic weight shifting
     group.position.y = baseYRef.current + Math.sin(t * (action === 'run' ? 8.0 : 3.0) * speed) * (action === 'run' ? 0.04 : 0.02);
@@ -247,8 +243,6 @@ export function NinjaGLBViewer({ mode, action = 'run', speed }: Props) {
 
 useGLTF.preload(MODEL_RUN);
 useGLTF.preload(MODEL_IDLE);
-useGLTF.preload(MODEL_DANCE);
-useGLTF.preload(MODEL_BREAKDANCE);
 useGLTF.preload(MODEL_FIGHT);
 useGLTF.preload(MODEL_JUMP);
 useGLTF.preload(MODEL_MARTELO);

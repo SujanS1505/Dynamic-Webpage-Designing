@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getLenis } from '../lenisStore';
 import { NinjaGLBViewer } from '../components/NinjaGLBViewer';
+import type { NinjaAction, NinjaMode } from '../components/NinjaGLBViewer';
 
-type NinjaMode = 'patrol' | 'stealth' | 'rage';
+
 type NinjaVariant = 'shadow' | 'ghost' | 'oni' | 'neon' | 'phantom' | 'void';
 
 interface Props { onClose: () => void }
@@ -1118,7 +1119,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
   const [ninjaSpeed, setNinjaSpeed] = useState(1);
   const [ninjaScale, setNinjaScale] = useState(2);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
-  const [ninjaVariant, setNinjaVariant] = useState<NinjaVariant>('shadow');
+  const [ninjaVariant] = useState<NinjaVariant>('shadow');
   const [ninjaAction, setNinjaAction] = useState<NinjaAction>('run');
   const [ninjaType, setNinjaType] = useState<'2d' | '3d'>('3d');
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
@@ -1631,7 +1632,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           style={{
             width: 90 * ninjaScale,
             height: 120 * ninjaScale,
-            transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance' || ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
+            transform: (ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
           }}
         >
           {NinjaBody()}
@@ -1647,7 +1648,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             style={{
               width: 90 * ninjaScale,
               height: 120 * ninjaScale,
-              transform: (ninjaAction === 'dance' || ninjaAction === 'breakdance' || ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
+              transform: (ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'idle') ? 'rotate(0deg)' : undefined
             }}
           >
             {NinjaBody()}
@@ -1768,14 +1769,12 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           onChange={e => {
                             const val = e.target.value as NinjaAction;
                             setNinjaAction(val);
-                            if (val === 'dance' || val === 'breakdance' || val === 'fight' || val === 'martelo' || val === 'idle') setNinjaAutopilot(false);
+                            if (val === 'fight' || val === 'martelo' || val === 'idle') setNinjaAutopilot(false);
                           }}
                           style={{ background: '#111', border: '1px solid #333', color: '#eee', fontSize: '.7rem', padding: '2px 5px', borderRadius: '4px', outline: 'none' }}
                         >
                           <option value="run">Walk</option>
                           <option value="idle">Stand Still</option>
-                          <option value="dance">Gangnam Style</option>
-                          <option value="breakdance">Breakdance</option>
                           <option value="fight">Fight Idle</option>
                           <option value="jump">Jumping</option>
                           <option value="martelo">Martelo 2</option>
