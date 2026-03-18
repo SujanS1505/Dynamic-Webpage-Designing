@@ -1632,7 +1632,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
           style={{
             width: 90 * ninjaScale,
             height: 120 * ninjaScale,
-            transform: (ninjaAction === 'fight' || ninjaAction === 'martelo') ? 'rotate(0deg)' : undefined
+            transform: (ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'jump') ? 'rotate(0deg)' : undefined
           }}
         >
           {NinjaBody()}
@@ -1648,7 +1648,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             style={{
               width: 90 * ninjaScale,
               height: 120 * ninjaScale,
-              transform: (ninjaAction === 'fight' || ninjaAction === 'martelo') ? 'rotate(0deg)' : undefined
+              transform: (ninjaAction === 'fight' || ninjaAction === 'martelo' || ninjaAction === 'jump') ? 'rotate(0deg)' : undefined
             }}
           >
             {NinjaBody()}
@@ -1769,7 +1769,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
                           onChange={e => {
                             const val = e.target.value as NinjaAction;
                             setNinjaAction(val);
-                            if (val === 'fight' || val === 'martelo') setNinjaAutopilot(false);
+                            if (val === 'fight' || val === 'martelo' || val === 'jump') setNinjaAutopilot(false);
                           }}
                           style={{ background: '#111', border: '1px solid #333', color: '#eee', fontSize: '.7rem', padding: '2px 5px', borderRadius: '4px', outline: 'none' }}
                         >

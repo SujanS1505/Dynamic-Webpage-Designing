@@ -1,4 +1,4 @@
-import { useRef, useEffect, useMemo, useState, useCallback, Suspense } from 'react';
+import { useRef, useEffect, useMemo, useCallback, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF, Sparkles } from '@react-three/drei';
 import { Bloom, EffectComposer, Noise } from '@react-three/postprocessing';
@@ -14,26 +14,7 @@ export type NinjaMode = 'patrol' | 'stealth' | 'rage';
 export type NinjaAction = 'run' | 'fight' | 'jump' | 'martelo';
 
 // ─── CSS shadow ninja shown while the GLB is downloading ────────────────────
-function NinjaCSSFallback() {
-  return (
-    <div className="rt-n-sprite" aria-hidden="true" style={{ position: 'absolute', inset: 0 }}>
-      <div className="rt-n-arm bk" />
-      <div className="rt-n-leg bk" />
-      <div className="rt-n-torso" />
-      <div className="rt-n-collar" />
-      <div className="rt-n-head" />
-      <div className="rt-n-band">
-        <div className="rt-n-visor">
-          <div className="rt-n-eye l" />
-          <div className="rt-n-eye r" />
-        </div>
-      </div>
-      <div className="rt-n-arm ft" />
-      <div className="rt-n-weapon" />
-      <div className="rt-n-leg ft" />
-    </div>
-  );
-}
+
 
 // ─── 3D Model (only mounts after Suspense resolves = model is loaded) ────────
 function NinjaModel({
@@ -74,11 +55,10 @@ function NinjaModel({
     return c;
   }, [scene]);
 
-  // Signal parent that model is ready (component mounted = Suspense resolved)
+  // Signal parent that model is ready
   useEffect(() => {
     onReady();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [onReady]);
 
   // Wire up animation mixer to play the first clip
   useEffect(() => {
@@ -153,8 +133,8 @@ function NinjaModel({
     group.position.x = 0;
 
     // Always face forward exactly perpendicular to the camera (90 degrees / pi/2)
-    // EXCEPT when fighting/martelo, then face the camera fully (0 rotation)
-    const isStationaryEmote = action === 'fight' || action === 'martelo';
+    // EXCEPT when fighting/martelo/jump, then face the camera fully (0 rotation)
+    const isStationaryEmote = action === 'fight' || action === 'martelo' || action === 'jump';
     group.rotation.y = isStationaryEmote ? 0 : Math.PI / 2;
     // Add a slight bobbing to mimic weight shifting
     group.position.y = baseYRef.current + Math.sin(t * (action === 'run' ? 8.0 : 3.0) * speed) * (action === 'run' ? 0.04 : 0.02);
@@ -187,15 +167,14 @@ interface Props {
 }
 
 export function NinjaGLBViewer({ mode, action = 'run', speed }: Props) {
-  const [modelReady, setModelReady] = useState(false);
-  const handleReady = useCallback(() => setModelReady(true), []);
+  const handleReady = useCallback(() => { }, []);
 
   const bloomIntensity = mode === 'rage' ? 1.4 : mode === 'stealth' ? 0.4 : 0.8;
 
   return (
     <>
-      {/* CSS shadow ninja — visible instantly, hidden once 3D model is ready */}
-      {!modelReady && <NinjaCSSFallback />}
+      {/* We removed the CSS fallback to ensure only the 3D model is ever shown. */}
+
 
       <Canvas
         dpr={[1, 1.5]}
