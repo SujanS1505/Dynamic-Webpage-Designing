@@ -1488,23 +1488,26 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
               </div>
             </section>
 
-            {/* NINJAS / HIRING */}
+            {/* NINJA PLAYGROUND & SQUAD */}
             <section style={{ maxWidth: '100%', padding: 'clamp(4rem,8vw,7rem) clamp(1.2rem,5vw,5rem)', textAlign: 'center', borderTop: '1px solid var(--grid-line)', borderBottom: '1px solid var(--grid-line)', position: 'relative', overflow: 'hidden' }}>
               <div className="rt-hero-bg-grad" style={{ opacity: .3 }} />
+              
               <div className="rt-reveal">
                 <div className="rt-section-label" style={{ justifyContent: 'center', marginBottom: '1rem' }}>The Squad</div>
                 <h2 className="rt-section-title">Centillion <span className="accent">Red Team Ninjas</span></h2>
                 <p className="rt-section-desc" style={{ margin: '1rem auto', maxWidth: 700, fontSize: '1.1rem' }}>
                   We are elite, AI-Native Red Team Experts. Our operators blend deep knowledge of machine learning internals, generative architectures, and offensive security mindsets to break AI systems before adversaries do.
                 </p>
-                <motion.div whileHover={{ scale: 1.02 }} style={{ marginTop: '3rem', background: 'var(--card-b)', padding: '2rem', borderRadius: 12, border: '1px solid var(--nav-border)', display: 'inline-block', maxWidth: 500, backdropFilter: 'blur(10px)' }}>
+                <motion.div whileHover={{ scale: 1.02 }} style={{ marginTop: '3rem', background: 'var(--card-b)', padding: '2rem', borderRadius: 12, border: '1px solid var(--nav-border)', display: 'inline-block', maxWidth: 650, backdropFilter: 'blur(10px)' }}>
                   <h3 style={{ color: 'var(--text)', fontSize: '1.3rem', fontWeight: 700, fontFamily: 'var(--cond)', letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: '.5rem' }}>
-                    <span style={{ color: 'var(--red)' }}>//</span> WE ARE HIRING
+                    <span style={{ color: 'var(--red)' }}>//</span> NINJA PLAYGROUND
                   </h3>
-                  <p style={{ color: 'var(--sub)', fontSize: '.95rem', marginBottom: '1.5rem', lineHeight: 1.6, fontWeight: 300 }}>
-                    Obsessed with jailbreaks, model inversion, and adversarial ML? Want to stress-test the world's most advanced AI models? Join our Formidable Force.
+                  <p style={{ color: 'var(--sub)', fontSize: '.95rem', marginBottom: '1.8rem', lineHeight: 1.6, fontWeight: 300 }}>
+                    Step into our highly interactive environment designed to test and showcase our advanced visualization capabilities. Discover the fluidity of our real-time 3D Ninja model and adjust playground settings dynamically in a command-center interface.
                   </p>
-                  <a className="rt-nav-cta" href="mailto:redteam-careers@centillion.ai" style={{ textDecoration: 'none', display: 'inline-block' }}>View Open Positions</a>
+                  <Link to="/ninja" className="rt-nav-cta" style={{ textDecoration: 'none', display: 'inline-block', padding: '.5rem 1.1rem' }}>
+                    ENTER NINJA PLAYGROUND
+                  </Link>
                 </motion.div>
               </div>
             </section>
@@ -1529,13 +1532,7 @@ export const RedTeamPage: React.FC<Props> = ({ onClose }) => {
             <footer>
               <div className="rt-foot-l">&copy; 2026 Centillion Labs — <span>Red Team Formidable Force</span></div>
               <div className="rt-foot-r">
-                Secure Inference. Secure Future. {' '}•{' '}
-                <Link
-                  to="/ninja"
-                  style={{ color: 'var(--red)', textDecoration: 'none' }}
-                >
-                  Ninja Playground
-                </Link>
+                Secure Inference. Secure Future.
               </div>
             </footer>
           </div>
