@@ -15,6 +15,7 @@ import { LifeAtCentillion } from './components/sections/LifeAtCentillion';
 import { RedTeamFlash } from './components/RedTeamFlash';
 import { RedTeamPage } from './pages/RedTeamPage';
 import { SecureAIPlaygroundPage } from './pages/SecureAIPlaygroundPage';
+import { NinjaPage } from './pages/NinjaPage';
 
 import { AboutPage } from './pages/AboutPage';
 import { WhoWeArePage } from './pages/WhoWeArePage';
@@ -65,6 +66,7 @@ function App() {
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/red-team" element={<RedTeamPage onClose={() => window.history.back()} />} />
       <Route path="/secure-ai-playground" element={<SecureAIPlaygroundPage onClose={() => window.history.back()} />} />
+      <Route path="/ninja" element={<NinjaPage />} />
     </Routes>
   );
 }
