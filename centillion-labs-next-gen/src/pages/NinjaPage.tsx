@@ -61,8 +61,8 @@ const NINJA_CSS = `
   box-shadow: 0 0 20px rgba(232,65,24,0.2);
 }
 
-.ninja-widget { position: fixed; top: 1rem; right: 1rem; z-index: 10003; }
-.ninja-btn-row { display: flex; align-items: center; justify-content: flex-end; gap: .6rem; }
+.ninja-widget { position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); z-index: 10003; }
+.ninja-btn-row { display: flex; align-items: center; justify-content: center; gap: .6rem; }
 .ninja-btn {
   width: 44px; height: 44px; border-radius: 12px; border: 1px solid rgba(232,65,24,0.35);
   background: var(--nav-bg); backdrop-filter: blur(12px);
@@ -72,16 +72,17 @@ const NINJA_CSS = `
 .ninja-btn:hover { border-color: rgba(232,65,24,0.6); }
 .ninja-btn[aria-expanded="true"] { border-color: rgba(232,65,24,0.75); }
 .ninja-panel {
-  position: absolute; top: calc(100% + 10px); right: 0;
+  position: absolute; top: calc(100% + 10px); right: auto;
   width: min(320px, calc(100vw - 2rem));
-  inset: auto;
-  left: auto;
+  margin: 0;
+  inset: unset;
+  left: 50%;
   bottom: auto;
+  transform: translateX(-50%);
   border-radius: 14px;
   border: 1px solid rgba(232,65,24,0.22);
   background: var(--panel-bg); backdrop-filter: blur(16px);
   padding: 14px 14px 12px;
-  margin: 0;
   outline: none;
   box-sizing: border-box;
   display: block;
@@ -132,13 +133,33 @@ const NINJA_CSS = `
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10001;
+  z-index: 0;
   pointer-events: none;
   font-family: var(--cond);
-  letter-spacing: .22em;
+  font-weight: 800;
+  letter-spacing: .25em;
+  padding-left: .25em; /* Compensate for letter-spacing at end */
   text-transform: uppercase;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
-  color: var(--muted);
+  font-size: clamp(3rem, 6vw, 6rem);
+  color: #200505;
+  text-align: center;
+  white-space: nowrap;
+  opacity: 0.85;
+  text-shadow: 0 0 20px rgba(232, 65, 24, 0.5), 0 0 40px rgba(232, 65, 24, 0.3);
+  animation: ninja-glitch-anim 5s infinite;
+}
+#ninja-rt[data-theme="light"] .ninja-title {
+  color: #1a0300;
+  text-shadow: 0 0 20px rgba(196, 40, 0, 0.4), 0 0 40px rgba(196, 40, 0, 0.2);
+  opacity: 0.9;
+}
+.ninja-title span {
+  color: var(--red);
+}
+@keyframes ninja-glitch-anim {
+  0%, 94%, 98%, 100% { transform: translate(-50%, -50%); opacity: 0.85; }
+  95%, 97% { transform: translate(-50.5%, -50%); opacity: 1; }
+  96% { transform: translate(-49.5%, -50%); opacity: 1; }
 }
 `;
 
@@ -176,6 +197,30 @@ export const NinjaPage: React.FC = () => {
   const ninjaRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<HTMLDivElement>(null);
   const replicaRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // ── Particle canvas ───────────────────────────────────────────────────────
+  useEffect(() => {
+    const cv = canvasRef.current; if (!cv) return;
+    const cx = cv.getContext('2d')!;
+    let W = 0, H = 0, rafId = 0;
+    type P = { x: number; y: number; vx: number; vy: number; r: number; a: number };
+    let ns: P[] = [];
+    const getColor = () => theme === 'light' ? 'rgba(196,40,0,' : 'rgba(232,65,24,';
+    const resize = () => { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; };
+    const make = (n: number) => { ns = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .4, vy: (Math.random() - .5) * .4, r: Math.random() * 1.5 + .5, a: Math.random() * .45 + .15 })); };
+    const draw = () => {
+      cx.clearRect(0, 0, W, H);
+      const c = getColor();
+      for (let i = 0; i < ns.length; i++) for (let j = i + 1; j < ns.length; j++) { const dx = ns[i].x - ns[j].x, dy = ns[i].y - ns[j].y, d = Math.sqrt(dx * dx + dy * dy); if (d < 140) { cx.beginPath(); cx.strokeStyle = c + (1 - d / 140) * .25 + ')'; cx.lineWidth = .5; cx.moveTo(ns[i].x, ns[i].y); cx.lineTo(ns[j].x, ns[j].y); cx.stroke(); } }
+      ns.forEach(n => { cx.beginPath(); cx.arc(n.x, n.y, n.r, 0, Math.PI * 2); cx.fillStyle = c + n.a + ')'; cx.fill(); n.x += n.vx; n.y += n.vy; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
+      rafId = requestAnimationFrame(draw);
+    };
+    const onResize = () => { resize(); make(90); };
+    window.addEventListener('resize', onResize);
+    resize(); make(90); draw();
+    return () => { cancelAnimationFrame(rafId); window.removeEventListener('resize', onResize); };
+  }, [theme]);
 
   const cfgRef = useRef({ enabled: true, speed: 1, scale: 2, autopilot: true, follow: false });
   useEffect(() => {
@@ -440,9 +485,10 @@ export const NinjaPage: React.FC = () => {
 
   return (
     <div id="ninja-rt" data-theme={theme}>
+      <canvas ref={canvasRef} style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }} />
       <div id="ninja-scanlines" />
 
-      <div className="ninja-title">Ninja Playground</div>
+      <div className="ninja-title">Ninja <span>Playground</span></div>
 
       <button className="ninja-back" onClick={() => navigate(-1)} type="button">
         ← BACK
