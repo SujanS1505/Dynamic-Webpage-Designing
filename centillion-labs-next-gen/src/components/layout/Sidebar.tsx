@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     X, ArrowUpRight, Zap, Linkedin, ChevronDown,
@@ -616,36 +616,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                                 borderTop: '1px solid var(--sb-divider)',
                             }}
                         >
-                            {/* CTA with animated gradient border */}
-                            <div style={{
-                                position: 'relative',
-                                borderRadius: '10px', padding: '1.5px',
-                                background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary))',
-                                backgroundSize: '200% 100%',
-                                animation: 'sbCtaBorder 3s linear infinite',
-                                marginBottom: '1.1rem',
-                            }}>
-                                <a
-                                    href="mailto:connect@centillionlabs.com"
-                                    onClick={onClose}
-                                    className="sidebar-cta"
-                                    style={{
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        gap: '0.5rem', textDecoration: 'none',
-                                        background: isDark ? '#0a141c' : '#f5f8fb',
-                                        color: 'var(--accent-primary)',
-                                        fontWeight: 700, fontSize: '0.82rem',
-                                        padding: '0.8rem 1.2rem',
-                                        borderRadius: '9px',
-                                        letterSpacing: '0.07em',
-                                        transition: 'background 0.2s, transform 0.2s',
-                                    }}
-                                >
-                                    <Zap size={14} />
-                                    <span className="mono-text">LET'S BUILD TOGETHER</span>
-                                    <ArrowUpRight size={14} />
-                                </a>
-                            </div>
 
                             {/* social row */}
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
