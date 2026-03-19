@@ -161,6 +161,7 @@ const NINJA_CSS = `
   95%, 97% { transform: translate(-50.5%, -50%); opacity: 1; }
   96% { transform: translate(-49.5%, -50%); opacity: 1; }
 }
+
 `;
 
 const ACTION_LABELS: Record<NinjaAction, string> = {
@@ -185,7 +186,7 @@ export const NinjaPage: React.FC = () => {
   const [ninjaSpeed, setNinjaSpeed] = useState(1);
   const [ninjaScale, setNinjaScale] = useState(2);
   const [ninjaReplicas, setNinjaReplicas] = useState(1);
-  const [ninjaType, setNinjaType] = useState<'2d' | '3d'>('3d');
+
   const [ninjaAutopilot, setNinjaAutopilot] = useState(true);
   const [ninjaFollowCursor, setNinjaFollowCursor] = useState(false);
   const [widgetOpen, setWidgetOpen] = useState(false);
@@ -452,30 +453,12 @@ export const NinjaPage: React.FC = () => {
     };
   }, []);
 
-  const NinjaBody = useCallback(() => {
-    return (
-      <>
-        <div className="ninja-aura" />
-        {ninjaType === '3d' ? (
-          <NinjaGLBViewer mode={ninjaMode} action={ninjaAction} speed={ninjaSpeed} />
-        ) : (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'grid',
-            placeItems: 'center',
-            fontFamily: 'var(--mono)',
-            color: 'rgba(255,255,255,0.75)',
-            borderRadius: 12,
-            background: 'rgba(0,0,0,0.35)',
-            border: '1px solid rgba(255,255,255,0.12)',
-          }}>
-            2D Ninja (legacy)
-          </div>
-        )}
-      </>
-    );
-  }, [ninjaAction, ninjaMode, ninjaSpeed, ninjaType]);
+  const NinjaBody = useCallback(() => (
+    <>
+      <div className="ninja-aura" />
+      <NinjaGLBViewer mode={ninjaMode} action={ninjaAction} speed={ninjaSpeed} />
+    </>
+  ), [ninjaAction, ninjaMode, ninjaSpeed]);
 
   const speedLabel = useMemo(() => ninjaSpeed.toFixed(2), [ninjaSpeed]);
 
@@ -603,13 +586,7 @@ export const NinjaPage: React.FC = () => {
               </select>
             </div>
 
-            <div className="n-row">
-              <label htmlFor="n-type">Visuals</label>
-              <select id="n-type" value={ninjaType} onChange={(e) => setNinjaType(e.target.value as '2d' | '3d')}>
-                <option value="3d">3D</option>
-                <option value="2d">2D</option>
-              </select>
-            </div>
+
           </dialog>
         )}
       </div>
