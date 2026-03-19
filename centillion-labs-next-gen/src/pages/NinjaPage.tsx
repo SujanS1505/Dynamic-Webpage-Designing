@@ -156,6 +156,24 @@ const NINJA_CSS = `
 .ninja-title span {
   color: var(--red);
 }
+.ninja-caption {
+  position: fixed;
+  left: 50%;
+  top: calc(50% + clamp(3.8rem, 7vw, 5.2rem));
+  transform: translateX(-50%);
+  z-index: 0;
+  pointer-events: none;
+  font-family: var(--mono);
+  font-size: clamp(.66rem, 1.15vw, .9rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(32, 5, 5, 0.62);
+  text-align: center;
+  white-space: nowrap;
+}
+#ninja-rt[data-theme="light"] .ninja-caption {
+  color: rgba(26, 3, 0, 0.58);
+}
 @keyframes ninja-glitch-anim {
   0%, 94%, 98%, 100% { transform: translate(-50%, -50%); opacity: 0.85; }
   95%, 97% { transform: translate(-50.5%, -50%); opacity: 1; }
@@ -471,6 +489,7 @@ export const NinjaPage: React.FC = () => {
       <div id="ninja-scanlines" />
 
       <div className="ninja-title">Ninja <span>Playground</span></div>
+      <p className="ninja-caption">Forged by AI. Ruled by the Ninja Within</p>
 
       <button className="ninja-back" onClick={() => navigate(-1)} type="button">
         ← BACK
