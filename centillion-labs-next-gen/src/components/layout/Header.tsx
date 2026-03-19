@@ -83,7 +83,7 @@ export const Header: React.FC = () => {
 
                     {/* Desktop CTA */}
                     <a
-                        href="mailto:contact@centillionlabs.com"
+                        href="mailto:connect@centillionlabs.com"
                         style={{
                             background: 'var(--accent-primary)',
                             color: 'var(--bg-dark)',
