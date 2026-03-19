@@ -173,6 +173,10 @@ const ACTION_LABELS: Record<NinjaAction, string> = {
 
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
+const BASE_W = 110;
+const BASE_H = 145;
+const baseSpd = 220;
+
 export const NinjaPage: React.FC = () => {
   const navigate = useNavigate();
 
@@ -234,6 +238,11 @@ export const NinjaPage: React.FC = () => {
     };
   }, [ninjaEnabled, ninjaSpeed, ninjaScale, ninjaAutopilot, ninjaFollowCursor]);
 
+  const getSize = () => {
+    const sc = clamp(cfgRef.current.scale ?? 2, 0.6, 6);
+    return { w: BASE_W * sc, h: BASE_H * sc, sc };
+  };
+
   // Inject RT-style background + widget + ninja styles
   useEffect(() => {
     const style = document.createElement('style');
@@ -263,9 +272,13 @@ export const NinjaPage: React.FC = () => {
       const el = replicaRefs.current[ri - 1];
       if (!el) continue;
 
-      let state = ri % 4;
-      let cX = [5, globalThis.innerWidth - 100, globalThis.innerWidth - 100, 5][state];
-      let cY = [0, 0, globalThis.innerHeight - 130, globalThis.innerHeight - 130][state];
+      let state = ri % 2;
+      const { w: NW, h: NH, sc } = getSize();
+      const oX_L = 16 * sc;
+      const oX_R = 25 * sc;
+      const oY_B = 14 * sc;
+      let cX = state === 0 ? -oX_L : globalThis.innerWidth - NW + oX_R;
+      let cY = globalThis.innerHeight - NH + oY_B;
       let mt: ReturnType<typeof setTimeout> | null = null;
 
       const patrol = () => {
@@ -273,21 +286,16 @@ export const NinjaPage: React.FC = () => {
         if (!cfg.enabled) return;
         const w = globalThis.innerWidth;
         const h = globalThis.innerHeight;
-        const sc = clamp(cfg.scale ?? 2, 0.6, 6);
-        const NW = 110 * sc;
-        const NH = 145 * sc;
+        const { w: NW, h: NH, sc } = getSize();
         const oX_L = 16 * sc;
         const oX_R = 25 * sc;
-        const oY_T = 16 * sc;
         const oY_B = 14 * sc;
 
         let tx: number;
         let ty: number;
         let tf = '';
-        if (state === 0) { tx = w - NW + oX_R; ty = -oY_T; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-        else if (state === 1) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
-        else if (state === 2) { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-        else { tx = -oX_L; ty = -oY_T; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
+        if (state === 0) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(1)'; state = 1; }
+        else { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 0; }
 
         const spd = 220 * clamp(cfg.speed ?? 1, 0.5, 3) * 0.8;
         const dist = Math.hypot(tx - cX, ty - cY);
@@ -303,7 +311,7 @@ export const NinjaPage: React.FC = () => {
 
       el.style.left = cX + 'px';
       el.style.top = cY + 'px';
-      el.style.transform = ['rotate(180deg) scaleX(-1)', 'rotate(-90deg) scaleX(-1)', 'rotate(0deg) scaleX(-1)', 'rotate(90deg) scaleX(-1)'][state];
+      el.style.transform = state === 0 ? 'rotate(0deg) scaleX(1)' : 'rotate(0deg) scaleX(-1)';
       const initT = setTimeout(() => patrol(), 600 + ri * 800);
       cleanups.push(() => {
         if (mt) clearTimeout(mt);
@@ -318,13 +326,12 @@ export const NinjaPage: React.FC = () => {
     const ninja = ninjaRef.current;
     if (!ninja) return;
 
-    const BASE_W = 110;
-    const BASE_H = 145;
-    const baseSpd = 220;
-
     let state = 0;
-    let cX = 5;
-    let cY = 0;
+    const { h: NH, sc } = getSize();
+    const oX_L = 16 * sc;
+    const oY_B = 14 * sc;
+    let cX = -oX_L;
+    let cY = globalThis.innerHeight - NH + oY_B;
     let mt: ReturnType<typeof setTimeout> | null = null;
 
     let dragging = false;
@@ -332,11 +339,6 @@ export const NinjaPage: React.FC = () => {
     let dsY = 0;
     let nsX = 0;
     let nsY = 0;
-
-    const getSize = () => {
-      const sc = clamp(cfgRef.current.scale ?? 2, 0.6, 6);
-      return { w: BASE_W * sc, h: BASE_H * sc, sc };
-    };
 
     const patrol = () => {
       const cfg = cfgRef.current;
@@ -347,16 +349,13 @@ export const NinjaPage: React.FC = () => {
       const { w: NW, h: NH, sc } = getSize();
       const oX_L = 16 * sc;
       const oX_R = 25 * sc;
-      const oY_T = 16 * sc;
       const oY_B = 14 * sc;
 
       let tx: number;
       let ty: number;
       let tf = '';
-      if (state === 0) { tx = w - NW + oX_R; ty = -oY_T; tf = 'rotate(180deg) scaleX(-1)'; state = 1; }
-      else if (state === 1) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(-90deg) scaleX(-1)'; state = 2; }
-      else if (state === 2) { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 3; }
-      else { tx = -oX_L; ty = -oY_T; tf = 'rotate(90deg) scaleX(-1)'; state = 0; }
+      if (state === 0) { tx = w - NW + oX_R; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(1)'; state = 1; }
+      else { tx = -oX_L; ty = h - NH + oY_B; tf = 'rotate(0deg) scaleX(-1)'; state = 0; }
 
       const spd = baseSpd * clamp(cfg.speed ?? 1, 0.5, 3);
       const dist = Math.hypot(tx - cX, ty - cY);
@@ -428,7 +427,7 @@ export const NinjaPage: React.FC = () => {
     // Init
     ninja.style.left = cX + 'px';
     ninja.style.top = cY + 'px';
-    ninja.style.transform = 'rotate(180deg) scaleX(-1)';
+    ninja.style.transform = 'rotate(0deg) scaleX(1)';
 
     ninja.addEventListener('pointerdown', onDown as EventListener);
     globalThis.addEventListener('pointermove', onMove as EventListener);
