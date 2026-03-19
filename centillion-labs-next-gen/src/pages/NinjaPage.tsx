@@ -159,20 +159,54 @@ const NINJA_CSS = `
 .ninja-caption {
   position: fixed;
   left: 50%;
-  top: calc(50% + clamp(3.8rem, 7vw, 5.2rem));
+  top: calc(50% + clamp(4.2rem, 7.6vw, 5.8rem));
   transform: translateX(-50%);
   z-index: 0;
   pointer-events: none;
-  font-family: var(--mono);
-  font-size: clamp(.66rem, 1.15vw, .9rem);
-  letter-spacing: .16em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  font-family: var(--cond);
+  font-size: clamp(.7rem, 1.25vw, .98rem);
+  font-weight: 700;
+  letter-spacing: .24em;
   text-transform: uppercase;
-  color: rgba(32, 5, 5, 0.62);
+  color: transparent;
+  background: linear-gradient(90deg, rgba(32, 5, 5, 0.4) 0%, rgba(180, 52, 20, 0.95) 50%, rgba(32, 5, 5, 0.45) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
   text-align: center;
   white-space: nowrap;
+  text-shadow: 0 0 12px rgba(232, 65, 24, 0.18);
+  opacity: 0.9;
+  filter: drop-shadow(0 0 10px rgba(232, 65, 24, 0.16));
+  animation: ninja-caption-glow 3.8s ease-in-out infinite;
+}
+.ninja-caption::before,
+.ninja-caption::after {
+  content: '';
+  width: clamp(1.4rem, 4vw, 2.8rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232, 65, 24, 0.6), transparent);
+  box-shadow: 0 0 10px rgba(232, 65, 24, 0.22);
 }
 #ninja-rt[data-theme="light"] .ninja-caption {
-  color: rgba(26, 3, 0, 0.58);
+  background: linear-gradient(90deg, rgba(26, 3, 0, 0.42) 0%, rgba(160, 36, 0, 0.96) 50%, rgba(26, 3, 0, 0.46) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(196, 40, 0, 0.16);
+  filter: drop-shadow(0 0 8px rgba(196, 40, 0, 0.14));
+}
+@keyframes ninja-caption-glow {
+  0%, 100% {
+    opacity: 0.82;
+    letter-spacing: .22em;
+  }
+  50% {
+    opacity: 1;
+    letter-spacing: .26em;
+  }
 }
 @keyframes ninja-glitch-anim {
   0%, 94%, 98%, 100% { transform: translate(-50%, -50%); opacity: 0.85; }
