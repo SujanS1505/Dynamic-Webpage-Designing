@@ -83,7 +83,9 @@ export const Header: React.FC = () => {
 
                     {/* Desktop CTA */}
                     <a
-                        href="mailto:connect@centillionlabs.com"
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=connect@centillionlabs.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                             background: 'var(--accent-primary)',
                             color: 'var(--bg-dark)',
