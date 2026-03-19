@@ -2,27 +2,14 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ThemeToggle } from './ThemeToggle';
 import { Sidebar } from './Sidebar';
-import { useLocation } from 'react-router-dom';
+
 import logoImg from '../../assets/centillion_logo.png';
 
-const PAGE_TITLES: Record<string, string> = {
-    '/': 'Home',
-    '/about': 'About',
-    '/who-we-are': 'Who We Are',
-    '/services': 'Services',
-    '/portfolio': 'Portfolio',
-    '/team': 'Team',
-    '/industries': 'Industries',
-    '/life': 'Life',
-    '/blog': 'Blog',
-    '/settings': 'Settings',
-};
+
 
 export const Header: React.FC = () => {
-    const { pathname } = useLocation();
     const [scrolled, setScrolled] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const currentTitle = PAGE_TITLES[pathname] ?? 'Home';
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -84,25 +71,11 @@ export const Header: React.FC = () => {
                     </a>
                 </div>
 
-                {/* ── Desktop nav ── */}
+                {/* ── Desktop nav (Empty) ── */}
                 <div
                     style={{ display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center' }}
                     className="hidden md:flex"
-                >
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                        className="mono-text"
-                        style={{
-                            fontSize: '0.9rem',
-                            letterSpacing: '0.32em',
-                            color: 'var(--text-secondary)',
-                        }}
-                    >
-                        {currentTitle.toUpperCase()}
-                    </motion.span>
-                </div>
+                />
 
                 {/* ── Right actions ── */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', justifySelf: 'end' }}>
