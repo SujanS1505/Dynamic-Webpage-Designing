@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Hero } from './components/sections/Hero';
@@ -16,6 +17,7 @@ import { RedTeamFlash } from './components/RedTeamFlash';
 import { RedTeamPage } from './pages/RedTeamPage';
 import { SecureAIPlaygroundPage } from './pages/SecureAIPlaygroundPage';
 import { NinjaPage } from './pages/NinjaPage';
+import { SplashVideo } from './components/SplashVideo';
 
 import { AboutPage } from './pages/AboutPage';
 import { WhoWeArePage } from './pages/WhoWeArePage';
@@ -52,22 +54,30 @@ function HomePage() {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true);
+
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/who-we-are" element={<WhoWeArePage />} />
-      <Route path="/services" element={<ServicesPage />} />
-      <Route path="/portfolio" element={<PortfolioPage />} />
-      <Route path="/team" element={<TeamPage />} />
-      <Route path="/industries" element={<IndustriesPage />} />
-      <Route path="/life" element={<LifePage />} />
-      <Route path="/blog" element={<BlogPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/red-team" element={<RedTeamPage onClose={() => window.history.back()} />} />
-      <Route path="/secure-ai-playground" element={<SecureAIPlaygroundPage onClose={() => window.history.back()} />} />
-      <Route path="/ninja" element={<NinjaPage />} />
-    </Routes>
+    <>
+      {showSplash ? (
+        <SplashVideo onFinish={() => setShowSplash(false)} />
+      ) : (
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/who-we-are" element={<WhoWeArePage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/team" element={<TeamPage />} />
+          <Route path="/industries" element={<IndustriesPage />} />
+          <Route path="/life" element={<LifePage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/red-team" element={<RedTeamPage onClose={() => window.history.back()} />} />
+          <Route path="/secure-ai-playground" element={<SecureAIPlaygroundPage onClose={() => window.history.back()} />} />
+          <Route path="/ninja" element={<NinjaPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
